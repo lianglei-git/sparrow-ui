@@ -1,3 +1,5 @@
+// 打包用： 打包UI lib库 打包成一个文件
+
 // import denv from 'dotenv'
 import typescript from 'rollup-plugin-typescript2'
 import babel from 'rollup-plugin-babel';
@@ -13,6 +15,8 @@ import { join } from 'path'
 // console.log(process.env.npm_package_main)
 
 
+
+
 let isSite = true
 
 const config = {
@@ -22,7 +26,7 @@ const config = {
         format: 'iife', // cjs
         name: "named", // ElectronMainBundle
         sourcemap: true,
-        // globals: {
+        // globals: { 
         //     react: 'React',
         //     'react-dom': 'ReactDOM'
         // }
