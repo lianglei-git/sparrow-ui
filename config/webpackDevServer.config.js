@@ -16,6 +16,11 @@ const path = require('path')
 
 module.exports = function() {
     return {
-        
+        compress: true,
+        clientLogLevel: 'none',
+        contentBase: '../site',
+        watchContentBase: true,
+        hot: true,
+        transportMode: 'ws',
     }
 }

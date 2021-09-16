@@ -1,9 +1,11 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from 'react'
 
-ReactDOM.render(
-  <div>
-    <h1>Hello, Welcome to the first page</h1>
-  </div>,
-  document.getElementById("root")
-);
+function App() {
+  return (
+    <div className="App">
+      '阿卡丽数据库打算看李军阿萨德杰克卢接口拉多少看李军'
+    </div>
+  );
+}
+
+export default App;

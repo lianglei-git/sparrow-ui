@@ -2,11 +2,10 @@
   "name": "sparrow-ui",
   "version": "1.0.0",
   "description": "\u001b[ ",
-  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "tsnode": "node -r ts-node/register",
-    "start": "yarn tsnode scripts/start.ts --site",
+    "start": "webpack-dev-server --config scripts/start.ts --progress",
     "build:ui": "yarn tsnode scripts/build.ts --ui",
     "build:site": "yarn tsnode scripts/build.ts --site",
     "aaa": "webpack --config ./scripts/webpack.config.js & rollup --config scripts/rollup.config.js"
@@ -41,6 +40,7 @@
     "@types/jest": "^27.0.1",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
+    "awesome-typescript-loader": "^5.2.1",
     "babel-jest": "^27.1.1",
     "babel-loader": "^8.2.2",
     "chalk": "^4.1.2",
