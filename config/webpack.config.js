@@ -17,7 +17,7 @@ module.exports = function (webpackEnv) {
     return {
         mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
         devtool: isEnvProduction ? false : 'source-map',
-        entry: resolveApp('site/index.tsx'),
+        entry: resolveApp('site/theme/index.tsx'),
         output: { // 可能后续后续会打包react来用
             filename: '[name].bundle.js', // filename: '[name].[contenthash].bundle.js', (多入口)
             path: __dirname + 'dist',
@@ -160,7 +160,7 @@ module.exports = function (webpackEnv) {
                     {},
                     {
                         inject: true,
-                        template: resolveApp('site/index.html'),
+                        template: resolveApp('site/theme/static/index.html'),
                     },
                     isEnvProduction
                         ? {
