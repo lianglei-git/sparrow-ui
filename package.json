@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "tsnode": "node -r ts-node/register",
-    "start": "webpack-dev-server --config scripts/start.ts --progress",
+    "start:site": "yarn tsnode scripts/start.ts",
     "build:ui": "yarn tsnode scripts/build.ts --ui",
     "build:site": "yarn tsnode scripts/build.ts --site",
     "aaa": "webpack --config ./scripts/webpack.config.js & rollup --config scripts/rollup.config.js"
@@ -25,6 +25,9 @@
   "homepage": "https://github.com/lianglei-git/sparrow-ui#readme",
   "dependencies": {
     "@types/node": "^16.9.1",
+    "@types/react-router-config": "^5.0.3",
+    "@types/react-router-dom": "^5.1.9",
+    "history": "^5.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router": "^5.2.1",
@@ -42,6 +45,7 @@
     "@types/jest": "^27.0.1",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
+    "@types/webpack-dev-server": "^4.1.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-jest": "^27.1.1",
     "babel-loader": "^8.2.2",
@@ -52,6 +56,7 @@
     "file-loader": "^6.2.0",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.2",
+    "http-proxy-middleware": "^2.0.1",
     "jest": "^27.1.1",
     "less-loader": "^10.0.1",
     "mini-css-extract-plugin": "^2.3.0",
@@ -62,6 +67,7 @@
     "postcss-loader": "^6.1.1",
     "react-markdown-loader": "^1.3.1",
     "react-test-renderer": "^17.0.2",
+    "rollup": "^2.56.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
