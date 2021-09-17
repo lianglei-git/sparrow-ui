@@ -10,7 +10,7 @@ const {cwd} = require('process')
 // 2. 打包文档（React）然后把ui组件打包进去
 // 3. 在文档里面启动调试服务
 const resolveApp = ppath => path.resolve(fs.realpathSync(cwd()), ppath)
-module.exports = function (webpackEnv) {
+module.exports = function (webpackEnv='production') {
     const isEnvDevelopment = webpackEnv === 'development';
     const isEnvProduction = webpackEnv === 'production';
 
@@ -20,7 +20,7 @@ module.exports = function (webpackEnv) {
         entry: resolveApp('site/theme/index.tsx'),
         output: { // 可能后续后续会打包react来用
             filename: '[name].bundle.js', // filename: '[name].[contenthash].bundle.js', (多入口)
-            path: __dirname + 'dist',
+            path:  path.resolve(__dirname, '../_site'),
             globalObject: 'this',
         },
         resolve: {
@@ -109,17 +109,17 @@ module.exports = function (webpackEnv) {
                     ],
                     type: 'javascript/auto'
                 },
-                {
-                    loader: require.resolve('file-loader'),
-                    // Exclude `js` files to keep "css" loader working as it injects
-                    // its runtime that would otherwise be processed through "file" loader.
-                    // Also exclude `html` and `json` extensions so they get processed
-                    // by webpacks internal loaders.
-                    exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
-                    options: {
-                        name: 'static/media/[name].[hash:8].[ext]',
-                    },
-                },
+                // {
+                //     loader: require.resolve('file-loader'),
+                //     // Exclude `js` files to keep "css" loader working as it injects
+                //     // its runtime that would otherwise be processed through "file" loader.
+                //     // Also exclude `html` and `json` extensions so they get processed
+                //     // by webpacks internal loaders.
+                //     exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
+                //     options: {
+                //         name: 'static/media/[name].[hash:8].[ext]',
+                //     },
+                // },
             ]
         },
         optimization: {

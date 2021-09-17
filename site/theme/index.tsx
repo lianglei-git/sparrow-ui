@@ -1,11 +1,11 @@
 import React, {Suspense} from 'react'
 import ReactDOM from 'react-dom'
-import {BrowserRouter as Router , Route, Redirect} from 'react-router-dom'
+import {HashRouter as Router , Route, Redirect} from 'react-router-dom'
 // import Router from './routers'
 import {renderRoutes} from 'react-router-config'
 import Home from './template/Home/index'
 import A from './template/Home/a'
-
+import '../../components/index'
 const routes = [
     {
         path: '/',
