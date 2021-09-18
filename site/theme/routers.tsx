@@ -1,84 +1,38 @@
-import React from 'react'
-import { lazy } from 'react'
-import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
+import React, { Suspense } from 'react'
+import { HashRouter as Router, Redirect } from 'react-router-dom'
 import Home from './template/Home/index'
 import A from './template/Home/a'
-
-// const routes = [
-//     {
-//         title: 'login',
-//         name: 'login',
-//         path: '/login',
-//         component: Login
-//     },
-//     {
-//         title: 'blog',
-//         name: 'blog',
-//         path: '/blog',
-//         children: [
-//             {
-//                 title: 'list',
-//                 name: 'blog-list',
-//                 path: '/blog/list',
-//                 component: BlogList
-//             },
-//         ]
-//     },
-// ]
+import '../../components/index'
+import { RouteConfigComponentProps } from 'react-router-config'
+import { Location } from 'history';
+export interface RouteConfig {
+    key?: React.Key | undefined;
+    location?: Location | undefined;
+    component?: React.ComponentType<RouteConfigComponentProps<any>> | React.ComponentType | undefined;
+    path?: string | string[] | undefined;
+    exact?: boolean | undefined;
+    strict?: boolean | undefined;
+    routes?: RouteConfig[] | undefined;
+    render?: ((props: RouteConfigComponentProps<any>) => React.ReactNode) | undefined;
+    [propName: string]: any;
+}
 
 
-
-
-const routes = [
+export default [
     {
-        path: '/',        
-        component: Home,
-
-    },
-    {
-        path:'/home',
+        path: '/',
         component: Home,
         routes: [
-            {path: '/abb',
-            component: A
+            {
+                path: '/a',
+                exact: true,
+                component: A
+            },
+            {
+                path: '/',
+                exact: true,
+                render: () => <Redirect to={"/a"} />
             }
         ]
-    },
-    {
-        path:'oos',
-        component: A
-    },
-]
-
-const beforeEach = (route:any, auth:any) => {
-  // if (route.name !== 'login') {
-  //   if (!auth.token) {
-  //     return <Redirect to="/login"></Redirect>
-  //   }
-  // }
-  return <route.component />
-}
-
-const RouteView: React.FC = () => {
-  const getRouteRecursion = (v:any) => {
-    return v.map((v:any) => {
-      return (
-        <Route key={v.name} path={v.path}>
-          {v.routes ? getRouteRecursion(v.routes) : beforeEach(v, {})}
-        </Route>
-      )
-    })
-  }
-  
-  return (
-    <HashRouter>
-      {/* <Switch>{getRouteRecursion(routes)}
-       
-      </Switch> */}
-      <Route  path='/' component={Home}> </Route>
-    </HashRouter>
-  )
-}
-
-export default RouteView
-
+    }
+] as unknown as RouteConfig[]

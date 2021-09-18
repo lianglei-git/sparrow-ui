@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "tsnode": "node -r ts-node/register",
-    "start:site": "yarn tsnode scripts/start.ts",
+    "start": "yarn tsnode scripts/start.ts",
     "build:ui": "yarn tsnode scripts/build.ts --ui",
     "build:site": "yarn tsnode scripts/build.ts --site",
     "aaa": "webpack --config ./scripts/webpack.config.js & rollup --config scripts/rollup.config.js"
