@@ -8,4 +8,9 @@ import App from './App'
 //   document.getElementById('root')
 // );
 
-export default App
+const Home = (props:any) => {
+    return <div>    
+        主页
+    </div>
+}
+export default Home
