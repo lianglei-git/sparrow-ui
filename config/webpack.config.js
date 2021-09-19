@@ -28,7 +28,8 @@ module.exports = function (webpackEnv='production') {
             // modules,
             // extensions,
             alias: {
-                'sparrow-ui': path.resolve(__dirname, '../', 'components/index.ts')
+                'sparrow-ui': path.resolve(__dirname, '../', 'components'),
+                'sparrow-ui/es': path.resolve(__dirname, '../', 'components'),
             },
             plugins: [
                 PnpWebpackPlugin

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import {HashRouter as Router , Route, Redirect} from 'react-router-dom'
 import routes from './routers'
 import {renderRoutes} from 'react-router-config'
-import '../../components/index'
+import {Button} from '../../components/index'
 
 ReactDOM.render(
     <Suspense fallback={<div>Loading...</div>}>

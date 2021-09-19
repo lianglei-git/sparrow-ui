@@ -1,9 +1,9 @@
 {
-  "rootDir": "compontnts",
+  "rootDir": ".",
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "sparrow-ui": ["components/index.ts"],
+      "sparrow-ui/*": ["components/*"],
       "sparrow-ui/es/*": ["components/*"]
     },
     "strictNullChecks": true,
