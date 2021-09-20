@@ -16,6 +16,7 @@ export type ButtonHTMLType = typeof ButtonHTMLTypes[number];
 const buttonProps = () => ({
     type: ButtonTypes,
     size: ButtonSizes,
+    shape:ButtonShapes,
     htmlType: ButtonHTMLTypes,
     disabled: Boolean,
     loading: Boolean || {

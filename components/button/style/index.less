@@ -1,3 +1,33 @@
 .sp-button {
-    background-color: var(--global-background);
+    background-color: var(--color-white);
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid var(--border-color-base);
+    border-color: var(--border-color-base);
+    color: var(--color-text-regular);
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    transition: .1s;
+    font-weight: 500;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    &-circle {
+        border-radius: 50%;
+        padding: 12px;
+    }
+
+    &-round {
+        border-radius: 20px;
+        padding: 12px 23px;
+        // width: 14px;
+    }
 }
