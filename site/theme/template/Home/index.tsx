@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import App from './App'
 // ReactDOM.render(
@@ -9,12 +9,12 @@ import App from './App'
 // );
 
 const Home = (props:any) => {
+    let [shape, setshape] = useState('default')
     return <div>    
+
         主页
-        <sp-button></sp-button>
-        <form action="">
-        <button type="submit">123</button>
-        <button type="reset">123</button></form>
+        <sp-button shape={shape} loading class="sp-button-123">布局</sp-button>
+        <button onClick={() => setshape(['circle', 'round', 'default'][Math.floor(Math.random() * 3)])}>修改类型</button>
     </div>
 }
 export default Home
