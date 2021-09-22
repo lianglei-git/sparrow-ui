@@ -54,6 +54,7 @@ export default
 
             // let attributes:NamedNodeMap = this.attributes
             let attributesObj:ButtonProps | any = {...getProps(this)}
+
             for(let k1 in attributesObj) {
                 // for(let k2 in typePropsObj) {
                     let k1v = attributesObj[k1]
@@ -90,19 +91,22 @@ export default
                     }
                 </style>
             `
+
+            console.log(this.click())
             // this.shadowRoot.append(el.content.cloneNode(true)) // 影子DOM
             
             // // this.setAttribute('type', '567890')
             // window.changeKey = (key, val) => target[key] = val
-            this.onclick = (e: any) => {
-                document.documentElement.style.setProperty('--global-background', '#0f9f9d')
-                // 可以通过实例来获取， 当然也可以通过this来获取
-                console.log('获取标签书型', this.constructor.observedAttributes)
+            // this.onclick = (e:any) => attributesObj['on-click'](e)
+            // this.onclick = (e: any) => {
+            //     document.documentElement.style.setProperty('--global-background', '#0f9f9d')
+            //     // 可以通过实例来获取， 当然也可以通过this来获取
+            //     console.log('获取标签书型', this.constructor.observedAttributes)
 
-                // setTimeout(() => {
-                //     this['attr-type'] = '我修改了'
-                // }, 1000);
-            }
+            //     // setTimeout(() => {
+            //     //     this['attr-type'] = '我修改了'
+            //     // }, 1000);
+            // }
             
         },
         // 这里可以直接拿到被修改的 attr
