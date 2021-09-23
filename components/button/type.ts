@@ -18,7 +18,6 @@ const buttonProps = () => ({
     size: ButtonSizes,
     shape:ButtonShapes,
     htmlType: ButtonHTMLTypes,
-    ['on-click']: () => [],
     disabled: Boolean,
     loading: Boolean || {
         delay: Number

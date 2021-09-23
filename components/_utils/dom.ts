@@ -78,10 +78,8 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
             }
             connectedCallback() {
                 props.connectedCallback.bind(this)() || (() => { })
-
             }
             disconnectedCallback() {
-                console.log('移除自定义元素')
                 props.disconnectedCallback?.bind(this)() || (() => { })
             }
             attributeChangedCallback(name: string, oldValue: string, newValue: string) {
