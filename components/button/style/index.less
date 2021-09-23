@@ -20,6 +20,7 @@
     padding: 12px 20px;
     font-size: 14px;
     border-radius: 4px;
+
     &-circle {
         border-radius: 50%;
         padding: 12px;
@@ -29,5 +30,26 @@
         border-radius: 20px;
         padding: 12px 23px;
         // width: 14px;
+    }
+
+    &.is-loading {
+        >div {
+            display: inline-block;
+        }
+        svg {
+            width: 14px;
+            height: 14px;
+            margin-right: 3px;
+        }
+
+    }
+
+    &-disabled {
+        background-color: #c8c9cc;
+        pointer-events: none;
+
+        &:hover {
+            cursor: not-allowed;
+        }
     }
 }
