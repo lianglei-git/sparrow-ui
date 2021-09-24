@@ -13,7 +13,7 @@ const Home = (props: any) => {
     return <div>
         {/* <button onClick={e => click(e)}>99</button> */}
         主页
-        <sp-button shape={shape} loading={isloading} class="sp-button-123" onClick={e => click(e)}> <span>布局</span> </sp-button>
+        <sp-button  loading={isloading} class="sp-button-123" onClick={e => click(e)} disabled="true"> <span>布局</span> </sp-button>
 
         <button onClick={() => setshape(['circle', 'round', 'default'][Math.floor(Math.random() * 3)])}>修改类型</button>
         <hr />
@@ -22,8 +22,20 @@ const Home = (props: any) => {
         <div className="group-loading-button">
             <h1>加载按钮</h1>
             <sp-button loading={true} class="sp-button-123" >Loading</sp-button>
-            <sp-button loading={true} class="sp-button-123" > </sp-button>
+            <sp-button loading={true} class="sp-button-123" shape={shape}> </sp-button>
             <sp-button shape={shape} loading={isloading1} class="sp-button-123" onClick={e => {
+                setloading1(true)
+                setTimeout(() => {
+                    setloading1(false)
+                }, 3000);
+            }}> <span>click me</span></sp-button>
+        </div>
+
+        <div className="group-size-button">
+            <h1>大小按钮</h1>
+            <sp-button size={'small'} class="sp-button-123" >Loading</sp-button>
+            <sp-button  size={'mini'} loading={true} class="sp-button-123" > </sp-button>
+            <sp-button shape={shape}  size={'mini'} loading={isloading1} class="sp-button-123" onClick={e => {
                 setloading1(true)
                 setTimeout(() => {
                     setloading1(false)

@@ -9,12 +9,19 @@ import { defineEl, createEl, setStyle, getProps } from '../_utils/dom'
 
 
 const loadingSvg: string = '<svg viewBox="0 0 1024 1024" focusable="false" data-icon="loading" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"></path></svg>'
-
+const typePropsObj: ButtonProps | any = typeProps()
 const changeProps = (elconstr: HTMLElement & any, props: object | any) => {
     let includes: Array<string> = ['shape', 'size', 'type', 'disabled']
+    console.time()
     for (let key in props) {
         runIFELSE(new Set([
             [includes.includes(key), () => {
+                if (typePropsObj[key] instanceof Array) {
+                    for (let i = 0; i < elconstr.classList.length; i++) {
+                        let classname = elconstr.classList.item(i)
+                        typePropsObj[key].map((i: any) => (classname == 'sp-button-' + i && elconstr.classList.remove(classname)))
+                    }
+                }
                 elconstr.classList.toggle('sp-button-' + props[key])
             }],
             [key == 'loading', () => {
@@ -35,8 +42,8 @@ const changeProps = (elconstr: HTMLElement & any, props: object | any) => {
             }]
         ]))
     }
+    console.timeEnd()
 }
-const typePropsObj: ButtonProps | any = typeProps()
 
 export default (() => {
     // 为了避免冲突引发问题， 动态获取 标签属性要通过（attr-name）来获取 
@@ -66,12 +73,8 @@ export default (() => {
             }
             let target = new Proxy(_style, handler)
             setStyle(this, target)
-
-            // let attributes:NamedNodeMap = this.attributes
             let attributesObj: ButtonProps | any = { ...getProps(this) }
-
             for (let k1 in attributesObj) {
-                // for(let k2 in typePropsObj) {
                 let k1v = attributesObj[k1]
                 let k2v = typePropsObj[k1]
                 runIFELSE(new Set([
@@ -91,8 +94,10 @@ export default (() => {
                             }],
                         ]))
                     }],
+                    [k1 == 'disabled', () => {
+                        attributesObj[k1] = 'disabled'
+                    }]
                 ]))
-                // }
             }
             changeProps(this, attributesObj)
 
@@ -102,11 +107,11 @@ export default (() => {
                 if (copty.length == 0) return true
                 else {
                     let is = true
-                    for(let i = 0; i < copty.length; i++){
-                        if(copty[i].tag) {
+                    for (let i = 0; i < copty.length; i++) {
+                        if (copty[i].tag) {
                             is = false;
                             break
-                        }else {
+                        } else {
                             copty[i].nodeValue.trim().length > 0 && (is = false)
                             break
                         }
@@ -115,15 +120,9 @@ export default (() => {
                 }
             }
 
-            // console.log(this.loadinEl, this.children)
             if (this.loadinEl && adapderEmpty(this.childNodes)) {
                 this.classList.add('empty-loading')
             }
-            // let html:string = [...this.childNodes].reduce((str:string, i:HTMLElement) => {
-            //     str += i
-            //     return str
-            // }, '') || ''
-
             // this.shadowRoot.append(el.content.cloneNode(true)) // 影子DOM
 
             // // this.setAttribute('type', '567890')
@@ -142,9 +141,8 @@ export default (() => {
         },
         // 这里可以直接拿到被修改的 attr
         attributeChangedCallback(name: any, oldval: string, newval: string | any) {
-            console.log(name, oldval, newval)
             changeProps(this, {
-                [name]: newval
+                [name]: name == 'disabled' ? 'disabled' : newval
             })
         },
         getConstructor(target) {
