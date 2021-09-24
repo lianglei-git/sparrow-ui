@@ -1,17 +1,35 @@
+// @ts-nocheck
 import React, { useState } from 'react'
 import { Button } from 'sparrow-ui/button/index'
 
 
-const Home = (props:any) => {
+const Home = (props: any) => {
     let [shape, setshape] = useState('default')
-    const click = (e:any) => {
+    let [isloading, setloading] = useState(false)
+    let [isloading1, setloading1] = useState(false)
+    const click = (e: any) => {
         console.log(e, 'sparrow')
     }
-    return <div>    
-            {/* <button onClick={e => click(e)}>99</button> */}
+    return <div>
+        {/* <button onClick={e => click(e)}>99</button> */}
         主页
-        <sp-button shape={shape} loading class="sp-button-123" onClick={e => click(e)}> <span>布局</span> </sp-button>
+        <sp-button shape={shape} loading={isloading} class="sp-button-123" onClick={e => click(e)}> <span>布局</span> </sp-button>
+
         <button onClick={() => setshape(['circle', 'round', 'default'][Math.floor(Math.random() * 3)])}>修改类型</button>
+        <hr />
+        <sp-button onClick={() => setloading(!isloading)}>修改loading</sp-button>
+
+        <div className="group-loading-button">
+            <h1>加载按钮</h1>
+            <sp-button loading={true} class="sp-button-123" >Loading</sp-button>
+            <sp-button loading={true} class="sp-button-123" > </sp-button>
+            <sp-button shape={shape} loading={isloading1} class="sp-button-123" onClick={e => {
+                setloading1(true)
+                setTimeout(() => {
+                    setloading1(false)
+                }, 3000);
+            }}> <span>click me</span></sp-button>
+        </div>
     </div>
 }
 export default Home
