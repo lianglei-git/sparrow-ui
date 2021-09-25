@@ -1,7 +1,5 @@
 // @ts-nocheck
-import React, { useState } from 'react'
-import { Button } from 'sparrow-ui/button/index'
-
+import React, { useState , useEffect} from 'react'
 
 const Home = (props: any) => {
     let [shape, setshape] = useState('default')
@@ -13,8 +11,7 @@ const Home = (props: any) => {
     return <div>
         {/* <button onClick={e => click(e)}>99</button> */}
         主页
-        <sp-button  loading={isloading} class="sp-button-123" onClick={e => click(e)} disabled="true"> <span>布局</span> </sp-button>
-
+        <sp-button  loading={JSON.stringify({m:123,b:123})} class="sp-button-123" onClick={e => click(e)} disabled="true"> <span>布局</span> </sp-button>
         <button onClick={() => setshape(['circle', 'round', 'default'][Math.floor(Math.random() * 3)])}>修改类型</button>
         <hr />
         <sp-button onClick={() => setloading(!isloading)}>修改loading</sp-button>
@@ -33,7 +30,9 @@ const Home = (props: any) => {
 
         <div className="group-size-button">
             <h1>大小按钮</h1>
+            <sp-button size={'middle'} class="sp-button-123" >Loading</sp-button>
             <sp-button size={'small'} class="sp-button-123" >Loading</sp-button>
+            <sp-button size={'mini'} class="sp-button-123" >Loading</sp-button>
             <sp-button  size={'mini'} loading={true} class="sp-button-123" > </sp-button>
             <sp-button shape={shape}  size={'mini'} loading={isloading1} class="sp-button-123" onClick={e => {
                 setloading1(true)
@@ -42,6 +41,8 @@ const Home = (props: any) => {
                 }, 3000);
             }}> <span>click me</span></sp-button>
         </div>
+
+        <sp-modal title="第一个modal"></sp-modal>
     </div>
 }
 export default Home
