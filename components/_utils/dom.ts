@@ -67,7 +67,7 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
             })
         }
     }
-    let wishClass = (name: any) => ({
+    let wishClass = (name: string) => ({
         [name]: class extends HTMLElement {
             constructor() {
                 super()

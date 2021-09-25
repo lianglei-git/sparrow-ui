@@ -3,8 +3,9 @@ import { style } from '../_utils/style'
 import './style'
 import { runIFELSE } from '../_utils/common'
 import { defineEl, createEl, setStyle, getProps } from '../_utils/dom'
-// createEl({ // 测试重复注册
-//     tag:'sp-button'
+// defineEl({ // 测试重复注册
+//     tag: 'sp-button',
+//     connectedCallback() {}
 // })
 
 
@@ -45,7 +46,8 @@ const changeProps = (elconstr: HTMLElement & any, props: object | any) => {
     console.timeEnd()
 }
 
-export default (() => {
+export default
+//  (() => {
     // 为了避免冲突引发问题， 动态获取 标签属性要通过（attr-name）来获取 
     // 获取标签属性需要定义  observedAttributes  
     defineEl({
@@ -149,4 +151,4 @@ export default (() => {
             console.log(target)
         }
     })
-})()
+// })()
