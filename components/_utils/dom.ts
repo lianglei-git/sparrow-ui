@@ -10,11 +10,14 @@ type createElTyp = {
     getConstructor?: (target: HTMLElement) => any | void
 }
 
-export const $el: HTMLElement | any = (el: string) => document.querySelector(el)
+export const $el: HTMLElement | any = (el: string) => document.querySelectorAll(el)
 
 export const createEl = (tag: string, type: string = 'createElement') => (document as any)[type](tag)
 
-export const setStyle = (target: HTMLElement, obj: CSSStyleRule['style']) => {
+type Styletype<T> = {
+    [K in keyof T]?: T[K]
+}
+export const setStyle = (target: HTMLElement, obj: Styletype<CSSStyleRule['style']>) => {
     for (const key in obj) {
         if (Object.prototype.hasOwnProperty.call(target['style'], key) && (obj as any)[key] != "") {
             console.log('设置了::::', key, obj[key]);
@@ -60,7 +63,8 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
                         return 'empty!'
                     },
                     set(val) {
-                        console.log(val)
+                        console.log(val, attr)
+                        target.setAttribute(attr, val)
                         _corel[attr] = val
                     }
                 })
@@ -69,6 +73,7 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
     }
     let wishClass = (name: string) => ({
         [name]: class extends HTMLElement {
+            static target = this
             constructor() {
                 super()
                 props.shadow ? this.attachShadow({ mode: props.shadow }) : ''
@@ -90,6 +95,11 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
     let HTMl: HTMLElement | any = wishClass(props.tag)
     Reflect.has(props, 'getConstructor') && props.getConstructor?.bind(this)(HTMl)
     HTMl.observedAttributes = props?.observedAttributes || []
-    getAttribute(HTMl, props?.observedAttributes)
+    // console.log((HTMl as any).target)
+    getAttribute(HTMl.target, props?.observedAttributes)
     window.customElements.define(props.tag, Element || HTMl)
+}
+
+export const last:<T extends any>(l: T[]) => T = (l) => {
+    return l[l.length - 1]
 }

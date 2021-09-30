@@ -42,6 +42,17 @@ const Home = (props: any) => {
             }}> <span>click me</span></sp-button>
         </div>
 
+        <sp-modal title="111" appendbody>
+
+            <div>说到健身房看见还是恐惧的护肤科技</div>
+        </sp-modal>
+
+        <sp-modal title="222"></sp-modal>
+        <sp-modal title="333" appendbody></sp-modal>
+        <div>
+            <span>卡点测试</span>
+        </div>
+
         <sp-modal title="第一个modal"></sp-modal>
     </div>
 }
