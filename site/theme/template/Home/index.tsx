@@ -49,6 +49,11 @@ const Home = (props: any) => {
 
         <sp-modal title="222"></sp-modal>
         <sp-modal title="333" appendbody></sp-modal>
+        <div>
+            <span>卡点测试</span>
+        </div>
+
+        <sp-modal title="第一个modal"></sp-modal>
     </div>
 }
 export default Home
