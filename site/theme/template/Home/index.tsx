@@ -42,6 +42,10 @@ const Home = (props: any) => {
             }}> <span>click me</span></sp-button>
         </div>
 
+        <div>
+            <span>卡点测试</span>
+        </div>
+
         <sp-modal title="第一个modal"></sp-modal>
     </div>
 }
