@@ -1,9 +1,9 @@
 
 
 const modalProps = () => ({
-    title: String,
-    closable: Boolean,
-
+    title: String, // 标题
+    closable: Boolean, // 是否显示关闭按钮
+    appendbody: Boolean, // 是否插入在body上
 })
 
 
