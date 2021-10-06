@@ -95,7 +95,7 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
     let HTMl: HTMLElement | any = wishClass(props.tag)
     Reflect.has(props, 'getConstructor') && props.getConstructor?.bind(this)(HTMl)
     HTMl.observedAttributes = props?.observedAttributes || []
-    // console.log((HTMl as any).target)
+    console.log(props?.observedAttributes)
     getAttribute(HTMl.target, props?.observedAttributes)
     window.customElements.define(props.tag, Element || HTMl)
 }
@@ -103,3 +103,6 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
 export const last:<T extends any>(l: T[]) => T = (l) => {
     return l[l.length - 1]
 }
+
+// 绑定事件
+export const listener:(target:HTMLElement, event:string, func:(e:Event | ProgressEvent<EventTarget> ) => any) => void = (target, event, func) => { target.addEventListener(event, func) }
