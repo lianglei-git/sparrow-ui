@@ -5,7 +5,11 @@ const modalProps = () => ({
     closable: Boolean, // 是否显示关闭按钮
     appendbody: Boolean, // 是否插入在body上
     visible: Boolean, // 展示
+    class: String || Array,
+    classname: String || Array,
+    center: Boolean, // 是否垂直居中 默认true
+    modal:Boolean, // 是否需要遮罩
 })
-
+// 如果需要在一个 Dialog 内部嵌套另一个 Dialog，需要使用 append-to-body 属性。
 
 export default modalProps
