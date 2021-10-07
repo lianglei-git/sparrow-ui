@@ -9,6 +9,9 @@ import './style'
 // 现在还没办法做到改变外部依赖的数据
 // 打算通过原型注入api e.target
 // 已经实现了多个弹窗叠加功能 
+
+// 2021-10-7 已完成基本的功能
+// 下一步开始优化代码、单元测试、md文档、动态attr兼容 
 let spButtonCss = `
   .sp-modal-footer{
     box-sizing: border-box;
