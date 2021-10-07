@@ -9,35 +9,68 @@ import './style'
 // 现在还没办法做到改变外部依赖的数据
 // 打算通过原型注入api e.target
 // 已经实现了多个弹窗叠加功能 
-
+let spButtonCss = `
+  .sp-modal-footer{
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  `
 let keys: string[] = Object.keys(typeProps())
-let zIndex = 2000
+let zIndex = 2000;
+let cancelClick = function() {
+    this['attr-visible'] = 'false'
+    this.onClose && this.onClose()
+}
 let initView = function (): object {
     {
         zIndex++
     }
-    // let allel:NodeList = $el('sp-modal');
-    // let lastel:HTMLElement | any = last(Array.from(allel))
-    // let Zindex:number =  2000 + allel.length
     let content: HTMLElement = createEl('main'),
         headerL: HTMLElement = createEl('span'),
         headerR: HTMLElement = createEl('span'),
         header: HTMLElement = createEl('header'),
-        footer: HTMLElement = createEl('footer'),
-        mock: HTMLElement = createEl('div')
+        template: HTMLTemplateElement = createEl('template'),
+        mock: HTMLElement = createEl('div'),
+        footer:HTMLElement = createEl('footer'),
+        footerCancel:HTMLElement = createEl('sp-button'),
+        footerOk:HTMLElement = createEl('sp-button')
 
+    let nodes:any[] = Array.from(this.children)
+    let slots:string[] = ['footer' , 'header' , 'content']
+    let slotObj = nodes.reduce((obj, i) => {
+        let slot = i.getAttribute('slot')
+        if(slots.includes(slot)) obj[slot] =slot
+        return obj
+    }, Object.create(null))
     this.zIndex = zIndex
     content.className = 'sp-modal-content';
-    footer.className = 'sp-modal-footer';
     this.className = 'sp-modal' + ' sp-modal' + (zIndex - 2000) + ' ' + (this.attrs?.class || '');
     headerR.className = this.attrs.closable == 'false' ? '' : 'sp-icon sp-icon-close'
     mock.className = 'sp-modal-mock sp-modal-mock-' + zIndex
     header.className = 'sp-modal-header';
-    headerL.innerHTML = this.attrs.title || ''
-    header.appendChild(headerL)
-    header.appendChild(headerR)
-    footer.innerHTML = 'Footer'
-
+    footer.className = 'sp-modal-footer-active';
+    headerL.innerHTML = this.attrs.title || '';
+    footerCancel.innerHTML = this.attrs.canceltext || '取消';
+    footerOk.innerHTML = this.attrs.oktext || '确认';
+    header.setAttribute('slot', 'header')
+    footer.setAttribute('slot', 'footer')
+    header.appendChild(headerL);
+    header.appendChild(headerR);
+    footer.appendChild(footerCancel);
+    footer.appendChild(footerOk);
+    footerCancel.onclick = cancelClick.bind(this)
+    footerOk.onclick = _ => {
+        this?.onOk?.(_)
+    }
+    template.innerHTML = `
+    <style>${spButtonCss}</style>
+    <slot name="header"></slot> 
+    <slot name="content">按照格式书写</slot>
+    <slot name="footer" class="sp-modal-footer"></slot>
+    `
     setStyle(this, {
         zIndex: String(zIndex),
         marginTop: this.attrs.center == 'false' ? '15vh' : 'auto'
@@ -46,13 +79,14 @@ let initView = function (): object {
         zIndex: String(zIndex - 1)
     })
 
-    listener(headerR, 'click', _ => {
-        this['attr-visible'] = 'false'
-        this.onClose && this.onClose()
-    })
-    this.insertBefore(header, this.firstChild)
-    this.appendChild(footer)
-    this.attrs.modal !== 'false' && document.body.appendChild(mock)
+    listener(headerR, 'click', cancelClick.bind(this))
+    !slotObj?.header && this.insertBefore(header, this.firstChild)
+    this.attrs.footer !== 'null' && !slotObj?.footer && this.appendChild(footer)
+    this.shadowRoot.appendChild(template.content.cloneNode(true))
+   if( this.attrs.modal !== 'false' ){
+    document.body.appendChild(mock)
+    mock.onclick = cancelClick.bind(this)
+   }
     if (this.attrs.visible !== 'true') {
         setStyle(this, {
             display: 'none',
@@ -65,7 +99,6 @@ let initView = function (): object {
         header,
         headerL,
         headerR,
-        footer,
         mock,
 
     }
@@ -75,6 +108,7 @@ export default (() => {
     defineEl({
         tag: 'sp-modal',
         observedAttributes: keys,
+        shadow: 'open',
         connectedCallback() {
             (this.attrs as Partial<ReturnType<typeof typeProps>>) = getProps(this)
             if (this.attrs.appendbody == 'true') {
