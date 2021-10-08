@@ -23,7 +23,7 @@ let spButtonCss = `
   `
 let keys: string[] = Object.keys(typeProps())
 let zIndex = 2000;
-let cancelClick = function() {
+let cancelClick = function () {
     this['attr-visible'] = 'false'
     this.onClose && this.onClose()
 }
@@ -37,15 +37,15 @@ let initView = function (): object {
         header: HTMLElement = createEl('header'),
         template: HTMLTemplateElement = createEl('template'),
         mock: HTMLElement = createEl('div'),
-        footer:HTMLElement = createEl('footer'),
-        footerCancel:HTMLElement = createEl('sp-button'),
-        footerOk:HTMLElement = createEl('sp-button')
+        footer: HTMLElement = createEl('footer'),
+        footerCancel: HTMLElement = createEl('sp-button'),
+        footerOk: HTMLElement = createEl('sp-button')
 
-    let nodes:any[] = Array.from(this.children)
-    let slots:string[] = ['footer' , 'header' , 'content']
+    let nodes: any[] = Array.from(this.children)
+    let slots: string[] = ['footer', 'header', 'content']
     let slotObj = nodes.reduce((obj, i) => {
         let slot = i.getAttribute('slot')
-        if(slots.includes(slot)) obj[slot] =slot
+        if (slots.includes(slot)) obj[slot] = slot
         return obj
     }, Object.create(null))
     this.zIndex = zIndex
@@ -66,7 +66,7 @@ let initView = function (): object {
     footer.appendChild(footerOk);
     footerCancel.onclick = cancelClick.bind(this)
     footerOk.onclick = _ => {
-        this?.onOk?.(_)
+        this?.onOk?.(this?.onOk?.length > 0 ? _ : null)
     }
     template.innerHTML = `
     <style>${spButtonCss}</style>
@@ -86,10 +86,11 @@ let initView = function (): object {
     !slotObj?.header && this.insertBefore(header, this.firstChild)
     this.attrs.footer !== 'null' && !slotObj?.footer && this.appendChild(footer)
     this.shadowRoot.appendChild(template.content.cloneNode(true))
-   if( this.attrs.modal !== 'false' ){
-    document.body.appendChild(mock)
-    mock.onclick = cancelClick.bind(this)
-   }
+
+    if (this.attrs.modal !== 'false') {
+        document.body.appendChild(mock)
+        mock.onclick = cancelClick.bind(this)
+    }
     if (this.attrs.visible !== 'true') {
         setStyle(this, {
             display: 'none',
@@ -107,76 +108,74 @@ let initView = function (): object {
     }
 }
 
-export default (() => {
-    defineEl({
-        tag: 'sp-modal',
-        observedAttributes: keys,
-        shadow: 'open',
-        connectedCallback() {
-            (this.attrs as Partial<ReturnType<typeof typeProps>>) = getProps(this)
-            if (this.attrs.appendbody == 'true') {
-                this.remove()
-                this['attr-appendbody'] = 'false'
-                document.body.appendChild(this)
-            } else {
-                this.useAllEls = initView.call(this);// 初始化视图
-            }
-            this.onload = () => {
-                console.log('是啊 最终还是打败了魔法！')
-            }
-            this.onchange = () => {
-                console.log('是啊 最终还是打败了魔法！')
-            }
-        },
-        disconnectedCallback() {
-        },
-        getConstructor() {
-        },
-        attributeChangedCallback(...args) {
-            let [key, oldkey, newkey] = args
-            runIFELSE.call(this, new Set([
-                [key == 'visible', () => {
-                    newkey && zIndex++
-                    if (this.useAllEls) { // 添加动画和展示
-                        if (newkey == 'true') {
-                            setStyle(this, {
-                                display: 'block',
-                                zIndex: String(zIndex + 1),
-                            })
-                            setStyle(this.useAllEls?.mock, {
-                                display: 'block',
-                                zIndex: String(zIndex),
-                            })
-                            this.classList.add('sp-modal-enter-active')
-                            this.useAllEls?.mock.classList.add('sp-modal-mock-enter-active')
-                            setTimeout(() => {
-                                this.classList.remove('sp-modal-enter-active')
-                                this.useAllEls?.mock.classList.remove('sp-modal-mock-enter-active')
-                            }, 310)
-                        } else {
-                            this.classList.add('sp-modal-leave-active')
-                            this.useAllEls?.mock.classList.add('sp-modal-mock-leave-active')
-                            setTimeout(() => {
-                                this.classList.remove('sp-modal-leave-active')
-                                this.useAllEls?.mock.classList.remove('sp-modal-mock-leave-active')
+ class Modal {
+    constructor() {
+        defineEl({
+            tag: 'sp-modal',
+            observedAttributes: keys,
+            shadow: 'open',
+            connectedCallback() {
+                (this.attrs as Partial<ReturnType<typeof typeProps>>) = getProps(this)
+                if (this.attrs.appendbody == 'true') {
+                    this.remove()
+                    this['attr-appendbody'] = 'false'
+                    document.body.appendChild(this)
+                } else {
+                    this.useAllEls = initView.call(this);// 初始化视图
+                }
+            },
+            disconnectedCallback() {
+            },
+            getConstructor() {
+            },
+            attributeChangedCallback(...args) {
+                let [key, oldkey, newkey] = args
+                runIFELSE.call(this, new Set([
+                    [key == 'visible', () => {
+                        newkey && zIndex++
+                        if (this.useAllEls) { // 添加动画和展示
+                            if (newkey == 'true') {
                                 setStyle(this, {
-                                    display: 'none',
+                                    display: 'block',
                                     zIndex: String(zIndex + 1),
                                 })
                                 setStyle(this.useAllEls?.mock, {
-                                    display: 'none',
+                                    display: 'block',
                                     zIndex: String(zIndex),
                                 })
-                            }, 310)
+                                this.classList.add('sp-modal-enter-active')
+                                this.useAllEls?.mock.classList.add('sp-modal-mock-enter-active')
+                                setTimeout(() => {
+                                    this.classList.remove('sp-modal-enter-active')
+                                    this.useAllEls?.mock.classList.remove('sp-modal-mock-enter-active')
+                                }, 310)
+                            } else {
+                                this.classList.add('sp-modal-leave-active')
+                                this.useAllEls?.mock.classList.add('sp-modal-mock-leave-active')
+                                setTimeout(() => {
+                                    this.classList.remove('sp-modal-leave-active')
+                                    this.useAllEls?.mock.classList.remove('sp-modal-mock-leave-active')
+                                    setStyle(this, {
+                                        display: 'none',
+                                        zIndex: String(zIndex + 1),
+                                    })
+                                    setStyle(this.useAllEls?.mock, {
+                                        display: 'none',
+                                        zIndex: String(zIndex),
+                                    })
+                                }, 310)
+                            }
                         }
-                    }
-                }],
-                [key == 'center', () => {
-                    setStyle(this, {
-                        marginTop: newkey == 'false' ? '15vh' : 'auto'
-                    })
-                }]
-            ]))
-        }
-    })
-})()
+                    }],
+                    [key == 'center', () => {
+                        setStyle(this, {
+                            marginTop: newkey == 'false' ? '15vh' : 'auto'
+                        })
+                    }]
+                ]))
+            }
+        })
+    }
+}
+
+export default new Modal() 
