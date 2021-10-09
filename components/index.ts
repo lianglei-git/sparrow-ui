@@ -3,14 +3,13 @@
 import {runIFELSE} from './_utils/common'
 import 'sparrow-ui/common/styles'
 export * as button from "./button/index"
-export * as modal from "./modal"
+import {Modal} from "./modal"
 export * as alert from "./alert/alert"
-runIFELSE(new Set([
-    [1==1, () => console.log('这里是组件了')],
-    [2==2, () => console.log(999)],
-]))
-
-
 // export {
 //     Button
 // }
+// const Spui = {
+//     Modal
+// }
+// globalThis.Spui = Spui
+export default Modal

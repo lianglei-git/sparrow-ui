@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<h>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../lib/index.css">
+    <script src="../../lib/index.js"></script>
+</head>
+<body>
+    <sp-button onclick="this.setAttribute('loading', true); setTimeout(() => {this.setAttribute('loading', false)},1000)">加载</sp-button>
+    <sp-modal id="modal1">  
+        <div slot='content'>
+            大白(●—●)
+        </div>
+    </sp-modal>
+    <sp-button onclick="modal1.setAttribute('visible', true)">打开弹窗</sp-button>
+
+</body>
+<script>
+    modal1.onClose = function(){
+        this.setAttribute('visible', false)
+    }
+</script>
+</html>
