@@ -1,4 +1,4 @@
-import {tuple, tupleNum} from 'sparrow-ui/_utils/type'
+import {tuple} from 'sparrow-ui/_utils/type'
 
 const ButtonTypes = tuple('default', 'primary', 'dashed', 'text', 'link')
 export type ButtonType  =typeof ButtonTypes[number]
