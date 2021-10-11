@@ -62,13 +62,7 @@ export default
             type styletype =  { // Partial
                 [P in keyof CSSStyleDeclaration]?: CSSStyleDeclaration[P]
             }
-            let _style: styletype = {
-                // display: "inline-block",
-                // border: "solid black 1px",
-                // width: "50px",
-                // height: "30px",
-                // padding: '12px 20px',
-            }
+            let _style: styletype = {}
             let handler: ProxyHandler<any> = {
                 set(target: any, key: string, value: string) {
                     let d = Reflect.set(target, key, value)
@@ -129,23 +123,9 @@ export default
                 this.classList.add('empty-loading')
             }
             // this.shadowRoot.append(el.content.cloneNode(true)) // 影子DOM
-
-            // // this.setAttribute('type', '567890')
-            // window.changeKey = (key, val) => target[key] = val
-            // this.onclick = (e:any) => attributesObj['on-click'](e)
-            // this.onclick = (e: any) => {
-            //     document.documentElement.style.setProperty('--global-background', '#0f9f9d')
-            //     // 可以通过实例来获取， 当然也可以通过this来获取
-            //     console.log('获取标签书型', this.constructor.observedAttributes)
-
-            //     // setTimeout(() => {
-            //     //     this['attr-type'] = '我修改了'
-            //     // }, 1000);
-            // }
-
         },
         // 这里可以直接拿到被修改的 attr
-        attributeChangedCallback(name: any, oldval: string, newval: string | any) {
+        attributeChangedCallback(name: any, _: string, newval: string | any) {
             changeProps(this, {
                 [name]: name == 'disabled' ? 'disabled' : newval
             })
