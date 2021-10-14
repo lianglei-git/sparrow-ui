@@ -24,7 +24,7 @@ const keys: string[] = Object.keys(typeProps())
 let zIndex = 2000;
 const cancelClick = function () { this.onClose && this.onClose() }
 
-const sto: (fn: Function, time: number) => void = (fn, time = 16) => {
+const sto: (fn: Function, time?: number) => void = (fn, time = 16) => {
     let t = setTimeout(async () => {
         await fn()
         clearTimeout(t)
