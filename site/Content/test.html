@@ -10,17 +10,40 @@
 </head>
 <body>
     <sp-button onclick="this.setAttribute('loading', true); setTimeout(() => {this.setAttribute('loading', false)},1000)">加载</sp-button>
-    <sp-modal id="modal1">  
+ 
+    <sp-button onclick="modal1.setAttribute('visible', true)">打开弹窗</sp-button>
+
+
+
+
+
+   <sp-modal id="modal1" >  
+       <div slot='content'>
+           <sp-button onclick="this.setAttribute('loading', true); setTimeout(() => {this.setAttribute('loading', false)},1000)">加载</sp-button>
+        </div>
         <div slot='content'>
-            大白(●—●)
+            大白(●●—)
         </div>
     </sp-modal>
-    <sp-button onclick="modal1.setAttribute('visible', true)">打开弹窗</sp-button>
+
 
 </body>
 <script>
     modal1.onClose = function(){
         this.setAttribute('visible', false)
     }
+    let obj = {
+       ok:() => {},
+       cancel: () => {
+
+       },
+       data: [
+
+       ]
+    }
+    Modal.$el('modal1').config(obj)
+    obj.data = 123
+
+    // 理想状态 ---> 
 </script>
 </html>

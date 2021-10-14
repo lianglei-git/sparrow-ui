@@ -104,7 +104,12 @@ const Home = (props: any) => {
         <div className="group-modal">
             模块展示
             <sp-button onClick={e => setVisible(true)} > 打开基础弹窗 </sp-button>
-            <sp-modal ref={modalone} title="第一个modal" visible={visible}>
+            <sp-modal ref={modalone} title="第一个modal" visible={visible} setslotstyle='
+            slot[name="content"]{
+                display:block;
+                color:red
+            }
+            '>
                 内部外部好像没办法联通
             </sp-modal>
 

@@ -24,7 +24,8 @@ export interface modaTypeslProps {
     modal:Boolean, // 是否需要遮罩
     canceltext: String, // 取消按钮文字
     oktext: String, // 确认按钮文字
-    footer: String | Boolean
+    footer: String | Boolean,
+    setslotstyle: String, // 设置slot的样式  你要像使用style标签一样使用它
 }
 // 如果需要在一个 Dialog 内部嵌套另一个 Dialog，需要使用 append-to-body 属性。
 const modalProps:Partial<{[K in keyof modaTypeslProps]?:modaTypeslProps[K] | String}> = {
@@ -38,7 +39,8 @@ const modalProps:Partial<{[K in keyof modaTypeslProps]?:modaTypeslProps[K] | Str
     modal: 'true',
     canceltext: '取消',
     oktext: '确认',
-    footer: 'true'
+    footer: 'true',
+    setslotstyle: ''
 }
 export {
     modalProps

@@ -45,7 +45,7 @@ class Modal {
                     this['attr-appendbody'] = 'false'
                     document.body.appendChild(this)
                 } else {
-                    this.useAllEls = self.initView.call(this);// 初始化视图
+                    sto(()=> this.useAllEls = self.initView.call(this));// 初始化视图
                 }
             },
             attributeChangedCallback(...args) {
@@ -106,7 +106,7 @@ class Modal {
         footerCancel.onclick = cancelClick.bind(this)
         footerOk.onclick = _ => { this?.onOk?.(this?.onOk?.length > 0 ? _ : null) }
         template.innerHTML = `
-        <style>${spButtonCss}</style>
+        <style>${spButtonCss}${this.attrs.setslotstyle}</style>
         <slot name="header"></slot> 
         <slot name="content">按照格式书写</slot>
         <slot name="footer" class="sp-modal-footer"></slot>
@@ -123,7 +123,7 @@ class Modal {
 
         listener(headerR, 'click', cancelClick.bind(this))
         !slotObj?.header && this.insertBefore(header, this.firstChild)
-        this.attrs.footer !== 'null' && !slotObj?.footer && this.appendChild(footer)
+        this.attrs.footer !== 'null' && !Reflect.has(slotObj, 'footer') && this.appendChild(footer)
         this.shadowRoot.appendChild(template.content.cloneNode(true))
 
         if (this.attrs.modal !== 'false') {
