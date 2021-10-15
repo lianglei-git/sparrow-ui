@@ -45,7 +45,10 @@ class Modal {
                     this['attr-appendbody'] = 'false'
                     document.body.appendChild(this)
                 } else {
-                    sto(()=> this.useAllEls = self.initView.call(this));// 初始化视图
+                    sto(() => {
+                        this.useAllEls = self.initView.call(this)
+                        self.defineReactive(keys, this)
+                    });// 初始化视图
                 }
             },
             attributeChangedCallback(...args) {
@@ -64,6 +67,31 @@ class Modal {
                 ]))
             }
         })
+    }
+    private defineReactive(keys: string[], el:HTMLElement | any): void {
+        // let includes = <T extends string>(k: T) => keys.includes(k);
+        keys.map(i => {
+            Object.defineProperty(el, i, {
+                enumerable: false,
+                get() {
+                    return this['_'+i]
+                    
+                },
+                set(v) {
+                    this.setAttribute(i, v);
+                    return this['_' + i] = v;
+                }
+            })
+        })
+        // el.pro = new Proxy(el, {
+        //     get(t, k, v) {
+        //         return Reflect.get(t, k ,v)
+        //     },
+        //     set(t, k: string, v) {
+        //         includes(k) && (el['attr-' + k] = v);
+        //         return Reflect.set(t, k, v)
+        //     }
+        // })
     }
     private initView = function (): object {
         {
@@ -174,5 +202,5 @@ class Modal {
         }
     }
 }
-export {Modal}
+export { Modal }
 export default new Modal() 

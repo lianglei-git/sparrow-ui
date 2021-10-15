@@ -11,7 +11,7 @@
 <body>
     <sp-button onclick="this.setAttribute('loading', true); setTimeout(() => {this.setAttribute('loading', false)},1000)">加载</sp-button>
  
-    <sp-button onclick="modal1.setAttribute('visible', true)">打开弹窗</sp-button>
+    <sp-button onclick="modal1['attr-visible'] = true">打开弹窗</sp-button>
 
 
 
@@ -45,5 +45,6 @@
     obj.data = 123
 
     // 理想状态 ---> 
+    // 当然设置的方式都很多： 比如modal1['attr-visible'] = true
 </script>
 </html>

@@ -96,7 +96,8 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
     Reflect.has(props, 'getConstructor') && props.getConstructor?.bind(this)(HTMl)
     HTMl.observedAttributes = props?.observedAttributes || []
     getAttribute(HTMl.target, props?.observedAttributes)
-    window.customElements.define(props.tag, Element || HTMl)
+     window.customElements.define(props.tag, Element || HTMl)
+    return HTMl
 }
 
 export const last:<T extends any>(l: T[]) => T = (l) => {
