@@ -30,6 +30,7 @@ const sto: (fn: Function, time?: number) => void = (fn, time = 16) => {
         clearTimeout(t)
     }, time);
 }
+
 class Modal {
     constructor() {
         let self = this
@@ -68,14 +69,14 @@ class Modal {
             }
         })
     }
-    private defineReactive(keys: string[], el:HTMLElement | any): void {
+    private defineReactive(keys: string[], el: HTMLElement | any): void {
         // let includes = <T extends string>(k: T) => keys.includes(k);
         keys.map(i => {
             Object.defineProperty(el, i, {
                 enumerable: false,
                 get() {
-                    return this['_'+i]
-                    
+                    return this['_' + i]
+
                 },
                 set(v) {
                     this.setAttribute(i, v);
@@ -201,6 +202,51 @@ class Modal {
             }, 290)
         }
     }
+    static config<T = typeof modalProps | { onOk?: () => any, onClose?: () => any, bodyhtml: string, footerhtml: string }>(params: T) {
+        let _p: T | any = { ...modalProps, ...params }
+        let dialog: HTMLElement | any = createEl('sp-modal');
+        if ('bodyhtml' in _p) {
+            let content: any = createEl('div');
+            content.setAttribute('slot', 'content');
+            if (typeof _p.bodyhtml == 'string') {
+                content.innerHTML = _p.bodyhtml
+            } else {
+                // content.appendChild(_p.bodyhtml)
+                throw Error('请传入相应类型')
+            }
+            dialog.appendChild(content)
+        }
+        if ('footerhtml' in _p) {
+            let footerhtml: any = createEl('div');
+            footerhtml.setAttribute('slot', 'footer');
+            if (typeof _p.footerhtml == 'string') {
+                footerhtml.innerHTML = _p.footerhtml
+            } else {
+                // footerhtml.appendChild(_p.footerhtml)
+                throw Error('请传入相应类型')
+            }
+            dialog.appendChild(footerhtml)
+        }
+        keys.map((k: any) => {
+            if (Reflect.has(_p, k)) {
+                // @ts-ignore
+                dialog.setAttribute(k, _p[k])
+            }
+        });
+        dialog.onOk = _p?.onOk || (() => { dialog['attr-visible'] = false });
+        dialog.onClose = _p?.onClose || (() => { dialog['attr-visible'] = false });
+        document.body.appendChild(dialog)
+        return {
+            show(v: string | boolean) {
+                dialog['attr-visible'] = v;
+            },
+            __$: dialog
+        }
+    }
 }
+// (window as any).modal = Modal.config({
+//     visible: false,
+//     bodyhtml: '<div slot="content"> 全局创建 </div>'
+// })
 export { Modal }
 export default new Modal() 

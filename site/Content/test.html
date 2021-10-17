@@ -41,8 +41,11 @@
 
        ]
     }
-    Modal.$el('modal1').config(obj)
+    // Modal.$el('modal1').config(obj)
     obj.data = 123
+    let modal = Spui.Modal.config({bodyhtml:'<b>123123</b>'})
+    modal.show(true) // false
+    // Spui.Modal
 
     // 理想状态 ---> 
     // 当然设置的方式都很多： 比如modal1['attr-visible'] = true
