@@ -1,12 +1,6 @@
 // @ts-nocheck
-<<<<<<< HEAD
-import React, { useState , useEffect} from 'react'
-// import sp-button from 'sp-button'
-
-=======
 import React, { useState, useEffect, useRef } from 'react'
 import './index.less'
->>>>>>> master
 const Home = (props: any) => {
     let [shape, setshape] = useState('default')
     let [isloading, setloading] = useState(false)
@@ -16,11 +10,16 @@ const Home = (props: any) => {
     let [visible3, setVisible3] = useState(false)
     let [visible4, setVisible4] = useState(false)
     let [visible5, setVisible5] = useState(false)
+    let [visible6, setVisible6] = useState(false)
+    let [visible7, setVisible7] = useState(false)
     let modalone = useRef()
     let modaltwo = useRef()
     let modalthree = useRef()
     let modalfour = useRef()
     let modalfive = useRef()
+    let modalsix = useRef()
+    let modalseven = useRef()
+    
     const click = (e: any) => {
         console.log(e, 'sparrow')
     }
@@ -41,9 +40,23 @@ const Home = (props: any) => {
         modalfive.current.onClose = () => {
             setVisible5(false)
         }
+        modalsix.current.onClose = () => {
+            setVisible6(false)
+        }
+        modalseven.current.onClose = () => {
+            setVisible7(false)
+        }
         modalfive.current.onOk = () => {
             console.log('‘确认收款')
             setVisible5(false)
+        }
+        modalsix.current.onOk = () => {
+            console.log('‘确认收款')
+            setVisible6(false)
+        }
+        modalseven.current.onOk = () => {
+            console.log('‘确认收款')
+            setVisible7(false)
         }
         modalone.current.onOk = () => {
             console.log('最终打败了魔法')
@@ -95,10 +108,7 @@ const Home = (props: any) => {
                 }, 3000);
             }}> <span>click me</span></sp-button>
         </div>
-<<<<<<< HEAD
-=======
         {/* 
->>>>>>> master
         <sp-modal title="111" appendbody>
             <div>说到健身房看见还是恐惧的护肤科技</div>
         </sp-modal>
@@ -107,21 +117,12 @@ const Home = (props: any) => {
         {/* <sp-modal title="222"></sp-modal>
         <sp-modal title="333" appendbody></sp-modal> */}
 
-<<<<<<< HEAD
-=======
         <sp-modal title="222"></sp-modal>
         <sp-modal title="333" appendbody></sp-modal> */}
->>>>>>> master
         <div>
             <span>卡点测试</span>
         </div>
 
-<<<<<<< HEAD
-        {/* <sp-modal title="第一个modal" ></sp-modal>
-
-        <sp-modal title="第二个modal" title></sp-modal> */}
-
-=======
         <div className="group-modal">
             模块展示
             <sp-button onClick={e => setVisible(true)} > 打开基础弹窗 </sp-button>
@@ -152,19 +153,32 @@ const Home = (props: any) => {
             <sp-button onClick={e => setVisible5(true)} > 打开 自定义footer </sp-button>
             <sp-modal ref={modalfive} title="第5个modal" modal='false' center='false' visible={visible5} cacceltext='关吧' oktext='👌'>
                 <div slot="content">
-        ????
+                    ????
                 </div>
-                <div slot='footer'>
+                {/* <div slot='footer'>
                     自定义
-                </div>
+                </div> */}
             </sp-modal>
+
+            <sp-button onClick={e => setVisible6(true)}>测试</sp-button>
+            <sp-modal ref={modalsix} title="测试modal" modal='true' conter='false' visible={visible6} cacceltext='关闭' oktext='oktext'>
+                <div slot="content">
+                    <button onClick={e => setVisible7(true)}>按钮1</button>
+                </div>
+                <sp-modal width='50' ref={modalseven} title="嵌套弹窗" modal='false' center='false' appendbody visible={visible7} cacceltext='关' oktext='嵌套ok' class="children-modal2">
+                    <div slot="content">
+                        <button>嵌套按钮</button>
+                    </div>
+                </sp-modal>
+            </sp-modal>
+            
+
         </div>
 
         {/* <sp-modal title="333" appendbody visible></sp-modal> 
         <sp-modal title="444" appendbody visible></sp-modal> 
         <sp-modal title="555" appendbody visible></sp-modal> 
         <sp-modal title="666" appendbody visible></sp-modal>  */}
->>>>>>> master
     </div>
 }
 export default Home
