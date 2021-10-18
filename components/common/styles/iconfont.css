@@ -1,8 +1,8 @@
 @font-face {
   font-family: "sp-icon"; /* Project id 2850031 */
-  src: url('./iconfont.woff2?t=1633487946415') format('woff2'),
-       url('./iconfont.woff?t=1633487946415') format('woff'),
-       url('./iconfont.ttf?t=1633487946415') format('truetype');
+  src: url('iconfont.woff2?t=1634570632483') format('woff2'),
+       url('iconfont.woff?t=1634570632483') format('woff'),
+       url('iconfont.ttf?t=1634570632483') format('truetype');
 }
 
 .sp-icon {
@@ -11,6 +11,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.sp-icon-iconfontinfofill:before {
+  content: "\e659";
+}
+
+.sp-icon-success:before {
+  content: "\e617";
+}
+
+.sp-icon-error:before {
+  content: "\e6c6";
 }
 
 .sp-icon-close:before {

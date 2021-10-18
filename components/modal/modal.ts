@@ -1,5 +1,6 @@
 import typeProps, { modalProps } from './type'
-import { runIFELSE } from '../_utils/common'
+import { runIFELSE, sto} from '../_utils/common'
+import {getIndex, setIndex} from '../common/index'
 import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
 import './style'
 
@@ -20,16 +21,10 @@ const spButtonCss = `
     align-items: center;
   }
   `
-const keys: string[] = Object.keys(typeProps())
-let zIndex = 2000;
+const keys: string[] = Object.keys(typeProps());
 const cancelClick = function () { this.onClose && this.onClose() }
 
-const sto: (fn: Function, time?: number) => void = (fn, time = 16) => {
-    let t = setTimeout(async () => {
-        await fn()
-        clearTimeout(t)
-    }, time);
-}
+
 
 class Modal {
     constructor() {
@@ -53,16 +48,16 @@ class Modal {
                 }
             },
             attributeChangedCallback(...args) {
-                let [key, _, newkey] = args
+                let [key, _, newval] = args
                 runIFELSE.call(this, new Set([
                     [key == 'visible', () => {
-                        console.log(newkey)
-                        newkey && zIndex++
-                        if (this.useAllEls) self._fadeami(newkey, this)
+                        console.log(newval)
+                        newval && setIndex()
+                        if (this.useAllEls) self._fadeami(newval, this)
                     }],
                     [key == 'center', () => {
                         setStyle(this, {
-                            marginTop: newkey == 'false' ? '15vh' : 'auto'
+                            marginTop: newval == 'false' ? '15vh' : 'auto'
                         })
                     }]
                 ]))
@@ -96,7 +91,7 @@ class Modal {
     }
     private initView = function (): object {
         {
-            zIndex++
+            setIndex()
         }
         let content: HTMLElement = createEl('main'),
             headerL: HTMLElement = createEl('span'),
@@ -116,11 +111,11 @@ class Modal {
             return obj
         }, Object.create(null))
 
-        this.zIndex = zIndex
-        this.className = 'sp-modal' + ' sp-modal' + (zIndex - 2000) + ' ' + (this.attrs.class);
+        this.zIndex = getIndex()
+        this.className = 'sp-modal' + ' sp-modal' + (getIndex() - 2000) + ' ' + (this.attrs.class);
         content.className = 'sp-modal-content';
         headerR.className = this.attrs.closable == 'false' ? '' : 'sp-icon sp-icon-close'
-        mock.className = 'sp-modal-mock sp-modal-mock-' + zIndex
+        mock.className = 'sp-modal-mock sp-modal-mock-' + getIndex()
         header.className = 'sp-modal-header';
         footer.className = 'sp-modal-footer-active';
         headerL.innerHTML = this.attrs.title;
@@ -141,12 +136,12 @@ class Modal {
         <slot name="footer" class="sp-modal-footer"></slot>
         `
         setStyle(this, {
-            zIndex: String(zIndex),
+            zIndex: String(getIndex()),
             marginTop: this.attrs.center == 'false' ? '15vh' : 'auto',
             display: 'none',
         })
         setStyle(mock, {
-            zIndex: String(zIndex - 1),
+            zIndex: String(getIndex() - 1),
             display: 'none'
         })
 
@@ -179,11 +174,11 @@ class Modal {
         if (newkey == 'true') {
             setStyle(self, {
                 display: 'block',
-                zIndex: String(zIndex + 1),
+                zIndex: String(getIndex() + 1),
             })
             setStyle(self.useAllEls?.mock, {
                 display: 'block',
-                zIndex: String(zIndex),
+                zIndex: String(getIndex()),
             })
             self.classList.add('sp-modal-enter-active')
             self.useAllEls?.mock.classList.add('sp-modal-mock-enter-active')

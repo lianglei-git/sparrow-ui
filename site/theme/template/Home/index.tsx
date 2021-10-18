@@ -10,6 +10,7 @@ const Home = (props: any) => {
     let [visible3, setVisible3] = useState(false)
     let [visible4, setVisible4] = useState(false)
     let [visible5, setVisible5] = useState(false)
+    let [visible6, setVisible6] = useState(false)
     let modalone = useRef()
     let modaltwo = useRef()
     let modalthree = useRef()
@@ -55,7 +56,14 @@ const Home = (props: any) => {
             console.log('最终打败了魔法')
             setVisible4(false)
         } 
+
+        // setInterval(() => {
+        //     console.log(getIndex())
+        // }, 1000);
     }, [])
+    const showMessage1 = () => {
+        Spui.Message.success('99999')
+    }
     return <div>
         {/* <button onClick={e => click(e)}>99</button> */}
         主页
@@ -138,6 +146,11 @@ const Home = (props: any) => {
                 </div>
             </sp-modal>
         </div>
+
+            <div className='group-message'>
+            <sp-button onClick={() => showMessage1()}>打开message</sp-button>
+            </div>
+        {/* <sp-message message='9999' type='error' showclose='true'></sp-message> */}
 
         {/* <sp-modal title="333" appendbody visible></sp-modal> 
         <sp-modal title="444" appendbody visible></sp-modal> 

@@ -3,10 +3,12 @@
 import {runIFELSE, getGlobalThis} from './_utils/common'
 import 'sparrow-ui/common/styles'
 export * as button from "./button/index"
+import {Message} from './message'
 import {Modal} from "./modal"
 export * as alert from "./alert/alert";
 const Spui = {
-    Modal
+    Modal,
+    Message
 }
 
 

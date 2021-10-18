@@ -30,3 +30,10 @@ export const getGlobalThis = (): any => {
                 : {})
     )
   }
+
+  export const sto: (fn: Function, time?: number) => void = (fn, time = 16) => {
+    let t = setTimeout(async () => {
+        await fn()
+        clearTimeout(t)
+    }, time);
+}
