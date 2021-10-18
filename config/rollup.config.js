@@ -7,8 +7,9 @@ const commonjs = require('rollup-plugin-commonjs')
 const resolve = require('rollup-plugin-node-resolve')
 const external = require('rollup-plugin-peer-deps-external')
 const replace = require('rollup-plugin-replace')
+const {uglify} = require('rollup-plugin-uglify')
 const { join } = require('path')
-
+const postcss = require('rollup-plugin-postcss')
 const config = {
     input: join(__dirname, '../', 'components/index.ts'),
     output: {
@@ -18,6 +19,15 @@ const config = {
         sourcemap: true,
     },
     plugins: [
+        // less({
+        //     output: join(__dirname, '../lib/index.css')
+        // }),
+        postcss({
+            extract:join(__dirname, '../lib/index.css'),
+            extensions: ['.css', '.less'],
+            // minimize: true,
+            // exec: true,
+        }),
         external(),
         typescript(),
         babel({
@@ -32,7 +42,18 @@ const config = {
             // }
         }),
         replace({ 'process.env.NODE_ENV': JSON.stringify('production') }),
-    ]
+        // uglify(),
+
+    ],
+    onwarn: function(warning) { 
+        // Skip certain warnings 
+    
+        // should intercept ... but doesn't in some rollup versions 
+        if (warning.code === 'THIS_IS_UNDEFINED') { return; } 
+    
+        // console.warn everything else 
+        console.warn(warning.message); 
+    } 
 }
 
 

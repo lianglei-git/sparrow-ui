@@ -20,7 +20,7 @@ type Styletype<T> = {
 export const setStyle = (target: HTMLElement, obj: Styletype<CSSStyleRule['style']>) => {
     for (const key in obj) {
         if (Object.prototype.hasOwnProperty.call(target['style'], key) && (obj as any)[key] != "") {
-            console.log('设置了::::', key, obj[key]);
+            // console.log('设置了::::', key, obj[key]);
             (target as any)['style'][key] = (obj as any)[key];
         }
     }
@@ -63,7 +63,7 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
                         return 'empty!'
                     },
                     set(val) {
-                        console.log(val, attr)
+                        // console.log(val, attr)
                         target.setAttribute(attr, val)
                         _corel[attr] = val
                     }
@@ -95,11 +95,14 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
     let HTMl: HTMLElement | any = wishClass(props.tag)
     Reflect.has(props, 'getConstructor') && props.getConstructor?.bind(this)(HTMl)
     HTMl.observedAttributes = props?.observedAttributes || []
-    // console.log((HTMl as any).target)
     getAttribute(HTMl.target, props?.observedAttributes)
-    window.customElements.define(props.tag, Element || HTMl)
+     window.customElements.define(props.tag, Element || HTMl)
+    return HTMl
 }
 
 export const last:<T extends any>(l: T[]) => T = (l) => {
     return l[l.length - 1]
 }
+
+// 绑定事件
+export const listener:(target:HTMLElement, event:string, func:(e:Event | ProgressEvent<EventTarget> ) => any) => void = (target, event, func) => { target.addEventListener(event, func) }
