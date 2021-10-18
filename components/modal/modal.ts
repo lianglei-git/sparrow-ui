@@ -205,8 +205,10 @@ class Modal {
     static config<T = typeof modalProps | { onOk?: () => any, onClose?: () => any, bodyhtml: string, footerhtml: string }>(params: T) {
         let _p: T | any = { ...modalProps, ...params }
         let dialog: HTMLElement | any = createEl('sp-modal');
+        let content: any;
+        let footerhtml: any;
         if ('bodyhtml' in _p) {
-            let content: any = createEl('div');
+            content = createEl('div');
             content.setAttribute('slot', 'content');
             if (typeof _p.bodyhtml == 'string') {
                 content.innerHTML = _p.bodyhtml
@@ -217,7 +219,7 @@ class Modal {
             dialog.appendChild(content)
         }
         if ('footerhtml' in _p) {
-            let footerhtml: any = createEl('div');
+            footerhtml = createEl('div');
             footerhtml.setAttribute('slot', 'footer');
             if (typeof _p.footerhtml == 'string') {
                 footerhtml.innerHTML = _p.footerhtml
@@ -239,6 +241,16 @@ class Modal {
         return {
             show(v: string | boolean) {
                 dialog['attr-visible'] = v;
+            },
+            setBodyHtml(html:string) {
+                if (typeof html == 'string') {
+                    content.innerHTML = html
+                }
+            },
+            setFooterHtml(html:string) {
+                if (typeof html == 'string') {
+                    footerhtml.innerHTML = html
+                }
             },
             __$: dialog
         }
