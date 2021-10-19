@@ -62,7 +62,13 @@ const Home = (props: any) => {
         // }, 1000);
     }, [])
     const showMessage1 = () => {
-        Spui.Message.success('99999')
+        let random = Math.floor(Math.random()* 5 + 15) ;
+        let str = new Array(random).fill(false).reduce((t, a ,i) => {
+            t += i +'-'
+            return t
+        }, '')
+
+        Spui.Message.success(str)
     }
     return <div>
         {/* <button onClick={e => click(e)}>99</button> */}

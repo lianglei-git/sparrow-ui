@@ -7,8 +7,10 @@ import './style'
 
 type Props = Partial<ReturnType<typeof typeProps>>
 class MessageBase {
+    verticalOffset: Number
     constructor() {
-        let self = this
+        let self = this;
+
         defineEl({
             tag: 'sp-message',
             observedAttributes: Object.keys(typeProps()),
@@ -18,32 +20,31 @@ class MessageBase {
                 sto(() => {
                     self.initView.call(this)
                 })
+                this.setup = self.setup.bind(this)
             },
             attributeChangedCallback(...args) {
                 let [key, _, newval] = args;
-                let elAlls:any = $el('sp-message')
+                let elAlls: any = $el('sp-message')
                 runIFELSE.call(this, new Set([
                     [key == 'visible', () => {
-                        let offsetTop = this.offsetTop
+                        let offsetHeight = this.offsetHeight
                         newval && setIndex();
-                        if(newval == 'false') {
+                        if (newval == 'false') {
+                            [...elAlls].forEach((element: any) => {
+                                setStyle(element, {
+                                    top: parseInt(element.style.top, 10) - offsetHeight - 20 + 'px'
+                                })
+                            });
                             setStyle(this, {
                                 opacity: '0',
                                 transform: 'translate(-50%, -100%)'
                             });
-                            [...elAlls].forEach((element:any) => {
-                                setStyle(element, {
-                                    top: element.offsetTop - offsetTop + 'px' 
-                                })
-                            });
-
                             sto(() => {
                                 this.remove()
                             }, 390)
-                        }
-                         else {
+                        } else {
                             setStyle(this, {
-                                transform: 'translate(-50%, 100%)'
+                                transform: elAlls.length == 0 ? 'translate(-50%, 0%)' : 'translate(-50%, 0%)'
                             })
                         }
 
@@ -53,13 +54,19 @@ class MessageBase {
         })
     }
 
+    public setup = function () {
+        setStyle(this, {
+            top: 20 + 'px',
+            zIndex: getIndex() + '',
+        });
+    }
+
     protected initView = function () {
         this.className = 'sp-message sp-message-' + this.attrs.type
         let iconEl: HTMLElement = createEl('span'),
             contentEl: HTMLElement = createEl('div'),
             closeEl: HTMLElement = createEl('span'),
-            allEls: NodeList | any = $el('sp-message'),
-        top: Number = allEls.length > 1 ? allEls[allEls.length - 2].offsetTop + allEls[allEls.length - 2].offsetHeight + 10 : (+this.attrs.offset)
+            allEls: NodeList | any = $el('sp-message')
 
         contentEl.innerHTML = this.attrs.message
         iconEl.className = 'sp-icon sp-icon-success'
@@ -70,28 +77,31 @@ class MessageBase {
         this.attrs.showclose == 'true' && this.appendChild(closeEl);
 
         sto(() => {
-            this['attr-visible'] = false
-            setStyle(this, {
-                opacity: '0',
-                transform: 'translate(-50%, -100%)'
-            })
-            sto(() => {
-                this.remove()
-            }, 390)
+            this['attr-visible'] = false;
         }, +this.attrs.duration)
         closeEl.onclick = () => {
             this['attr-visible'] = false
         }
-
+        let tot = [...allEls].reduce((total, el) => {
+            total += el.offsetHeight + 20
+            return total
+        }, this.attrs.offset || 20);
+        console.log(tot)
+        // this.setup()
         setStyle(this, {
-            top: top + 'px',
+            top: tot + 'px',
             zIndex: getIndex() + '',
-        })
-        console.log(window.getComputedStyle(allEls[allEls.length - 1]).top, allEls[allEls.length - 1].offsetTop)
-
+        });
+        // let top: Number = allEls.length > 1 ?  
+        // (+this.attrs.offset) + (allEls[allEls.length - 2].offsetTop +allEls[allEls.length - 2].offsetHeight)//   - (allEls.length ==2 ? this.offsetHeight + 20 : 0)
+        // : (+this.attrs.offset)
+        // if(allEls.length > 1 ) {
+        //     console.log((+this.attrs.offset) + (allEls[allEls.length - 2].offsetTop +allEls[allEls.length - 2].offsetHeight))
+        // }
         setStyle(contentEl, {
             justifyContent: this.attrs.center == 'true' ? 'center' : ''
         })
+
 
     }
     static info() {
@@ -99,10 +109,10 @@ class MessageBase {
     }
     static success(msg: string) {
         let t = createEl('sp-message')
-        t['attr-visible'] = 'true';
         t['attr-message'] = msg;
-
-        document.body.appendChild(t)
+        t['attr-visible'] = 'true';
+        document.body.appendChild(t);
+        t.setup()
     }
     static error() {
 
