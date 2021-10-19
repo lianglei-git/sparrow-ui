@@ -62,7 +62,7 @@ const Home = (props: any) => {
         // }, 1000);
     }, [])
     const showMessage1 = () => {
-        let random = Math.floor(Math.random()* 5 + 15) ;
+        let random = Math.floor(Math.random()* 15 +9) ;
         let str = new Array(random).fill(false).reduce((t, a ,i) => {
             t += i +'-'
             return t

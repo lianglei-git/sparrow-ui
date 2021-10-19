@@ -39,15 +39,12 @@ class MessageBase {
                                 opacity: '0',
                                 transform: 'translate(-50%, -100%)'
                             });
-                            sto(() => {
-                                this.remove()
-                            }, 390)
+                            this.remove();
                         } else {
                             setStyle(this, {
-                                transform: elAlls.length == 0 ? 'translate(-50%, 0%)' : 'translate(-50%, 0%)'
+                                transform: 'translate(-50%, 0%)'
                             })
                         }
-
                     }],
                 ]))
             }
@@ -55,18 +52,23 @@ class MessageBase {
     }
 
     public setup = function () {
+        let allEls: NodeList | any = $el('sp-message')
+        let top:Number = [...allEls].reduce((total, el) => {
+            total += el.offsetHeight + 20
+            return total
+        }, this.attrs.offset || 20);
         setStyle(this, {
-            top: 20 + 'px',
+            top: top + 'px',
             zIndex: getIndex() + '',
         });
+        this['attr-visible'] = 'true';
     }
 
     protected initView = function () {
         this.className = 'sp-message sp-message-' + this.attrs.type
         let iconEl: HTMLElement = createEl('span'),
             contentEl: HTMLElement = createEl('div'),
-            closeEl: HTMLElement = createEl('span'),
-            allEls: NodeList | any = $el('sp-message')
+            closeEl: HTMLElement = createEl('span');
 
         contentEl.innerHTML = this.attrs.message
         iconEl.className = 'sp-icon sp-icon-success'
@@ -78,31 +80,13 @@ class MessageBase {
 
         sto(() => {
             this['attr-visible'] = false;
-        }, +this.attrs.duration)
+        }, +this.attrs.duration )
         closeEl.onclick = () => {
             this['attr-visible'] = false
         }
-        let tot = [...allEls].reduce((total, el) => {
-            total += el.offsetHeight + 20
-            return total
-        }, this.attrs.offset || 20);
-        console.log(tot)
-        // this.setup()
-        setStyle(this, {
-            top: tot + 'px',
-            zIndex: getIndex() + '',
-        });
-        // let top: Number = allEls.length > 1 ?  
-        // (+this.attrs.offset) + (allEls[allEls.length - 2].offsetTop +allEls[allEls.length - 2].offsetHeight)//   - (allEls.length ==2 ? this.offsetHeight + 20 : 0)
-        // : (+this.attrs.offset)
-        // if(allEls.length > 1 ) {
-        //     console.log((+this.attrs.offset) + (allEls[allEls.length - 2].offsetTop +allEls[allEls.length - 2].offsetHeight))
-        // }
         setStyle(contentEl, {
             justifyContent: this.attrs.center == 'true' ? 'center' : ''
         })
-
-
     }
     static info() {
 
@@ -110,7 +94,6 @@ class MessageBase {
     static success(msg: string) {
         let t = createEl('sp-message')
         t['attr-message'] = msg;
-        t['attr-visible'] = 'true';
         document.body.appendChild(t);
         t.setup()
     }
