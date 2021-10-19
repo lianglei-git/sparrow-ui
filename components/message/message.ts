@@ -1,5 +1,5 @@
 
-import { runIFELSE, sto } from '../_utils/common'
+import { runIFELSE, sto, isObject } from '../_utils/common'
 import { getIndex, setIndex } from '../common/index'
 import typeProps from './type'
 import { defineEl, createEl, setStyle, getProps, $el } from '../_utils/dom'
@@ -10,7 +10,6 @@ class MessageBase {
     verticalOffset: Number
     constructor() {
         let self = this;
-
         defineEl({
             tag: 'sp-message',
             observedAttributes: Object.keys(typeProps()),
@@ -24,16 +23,24 @@ class MessageBase {
             },
             attributeChangedCallback(...args) {
                 let [key, _, newval] = args;
-                let elAlls: any = $el('sp-message')
+                let elAlls: Array<any> = Array.from($el('sp-message'));
+            
                 runIFELSE.call(this, new Set([
                     [key == 'visible', () => {
                         let offsetHeight = this.offsetHeight
                         newval && setIndex();
                         if (newval == 'false') {
-                            [...elAlls].forEach((element: any) => {
-                                setStyle(element, {
-                                    top: parseInt(element.style.top, 10) - offsetHeight - 20 + 'px'
-                                })
+                            console.log(this.id)
+                            let _index = elAlls.findIndex(i => i.id == this.id);
+                            // if(_index )
+
+                            this.beforeClose && this.beforeClose();
+                            elAlls.forEach((element: any, i:number) => {
+                                if(i >= _index) {
+                                    setStyle(element, {
+                                        top: parseInt(element.style.top, 10) - offsetHeight - 20 + 'px'
+                                    })
+                                }
                             });
                             setStyle(this, {
                                 opacity: '0',
@@ -53,62 +60,84 @@ class MessageBase {
 
     public setup = function () {
         let allEls: NodeList | any = $el('sp-message')
-        let top:Number = [...allEls].reduce((total, el) => {
+        let propsOffset = +this.attrs.offset || 20
+        let top: Number = [...allEls].reduce((total, el) => {
             total += el.offsetHeight + 20
             return total
-        }, this.attrs.offset || 20);
+        }, propsOffset);
+        this['attr-visible'] = 'true';
         setStyle(this, {
             top: top + 'px',
             zIndex: getIndex() + '',
         });
-        this['attr-visible'] = 'true';
     }
 
     protected initView = function () {
         this.className = 'sp-message sp-message-' + this.attrs.type
+        this.id= 'sp-message__'+ getIndex()
         let iconEl: HTMLElement = createEl('span'),
             contentEl: HTMLElement = createEl('div'),
-            closeEl: HTMLElement = createEl('span');
+            closeEl: HTMLElement = createEl('span'),
+            t:any = null;
 
         contentEl.innerHTML = this.attrs.message
-        iconEl.className = 'sp-icon sp-icon-success'
+        iconEl.className = 'sp-icon sp-icon-' + this.attrs.type
         closeEl.className = 'sp-icon sp-icon-close'
         contentEl.className = 'sp-message-content'
         this.appendChild(iconEl);
         this.appendChild(contentEl);
         this.attrs.showclose == 'true' && this.appendChild(closeEl);
-
-        sto(() => {
-            this['attr-visible'] = false;
-        }, +this.attrs.duration )
+        if(+this.attrs.duration > 0) {
+         t = sto(() => {
+                this['attr-visible'] = false;
+            }, +this.attrs.duration)
+        }
         closeEl.onclick = () => {
+            t > 0 && clearTimeout(t)
             this['attr-visible'] = false
         }
         setStyle(contentEl, {
             justifyContent: this.attrs.center == 'true' ? 'center' : ''
         })
-    }
-    static info() {
 
-    }
-    static success(msg: string) {
-        let t = createEl('sp-message')
-        t['attr-message'] = msg;
-        document.body.appendChild(t);
-        t.setup()
-    }
-    static error() {
-
+        this.close = () => {
+            this['attr-visible'] = false;
+        }
     }
 }
 
-function Message(params: any) {
-
+function Message(params: Props = typeProps()) {
+    let props: Props = { ...typeProps(), ...params };
+    delete props.visible;
+    let t = createEl('sp-message');
+    if(Reflect.has(props, 'beforeClose')) {
+        t.beforeClose = props.beforeClose;
+        delete props.beforeClose;
+    }
+    
+    
+    for (let k in props) {
+        t[`attr-${k}`] = (props as any)[k] + '';
+    }
+    document.body.appendChild(t);
+    t.setup();
+    return t;
 }
-Message.info = MessageBase.info;
-Message.success = MessageBase.success;
-Message.error = MessageBase.error;
+['info', 'success', 'error'].forEach((type: string) => {
+    (Message as any)[type] = (options: Props | any) => {
+        if (isObject(options)) {
+            return Message({ ...options, type })
+        }
+        return Message({ type, message: options })
+    }
+});
 
+Message.closeAll = () => {
+    let allEls: NodeList | any = $el('sp-message');
+    [...allEls].forEach((el: HTMLElement | any) => {
+        el['attr-visible'] = false;
+    });
+}
 
 export { Message }
 export default new MessageBase()

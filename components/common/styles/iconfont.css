@@ -13,7 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.sp-icon-iconfontinfofill:before {
+.sp-icon-info:before {
   content: "\e659";
 }
 

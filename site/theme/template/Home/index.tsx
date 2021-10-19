@@ -68,7 +68,14 @@ const Home = (props: any) => {
             return t
         }, '')
 
-        Spui.Message.success(str)
+        Spui.Message.success({
+            message: str,
+            duration: 3000,
+            showclose: true,
+            beforeClose() {
+                console.log('关闭前的回调')
+            }
+        })
     }
     return <div>
         {/* <button onClick={e => click(e)}>99</button> */}

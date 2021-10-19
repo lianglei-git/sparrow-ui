@@ -15,7 +15,7 @@ title: Modal
 | closable   | 是否显示右上角的关闭按钮                                 | string, boolean | true           |      |
 | appendbody | 是否插入在body上                                         | string, boolean | false          |      |
 | canceltext | 取消按钮文字                                             | string          | `取消`         |      |
-| oktext     | 取消按钮文字                                             | string          | `确认`         |      |
+| oktext     | 确定按钮文字                                             | string          | `确认`         |      |
 | center     | 垂直居中展示 Modal                                       | boolean         | true           |      |
 | modal      | 是否需要遮罩                                             | boolean         | true           |      |
 | class      | 类名                                                     | string          | -              |      |
