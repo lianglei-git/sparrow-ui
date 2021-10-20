@@ -57,10 +57,10 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
                     enumerable: false,
                     configurable: false,
                     get() {
-                        if (_corel) {
-                            return _corel.getAttribute(attr)
-                        }
-                        return 'empty!'
+                        // if (_corel) {
+                            return target.getAttribute(attr)
+                        // }
+                        // return 'empty!'
                     },
                     set(val) {
                         // console.log(val, attr)

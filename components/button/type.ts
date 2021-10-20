@@ -1,4 +1,4 @@
-import {tuple} from 'sparrow-ui/_utils/type'
+import {tuple} from '../_utils/type'
 
 const ButtonTypes = tuple('default', 'primary', 'dashed', 'text', 'link')
 export type ButtonType  =typeof ButtonTypes[number]
@@ -17,11 +17,21 @@ const buttonProps = () => ({
     type: ButtonTypes,
     size: ButtonSizes,
     shape:ButtonShapes,
-    htmlType: ButtonHTMLTypes,
+    htmltype: ButtonHTMLTypes,
     disabled: Boolean,
     loading: Boolean || {
         delay: Number
     }
 })
+const baseprops:any = {
+    type: 'default',
+    size: 'middle',
+    shape: 'default',
+    htmltype: 'button',
+    disabled: 'false',
+    loading: false
+    }
+export {baseprops
+}
 export type ButtonProps = Partial<ReturnType<typeof buttonProps>>
 export default buttonProps

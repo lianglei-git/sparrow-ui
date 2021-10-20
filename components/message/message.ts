@@ -32,8 +32,6 @@ class MessageBase {
                         if (newval == 'false') {
                             console.log(this.id)
                             let _index = elAlls.findIndex(i => i.id == this.id);
-                            // if(_index )
-
                             this.beforeClose && this.beforeClose();
                             elAlls.forEach((element: any, i:number) => {
                                 if(i >= _index) {

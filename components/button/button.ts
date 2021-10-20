@@ -1,4 +1,4 @@
-import typeProps, { ButtonProps } from './type'
+import typeProps, { ButtonProps, baseprops } from './type'
 import './style'
 import { runIFELSE } from '../_utils/common'
 import { defineEl, createEl, setStyle, getProps } from '../_utils/dom'
@@ -12,7 +12,7 @@ const loadingSvg: string = '<svg viewBox="0 0 1024 1024" focusable="false" data-
 const typePropsObj: ButtonProps | any = typeProps()
 const changeProps = (elconstr: HTMLElement & any, props: object | any) => {
     let includes: Array<string> = ['shape', 'size', 'type', 'disabled']
-    console.time()
+    // console.time()
     for (let key in props) {
         runIFELSE(new Set([
             [includes.includes(key), () => {
@@ -21,8 +21,11 @@ const changeProps = (elconstr: HTMLElement & any, props: object | any) => {
                         let classname = elconstr.classList.item(i)
                         typePropsObj[key].map((i: any) => (classname == 'sp-button-' + i && elconstr.classList.remove(classname)))
                     }
+                } else {
+                    props[key] == 'true' && elconstr.classList.add('sp-button-' + key)
+                    props[key] == 'false' && elconstr.classList.remove('sp-button-' + key)
                 }
-                elconstr.classList.toggle('sp-button-' + props[key])
+                
             }],
             [key == 'loading', () => {
                 if ((!props[key] || (props[key] == 'false'))) {
@@ -42,7 +45,6 @@ const changeProps = (elconstr: HTMLElement & any, props: object | any) => {
             }]
         ]))
     }
-    console.timeEnd()
 }
 
 export default
@@ -72,29 +74,37 @@ export default
             }
             let target = new Proxy(_style, handler)
             setStyle(this, target)
-            let attributesObj: ButtonProps | any = { ...getProps(this) }
-            for (let k1 in attributesObj) {
+            let attributesObj: ButtonProps | any = {...getProps(this) }
+            for (let k1 in typePropsObj) {
                 let k1v = attributesObj[k1]
                 let k2v = typePropsObj[k1]
                 runIFELSE(new Set([
                     [(k2v instanceof Array), () => {
                         runIFELSE(new Set([
                             [k1 == 'type' && !k2v.includes(k1v), () => {
-                                attributesObj[k1] = 'default'
+                                attributesObj[k1] = baseprops[k1]
+                                self['attr-' + k1] = baseprops[k1]
                             }],
                             [k1 == 'size' && !k2v.includes(k1v), () => {
-                                attributesObj[k1] = 'middle'
+                                attributesObj[k1] = baseprops[k1]
+                                self['attr-' + k1] = baseprops[k1]
+
                             }],
                             [k1 == 'shape' && !k2v.includes(k1v), () => {
-                                attributesObj[k1] = 'default'
+                                attributesObj[k1] = baseprops[k1]
+                                self['attr-' + k1] = baseprops[k1]
+
                             }],
-                            [k1 == 'htmlType' && !k2v.includes(k1v), () => {
-                                attributesObj[k1] = 'button'
+                            [k1 == 'htmltype' && !k2v.includes(k1v), () => {
+                                attributesObj[k1] = baseprops[k1]
+                                self['attr-' + k1] = baseprops[k1]
+
                             }],
                         ]))
                     }],
                     [k1 == 'disabled', () => {
-                        attributesObj[k1] = 'disabled'
+                        attributesObj[k1] =  k1v || 'false'
+                        self['attr-disabled'] = k1v || 'false'
                     }]
                 ]))
             }
@@ -127,7 +137,7 @@ export default
         // 这里可以直接拿到被修改的 attr
         attributeChangedCallback(name: any, _: string, newval: string | any) {
             changeProps(this, {
-                [name]: name == 'disabled' ? 'disabled' : newval
+                [name]: newval
             })
         },
         getConstructor(target) {
