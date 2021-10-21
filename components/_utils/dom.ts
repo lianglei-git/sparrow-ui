@@ -82,7 +82,8 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
                 getAttribute(this, props?.observedAttributes)
             }
             connectedCallback() {
-                props.connectedCallback.bind(this)() || (() => { })
+                props.connectedCallback.bind(this)() || (() => { });
+                (this as any).onload?.()
             }
             disconnectedCallback() {
                 props.disconnectedCallback?.bind(this)() || (() => { })
