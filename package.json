@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "tsnode": "node -r ts-node/register",
-    "start": "yarn tsnode scripts/start.ts",
+    "start": "yarn tsnode scripts/start.ts \"bisheng start\"",
     "build:ui": "yarn tsnode scripts/build.ts --ui",
     "build:site": "yarn tsnode scripts/build.ts --site",
     "aaa": "webpack --config ./scripts/webpack.config.js & rollup --config scripts/rollup.config.js"
@@ -29,6 +29,7 @@
     "@types/react-router-config": "^5.0.3",
     "@types/react-router-dom": "^5.1.9",
     "babel-preset-es2015-rollup": "^3.0.0",
+    "bisheng": "^3.1.0-beta.4",
     "history": "^5.0.1",
     "less": "^4.1.1",
     "react": "^17.0.2",
