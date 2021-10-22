@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import { HashRouter as Router, Redirect } from 'react-router-dom'
-import Home from './template/Home/index'
+import Home from './template/Home/indexw'
 import A from './template/Home/a'
 import { RouteConfigComponentProps } from 'react-router-config'
 import { Location } from 'history';
