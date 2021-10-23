@@ -4,7 +4,9 @@ const isDev = process.env.NODE_ENV === 'development';
 const {ESBuildMinifyPlugin} = require('esbuild-loader');
 const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
-  source: './components',
+  source: {
+    components: './components',
+  },
   hash: true,
   theme: './site/theme',
   port: 8000,

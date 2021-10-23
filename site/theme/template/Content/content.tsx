@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 
-export default (props:any) => {
+ const Content = (props:any) => {
     useEffect(() => {
         console.log(props)
     }, [])
-    return <>
+    return <div>
         组件o
-    </>
+    </div>
 }
+
+export default Content
