@@ -1,18 +1,17 @@
 
 import React from 'react';
-import '../../../../components'
-
-
+import 'sparrow-ui'
+import H from './Header'
+import '../../static/index.js'
 export default class Layout extends React.Component {
     constructor(props) {
         super(props)
     }
     render() {
-        const {children} = this.props
-        return <div> 
-
-            layout  入口
+        const { children } = this.props
+        return <>
+            <H></H>
             {children}
-        </div>
+        </>
     }
 }

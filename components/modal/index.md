@@ -1,8 +1,8 @@
 ---
 category: Components
-type: General
-title: Button
-cover: https://gw.alipayobjects.com/zos/alicdn/fNUKzY1sk/Button.svg
+type: 通用
+title: Modal
+subTitle: 弹窗
 ---
 
 To trigger an operation.

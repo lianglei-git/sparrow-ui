@@ -12,7 +12,7 @@ module.exports = {
   port: 8000,
   htmlTemplate: './site/theme/static/index.html',
   themeConfig: {},
-  webpack(config) {
+  webpackConfig(config) {
     config.resolve.alias = {
       'sparrow-ui': path.resolve('./', 'components'),
       'sparrow-ui/es': path.resolve(process.cwd(), 'components'),
@@ -22,6 +22,13 @@ module.exports = {
     config.externals = {
       'react-router-dom': 'ReactRouterDom'
     }
+
+    config.module.rules.push({
+        test: /\.(png|jpg|gif|eot|woff|ttf|svg|webp|PNG)(\?\S*)?$/,
+        use: [
+          { loader: "file-loader", options: { esModule: false, limit: 10240 } },
+        ],
+    });
     if (isDev) {
       config.devtool = 'source-map'
       config.resolve.alias = {

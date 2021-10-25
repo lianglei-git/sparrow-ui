@@ -1,8 +1,8 @@
 ---
 category: Components
-type: 展示
-title: Message
-subTitle: 消息提示
+type: 通用
+title: Button
+subTitle: 按钮
 ---
 
 
