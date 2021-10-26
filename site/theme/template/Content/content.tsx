@@ -61,8 +61,8 @@ const Content = (props: any) => {
             l.push(v)
         }
         let $l  = l.sort((a, b) =>( a.meta.order || 0) - (b.meta.order || 0))
-        return $l.map(content => {
-            return <Demo {...content}/>
+        return $l.map((content, i) => {
+            return <Demo key={i} {...content}/>
         })
     }
     useEffect(() => {

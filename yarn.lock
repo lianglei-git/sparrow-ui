@@ -63,7 +63,7 @@
     semver "^6.3.0"
     source-map "^0.5.0"
 
-"@babel/generator@^7.15.4", "@babel/generator@^7.15.8":
+"@babel/generator@^7.0.0", "@babel/generator@^7.15.4", "@babel/generator@^7.15.8":
   version "7.15.8"
   resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.15.8.tgz#fa56be6b596952ceb231048cf84ee499a19c0cd1"
   integrity sha512-ECmAKstXbp1cvpTTZciZCgfOt6iN64lR0d+euv3UZisU5awfRawOvg07Utn/qBGuH4bRIEZKrA/4LzZyXhZr8g==
@@ -340,7 +340,7 @@
     "@babel/helper-plugin-utils" "^7.14.5"
     "@babel/plugin-syntax-class-static-block" "^7.14.5"
 
-"@babel/plugin-proposal-decorators@^7.0.0":
+"@babel/plugin-proposal-decorators@^7.0.0", "@babel/plugin-proposal-decorators@^7.1.6", "@babel/plugin-proposal-decorators@^7.15.8":
   version "7.15.8"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-decorators/-/plugin-proposal-decorators-7.15.8.tgz#eb2969abf8993f15289f09fed762bb1df1521bd5"
   integrity sha512-5n8+xGK7YDrXF+WAORg3P7LlCCdiaAyKLZi22eP2BwTy4kJ0kFUMMDCj4nQ8YrKyNZgjhU/9eRVqONnjB3us8g==
@@ -886,6 +886,15 @@
     "@babel/helper-plugin-utils" "^7.14.5"
     "@babel/plugin-syntax-typescript" "^7.14.5"
 
+"@babel/plugin-transform-typescript@^7.4.5":
+  version "7.15.8"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-typescript/-/plugin-transform-typescript-7.15.8.tgz#ff0e6a47de9b2d58652123ab5a879b2ff20665d8"
+  integrity sha512-ZXIkJpbaf6/EsmjeTbiJN/yMxWPFWvlr7sEG1P95Xb4S4IBcrf2n7s/fItIhsAmOf8oSh3VJPDppO6ExfAfKRQ==
+  dependencies:
+    "@babel/helper-create-class-features-plugin" "^7.15.4"
+    "@babel/helper-plugin-utils" "^7.14.5"
+    "@babel/plugin-syntax-typescript" "^7.14.5"
+
 "@babel/plugin-transform-unicode-escapes@^7.14.5":
   version "7.14.5"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-unicode-escapes/-/plugin-transform-unicode-escapes-7.14.5.tgz#9d4bd2a681e3c5d7acf4f57fa9e51175d91d0c6b"
@@ -1036,7 +1045,7 @@
     "@babel/parser" "^7.15.4"
     "@babel/types" "^7.15.4"
 
-"@babel/traverse@^7.1.0", "@babel/traverse@^7.13.0", "@babel/traverse@^7.15.4", "@babel/traverse@^7.7.2":
+"@babel/traverse@^7.0.0", "@babel/traverse@^7.1.0", "@babel/traverse@^7.13.0", "@babel/traverse@^7.15.4", "@babel/traverse@^7.7.2":
   version "7.15.4"
   resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.15.4.tgz#ff8510367a144bfbff552d9e18e28f3e2889c22d"
   integrity sha512-W6lQD8l4rUbQR/vYgSuCAE75ADyyQvOpFVsvPPdkhf6lATXAsQIG9YdtOcu8BB1dZ0LKu+Zo3c1wEcbKeuhdlA==
@@ -2929,6 +2938,36 @@ bindings@^1.5.0:
   integrity sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
   dependencies:
     file-uri-to-path "1.0.0"
+
+bisheng-plugin-description@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/bisheng-plugin-description/-/bisheng-plugin-description-0.1.4.tgz#7ecc90b4d7fc244ee2392ad7e10c76e38f249f7f"
+  integrity sha512-1aUcGbWtrr4235fm0OX7H6cRQNhnwYzwe3cGseBd+FMlS8Ild8rJdlRAzqWwto8bVB+Luy9a/theHc5DWnhHhg==
+  dependencies:
+    jsonml.js "^0.1.0"
+
+bisheng-plugin-react@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/bisheng-plugin-react/-/bisheng-plugin-react-1.1.2.tgz#5af864df3c0384bddf82ecbd51d27e4c2d476ee0"
+  integrity sha512-ETJIre2UtyRkKfoX1uRMyIevj5QHckbTK05m/HsGMT7oSs4Rc5PiZ3u5X5r+wHEG+B5lf2g3TobKQKLCww+YFQ==
+  dependencies:
+    "@babel/core" "^7.0.0"
+    "@babel/generator" "^7.0.0"
+    "@babel/plugin-proposal-class-properties" "^7.0.0"
+    "@babel/plugin-proposal-decorators" "^7.1.6"
+    "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
+    "@babel/plugin-transform-typescript" "^7.4.5"
+    "@babel/preset-env" "^7.0.0"
+    "@babel/preset-react" "^7.0.0"
+    "@babel/traverse" "^7.0.0"
+    "@babel/types" "^7.0.0"
+
+bisheng-plugin-toc@^0.4.4:
+  version "0.4.4"
+  resolved "https://registry.yarnpkg.com/bisheng-plugin-toc/-/bisheng-plugin-toc-0.4.4.tgz#3b44501d079fe132b6aa5f5f82bb6a3a481ee4c6"
+  integrity sha512-g/tAOCr9arK51kIcJufy0xwTetNVFA4AY/bP06C9YFGUHlWaayHJl7Udf23soNiPWHElmUjP8jmfkDbn/khyBA==
+  dependencies:
+    jsonml.js "^0.1.0"
 
 bisheng@^3.1.0-beta.4:
   version "3.1.0-beta.4"
@@ -5948,7 +5987,7 @@ is-binary-path@^1.0.0:
   dependencies:
     binary-extensions "^1.0.0"
 
-is-binary-path@~2.1.0:
+is-binary-path@^2.0.0, is-binary-path@~2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/is-binary-path/-/is-binary-path-2.1.0.tgz#ea1f7f3b80f064236e83470f86c09c254fb45b09"
   integrity sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==
@@ -10041,6 +10080,13 @@ source-list-map@^2.0.0, source-list-map@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.1.tgz#3993bd873bfc48479cca9ea3a547835c7c154b34"
   integrity sha512-qnQ7gVMxGNxsiL4lEuJwe/To8UnK7fAnmbGEEH8RpLouuKbeEm0lhbQVFIrNSuB+G7tVrAlVsZgETT5nljf+Iw==
+
+source-loader@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/source-loader/-/source-loader-1.0.0.tgz#dbe890d46c8429fa7ac358c7e648f7f03cbe8738"
+  integrity sha512-gqPvbDNzfyQPXs1gMqfNV8IlKLpsifCO5J7xNRwv47eNvhOeM8eR0cemEJzmqhvjCap+EnCGk9Ao0b5xbzpNKA==
+  dependencies:
+    is-binary-path "^2.0.0"
 
 source-map-js@^0.6.2:
   version "0.6.2"
