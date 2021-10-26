@@ -1,17 +1,31 @@
 import React, { useEffect } from 'react';
+import { browserHistory, Link } from 'bisheng/router';
+import Demo from './Demo'
 import './index.less';
-import {$el} from 'sparrow-ui/es/_utils/dom'
- const Content = (props:any) => {
-     const getMenuItems = () => {
-         let cdata = props.data.components;
-         let components = new Array()
-         for(let k in cdata) {
-             let _i = cdata[k]?.index
+interface Meta {
+    category: string | "Components"
+    filename: string
+    subTitle: string
+    title: string
+    type: string
+}
+const Content = (props: any) => {
+    const to = ($$i: Meta) => {
+        let toL = $$i.filename.split('/');
+        let topath = toL[0] + '/' + toL[1] + '/';
+        return <Link to={topath}> {$$i.title} {$$i.subTitle}</Link>
+    }
+
+    const getMenuItems = () => {
+        let cdata = props.data.components;
+        let components = new Array()
+        for (let k in cdata) {
+            let _i = cdata[k]?.index
             let title = _i?.meta?.title || false;
             console.log(title)
-            if(_i?.meta?.category === 'Components') {
+            if (_i?.meta?.category === 'Components') {
                 let typed = components.find($$i => $$i.type == _i?.meta?.type);
-                if(typed) {
+                if (typed) {
                     typed.children.push(_i?.meta)
                 } else {
                     let type = {
@@ -21,24 +35,36 @@ import {$el} from 'sparrow-ui/es/_utils/dom'
                     components.push(type)
                 }
             }
-         }
+        }
         return <ul>
             {
                 components.map(item => {
                     return <li key={item.type}>
                         <p>{item.type}</p>
                         <ol>
-                            {item.children.map((i2:any) => {
-                                return <li key={i2.title}>
-                                    {i2.title} {i2.subTitle}
-                                </li>
+                            {item.children.map((i2: Meta) => {
+                                return <li
+                                    key={i2.title}
+                                    className={i2.filename.indexOf(location.pathname.slice(1)) > -1 ? 'active' : ''}
+                                >{to(i2)}</li>
                             })}
                         </ol>
                     </li>
                 })
             }
         </ul>
-     }
+    };
+    const demo = () => {
+        const demos = props.demo;
+        const l = new Array();
+        for(let [_, v] of Object.entries(demos)) {
+            l.push(v)
+        }
+        let $l  = l.sort((a, b) =>( a.meta.order || 0) - (b.meta.order || 0))
+        return $l.map(content => {
+            return <Demo {...content}/>
+        })
+    }
     useEffect(() => {
         console.log(props);
         (document.querySelector('.Header') as any).classList.add('cmps')
@@ -48,12 +74,14 @@ import {$el} from 'sparrow-ui/es/_utils/dom'
             {getMenuItems()}
         </div>
         <div className="show-components">
-
+           {demo()}
         </div>
         <div className="code">
-
+        代码块
         </div>
     </div>
 }
 
 export default Content
+
+export {Meta}

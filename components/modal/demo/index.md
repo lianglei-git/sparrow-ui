@@ -2,12 +2,13 @@
 order: 1
 title: 基础弹窗
 ---
+## desc-cn
+
 模态对话框。
 
 
 
 ```jsx
-import 'sparrow-ui'
 ReactDOM.render(
   <>
    双击666

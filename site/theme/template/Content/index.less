@@ -1,7 +1,54 @@
 .main {
     width: 100%;
     height: calc(100% - 64px);
+    display: flex;
     .menu {
-        width: 16%;
+        max-width: 17%;
+        height: 100%;
+        padding: 20px 40px 0 40px;
+        overflow-y: auto;
+
+        ol {
+            list-style: none;
+        }
+
+        ul {
+            li {
+                p {
+                    color: #00000073;
+                    font-size: 13px;
+                    border-bottom: 1px solid #3531312e;
+                    ;
+                    padding-bottom: 10px;
+                    // width: 80%;
+                }
+
+                ol {
+                    li, a {
+                        transition: .5s;
+                        font-size: 13.5px;
+                        color: #33423f;
+                        padding: 10px 0;
+                        font-family: Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+                        cursor: pointer;
+                        &:hover {
+                            color: #09b8b8;
+                        }
+                        &.active {
+                            a {
+                                color: #09b8b8;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .show-components {
+        flex: 1;
+
+    }
+    .code {
+        width: 0;
     }
 }

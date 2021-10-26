@@ -9,5 +9,6 @@ export default collect((nextProps) => {
     if (!pageData) {
         throw 404; // eslint-disable-line no-throw-literal
       }
+      console.log(pageData)
     return Promise.resolve({...pageData})// 这段回掉注入参数 多半是react的源码。要查看一下在bisheng/tmp里面的routers.index.js的文件
 })(Main)
