@@ -1,6 +1,8 @@
-import React from 'react';
-import { Meta } from '../content'
-import ReactDOM from 'react-dom';
+// @ts-nocheck
+import React, { ReactComponentElement } from 'react';
+import { Meta } from '../content';
+import { createEl } from 'sparrow-ui/_utils/dom'
+import './index.less'
 interface Content {
     ['desc-cn']?: string
     code?: string
@@ -9,39 +11,46 @@ interface Content {
 interface Props {
     content: Array<any>
     meta: Meta
+    preview: () => ReactComponentElement<any>
+    highlightedCodes: Object | any
+    childrenSetCode: () => any
 }
+const clipboardObj = navigator.clipboard;
 class Demo extends React.Component<Props> {
-    content: Content
     constructor(props: any) {
         super(props)
     }
-    componentDidMount() {
-        this.content = Object.create(null)
-        this.content.title = this.props.meta.title;
-        // let b = new Function(this.props.content[3][2][1]);
-        // let func = `function(React, ReactDOM){
-        //     ${this.props.content[3][2][1]}
-        // }`
-        // console.log(eval(func)(React, ReactDOM))
+    renderContent(content: any[]) {
+        let c = [...content]
+        let _o = Object.create(null);
+        while (c.length) {
+            let cur = c.shift(),
+                next = c.shift();
+            _o[cur[1]] = next[1];
+        }
+        return <>{_o['desc-cn']}</>
     }
-    demo() {
-        let func = this.props.content.find(i => typeof i == 'function');
-        return func ?? (() => { })
+    copy(highlightedCodes) {
+        let code = createEl('code');
+        let html = highlightedCodes.jsx;
+        code.innerHTML = html;
+        clipboardObj.writeText(code.innerText)
     }
-
     render() {
-        console.log(this.props)
-        return <section id="demo">
-            <div className="introduce">
-           { this.props.meta.title}
-                {/* {eval("ReactDOM.render(\n  <div>\n   双击666\n   <sp-button>按钮点击</sp-button>\n  </div>,\n  mountNode,\n);")} */}
-            </div>
-
+        let { preview, meta, highlightedCodes, content, childrenSetCode = () => { } } = this.props;
+        return <section id={meta.id} className='preview'>
             <div className="cmps_p">
-                 {this.demo()()}
+                {preview()}
             </div>
-
-
+            <div className="introduce" >
+                <h5>{meta.title}</h5>
+                <pre>{this.renderContent(content)}</pre>
+            </div>
+            <ul className='tools'>
+                <li onClick={() => this.copy(highlightedCodes)} className='sp-icon sp-icon-copy' title='复制代码'></li>
+                <li onClick={() => childrenSetCode(highlightedCodes)} className='sp-icon sp-icon-Code' title='代码展示'></li>
+                <li className='sp-icon sp-icon-yunhang' title='在线运行'></li>
+            </ul>
         </section>
     }
 }

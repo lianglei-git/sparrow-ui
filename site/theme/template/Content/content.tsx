@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import { browserHistory, Link } from 'bisheng/router';
-import Demo from './Demo'
+import Demo from './Demo';
+import CodeView from './Demo/CodePreView'
 import './index.less';
 interface Meta {
     category: string | "Components"
@@ -8,8 +9,11 @@ interface Meta {
     subTitle: string
     title: string
     type: string
+    id?: string
 }
 const Content = (props: any) => {
+    const [code, setCode] = useState<Object | any>(null);
+    const codeEl = createRef<HTMLDivElement>() 
     const to = ($$i: Meta) => {
         let toL = $$i.filename.split('/');
         let topath = toL[0] + '/' + toL[1] + '/';
@@ -54,34 +58,41 @@ const Content = (props: any) => {
             }
         </ul>
     };
+
+    const childrenSetCode = (_code: Object) =>  {
+        // (codeEl.current as any).classList.add('active');
+        
+        setCode(code ? null : _code)}
+
     const demo = () => {
         const demos = props.demo;
         const l = new Array();
-        for(let [_, v] of Object.entries(demos)) {
+        for (let [_, v] of Object.entries(demos)) {
             l.push(v)
         }
-        let $l  = l.sort((a, b) =>( a.meta.order || 0) - (b.meta.order || 0))
+        let $l = l.sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
         return $l.map((content, i) => {
-            return <Demo key={i} {...content}/>
+            return <Demo key={i} {...{...content, childrenSetCode}} />
         })
     }
     useEffect(() => {
-        console.log(props);
-        (document.querySelector('.Header') as any).classList.add('cmps')
-    }, [])
+        setCode(null)
+        // (document.querySelector('.Header') as any).classList.add('cmps')
+    }, [location.pathname])
     return <div className='main'>
         <div className="menu">
             {getMenuItems()}
         </div>
         <div className="show-components">
-           {demo()}
+            <h2>代码演示</h2>
+            {demo()}
         </div>
-        <div className="code">
-        代码块
+        <div className={code !== null ? 'code active' : 'code'} ref={codeEl} >
+            <CodeView toReactComponent={props.utils.toReactComponent} code={code} />
         </div>
     </div>
 }
 
 export default Content
 
-export {Meta}
+export { Meta }

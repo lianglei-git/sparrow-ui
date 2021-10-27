@@ -8,7 +8,7 @@ title: 基础弹窗
 
 
 
-```tsx
+```jsx
 import 'sparrow-ui'
 import React, { useState, useEffect, useRef } from 'react'
 const Home = (props) => {

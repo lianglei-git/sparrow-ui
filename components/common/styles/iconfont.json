@@ -1,10 +1,31 @@
 {
   "id": "2850031",
   "name": "sparrow-ui",
-  "font_family": "iconfont",
-  "css_prefix_text": "icon-",
+  "font_family": "sp-icon",
+  "css_prefix_text": "sp-icon-",
   "description": "",
   "glyphs": [
+    {
+      "icon_id": "10561807",
+      "name": "Code",
+      "font_class": "Code",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
+      "icon_id": "19100224",
+      "name": "copy",
+      "font_class": "copy",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "24450207",
+      "name": "运行",
+      "font_class": "yunhang",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
     {
       "icon_id": "552874",
       "name": "iconfont-infofill",

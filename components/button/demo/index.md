@@ -6,7 +6,7 @@ title: 基础按钮
 
 基础按钮
 
-```tsx
+```jsx
 import React, { useState, useEffect, useRef } from 'react'
 
 const Home = (props) => {

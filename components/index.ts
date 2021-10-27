@@ -13,4 +13,9 @@ const Spui = {
 
 
 getGlobalThis().Spui = Spui
-export default Modal
+export default Spui
+
+export {
+    Modal,
+    Message
+}

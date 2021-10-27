@@ -6,8 +6,31 @@ module.exports = {
     plugins: [
         'bisheng-plugin-description',
         'bisheng-plugin-toc?maxDepth=2&keepElem',
-        'bisheng-plugin-react?lang=tsx',//
+        '@ant-design/bisheng-plugin?injectProvider',
+        'bisheng-plugin-react?lang=__react',
     ],
+    // pick: {
+    //     components(markdownData) {
+    //         console.log(markdownData)
+    //       const { filename } = markdownData.meta;
+    //       if (!/^components/.test(filename) || /[/\\]demo$/.test(path.dirname(filename))) {
+    //         return null;
+    //       }
+    //       return {
+    //         meta: markdownData.meta,
+    //       };
+    //     },
+    //     changelog(markdownData) {
+    //       if (/CHANGELOG/.test(markdownData.meta.filename)) {
+    //         return {
+    //           meta: markdownData.meta,
+    //         };
+    //       }
+    //       return null;
+    //     },
+    //     // 'docs/react': pickerGenerator('react'),
+    //     // 'docs/spec': pickerGenerator('spec'),
+    //   },
     routes: {
         path: '/',
         component: './template/Layout/index.jsx',

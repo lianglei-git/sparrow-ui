@@ -11,6 +11,7 @@ module.exports = {
       // }]
       // ["es2015", { "modules": false }]
     ],
+    // filename: './'
     // "plugins": ["@babel/transform-runtime"]
   };
 
