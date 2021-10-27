@@ -2,6 +2,7 @@
 import React, { ReactComponentElement } from 'react';
 import { Meta } from '../content';
 import { createEl } from 'sparrow-ui/_utils/dom'
+import {Message} from 'sparrow-ui'
 import './index.less'
 interface Content {
     ['desc-cn']?: string
@@ -35,10 +36,11 @@ class Demo extends React.Component<Props> {
         let html = highlightedCodes.jsx;
         code.innerHTML = html;
         clipboardObj.writeText(code.innerText)
+        Message.success('复制成功')
     }
     render() {
-        let { preview, meta, highlightedCodes, content, childrenSetCode = () => { } } = this.props;
-        return <section id={meta.id} className='preview'>
+        let { preview, meta, highlightedCodes, content, childrenSetCode = () => { }, className} = this.props;
+        return <section id={meta.id} className={'preview ' +  className}>
             <div className="cmps_p">
                 {preview()}
             </div>
@@ -48,7 +50,7 @@ class Demo extends React.Component<Props> {
             </div>
             <ul className='tools'>
                 <li onClick={() => this.copy(highlightedCodes)} className='sp-icon sp-icon-copy' title='复制代码'></li>
-                <li onClick={() => childrenSetCode(highlightedCodes)} className='sp-icon sp-icon-Code' title='代码展示'></li>
+                <li onClick={() => childrenSetCode(highlightedCodes, this.props)} className='sp-icon sp-icon-Code' title='代码展示'></li>
                 <li className='sp-icon sp-icon-yunhang' title='在线运行'></li>
             </ul>
         </section>

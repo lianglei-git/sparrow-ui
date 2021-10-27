@@ -2,6 +2,8 @@ import React, { createRef, useEffect, useState } from 'react';
 import { browserHistory, Link } from 'bisheng/router';
 import Demo from './Demo';
 import CodeView from './Demo/CodePreView'
+import { getChildren } from 'jsonml.js/lib/utils';
+
 import './index.less';
 interface Meta {
     category: string | "Components"
@@ -11,9 +13,13 @@ interface Meta {
     type: string
     id?: string
 }
+const ComponentInMarkdown = React.memo(({ content, utils }: any) =>
+    utils.toReactComponent(['section', { className: 'markdown' }].concat(getChildren(content))),
+);
 const Content = (props: any) => {
     const [code, setCode] = useState<Object | any>(null);
-    const codeEl = createRef<HTMLDivElement>() 
+    const [curCodeDetails, setCodeDetails] = useState('')
+    const codeEl = createRef<HTMLDivElement>()
     const to = ($$i: Meta) => {
         let toL = $$i.filename.split('/');
         let topath = toL[0] + '/' + toL[1] + '/';
@@ -59,10 +65,11 @@ const Content = (props: any) => {
         </ul>
     };
 
-    const childrenSetCode = (_code: Object) =>  {
+    const childrenSetCode = (_code: Object, props: any) => {
+        setCodeDetails(props.meta.id)
         // (codeEl.current as any).classList.add('active');
-        
-        setCode(code ? null : _code)}
+        setCode(_code)
+    }
 
     const demo = () => {
         const demos = props.demo;
@@ -72,10 +79,11 @@ const Content = (props: any) => {
         }
         let $l = l.sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
         return $l.map((content, i) => {
-            return <Demo key={i} {...{...content, childrenSetCode}} />
+            return <Demo key={i} {...{ ...content, childrenSetCode, className: content.meta.id == curCodeDetails ? 'active' : '' }} />
         })
     }
     useEffect(() => {
+        console.log(props)
         setCode(null)
         // (document.querySelector('.Header') as any).classList.add('cmps')
     }, [location.pathname])
@@ -84,12 +92,25 @@ const Content = (props: any) => {
             {getMenuItems()}
         </div>
         <div className="show-components">
+            <h1>
+                {props.index.meta.title} {props.index.meta.subTitle}
+            </h1>
+            <ComponentInMarkdown utils={props.utils} content={props.index.content}></ComponentInMarkdown>
             <h2>代码演示</h2>
             {demo()}
+            {props.utils.toReactComponent(
+                [
+                    'section',
+                    {
+                        className: 'markdown api-container',
+                    },
+                ].concat(getChildren(props.index.api || ['placeholder'])),
+            )}
         </div>
         <div className={code !== null ? 'code active' : 'code'} ref={codeEl} >
             <CodeView toReactComponent={props.utils.toReactComponent} code={code} />
         </div>
+
     </div>
 }
 

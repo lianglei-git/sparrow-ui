@@ -9,7 +9,6 @@ title: 普通提示
 ```jsx
 import {Message} from 'sparrow-ui';
 const info = () => {
-    console.log(Message)
     Message.info('全局的提示')
 }
 ReactDOM.render(<>

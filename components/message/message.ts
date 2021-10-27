@@ -113,7 +113,6 @@ function Message(params: Props = typeProps()) {
         delete props.beforeClose;
     }
     
-    
     for (let k in props) {
         t[`attr-${k}`] = (props as any)[k] + '';
     }

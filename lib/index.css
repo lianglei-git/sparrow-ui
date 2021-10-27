@@ -123,6 +123,48 @@
   }
 }
 
+.sp-message {
+  min-width: 380px;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  background-color: var(--color-white);
+  padding: 10px;
+  box-shadow: 0 0 10px 1px #ccc;
+  border-radius: 3px;
+  align-items: center;
+  transition: 0.3s;
+  opacity: 1;
+}
+.sp-message-content {
+  display: flex;
+  flex: 1;
+}
+.sp-message .sp-icon {
+  font-size: 18px;
+  margin-right: 10px;
+}
+.sp-message .sp-icon-success {
+  color: green;
+}
+.sp-message .sp-icon-error {
+  color: #db1616;
+}
+.sp-message .sp-icon-info {
+  color: var(--color-text-regular);
+}
+.sp-message .sp-icon-close {
+  margin-left: 10px;
+  font-size: 18px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  font-weight: bold;
+}
+.sp-message .sp-icon-close:hover {
+  color: var(--color-primary);
+}
+
 @import 'iconfont.css';
 :root {
   --color-primary: #409EFF;

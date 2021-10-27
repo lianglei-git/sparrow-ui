@@ -50,7 +50,7 @@
         box-sizing: border-box;
         flex: 1;
         border-right: 1px dotted #ccc;
-
+        overflow-y: auto;
     }
     .code {
         width: 0;
@@ -66,7 +66,7 @@
     }
 }
 
-h2, h3, h4, h5, h6{
+h1,h2, h3, h4, h5, h6{
     clear: both;
     margin: 1.6em 0 .6em;
     color: #000000d9;
@@ -76,4 +76,46 @@ h2, h3, h4, h5, h6{
 h2 {
     font-size: 24px;
     line-height: 32px;
+}
+
+h1 {
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.markdown {
+    >p {
+        margin: 1em 0;
+        color:rgba(0, 0, 0, 0.85)
+    }
+    #何时使用 {
+        a {
+            display: none;
+        }
+    }
+    ul {
+        li {
+            margin-left: 30px;
+            list-style-type: disc;
+            color: #4e4747;
+        }
+    }
+}
+#API {
+    &:hover {
+        color: rgb(125, 130, 121);
+    }
+    
+}
+.api-container {
+    >table {
+        width: fit-content !important;
+        thead {
+            tr {
+                th {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
 }
