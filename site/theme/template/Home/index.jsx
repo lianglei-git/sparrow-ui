@@ -70,7 +70,7 @@ const Home = (props) => {
         }, '')
 
         Spui.Message.success({
-            message: str,
+            message: 'str',
             duration: 3000,
             showclose: true,
             beforeClose() {

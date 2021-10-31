@@ -46,9 +46,16 @@ class MessageBase {
                             });
                             this.remove();
                         } else {
-                            setStyle(this, {
-                                transform: 'translate(-50%, 0%)'
-                            })
+                                setStyle(this, {
+                                    opacity: '0',
+                                    transform: 'translate(-50%, -100%)'
+                                });
+                                sto(() => {
+                                    setStyle(this, {
+                                        transform: 'translate(-50%,0%)',
+                                        opacity: '1',
+                                    })
+                                })
                         }
                     }],
                 ]))
@@ -68,6 +75,7 @@ class MessageBase {
             top: top + 'px',
             zIndex: getIndex() + '',
         });
+
     }
 
     protected initView = function () {

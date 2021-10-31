@@ -2,14 +2,14 @@
     min-width: 380px;
     position: fixed;
     left: 50%;
-    transform: translate(-50%);
+    transform: translateX(-50%);
     display: flex;
     background-color: var(--color-white);
     padding: 10px;
     box-shadow: 0 0 10px 1px #ccc;
     border-radius: 3px;
     align-items: center;
-    transition: .3s;
+    transition: opacity .3s,transform 0.3s,top .4s;
     opacity: 1;
     &-content {
         display: flex;
@@ -29,6 +29,7 @@
         }
     }
     .sp-icon-close {
+        // opacity: 0;
         margin-left: 10px;
         font-size: 18px;
         color: var(--color-text-secondary);
