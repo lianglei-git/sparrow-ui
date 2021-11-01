@@ -1,0 +1,56 @@
+.sp-switch {
+    min-width: 40px;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #dcdfed;
+    cursor: pointer;
+    vertical-align: middle;
+    border: 1px solid #dcdfed;
+    box-sizing: border-box;
+    position: relative;
+    transition: all .3s;
+    &-icon {
+        width: 16px;
+        height: 16px;
+        display: flex;
+        background-color: #fff;
+        border-radius: 50%;
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        transition:all .3s;
+        &.sp-icon-loading {
+            background-color: transparent;
+        }
+    }
+    &-text {
+        // position: absolute;
+        font-size: 14px;
+        transition:all .3s;
+        // top: 50%;
+        transform: translateX(3px);
+        // left: 1px;
+    }
+    &.small {
+        min-width: 28px;
+        height: 16px;
+        .sp-switch-icon {
+            width: 12px;
+            height: 12px;
+            font-size: 12px;
+        }
+        .sp-switch-text {
+            font-size: 12px;
+        }
+    }
+
+
+
+
+    &.is-disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+    }
+}

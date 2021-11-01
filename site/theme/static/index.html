@@ -15,7 +15,7 @@
     <!-- <script type="module">
         import { Button } from 'sparrow-ui/button/index'
       </script> -->
-    <div id="react-content">{{content | safe}}</div>
+    <div id="react-content">{{ content | safe }}</div>
     {% for jsFile in manifest["js"] %}
     <script src="{{ root }}{{jsFile}}"></script>
     {% endfor %}

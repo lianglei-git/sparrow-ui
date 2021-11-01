@@ -17,6 +17,15 @@
   --color-black: #000;
   --background-color-base: #F5F7FA;
 }
+.sp-icon-loading::before {
+  display: inline-block;
+  animation: loadingCircle 1s infinite linear;
+}
+@keyframes loadingCircle {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 .sp-button {
   background-color: var(--color-white);
@@ -54,7 +63,7 @@
   position: relative;
   padding-left: 32px;
 }
-.sp-button.is-loading > div {
+.sp-button.is-loading > .sp-icon-loading {
   position: absolute;
   display: inline-block;
   left: 12px;
@@ -62,14 +71,11 @@
   height: 16px;
   animation: loadingLeftTme 0.4s linear;
 }
-.sp-button.is-loading svg {
-  animation: loadingCircle 1s infinite linear;
-}
 .sp-button.empty-loading {
   position: inherit;
   padding: 12px;
 }
-.sp-button.empty-loading > div {
+.sp-button.empty-loading > .sp-icon-loading {
   position: inherit;
 }
 .sp-button-mini {
@@ -79,10 +85,12 @@
 .sp-button-mini.is-loading {
   padding-left: 24px;
 }
-.sp-button-mini.is-loading > div {
+.sp-button-mini.is-loading > .sp-icon-loading {
   left: 6px;
   width: 14px;
   height: 14px;
+  font-size: 12px;
+  animation: loadingLeftTmeMini 0.4s linear;
 }
 .sp-button-mini.empty-loading {
   padding: 6px;
@@ -94,7 +102,7 @@
 .sp-button-small.is-loading {
   padding-left: 27px;
 }
-.sp-button-small.is-loading > div {
+.sp-button-small.is-loading > .sp-icon-loading {
   left: 9px;
   width: 15px;
   height: 15px;
@@ -117,9 +125,12 @@
     left: 12px;
   }
 }
-@keyframes loadingCircle {
+@keyframes loadingLeftTmeMini {
+  from {
+    left: 0px;
+  }
   to {
-    transform: rotate(360deg);
+    left: 6px;
   }
 }
 
@@ -127,14 +138,14 @@
   min-width: 380px;
   position: fixed;
   left: 50%;
-  transform: translate(-50%);
+  transform: translateX(-50%);
   display: flex;
   background-color: var(--color-white);
   padding: 10px;
   box-shadow: 0 0 10px 1px #ccc;
   border-radius: 3px;
   align-items: center;
-  transition: 0.3s;
+  transition: opacity 0.2s, transform 0.3s, top 0.3s;
   opacity: 1;
 }
 .sp-message-content {
@@ -154,6 +165,9 @@
 .sp-message .sp-icon-info {
   color: var(--color-text-regular);
 }
+.sp-message .sp-icon-loading {
+  color: var(--color-primary);
+}
 .sp-message .sp-icon-close {
   margin-left: 10px;
   font-size: 18px;
@@ -163,6 +177,15 @@
 }
 .sp-message .sp-icon-close:hover {
   color: var(--color-primary);
+}
+.sp-message-fade-enter,
+.sp-message-fade-leave {
+  opacity: 0;
+  transform: translate(-50%, -100%);
+}
+.sp-message-fade-enter-active {
+  opacity: 1;
+  transform: translate(-50%, 0%);
 }
 
 @import 'iconfont.css';
@@ -183,6 +206,15 @@
   --color-white: #fff;
   --color-black: #000;
   --background-color-base: #F5F7FA;
+}
+.sp-icon-loading::before {
+  display: inline-block;
+  animation: loadingCircle 1s infinite linear;
+}
+@keyframes loadingCircle {
+  to {
+    transform: rotate(360deg);
+  }
 }
 .sp-modal {
   width: 30%;

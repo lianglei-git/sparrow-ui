@@ -7,9 +7,10 @@ module.exports = {
   source: {
     components: './components',
   },
-  hash: true,
+  hash: false,
   theme: './site/theme',
   port: 8000,
+  root: './',
   htmlTemplate: './site/theme/static/index.html',
   themeConfig: {},
   webpackConfig(config) {
