@@ -19,6 +19,17 @@
     .introduce {
 
         position: relative;
+        code {
+            display: inline-block;
+            margin: 0 1px;
+            padding: 0.2em 0.4em;
+            font-size: 0.9em;
+            background: #f2f4f5;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 3px;
+            line-height: inherit;
+            color: #4e5059;
+        }
 
         &::after {
             content: '';
@@ -48,6 +59,7 @@
             box-sizing: border-box;
             font-size: 13.5px;
             border-bottom: 1px dotted #ccc;
+            white-space: pre-wrap;
         }
     }
 
@@ -71,4 +83,8 @@
     .sp-button {
         margin: 0 5px;
     }
+}
+
+#desc-cn {
+    display: none;
 }

@@ -1,5 +1,5 @@
 
-import { runIFELSE, sto, isObject } from '../_utils/common'
+import { runIFELSE, sto, isObject, has } from '../_utils/common'
 import { getIndex, setIndex } from '../common/index'
 import typeProps from './type'
 import { defineEl, createEl, setStyle, getProps, $el } from '../_utils/dom'
@@ -15,7 +15,10 @@ class MessageBase {
             observedAttributes: Object.keys(typeProps()),
             connectedCallback() {
                 (this.attrs as Props) = getProps(this);
-                this.attrs = { ...typeProps(), ...this.attrs }
+                this.attrs = { ...typeProps(), ...this.attrs };
+                this.close = () => {
+                    this['attr-visible'] = false;
+                }
                 sto(() => {
                     self.initView.call(this)
                 })
@@ -24,40 +27,29 @@ class MessageBase {
             attributeChangedCallback(...args) {
                 let [key, _, newval] = args;
                 let elAlls: Array<any> = Array.from($el('sp-message'));
-            
+
                 runIFELSE.call(this, new Set([
                     [key == 'visible', () => {
                         let offsetHeight = this.offsetHeight
                         newval && setIndex();
                         if (newval == 'false') {
-                            console.log(this.id)
+                            this.classList.add('sp-message-fade-leave')
                             let _index = elAlls.findIndex(i => i.id == this.id);
                             this.beforeClose && this.beforeClose();
-                            elAlls.forEach((element: any, i:number) => {
-                                if(i >= _index) {
+                            elAlls.forEach((element: any, i: number) => {
+                                if (i >= _index) {
                                     setStyle(element, {
                                         top: parseInt(element.style.top, 10) - offsetHeight - 20 + 'px'
                                     })
                                 }
                             });
-                            setStyle(this, {
-                                opacity: '0',
-                                transform: 'translate(-50%, -100%)'
-                            });
-                            this.remove();
+                            this.beforeDistroy?.()
+                            sto(() => this.remove(), 290)
                         } else {
-                                setStyle(this, {
-                                    opacity: '0',
-                                    transform: 'translate(-50%, -100%)'
-                                });
-                                sto(() => {
-                                    setStyle(this, {
-                                        transform: 'translate(-50%,0%)',
-                                        opacity: '1',
-                                    })
-                                })
+                            this.classList.add('sp-message-fade-enter')
+                            sto(() => this.classList.add('sp-message-fade-enter-active'))
                         }
-                    }],
+                    }]
                 ]))
             }
         })
@@ -65,9 +57,9 @@ class MessageBase {
 
     public setup = function () {
         let allEls: NodeList | any = $el('sp-message')
-        let propsOffset = +this.attrs.offset || 20
+        let propsOffset = parseInt(this.attrs.offset) || 20
         let top: Number = [...allEls].reduce((total, el) => {
-            total += el.offsetHeight + 20
+            el['attr-visible'] == 'true' && (total += el.offsetHeight + propsOffset)
             return total
         }, propsOffset);
         this['attr-visible'] = 'true';
@@ -80,11 +72,11 @@ class MessageBase {
 
     protected initView = function () {
         this.className = 'sp-message sp-message-' + this.attrs.type
-        this.id= 'sp-message__'+ getIndex()
+        this.id = 'sp-message__' + getIndex()
         let iconEl: HTMLElement = createEl('span'),
             contentEl: HTMLElement = createEl('div'),
             closeEl: HTMLElement = createEl('span'),
-            t:any = null;
+            t: any = null;
 
         contentEl.innerHTML = this.attrs.message
         iconEl.className = 'sp-icon sp-icon-' + this.attrs.type
@@ -93,8 +85,8 @@ class MessageBase {
         this.appendChild(iconEl);
         this.appendChild(contentEl);
         this.attrs.showclose == 'true' && this.appendChild(closeEl);
-        if(+this.attrs.duration > 0) {
-         t = sto(() => {
+        if (+this.attrs.duration > 0) {
+            t = sto(() => {
                 this['attr-visible'] = false;
             }, +this.attrs.duration)
         }
@@ -105,10 +97,6 @@ class MessageBase {
         setStyle(contentEl, {
             justifyContent: this.attrs.center == 'true' ? 'center' : ''
         })
-
-        this.close = () => {
-            this['attr-visible'] = false;
-        }
     }
 }
 
@@ -116,24 +104,37 @@ function Message(params: Props = typeProps()) {
     let props: Props = { ...typeProps(), ...params };
     delete props.visible;
     let t = createEl('sp-message');
-    if(Reflect.has(props, 'beforeClose')) {
-        t.beforeClose = props.beforeClose;
-        delete props.beforeClose;
-    }
-    
+    runIFELSE(new Set([
+        [has(props, 'beforeClose'), () => {
+            t.beforeClose = props.beforeClose;
+            delete props.beforeClose;
+        }],
+        [has(params, 'style'), () => {
+            setStyle(t, (params.style as any))
+            delete props.style;
+        }],
+        [has(params, 'className'), () => {
+            t.classList.add(params.className);
+            delete params.className;
+        }]
+    ]))
     for (let k in props) {
         t[`attr-${k}`] = (props as any)[k] + '';
     }
     document.body.appendChild(t);
     t.setup();
-    return t;
+    let p = new Promise(r => {
+        t.beforeDistroy = () => r(t)
+    })
+    return Object.assign(p, t)
 }
-['info', 'success', 'error'].forEach((type: string) => {
-    (Message as any)[type] = (options: Props | any) => {
+
+['info', 'success', 'error', 'loading'].forEach((type: string) => {
+    (Message as any)[type] = (options: Props | any, args: any[]) => {
         if (isObject(options)) {
             return Message({ ...options, type })
         }
-        return Message({ type, message: options })
+        return Message({ type, message: options, ...args })
     }
 });
 

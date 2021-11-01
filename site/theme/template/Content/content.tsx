@@ -79,7 +79,7 @@ const Content = (props: any) => {
         }
         let $l = l.sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
         return $l.map((content, i) => {
-            return <Demo key={i} {...{ ...content, childrenSetCode, className: content.meta.id == curCodeDetails ? 'active' : '' }} />
+            return <Demo key={i} {...{ ...content, childrenSetCode,utils: props.utils, className: content.meta.id == curCodeDetails ? 'active' : '' }} />
         })
     }
     useEffect(() => {

@@ -23,13 +23,15 @@ class Demo extends React.Component<Props> {
     }
     renderContent(content: any[]) {
         let c = [...content]
-        let _o = Object.create(null);
-        while (c.length) {
-            let cur = c.shift(),
-                next = c.shift();
-            _o[cur[1]] = next[1];
-        }
-        return <>{_o['desc-cn']}</>
+        // let _o = Object.create(null);
+        // console.log(content)
+        // while (c.length) {
+        //     let cur = c.shift(),
+        //         next = c.shift();
+        //     _o[cur[1]] = next[1];
+        // }
+            
+        return <>{this.props.utils.toReactComponent(['div'].concat(c))}</>
     }
     copy(highlightedCodes) {
         let code = createEl('code');

@@ -15,5 +15,6 @@ ReactDOM.render(<>
 <sp-button onClick={() => click('info')}>info</sp-button>
 <sp-button onClick={() => click('success')}>success</sp-button>
 <sp-button onClick={() => click('error')}>error</sp-button>
+<sp-button onClick={() => click('loading')}>loading</sp-button>
 </>,mountNode)
 ```

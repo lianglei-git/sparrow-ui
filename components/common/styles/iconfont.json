@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1191851",
+      "name": "loading_2",
+      "font_class": "loading",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
       "icon_id": "10561807",
       "name": "Code",
       "font_class": "Code",
@@ -29,7 +36,7 @@
     {
       "icon_id": "552874",
       "name": "iconfont-infofill",
-      "font_class": "iconfontinfofill",
+      "font_class": "info",
       "unicode": "e659",
       "unicode_decimal": 58969
     },

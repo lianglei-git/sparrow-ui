@@ -41,3 +41,5 @@ export const sto: (fn: Function, time?: number) => any = (fn, time = 16) => {
 }
 
 export const isObject = (tar:any) => Object.prototype.toString.call(tar) === '[object Object]'
+
+export const has = (target:Object, key: string) => Reflect.has(target, key)

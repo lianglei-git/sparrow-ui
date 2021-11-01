@@ -9,7 +9,7 @@
     box-shadow: 0 0 10px 1px #ccc;
     border-radius: 3px;
     align-items: center;
-    transition: opacity .3s,transform 0.3s,top .4s;
+    transition: opacity .2s,transform 0.3s,top .3s;
     opacity: 1;
     &-content {
         display: flex;
@@ -27,6 +27,10 @@
         &-info {
             color: var(--color-text-regular);
         }
+        &-loading {
+            color: var(--color-primary);
+
+        }
     }
     .sp-icon-close {
         // opacity: 0;
@@ -39,5 +43,9 @@
         &:hover {
             color: var(--color-primary);
         }
+    }
+    &-fade-enter, &-fade-leave {opacity:0;transform:translate(-50%,-100%)}
+    &-fade-enter-active {
+        opacity:1;transform:translate(-50%,0%)
     }
 }

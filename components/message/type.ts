@@ -6,7 +6,9 @@ const messageTypeslProps = () => ({
     showclose: false, // 	是否显示关闭按钮
     center: false, // 文字是否居中
     offset: 20, // Message 距离窗口顶部的偏移量
-    beforeClose: () => {}
+    beforeClose: () => {},
+    style: undefined,
+    className: ''
 })
 
 

@@ -1,3 +1,4 @@
+// @import '../../common/styles/theme.less';
 .sp-button {
     background-color: var(--color-white);
     display: inline-block;
@@ -38,8 +39,7 @@
         transition: .4s;
         position: relative;
         padding-left: 32px;
-
-        >div {
+        >.sp-icon-loading {
             position: absolute;
             display: inline-block;
             left: 12px;
@@ -47,18 +47,12 @@
             height: 16px;
             animation: loadingLeftTme .4s linear;
         }
-
-        svg {
-            // width: 100%;
-            // height: 100%;
-            animation: loadingCircle 1s infinite linear;
-        }
     }
 
     &.empty-loading {
         position: inherit;
         padding: 12px;
-        >div {
+        >.sp-icon-loading{
             position: inherit;
         }
     }
@@ -68,10 +62,12 @@
         padding: 6px 10px;
         &.is-loading{
             padding-left: 24px;
-            >div { 
+            >.sp-icon-loading { 
                 left: 6px;
                 width: 14px;
                 height: 14px;  
+                font-size: 12px;
+                animation: loadingLeftTmeMini .4s linear;
             }
         }
         &.empty-loading {
@@ -83,7 +79,7 @@
         padding: 9px 13px;
         &.is-loading{
             padding-left: 27px;
-            >div { 
+            >.sp-icon-loading{ 
                 left: 9px;
                 width: 15px;
                 height: 15px;  
@@ -114,8 +110,13 @@
     }
 }
 
-@keyframes loadingCircle {
+
+@keyframes loadingLeftTmeMini {
+    from {
+        left: 0px;
+    }
+
     to {
-        transform: rotate(360deg)
+        left: 6px;
     }
 }

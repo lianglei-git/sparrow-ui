@@ -18,6 +18,7 @@ subTitle: 消息提示
 - `Message.success(content, [params])`
 - `Message.error(content, [params])`
 - `Message.info(content, [params])`
+- `Message.loading(content, [params])`
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -30,7 +31,7 @@ subTitle: 消息提示
 
 | 参数        | 说明                                  | 类型                     | 默认值    | 版本 |
 | ----------- | ------------------------------------- | ------------------------ | --------- | ---- |
-| type        | 主题                                  | 'success','error','info' | 'success' |      |
+| type        | 主题                                  | 'success'\|'error'\|'info'\| 'loading' | 'success' |      |
 | showclose   | 是否显示右上角的关闭按钮              | boolean                  | false     |      |
 | duration    | 显示时间, 毫秒。设为 0 则不会自动关闭 | Number                   | 3000      |      |
 | center      | 文字是否居中                          | boolean                  | false     |      |

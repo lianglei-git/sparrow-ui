@@ -21,3 +21,17 @@
    --color-black: #000;
    --background-color-base: #F5F7FA;
 }
+
+.sp-icon-loading {
+   &::before {
+      display: inline-block;
+      animation: loadingCircle 1s infinite linear;
+   }
+}
+
+
+@keyframes loadingCircle {
+   to {
+       transform: rotate(360deg)
+   }
+}
