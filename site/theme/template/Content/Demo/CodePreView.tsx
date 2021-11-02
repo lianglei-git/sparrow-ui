@@ -7,12 +7,16 @@ export default (props:Props) => {
     }, [props.code])
 
     return <div className='showCode'>
-        {props.code !== null ? props.toReactComponent([
-                'pre',{
-                    lang: 'jsx',
-                    highlighted: props.code['jsx']
-                }
-            ]) : ''}
+        {props.code !== null && props.code.length ? props.code.map((t:any) => {
+            for(let k in t) {
+                return props.toReactComponent([
+                    'pre',{
+                        lang: k,
+                        highlighted: t[k]
+                    }
+                ])
+            }
+        }) :''}
     </div>
 }
 

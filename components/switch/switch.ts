@@ -1,9 +1,9 @@
 import { switchTypesProps, switchProps } from './type'
-import { runIFELSE, sto } from '../_utils/common'
-import { getIndex, setIndex } from '../common/index'
+import { runIFELSE } from '../_utils/common'
 import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
 import './style'
 const keys: string[] = Object.keys(switchProps);
+const iconbaseclass = 'sp-switch-icon sp-icon '
 class Switch {
     constructor() {
         let self = this
@@ -16,8 +16,10 @@ class Switch {
                 this.isActive = false;
 
                 this.onclick = (_: Event) => {
+                    this.onClick?.(this.isActive, this)
                     if (this['attr-disabled'] == 'true') return
                     self.click(this)
+                    this.onChange?.(this.isActive, this)
                 }
                 Object.defineProperty(this, 'isActive', {
                     enumerable: false,
@@ -25,7 +27,10 @@ class Switch {
                         setStyle(this, {
                             backgroundColor: !v ? this.attrs?.['inactive-color'] || '#dcdfed' : this.attrs?.['active-color'] || '#409eff'
                         })
-                        this.textEl && (this.textEl.textContent = !v ?this.attrs?.['inactive-text'] || '' : this.attrs?.['active-text'] || '')
+                        this.textEl && (this.textEl.textContent = !v ? this?.['attr-inactive-text'] || '' : this?.['attr-active-text'] || '')
+                        if (this.iconEl && this?.['attr-loading'] !== 'true') {
+                                this.iconEl.set(!this.isActive ?this?.['attr-active-icon']:this?.['attr-inactive-icon'])
+                        }
                         this['_isActive'] = v;
                     },
                     get() {
@@ -47,11 +52,11 @@ class Switch {
         let small = root.className.indexOf('small') > -1
         let iconleft = (is ? 1 : root.offsetWidth - (small ? 12 : 16) - 3) + 'px';
         setStyle(root.iconEl, { left: iconleft });
-        setStyle(root.textEl, { transform:`translateX(${!is ? 3+ 'px': (root.offsetWidth - root.iconEl.offsetWidth- (root.textEl.offsetWidth / 2) - 2) + 'px'})`});
+        setStyle(root.textEl, { transform: `translateX(${!is ? 3 + 'px' : (root.offsetWidth - root.iconEl.offsetWidth - (root.textEl.offsetWidth / 2) - 2) + 'px'})` });
     }
     private initView(root: HTMLElement & { isActive: boolean } | any) {
         let text: HTMLSpanElement = createEl('span'),
-            icon: HTMLElement = createEl('em');
+            icon: HTMLElement & { set(v: string): any } = createEl('em');
         root.classList.add('sp-switch');
         icon.classList.add('sp-switch-icon');
         text.classList.add('sp-switch-text');
@@ -60,6 +65,9 @@ class Switch {
         }
         root.appendChild(text);
         root.appendChild(icon);
+        icon.set = (v) => {
+            icon.className = iconbaseclass + v
+        }
         this.set({ attrs: root.attrs, target: root, text, icon })
         root.textEl = text;
         root.iconEl = icon;
@@ -69,15 +77,29 @@ class Switch {
     set({ attrs, target, icon, text }: any) {
         runIFELSE(new Set([
             [attrs?.['classname'], () => {
-                target.className = `sp-switch ${attrs?.['classname']} ${target?.isActive ? 'sp-switch-active' : 'sp-switch-inactive'}`
+                let str = 'sp-switch ' + attrs?.['classname'] + ' '
+                    //   + (target?.['attr-loading'] == 'true'? 'sp-icon sp-icon-loading ' : ' ')
+                    + (target?.['attr-size'] || 'default') + ' '
+                    + (target?.['attr-disabled'] == 'true' ? 'is-disabled ' : ' ')
+                target.className = str
             }],
-            [attrs?.['loading'], () => {
+            [attrs?.['loading'] && icon, () => {
                 let isloading: string = attrs?.['loading'];
-                let type = isloading == 'true' ? 'add' : isloading == 'false' ? 'remove' : 0;
-                type && (icon?.classList as any)?.[type]('sp-icon', 'sp-icon-loading')
+                if (isloading == 'false') {
+                    icon.classList.remove('sp-icon-loading')
+                } else if (isloading == 'true') {
+                    icon.set('sp-icon-loading')
+                }
             }],
-            [attrs?.['active-icon'] || attrs?.['inactive-icon'], () => {
-                icon.classList.add(attrs?.['active-icon'], attrs?.['inactive-icon'])
+            [attrs?.['active-icon'], () => {
+                if (attrs?.['active-icon'].indexOf('sp-icon') > -1) {
+                    target.isActive && icon.set(attrs?.['active-icon'])
+                }
+            }],
+            [attrs?.['inactive-icon'], () => {
+                if (attrs?.['inactive-icon'].indexOf('sp-icon') > -1) {
+                    !target.isActive && icon.set(attrs?.['inactive-icon'])
+                }
             }],
             [attrs?.['size'], () => {
                 target.classList.add(attrs?.['size'])
@@ -106,7 +128,7 @@ class Switch {
                 let small = target.className.indexOf('small') > -1
                 let left = (!is ? 1 : parseInt(width) - (small ? 12 : 16) - 3) + 'px';
                 icon && setStyle(icon, { left });
-                text && icon && setStyle(text, { transform:`translateX(${is ? 3+ 'px': (parseInt(width) - icon.offsetWidth- (text.offsetWidth / 2) - 2) + 'px'})`});
+                text && icon && setStyle(text, { transform: `translateX(${is ? 3 + 'px' : (parseInt(width) - icon.offsetWidth - (text.offsetWidth / 2) - 2) + 'px'})` });
             }],
         ]));
     }

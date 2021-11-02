@@ -20,6 +20,10 @@ const clipboardObj = navigator.clipboard;
 class Demo extends React.Component<Props> {
     constructor(props: any) {
         super(props)
+        this.state = {
+            codes: [], // 展示
+            hightCodes: [] // 执行
+        }
     }
     renderContent(content: any[]) {
         let c = [...content]
@@ -33,6 +37,25 @@ class Demo extends React.Component<Props> {
             
         return <>{this.props.utils.toReactComponent(['div'].concat(c))}</>
     }
+    componentDidMount() {
+        let codes = [this.props.highlightedCodes];
+        let hightCodes = []
+        for(let [k, ...v] of this.props.content){
+            if(k == 'pre') {
+                for(let i = 0; i< v.length; i++){
+                    if(v[i]?.length && v[i][0] == 'code') {
+                        hightCodes.push(v[i][1])
+                    } else if(v[i]?.lang){
+                        codes.push({[v[i].lang]:v[i].highlighted})
+                    }
+                }
+            }
+        }
+        this.setState({
+            codes,
+            hightCodes
+        })
+    }
     copy(highlightedCodes) {
         let code = createEl('code');
         let html = highlightedCodes.jsx;
@@ -40,11 +63,46 @@ class Demo extends React.Component<Props> {
         clipboardObj.writeText(code.innerText)
         Message.success('复制成功')
     }
+    // setCode(childrenSetCode, highlightedCodes, content) {
+    //     let codes = [highlightedCodes];
+    //     let hightCode = []
+    //     for(let [k, ...v] of content){
+    //         if(k == 'pre') {
+    //             for(let i = 0; i< v.length; i++){
+    //                 if(v[i]?.length && v[i][0] == 'code') {
+    //                     hightCode.push(v[i][1])
+    //                 } else if(v[i]?.lang){
+    //                     codes.push({[v[i].lang]:v[i].highlighted})
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
     render() {
-        let { preview, meta, highlightedCodes, content, childrenSetCode = () => { }, className} = this.props;
+        let { preview, meta, highlightedCodes, content, childrenSetCode = () => { }, className, style} = this.props;
         return <section id={meta.id} className={'preview ' +  className}>
+            <style>
+                {style}
+            </style>
             <div className="cmps_p">
                 {preview()}
+                {this.state.hightCodes.map((code, key) => {
+                    let codehtml = '';
+                    while(code.indexOf('<script') > -1) {
+                        let start = code.indexOf('<script');
+                        let end = code.indexOf('</script>');
+                        let script = document.createElement('script');
+                        script.type = 'module';
+                        script.innerHTML = code.slice(start + 8, end)
+                        codehtml += code.slice(0, start)
+                        if(code.slice(end + 9, code.length).indexOf('</script>') == -1) {
+                            codehtml += code.slice(end + 9, code.length)
+                        }
+                        code = code.slice(end+ 9, code.length);
+                        document.body.appendChild(script)
+                    }
+                    return <div key={key} dangerouslySetInnerHTML={{__html:codehtml}}></div>
+                })}
             </div>
             <div className="introduce" >
                 <h5>{meta.title}</h5>
@@ -52,7 +110,7 @@ class Demo extends React.Component<Props> {
             </div>
             <ul className='tools'>
                 <li onClick={() => this.copy(highlightedCodes)} className='sp-icon sp-icon-copy' title='复制代码'></li>
-                <li onClick={() => childrenSetCode(highlightedCodes, this.props)} className='sp-icon sp-icon-Code' title='代码展示'></li>
+                <li onClick={() => childrenSetCode(this.state.codes, this.props)} className='sp-icon sp-icon-Code' title='代码展示'></li>
                 <li className='sp-icon sp-icon-yunhang' title='在线运行'></li>
             </ul>
         </section>
