@@ -3,6 +3,7 @@ import { runIFELSE, sto } from '../_utils/common'
 import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
 import './style'
 const keys: string[] = Object.keys(switchProps);
+
 const iconbaseclass = 'sp-switch-icon sp-icon '
 class Switch {
     constructor() {
@@ -27,7 +28,9 @@ class Switch {
                         setStyle(this, {
                             backgroundColor: !v ? this.attrs?.['inactive-color'] || '#dcdfed' : this.attrs?.['active-color'] || '#409eff'
                         })
+                        // 变更text 文案
                         this.textEl && (this.textEl.textContent = !v ? this?.['attr-inactive-text'] || '' : this?.['attr-active-text'] || '')
+                        // loading 权重最高 其他icon
                         if (this.iconEl && this?.['attr-loading'] !== 'true') {
                             this.iconEl.set(!this.isActive ? this?.['attr-active-icon'] : this?.['attr-inactive-icon'])
                         }
@@ -51,11 +54,12 @@ class Switch {
         let small = target.className.indexOf('small') > -1
         let left = (!is ? 1 : parseInt(width) - (small ? 12 : 16) - 3) + 'px';
         icon && setStyle(icon, { left });
-        text && icon && setStyle(text, { transform: `translateX(${is ? 3 + 'px' : (parseInt(width) - (text.offsetWidth) - 4) + 'px'})` });
+        let w = text?.offsetWidth > 0 ? (parseInt(width) - (text.offsetWidth) - 4) : (small ? 12 : 16); // display 情況下 ofsetwidth 失效
+        text && icon && setStyle(text, { transform: `translateX(${is ? 3 + 'px' : w + 'px'})` })
     }
 
     private click(root: any) {
-        if(root?.['attr-value']) return;
+        if (root?.['attr-value']) return; // 使用value 时取消click
         root.isActive = !root.isActive;
     }
 
@@ -76,10 +80,10 @@ class Switch {
         this.set({ attrs: root.attrs, target: root, text, icon })
         root.textEl = text;
         root.iconEl = icon;
-        !root['attr-width'] && (root['attr-width'] = (root.offsetWidth + 22) > 40 ? root.offsetWidth + 22 : 40)
-        sto(() => root.textEl.classList.add('enter'))
+        !root['attr-width'] && (root['attr-width'] = (root.offsetWidth + 22) > 40 ? root.offsetWidth + 22 : root['attr-size'] == 'small'? 28:40)
+        sto(() => root.textEl.classList.add('enter')) // 加载完后 添加transition
     };
-
+    // 变更 属性更新
     set({ attrs, target, icon, text }: any) {
         runIFELSE(new Set([
             [attrs?.['classname'], () => {
@@ -110,7 +114,7 @@ class Switch {
                 target.classList.add(attrs?.['size'])
             }],
             [attrs?.['active-text'], () => {
-                target.isActive && text && (text.textContent = attrs?.['active-text'])
+                target.isActive && text && (text.textContent = attrs?.['active-text']);
             }],
             [attrs?.['inactive-text'], () => {
                 !target.isActive && text && (text.textContent = attrs?.['inactive-text'])

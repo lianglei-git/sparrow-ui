@@ -1,28 +1,28 @@
 import typeProps, { ButtonProps, baseprops } from './type'
 import './style'
-import { runIFELSE, sto} from '../_utils/common'
+import { runIFELSE, sto } from '../_utils/common'
 import { defineEl, createEl, setStyle, getProps } from '../_utils/dom'
-
 const typePropsObj: ButtonProps | any = typeProps()
 const changeProps = (elconstr: HTMLElement & any, props: object | any) => {
-    let includes: Array<string> = ['shape', 'size', 'type', 'disabled']
+    let includes: Array<string> = ['shape', 'size', 'type'] // , 'disabled'
     for (let key in props) {
         runIFELSE(new Set([
             [includes.includes(key), () => {
-                if (typePropsObj[key] instanceof Array) {
-                    for (let i = 0; i < elconstr.classList.length; i++) {
-                        let classname = elconstr.classList.item(i)
-                        typePropsObj[key].map((i: any) => (classname == 'sp-button-' + i && elconstr.classList.toggle(classname)))
-                    }
-                } 
-                if(props[key] == 'true') elconstr.classList['add']('sp-button-'+key);
-                else if(props[key] == 'false') elconstr.classList['remove']('sp-button-'+key);
-                else elconstr.classList['toggle']('sp-button-' + props[key])
+                let base = 'sp-button'
+                let classes: any = {
+                    type: (elconstr['attr-type'] || 'default') !== 'default' ? ' sp-button--' + elconstr['attr-type'] : '',
+                    size: (elconstr['attr-size'] || 'middle') !== 'middle' ? ' sp-button-size--' + elconstr['attr-size'] : '',
+                    shape: (elconstr['attr-shape'] || 'default') !== 'default' ? ' sp-button-shape--' + elconstr['attr-shape'] : '',
+                }
+                for (let k in classes) {
+                        base += classes[k]
+                }
+                elconstr.className = base;
             }],
             [key == 'loading', () => {
-                if ((!props[key] || (props[key] == 'false'))) {
+                if (!props[key] || (props[key] == 'false')) {
                     if (elconstr.loadinEl) {
-                        elconstr.loadinEl.classList.remove('sp-icon','sp-icon-loading')
+                        elconstr.loadinEl.classList.remove('sp-icon', 'sp-icon-loading')
                         elconstr.classList.remove('is-loading')
                         elconstr.loadinEl = null
                     }
@@ -34,6 +34,10 @@ const changeProps = (elconstr: HTMLElement & any, props: object | any) => {
                         elconstr.insertBefore(elconstr.loadinEl!, elconstr.firstChild)
                     }
                 }
+            }],
+            [key == 'disabled', () => {
+                let type:string = props[key] == 'true' ? 'add' : 'remove'
+                elconstr.classList?.[type]('is-disabled')
             }]
         ]))
     }
@@ -44,41 +48,41 @@ export default
         tag: 'sp-button',
         observedAttributes: Object.keys(typePropsObj),
         connectedCallback() {
-            let self = this
+            // let self = this
             this.loadinEl = null
             this.className = 'sp-button'
-            type styletype =  { // Partial
-                [P in keyof CSSStyleDeclaration]?: CSSStyleDeclaration[P]
-            }
-            let _style: styletype = {
-                transition:'.3s'
-            }
-            let handler: ProxyHandler<any> = {
-                set(target: any, key: string, value: string) {
-                    let d = Reflect.set(target, key, value)
-                    setStyle(self, { [key]: value } as any)
-                    return d
-                }
-            }
-            let target = new Proxy(_style, handler)
-            sto(() => setStyle(this, target))
-            let attributesObj: ButtonProps | any = {...getProps(this) }
-            for (let k1 in typePropsObj) {
-                let k1v = attributesObj[k1]
-                let k2v = typePropsObj[k1]
-                runIFELSE(new Set([
-                    [(k2v instanceof Array), () => {
-                        if(!k2v.includes(k1v)) {
-                            attributesObj[k1] = baseprops[k1]
-                            self['attr-' + k1] = baseprops[k1]
-                        }
-                    }],
-                    [k1 == 'disabled', () => {
-                        attributesObj[k1] =  k1v || 'false'
-                        self['attr-disabled'] = k1v || 'false'
-                    }]
-                ]))
-            }
+            // type styletype = { // Partial
+            //     [P in keyof CSSStyleDeclaration]?: CSSStyleDeclaration[P]
+            // }
+            // let _style: styletype = {
+            //     transition: '.3s'
+            // }
+            // let handler: ProxyHandler<any> = {
+            //     set(target: any, key: string, value: string) {
+            //         let d = Reflect.set(target, key, value)
+            //         setStyle(self, { [key]: value } as any)
+            //         return d
+            //     }
+            // }
+            // let target = new Proxy(_style, handler)
+            // sto(() => setStyle(this, target))
+            let attributesObj: ButtonProps | any = { ...getProps(this) }
+            // for (let k1 in typePropsObj) {
+            //     let k1v = attributesObj[k1]
+            //     let k2v = typePropsObj[k1]
+            //     runIFELSE(new Set([
+            //         [(k2v instanceof Array), () => {
+            //             if (!k2v.includes(k1v)) {
+            //                 attributesObj[k1] = baseprops[k1]
+            //                 self['attr-' + k1] = baseprops[k1]
+            //             }
+            //         }],
+            //         [k1 == 'disabled', () => {
+            //             attributesObj[k1] = k1v || 'false'
+            //             self['attr-disabled'] = k1v || 'false'
+            //         }]
+            //     ]))
+            // }
             changeProps(this, attributesObj)
 
             function adapderEmpty(childNodes: any[]) {
@@ -108,8 +112,5 @@ export default
             changeProps(this, {
                 [name]: newval
             })
-        },
-        getConstructor(target) {
-            console.log(target)
         }
     })

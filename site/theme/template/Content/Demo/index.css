@@ -1,0 +1,102 @@
+.preview {
+  width: calc(100% - 20px);
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #d6d5d5;
+  margin-top: 20px;
+  transition: 0.2s;
+}
+.preview:hover {
+  box-shadow: 0 0 4px 0 #058f95;
+}
+.preview.active {
+  box-shadow: inset 0 0 3px 0 #af9c9c;
+}
+.preview .cmps_p {
+  padding: 30px;
+}
+.preview .cmps_p > div {
+  margin-bottom: 15px;
+}
+.preview .cmps_p > div:last-child {
+  margin-bottom: 0;
+}
+.preview .cmps_p h3 {
+  position: relative;
+  left: -15px;
+  margin: 0;
+  margin-bottom: 10px;
+  color: #037a80;
+  font-size: 14px;
+}
+.preview .introduce {
+  position: relative;
+}
+.preview .introduce code {
+  display: inline-block;
+  margin: 0 1px;
+  padding: 0.2em 0.4em;
+  font-size: 0.9em;
+  background: #f2f4f5;
+  border: none;
+  border-radius: 3px;
+  line-height: inherit;
+  color: #344fca;
+}
+.preview .introduce::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  border-top: 1px dotted #ccc;
+  display: block;
+  height: 1px;
+  top: 0;
+}
+.preview .introduce h5 {
+  position: relative;
+  top: -10px;
+  left: 15px;
+  padding: 0 8px;
+  background: #fff;
+  width: fit-content;
+  font-weight: 600;
+  font-size: 15px;
+  margin-top: 0;
+  z-index: 3;
+}
+.preview .introduce pre {
+  padding: 0 20px 20px 23px;
+  box-sizing: border-box;
+  font-size: 13.5px;
+  border-bottom: 1px dotted #ccc;
+  white-space: pre-wrap;
+}
+.preview .tools {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+.preview .tools li {
+  margin: 0 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  color: #948d8d;
+}
+.preview .tools li:hover {
+  color: #068188;
+}
+.preview .tools li.active {
+  color: #068188;
+}
+.preview .sp-button {
+  margin: 0 5px;
+}
+#desc-cn {
+  display: none;
+}
+.language-html {
+  display: none;
+}
+.showCode .language-html {
+  display: block;
+}

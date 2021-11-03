@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { createRef, useEffect, useState, useRef } from 'react';
-import { Link } from 'bisheng/router';
+import { Link, } from 'bisheng/router';
 import Demo from './Demo';
 import CodeView from './Demo/CodePreView'
 import { getChildren } from 'jsonml.js/lib/utils';
@@ -23,11 +23,13 @@ const Content = (props: any) => {
     const [code, setCode] = useState<Object | any>(null);
     const [curCodeDetails, setCodeDetails] = useState('');
     const [switchVal, setSwitchVal] = useState(false);
+    const [metaId, setMetaId] = useState('')
     const switchEl = useRef(null)
     const codeEl = createRef<HTMLDivElement>()
     const to = ($$i: Meta) => {
         let toL = $$i.filename.split('/');
         let topath = toL[0] + '/' + toL[1] + '/';
+        [...$el('.temp_scripts')].map(i => i.remove())
         return <Link to={topath}> {$$i.title} {$$i.subTitle}</Link>
     }
 
@@ -71,12 +73,10 @@ const Content = (props: any) => {
 
     const childrenSetCode = (_code: Object, props: any) => {
         setCodeDetails(props.meta.id)
-        // (codeEl.current as any).classList.add('active');
         setCode(_code)
     }
 
     const demo = () => {
-        testElId = 0
         const demos = props.demo;
         const l = new Array();
         for (let [_, v] of Object.entries(demos)) {
@@ -85,33 +85,30 @@ const Content = (props: any) => {
         let $l = l.sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
         return $l.map((content, i) => {
             if (content.meta.id.indexOf('demo-test') > -1) {
-                // setTestElId(content.meta.id)
                 testElId = content.meta.id
             }
-            return <Demo key={i} {...{ ...content, childrenSetCode, utils: props.utils, className: content.meta.id == curCodeDetails ? 'active' : '', location }} />
+            return <Demo key={i} {...{ ...content, childrenSetCode, utils: props.utils, className: content.meta.id == curCodeDetails ? 'active' : '', location, metaId }} />
         })
     }
     useEffect(() => {
-        // switchEl.current?.isActive = false // 
+
+        console.log($el('.temp_scripts'))
+        testElId = 0
+        setMetaId('')
         setSwitchVal(false)
         setCode(null);
-        // (document.querySelector('.Header') as any).classList.add('cmps')
-    }, [location.pathname])
-    useEffect(() => {
+        switchEl.current.style.color = '#000'
         switchEl.current.onChange = (is: Boolean, _: EventTarget) => {
             setStyle(_, {
                 color: is ? '#fff' : '#000'
             })
-            if (testElId) {
-                setStyle($el('#' + testElId)[0], {
-                    display: is ? 'block' : 'none'
-                })
-            } else Message.error('该组件暂无测试模块！')
+            setMetaId(is ? 'components-' + props.params.children + '-demo-test' : '')
+            if (!testElId) Message.error('该组件暂无测试模块！')
         }
-        switchEl.current.onClick = (is:boolean, context:EventTarget) => {
+        switchEl.current.onClick = (is: boolean, context: EventTarget) => {
             setSwitchVal(!is);
         }
-    }, [])
+    }, [location.pathname])
     return <div className='main'>
         <div className="menu">
             {getMenuItems()}

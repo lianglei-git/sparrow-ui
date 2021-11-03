@@ -5,34 +5,42 @@
     border: 1px solid #d6d5d5;
     margin-top: 20px;
     transition: .2s;
+
     &:hover {
-        box-shadow: inset 0 0 3px 0 rgb(175, 156, 156);
+        box-shadow: 0 0 4px 0 #058f95;
     }
+
     &.active {
         box-shadow: inset 0 0 3px 0 rgb(175, 156, 156);
     }
 
     .cmps_p {
         padding: 30px;
+
         >div {
             margin-bottom: 15px;
+
             &:last-child {
                 margin-bottom: 0;
             }
         }
+
         h3 {
             position: relative;
             left: -15px;
-            margin:0;
+            margin: 0;
             margin-bottom: 10px;
             color: #037a80;
+            font-size: 14px;
 
         }
 
     }
+
     .introduce {
 
         position: relative;
+
         code {
             display: inline-block;
             margin: 0 1px;
@@ -63,8 +71,8 @@
             padding: 0 8px;
             background: #fff;
             width: fit-content;
-            font-weight: 500;
-            font-size: 14px;
+            font-weight: 600;
+            font-size: 15px;
             margin-top: 0;
             z-index: 3;
         }
@@ -82,19 +90,23 @@
         display: flex;
         justify-content: center;
         margin: 10px;
+
         li {
             margin: 0 8px;
             cursor: pointer;
             transition: .2s;
             color: #948d8d;
+
             &:hover {
-                color: rgb(6, 129, 136); 
+                color: rgb(6, 129, 136);
             }
+
             &.active {
-                color: rgb(6, 129, 136); 
+                color: rgb(6, 129, 136);
             }
         }
     }
+
     .sp-button {
         margin: 0 5px;
     }
@@ -102,4 +114,12 @@
 
 #desc-cn {
     display: none;
+
+}
+
+.language-html {
+    display: none;
+}
+.showCode .language-html {
+    display: block;
 }

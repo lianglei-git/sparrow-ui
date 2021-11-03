@@ -1,10 +1,10 @@
 ---
-order: 1
-title: 基本操作
+order: 4
+title: 两种大小
 ---
 
 ## desc-cn 
-最简单的用法。
+size="small" 表示小号开关。     
 
 ```html
 <!-- HTML 中使用 -->
@@ -13,11 +13,13 @@ title: 基本操作
 ```
 
 ```jsx
-// React 中使用
+
 import React from 'react'
-ReactDOM.render(<div>
+ReactDOM.render(
+<div>
 <h3>React:</h3>
-<sp-switch></sp-switch>
-</div>, mountNode);
+<sp-switch default-checked="true" size='small'></sp-switch>
+</div>
+, mountNode);
 
 ```

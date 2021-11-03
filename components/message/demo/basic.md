@@ -12,6 +12,6 @@ const info = () => {
     Message.info('全局的提示')
 }
 ReactDOM.render(<>
-<sp-button onClick={info}>打开提示</sp-button>
+<sp-button  type='dashed' onClick={info}>打开提示</sp-button>
 </>,mountNode)
 ```

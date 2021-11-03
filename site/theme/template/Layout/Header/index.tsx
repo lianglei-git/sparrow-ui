@@ -23,8 +23,8 @@ const Header: React.FC = () => {
     },
 ]
 
-    useEffect(() => {
-    }, [])
+    // useEffect(() => {
+    // }, [])
     // function go(o:object | any) {
     //     if(o.to.indexOf('components') > 0) {
     //         header.current.classList.add('cmps')

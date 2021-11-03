@@ -14,6 +14,6 @@ const click = (type) => {
    .then(() => Message['success']('success'))
 }
 ReactDOM.render(<>
-<sp-button onClick={() => click('loading')}>Prmose message</sp-button>
+<sp-button type='primary' onClick={() => click('loading')}>Prmose message</sp-button>
 </>,mountNode)
 ```

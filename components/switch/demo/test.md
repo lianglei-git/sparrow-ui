@@ -3,7 +3,7 @@ order: 0
 title: 测试模块
 ---
 ## desc-cn
-点击 active-color 或 inactive-color 可以修改背景颜色， 同时也可以修改选中和取消选中的文字哦
+点击 active-color 或 inactive-color 可以修改背景颜色， 同时也可以修改选中和取消选中的文字
 
 根据我司诉求，禁止后还可以点击提示，所以 尽之后的点击事件依然生效， 不同于 onChange事件 
 
