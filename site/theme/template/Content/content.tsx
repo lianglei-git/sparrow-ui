@@ -1,10 +1,12 @@
-import React, { createRef, useEffect, useState } from 'react';
-import { browserHistory, Link } from 'bisheng/router';
+// @ts-nocheck
+import React, { createRef, useEffect, useState, useRef } from 'react';
+import { Link } from 'bisheng/router';
 import Demo from './Demo';
 import CodeView from './Demo/CodePreView'
 import { getChildren } from 'jsonml.js/lib/utils';
-
+import { Message } from 'sparrow-ui'
 import './index.less';
+import { $el, setStyle } from 'sparrow-ui/_utils/dom';
 interface Meta {
     category: string | "Components"
     filename: string
@@ -16,9 +18,12 @@ interface Meta {
 const ComponentInMarkdown = React.memo(({ content, utils }: any) =>
     utils.toReactComponent(['section', { className: 'markdown' }].concat(getChildren(content))),
 );
+let testElId = ''
 const Content = (props: any) => {
     const [code, setCode] = useState<Object | any>(null);
-    const [curCodeDetails, setCodeDetails] = useState('')
+    const [curCodeDetails, setCodeDetails] = useState('');
+    const [switchVal, setSwitchVal] = useState(false);
+    const switchEl = useRef(null)
     const codeEl = createRef<HTMLDivElement>()
     const to = ($$i: Meta) => {
         let toL = $$i.filename.split('/');
@@ -32,7 +37,6 @@ const Content = (props: any) => {
         for (let k in cdata) {
             let _i = cdata[k]?.index
             let title = _i?.meta?.title || false;
-            console.log(title)
             if (_i?.meta?.category === 'Components') {
                 let typed = components.find($$i => $$i.type == _i?.meta?.type);
                 if (typed) {
@@ -72,6 +76,7 @@ const Content = (props: any) => {
     }
 
     const demo = () => {
+        testElId = 0
         const demos = props.demo;
         const l = new Array();
         for (let [_, v] of Object.entries(demos)) {
@@ -79,14 +84,34 @@ const Content = (props: any) => {
         }
         let $l = l.sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
         return $l.map((content, i) => {
-            return <Demo key={i} {...{ ...content, childrenSetCode,utils: props.utils, className: content.meta.id == curCodeDetails ? 'active' : '' }} />
+            if (content.meta.id.indexOf('demo-test') > -1) {
+                // setTestElId(content.meta.id)
+                testElId = content.meta.id
+            }
+            return <Demo key={i} {...{ ...content, childrenSetCode, utils: props.utils, className: content.meta.id == curCodeDetails ? 'active' : '', location }} />
         })
     }
     useEffect(() => {
-        console.log(props)
-        setCode(null)
+        // switchEl.current?.isActive = false // 
+        setSwitchVal(false)
+        setCode(null);
         // (document.querySelector('.Header') as any).classList.add('cmps')
     }, [location.pathname])
+    useEffect(() => {
+        switchEl.current.onChange = (is: Boolean, _: EventTarget) => {
+            setStyle(_, {
+                color: is ? '#fff' : '#000'
+            })
+            if (testElId) {
+                setStyle($el('#' + testElId)[0], {
+                    display: is ? 'block' : 'none'
+                })
+            } else Message.error('该组件暂无测试模块！')
+        }
+        switchEl.current.onClick = (is:boolean, context:EventTarget) => {
+            setSwitchVal(!is);
+        }
+    }, [])
     return <div className='main'>
         <div className="menu">
             {getMenuItems()}
@@ -96,7 +121,7 @@ const Content = (props: any) => {
                 {props.index.meta.title} {props.index.meta.subTitle}
             </h1>
             <ComponentInMarkdown utils={props.utils} content={props.index.content}></ComponentInMarkdown>
-            <h2>代码演示</h2>
+            <h2><span>代码演示</span> <sp-switch inactive-text='开启调试' active-text='关闭调试' ref={switchEl} value={switchVal}></sp-switch></h2>
             {demo()}
             {props.utils.toReactComponent(
                 [

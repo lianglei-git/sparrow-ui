@@ -1,5 +1,5 @@
 import { switchTypesProps, switchProps } from './type'
-import { runIFELSE } from '../_utils/common'
+import { runIFELSE, sto } from '../_utils/common'
 import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
 import './style'
 const keys: string[] = Object.keys(switchProps);
@@ -29,8 +29,9 @@ class Switch {
                         })
                         this.textEl && (this.textEl.textContent = !v ? this?.['attr-inactive-text'] || '' : this?.['attr-active-text'] || '')
                         if (this.iconEl && this?.['attr-loading'] !== 'true') {
-                                this.iconEl.set(!this.isActive ?this?.['attr-active-icon']:this?.['attr-inactive-icon'])
+                            this.iconEl.set(!this.isActive ? this?.['attr-active-icon'] : this?.['attr-inactive-icon'])
                         }
+                        self.transform({ is: v, target: this, width: this.offsetWidth, icon: this.iconEl, text: this.textEl })
                         this['_isActive'] = v;
                     },
                     get() {
@@ -46,14 +47,18 @@ class Switch {
             }
         })
     }
-    private click(root: any) {
-        let is = root.isActive;
-        root.isActive = !is
-        let small = root.className.indexOf('small') > -1
-        let iconleft = (is ? 1 : root.offsetWidth - (small ? 12 : 16) - 3) + 'px';
-        setStyle(root.iconEl, { left: iconleft });
-        setStyle(root.textEl, { transform: `translateX(${!is ? 3 + 'px' : (root.offsetWidth - root.iconEl.offsetWidth - (root.textEl.offsetWidth / 2) - 2) + 'px'})` });
+    private transform({ is, target, width, icon, text }: any) {
+        let small = target.className.indexOf('small') > -1
+        let left = (!is ? 1 : parseInt(width) - (small ? 12 : 16) - 3) + 'px';
+        icon && setStyle(icon, { left });
+        text && icon && setStyle(text, { transform: `translateX(${is ? 3 + 'px' : (parseInt(width) - (text.offsetWidth) - 4) + 'px'})` });
     }
+
+    private click(root: any) {
+        if(root?.['attr-value']) return;
+        root.isActive = !root.isActive;
+    }
+
     private initView(root: HTMLElement & { isActive: boolean } | any) {
         let text: HTMLSpanElement = createEl('span'),
             icon: HTMLElement & { set(v: string): any } = createEl('em');
@@ -71,14 +76,14 @@ class Switch {
         this.set({ attrs: root.attrs, target: root, text, icon })
         root.textEl = text;
         root.iconEl = icon;
-
+        !root['attr-width'] && (root['attr-width'] = (root.offsetWidth + 22) > 40 ? root.offsetWidth + 22 : 40)
+        sto(() => root.textEl.classList.add('enter'))
     };
 
     set({ attrs, target, icon, text }: any) {
         runIFELSE(new Set([
             [attrs?.['classname'], () => {
                 let str = 'sp-switch ' + attrs?.['classname'] + ' '
-                    //   + (target?.['attr-loading'] == 'true'? 'sp-icon sp-icon-loading ' : ' ')
                     + (target?.['attr-size'] || 'default') + ' '
                     + (target?.['attr-disabled'] == 'true' ? 'is-disabled ' : ' ')
                 target.className = str
@@ -91,12 +96,12 @@ class Switch {
                     icon.set('sp-icon-loading')
                 }
             }],
-            [attrs?.['active-icon'], () => {
+            [attrs?.['active-icon'] && icon, () => {
                 if (attrs?.['active-icon'].indexOf('sp-icon') > -1) {
                     target.isActive && icon.set(attrs?.['active-icon'])
                 }
             }],
-            [attrs?.['inactive-icon'], () => {
+            [attrs?.['inactive-icon'] && icon, () => {
                 if (attrs?.['inactive-icon'].indexOf('sp-icon') > -1) {
                     !target.isActive && icon.set(attrs?.['inactive-icon'])
                 }
@@ -125,10 +130,13 @@ class Switch {
                 let is = target.isActive
                 let width: string = (parseInt(attrs?.['width']) || 24) + 'px';
                 setStyle(target, { width });
-                let small = target.className.indexOf('small') > -1
-                let left = (!is ? 1 : parseInt(width) - (small ? 12 : 16) - 3) + 'px';
-                icon && setStyle(icon, { left });
-                text && icon && setStyle(text, { transform: `translateX(${is ? 3 + 'px' : (parseInt(width) - icon.offsetWidth - (text.offsetWidth / 2) - 2) + 'px'})` });
+                this.transform({ is, target, width, icon, text })
+            }],
+            [attrs?.['value'], () => {
+                let ifs = ['true', '1', true, 1];
+                let elses = ['false', '0', false, 0]
+                ifs.includes(attrs?.['value']) && (target.isActive = true)
+                elses.includes(attrs?.['value']) && (target.isActive = false)
             }],
         ]));
     }

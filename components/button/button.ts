@@ -1,6 +1,6 @@
 import typeProps, { ButtonProps, baseprops } from './type'
 import './style'
-import { runIFELSE } from '../_utils/common'
+import { runIFELSE, sto} from '../_utils/common'
 import { defineEl, createEl, setStyle, getProps } from '../_utils/dom'
 
 const typePropsObj: ButtonProps | any = typeProps()
@@ -50,7 +50,9 @@ export default
             type styletype =  { // Partial
                 [P in keyof CSSStyleDeclaration]?: CSSStyleDeclaration[P]
             }
-            let _style: styletype = {}
+            let _style: styletype = {
+                transition:'.3s'
+            }
             let handler: ProxyHandler<any> = {
                 set(target: any, key: string, value: string) {
                     let d = Reflect.set(target, key, value)
@@ -59,7 +61,7 @@ export default
                 }
             }
             let target = new Proxy(_style, handler)
-            setStyle(this, target)
+            sto(() => setStyle(this, target))
             let attributesObj: ButtonProps | any = {...getProps(this) }
             for (let k1 in typePropsObj) {
                 let k1v = attributesObj[k1]

@@ -37,10 +37,11 @@ class Demo extends React.Component<Props> {
             
         return <>{this.props.utils.toReactComponent(['div'].concat(c))}</>
     }
-    componentDidMount() {
-        let codes = [this.props.highlightedCodes];
+    reset(props) {
+        let codes = [props.highlightedCodes];
         let hightCodes = []
-        for(let [k, ...v] of this.props.content){
+        // console.log(this.props.content)
+        for(let [k, ...v] of props.content){
             if(k == 'pre') {
                 for(let i = 0; i< v.length; i++){
                     if(v[i]?.length && v[i][0] == 'code') {
@@ -56,6 +57,26 @@ class Demo extends React.Component<Props> {
             hightCodes
         })
     }
+    componentDidMount() {
+        this.reset(this.props)
+    }
+    componentWillReceiveProps (nextProps, nextState) {
+        // console.log(nextProps)
+        // if (this.props.location.pathname !== nextProps.location.pathname){
+        //     // 路由发生了变化
+        // }
+        this.reset(nextProps)
+    }
+
+    // componentDidUpdate() {
+    //     this.props.history.listen(location => {
+    //         // 最新路由的 location 对象，可以通过比较 pathname 是否相同来判断路由的变化情况
+    //         if (this.props.location.pathname !== location.pathname) {
+    //            // 路由发生了变化
+    //            console.log(123)
+    //         }
+    //     })
+    // }
     copy(highlightedCodes) {
         let code = createEl('code');
         let html = highlightedCodes.jsx;
@@ -80,7 +101,7 @@ class Demo extends React.Component<Props> {
     // }
     render() {
         let { preview, meta, highlightedCodes, content, childrenSetCode = () => { }, className, style} = this.props;
-        return <section id={meta.id} className={'preview ' +  className}>
+        return <section id={meta.id} className={'preview ' +  className} style={{display: meta.id?.indexOf('demo-test') > -1? 'none': ''}}>
             <style>
                 {style}
             </style>
@@ -100,8 +121,8 @@ class Demo extends React.Component<Props> {
                         }
                         code = code.slice(end+ 9, code.length);
                         document.body.appendChild(script)
-                    }
-                    return <div key={key} dangerouslySetInnerHTML={{__html:codehtml}}></div>
+                    } 
+                    return <div key={key} dangerouslySetInnerHTML={{__html:codehtml || code}}></div>
                 })}
             </div>
             <div className="introduce" >
