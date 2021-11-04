@@ -6,13 +6,13 @@ subTitle: 按钮
 ---
 
 ## API
-| 参数        | 说明                                  | 类型                     | 默认值    | 版本 |
-| ----------- | ------------------------------------- | ------------------------ | --------- | ---- |
-| type        | 主题                                  | 'success','error','info' | 'success' |      |
-| showclose   | 是否显示右上角的关闭按钮              | boolean                  | false     |      |
-| duration    | 显示时间, 毫秒。设为 0 则不会自动关闭 | Number                   | 3000      |      |
-| center      | 文字是否居中                          | boolean                  | false     |      |
-| offset      | Message 距离窗口顶部的偏移量          | number, string           | 20        |      |
-| modal       | 是否需要遮罩                          | boolean                  | true      |      |
-| beforeClose | 关闭前回调                            | function                 | -         |      |
+| 参数      | 说明              | 类型                                                     | 默认值    | 版本 |
+| --------- | ----------------- | -------------------------------------------------------- | --------- | ---- |
+| type      | 类型              | 'default', 'primary', 'dashed', 'text', 'link', 'danger' | 'default' |      |
+| size      | 尺寸              | 'middle', 'small', 'mini'                                | 'middle'  |      |
+| icon      | icon 根据本库提供 | string                                                   | -         |      |
+| disabled  | 禁用属性          | string & boolean                                         | 'false'   |      |
+| shape     | 形状              | 'circle', 'default', 'round'                             | 'default' |      |
+| classname | 默认类名          | string                                                   | -         |      |
 
+其他事件与原生一致

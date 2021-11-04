@@ -1,0 +1,50 @@
+.sp-switch {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #dcdfed;
+  cursor: pointer;
+  vertical-align: middle;
+  border: 1px solid #dcdfed;
+  box-sizing: border-box;
+  position: relative;
+  transition: all 0.3s, border 0s;
+}
+.sp-switch-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  transition: left 0.3s;
+}
+.sp-switch-icon.sp-icon-loading {
+  background-color: transparent;
+}
+.sp-switch-text {
+  font-size: 14px;
+  transform: translateX(3px);
+}
+.sp-switch-text.enter {
+  transition: transform 0.3s;
+}
+.sp-switch.small {
+  height: 16px;
+}
+.sp-switch.small .sp-switch-icon {
+  width: 12px;
+  height: 12px;
+  font-size: 12px;
+}
+.sp-switch.small .sp-switch-text {
+  font-size: 12px;
+}
+.sp-switch.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}

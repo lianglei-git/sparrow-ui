@@ -13,7 +13,7 @@
     box-sizing: border-box;
     outline: none;
     margin: 0;
-    transition:all .2s, background-color .1s;
+    transition: all .2s, background-color .1s;
     font-weight: 500;
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -22,12 +22,19 @@
     font-size: 14px;
     border-radius: 4px;
 
+    >.sp-icon {
+        line-height: 1;
+        vertical-align: baseline;
+        display: inline-block;
+    }
+
     &:active {
         border-color: #3a8ee6;
         color: #3a8ee6;
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
         color: var(--color-primary);
         border-color: var(--color-primary);
     }
@@ -37,31 +44,57 @@
         border-color: var(--color-primary);
         color: var(--color-white);
 
-        &:hover {
+        &:hover,
+        &:focus {
             filter: brightness(1.1);
             color: var(--color-white);
         }
+
         &:active {
             filter: brightness(0.9);
             opacity: 1;
         }
     }
+
     &--dashed {
         border-style: dashed;
+
         &:active {
             border-color: #136dc9;
         }
     }
+
+    &--danger {
+        color: var(--color-white);
+        background-color: #f56c6c;
+        border-color: #f56c6c;
+
+        &:hover,
+        &:focus {
+            filter: brightness(1.1);
+            color: var(--color-white);
+            border-color: #f56c6c;
+        }
+
+        &:active {
+            filter: brightness(0.9);
+            opacity: 1;
+        }
+    }
+
     &--text {
         border-style: none;
         background-color: var(--background-color-base);
+
         &:active {
             filter: brightness(0.9);
         }
     }
+
     &--link {
         color: var(--color-primary);
         border: none;
+
         &:active {
             color: #136dc9;
         }
@@ -71,6 +104,7 @@
         &--circle {
             border-radius: 50%;
             padding: 12px;
+            min-width: 40px;
         }
 
         &--round {
@@ -84,6 +118,11 @@
         &--mini {
             font-size: 12px;
             padding: 6px 10px;
+
+            &.sp-button-shape--circle {
+                padding: 7px;
+                min-width: 32px;
+            }
 
             &.is-loading {
                 padding-left: 24px;
@@ -105,6 +144,11 @@
         &--small {
             font-size: 13px;
             padding: 9px 13px;
+
+            &.sp-button-shape--circle {
+                padding: 10px;
+                min-width: 35px;
+            }
 
             &.is-loading {
                 padding-left: 27px;
@@ -146,16 +190,26 @@
         }
     }
 
-
-
     &.is-disabled {
-        background-color: #c8c9cc;
-        pointer-events: none;
+        filter: brightness(0.9);
+        border-color: transparent;
+
+        &.sp-button--link {
+            color: var(--color-text-regular);
+        }
 
         &:hover {
             cursor: not-allowed;
+            border-color: transparent;
+            color: var(--color-text-regular);
+
+            &.sp-button--primary,
+            &.sp-button--danger {
+                color: var(--color-white);
+            }
         }
     }
+
 }
 
 @keyframes loadingLeftTme {

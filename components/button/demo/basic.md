@@ -10,6 +10,7 @@ title: 基础按钮
 <h3>Html:</h3>
 <div class="button-group button-group-default">
      <sp-button type='primary'>主要按钮</sp-button>
+     <sp-button type='danger'>危险按钮</sp-button>
     <sp-button>默认按钮</sp-button>
      <sp-button type='dashed'>虚线按钮</sp-button>
      <sp-button type='text'>文字按钮</sp-button>
@@ -18,16 +19,18 @@ title: 基础按钮
 
 <div class="button-group button-group-round">
     <sp-button shape="round" type='primary'>圆角按钮</sp-button>
-    <sp-button shape="round">圆角按钮</sp-button>
-    <sp-button shape="round" type='dashed'>圆角按钮</sp-button>
-    <sp-button shape="round" type='text'>圆角按钮</sp-button>
+    <sp-button shape="round" type='danger'>圆角危险</sp-button>
+    <sp-button shape="round">圆角默认</sp-button>
+    <sp-button shape="round" type='dashed'>圆角虚线</sp-button>
+    <sp-button shape="round" type='text'>圆角文字</sp-button>
    
 </div>
 <div class="button-group button-group-circle">
-     <sp-button shape="circle"  type='primary'>圆</sp-button>
-     <sp-button shape="circle">圆</sp-button>
-     <sp-button shape="circle" type='dashed'>圆</sp-button>
-     <sp-button shape="circle" type='text'>圆</sp-button>
+     <sp-button shape="circle"  type='primary'>A</sp-button>
+     <sp-button shape="circle" type='danger'>B</sp-button>
+     <sp-button shape="circle">C</sp-button>
+     <sp-button shape="circle" type='dashed'>D</sp-button>
+     <sp-button shape="circle" type='text'>E</sp-button>
 </div>
 
 ```

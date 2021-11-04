@@ -9,8 +9,8 @@ title: 修改icon
 ```html
 <!-- HTML 中使用 -->
 <h3>Html:</h3>
-<sp-switch id='switchIcon'></sp-switch>
-<sp-button onclick="switchIcon['attr-inactive-icon'] = 'sp-icon-success'">修改icon</sp-button> 
+<sp-switch id='switchIcond'></sp-switch>
+<sp-button onclick=" (switchIcond['attr-inactive-icon'] = 'sp-icon-success') ">修改icon</sp-button> 
 ```
 
 ```jsx

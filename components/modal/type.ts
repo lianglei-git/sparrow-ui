@@ -7,7 +7,7 @@ const modaTypeslProps = () => ({
     visible: Boolean, // 展示
     class: String || Array,
     classname: String || Array,
-    center: Boolean, // 是否垂直居中 默认true
+    center: Boolean, // 是否垂直居中 默认false
     modal:Boolean, // 是否需要遮罩
     canceltext: String, // 取消按钮文字
     oktext: String, // 确认按钮文字
@@ -35,7 +35,7 @@ const modalProps:Partial<{[K in keyof modaTypeslProps]?:modaTypeslProps[K] | Str
     visible: 'false',
     class: '',
     classname: '',
-    center: 'true',
+    center: 'false',
     modal: 'true',
     canceltext: '取消',
     oktext: '确认',

@@ -40,6 +40,12 @@ const Home = (props) => {
     }
     return <div>
         主页
+
+         <sp-button icon="sp-icon-copy" class='llll'>11</sp-button>
+         <sp-button >889988 <i  className="sp-icon sp-icon-copy"></i></sp-button>
+         <sp-button icon="sp-icon-close">盧卡斯建立了卡薩丁</sp-button>
+         
+
         <sp-button loading={JSON.stringify({ m: 123, b: 123 })} class="sp-button-123" onClick={e => click(e)} disabled="true"> <span>布局</span> </sp-button>
         <button onClick={() => setshape(['circle', 'round', 'default'][Math.floor(Math.random() * 3)])}>修改类型</button>
         <hr />

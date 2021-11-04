@@ -1,6 +1,6 @@
 import {tuple} from '../_utils/type'
 
-const ButtonTypes = tuple('default', 'primary', 'dashed', 'text', 'link')
+const ButtonTypes = tuple('default', 'primary', 'dashed', 'text', 'link', 'danger')
 export type ButtonType  =typeof ButtonTypes[number]
 
 const ButtonSizes = tuple('middle', 'small', 'mini')
@@ -21,7 +21,8 @@ const buttonProps = () => ({
     disabled: Boolean,
     loading: Boolean || {
         delay: Number
-    }
+    },
+    icon: String
 })
 const baseprops:any = {
     type: 'default',
@@ -29,7 +30,8 @@ const baseprops:any = {
     shape: 'default',
     htmltype: 'button',
     disabled: 'false',
-    loading: false
+    loading: false,
+    'icon': ''
     }
 export {baseprops
 }

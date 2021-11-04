@@ -65,7 +65,6 @@ class Modal {
         })
     }
     private defineReactive(keys: string[], el: HTMLElement | any): void {
-        // let includes = <T extends string>(k: T) => keys.includes(k);
         keys.map(i => {
             Object.defineProperty(el, i, {
                 enumerable: false,
@@ -79,15 +78,6 @@ class Modal {
                 }
             })
         })
-        // el.pro = new Proxy(el, {
-        //     get(t, k, v) {
-        //         return Reflect.get(t, k ,v)
-        //     },
-        //     set(t, k: string, v) {
-        //         includes(k) && (el['attr-' + k] = v);
-        //         return Reflect.set(t, k, v)
-        //     }
-        // })
     }
     private initView = function (): object {
         {
@@ -208,7 +198,6 @@ class Modal {
             if (typeof _p.bodyhtml == 'string') {
                 content.innerHTML = _p.bodyhtml
             } else {
-                // content.appendChild(_p.bodyhtml)
                 throw Error('请传入相应类型')
             }
             dialog.appendChild(content)
@@ -219,7 +208,6 @@ class Modal {
             if (typeof _p.footerhtml == 'string') {
                 footerhtml.innerHTML = _p.footerhtml
             } else {
-                // footerhtml.appendChild(_p.footerhtml)
                 throw Error('请传入相应类型')
             }
             dialog.appendChild(footerhtml)

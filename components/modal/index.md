@@ -17,7 +17,7 @@ subTitle: 弹窗
 | appendbody | 是否插入在body上 | string, boolean | false |  |
 | canceltext | 取消按钮文字 | string | `取消` |  |
 | oktext | 取消按钮文字 | string | `确认` |  |
-| center | 垂直居中展示 Modal | boolean | true |  |
+| center | 垂直居中展示 Modal | boolean | false |  |
 | modal | 是否需要遮罩 | boolean | true |  |
 | class | 类名 | string | - |  |
 | visible | Modal 显示 | string, boolean | false |  |
