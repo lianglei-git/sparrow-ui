@@ -118,7 +118,7 @@ const Content = (props: any) => {
                 {props.index.meta.title} {props.index.meta.subTitle}
             </h1>
             <ComponentInMarkdown utils={props.utils} content={props.index.content}></ComponentInMarkdown>
-            <h2><span>代码演示</span> <sp-switch inactive-text='开启调试' active-text='关闭调试' ref={switchEl} value={switchVal}></sp-switch></h2>
+            <h2><span>代码演示</span> <sp-switch inactive-text='调试' active-text='关闭' ref={switchEl} value={switchVal}></sp-switch></h2>
             {demo()}
             {props.utils.toReactComponent(
                 [

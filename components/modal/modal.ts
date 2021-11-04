@@ -42,7 +42,7 @@ class Modal {
                     document.body.appendChild(this)
                 } else {
                     sto(() => {
-                        this.useAllEls = self.initView.call(this)
+                        this.useAllEls = self.initView.call(this, self)
                         self.defineReactive(keys, this)
                     });// 初始化视图
                 }
@@ -51,7 +51,6 @@ class Modal {
                 let [key, _, newval] = args
                 runIFELSE.call(this, new Set([
                     [key == 'visible', () => {
-                        console.log(newval)
                         newval && setIndex()
                         if (this.useAllEls) self._fadeami(newval, this)
                     }],
@@ -79,7 +78,7 @@ class Modal {
             })
         })
     }
-    private initView = function (): object {
+    private initView = function (context:any): object {
         {
             setIndex()
         }
@@ -151,6 +150,10 @@ class Modal {
             setStyle(mock, {
                 display: 'block'
             })
+            context.commonClass(this, 'add', 'enter')
+            sto(() => {
+                context.commonClass(this, 'remove', 'enter')
+            }, 290)
         }
         return {
             header,
@@ -160,30 +163,33 @@ class Modal {
 
         }
     }
-    private _fadeami(newkey: string, self: any) {
+
+    commonClass(target:any, type: 'add' | 'remove', base:string) {
+        target.classList[type]('sp-modal-'+base+'-active')
+        target.useAllEls?.mock.classList[type]('sp-modal-mock-' + base + '-active')
+    }
+
+    private _fadeami(newkey: string, target: any) {
         if (newkey == 'true') {
-            setStyle(self, {
+            setStyle(target, {
                 display: 'block',
                 zIndex: String(getIndex() + 1),
             })
-            setStyle(self.useAllEls?.mock, {
+            setStyle(target.useAllEls?.mock, {
                 display: 'block',
                 zIndex: String(getIndex()),
             })
-            self.classList.add('sp-modal-enter-active')
-            self.useAllEls?.mock.classList.add('sp-modal-mock-enter-active')
+            this.commonClass(target, 'add', 'enter')
             sto(() => {
-                self.classList.remove('sp-modal-enter-active')
-                self.useAllEls?.mock.classList.remove('sp-modal-mock-enter-active')
+                this.commonClass(target, 'remove', 'enter')
             }, 290)
         } else {
-            self.classList.add('sp-modal-leave-active')
-            self.useAllEls?.mock.classList.add('sp-modal-mock-leave-active')
+            this.commonClass(target, 'add', 'leave')
+            
             sto(() => {
-                setStyle(self, { display: 'none' })
-                setStyle(self.useAllEls?.mock, { display: 'none', })
-                self.classList.remove('sp-modal-leave-active')
-                self.useAllEls?.mock.classList.remove('sp-modal-mock-leave-active')
+                setStyle(target, { display: 'none' })
+                setStyle(target.useAllEls?.mock, { display: 'none', })
+                this.commonClass(target, 'remove', 'leave')
             }, 290)
         }
     }

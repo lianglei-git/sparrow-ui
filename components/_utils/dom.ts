@@ -65,7 +65,7 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
                     set(val) {
                         // console.log(val, attr)
                         target.setAttribute(attr, val)
-                        _corel[attr] = val
+                        // target[attr] = val
                     }
                 })
             })
