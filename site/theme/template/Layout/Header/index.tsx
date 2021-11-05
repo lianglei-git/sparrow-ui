@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from 'react'
-import {Link} from 'bisheng/router'
+import React, { useEffect, useRef, useState } from 'react'
+import { Link, browserHistory } from 'bisheng/router';
 import './index.less';
+import logo from './logo.png';
 const Header: React.FC = () => {
+    const [isotherClass, setOther] = useState('');
     const l = [{
         to: '/',
         label: '设计'
@@ -21,24 +23,20 @@ const Header: React.FC = () => {
         to: '/github',
         label: 'github'
     },
-]
+    ]
 
-    // useEffect(() => {
-    // }, [])
-    // function go(o:object | any) {
-    //     if(o.to.indexOf('components') > 0) {
-    //         header.current.classList.add('cmps')
-    //     }
-    //     // throw new Error('Function not implemented.');
-    // }
-    return <section className='Header'>
-        <div>
+    useEffect(() => {
+        console.log(location)
+        setOther(location.pathname == '/' ? '' : 'other')
+    }, [location.pathname])
+
+    return <section className={'Header'}>
+        <div className={isotherClass}>
             <div className="l-h">
-                <div className="logo">
-                    <span>Logo</span>
-
-                    Sprrow
-                </div>
+                <Link to='/' className="logo">
+                    <div className="img" > </div>
+                    <span>Sprrow</span>
+                </Link>
                 <div>
                     Search
                 </div>
@@ -48,7 +46,7 @@ const Header: React.FC = () => {
                     <ul>
                         {
                             l.map(i => {
-                                return <li key={i.label}>
+                                return <li key={i.label} className={location.pathname == i.to || (location.pathname.indexOf('components') > -1 && i.to.indexOf('components') > -1) ? 'active' : ''}>
                                     <Link to={i.to} > {i.label}</Link>
                                 </li>
                             })

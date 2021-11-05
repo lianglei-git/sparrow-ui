@@ -24,12 +24,12 @@ module.exports = {
       'react-router-dom': 'ReactRouterDom'
     }
 
-    config.module.rules.push({
-        test: /\.(png|jpg|gif|eot|woff|ttf|svg|webp|PNG)(\?\S*)?$/,
-        use: [
-          { loader: "file-loader", options: { esModule: false, limit: 10240 } },
-        ],
-    });
+    // config.module.rules.push({
+    //     test: /\.(png|jpg|gif|eot|woff|ttf|svg|webp|PNG)(\?\S*)?$/,
+    //     use: [
+    //       { loader: "file-loader", options: { esModule: false, limit: 10240 } },
+    //     ],
+    // });
     if (isDev) {
       config.devtool = 'source-map'
       config.resolve.alias = {

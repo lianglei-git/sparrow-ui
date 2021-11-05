@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2861028",
+      "name": "Loading",
+      "font_class": "Loading",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "14341916",
+      "name": "backward",
+      "font_class": "backward",
+      "unicode": "e7b2",
+      "unicode_decimal": 59314
+    },
+    {
+      "icon_id": "24648590",
+      "name": "前进",
+      "font_class": "qianjin",
+      "unicode": "e690",
+      "unicode_decimal": 59024
+    },
+    {
       "icon_id": "1191851",
       "name": "loading_2",
       "font_class": "loading",

@@ -114,22 +114,27 @@ const Content = (props: any) => {
             {getMenuItems()}
         </div>
         <div className="show-components">
-            <h1>
-                {props.index.meta.title} {props.index.meta.subTitle}
-            </h1>
-            <ComponentInMarkdown utils={props.utils} content={props.index.content}></ComponentInMarkdown>
-            <h2><span>代码演示</span> <sp-switch inactive-text='调试' active-text='关闭' ref={switchEl} value={switchVal}></sp-switch></h2>
-            {demo()}
-            {props.utils.toReactComponent(
-                [
-                    'section',
-                    {
-                        className: 'markdown api-container',
-                    },
-                ].concat(getChildren(props.index.api || ['placeholder'])),
-            )}
+            <div className="_cmps">
+                <h1>
+                    {props.index.meta.title} {props.index.meta.subTitle}
+                </h1>
+                <ComponentInMarkdown utils={props.utils} content={props.index.content}></ComponentInMarkdown>
+                <h2><span>代码演示</span> <sp-switch inactive-text='调试' active-text='关闭' ref={switchEl} value={switchVal}></sp-switch></h2>
+                {demo()}
+                {props.utils.toReactComponent(
+                    [
+                        'section',
+                        {
+                            className: 'markdown api-container',
+                        },
+                    ].concat(getChildren(props.index.api || ['placeholder'])),
+                )}
+            </div>
         </div>
         <div className={code !== null ? 'code active' : 'code'} ref={codeEl} >
+            <div className="back" onClick={() => setCode(null)} dangerouslySetInnerHTML={{__html: `<svg class="icon" aria-hidden="true">
+                <use xlink:href="#sp-icon-qianjin"></use>
+            </svg>`}}></div>
             <CodeView toReactComponent={props.utils.toReactComponent} code={code} />
         </div>
 
