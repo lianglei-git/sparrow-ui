@@ -6,6 +6,7 @@ export * as button from "./button/index"
 import {Message} from './message'
 import {Modal} from "./modal"
 import './switch/index'
+import './alert'
 // export * as alert from "./alert/alert";
 const Spui = {
     Modal,

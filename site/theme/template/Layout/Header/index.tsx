@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, browserHistory } from 'bisheng/router';
 import './index.less';
-import logo from './logo.png';
 const Header: React.FC = () => {
     const [isotherClass, setOther] = useState('');
     const l = [{
@@ -26,7 +25,6 @@ const Header: React.FC = () => {
     ]
 
     useEffect(() => {
-        console.log(location)
         setOther(location.pathname == '/' ? '' : 'other')
     }, [location.pathname])
 
