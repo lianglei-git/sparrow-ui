@@ -13,6 +13,7 @@ title: 嵌套的 Dialog
         <sp-modal id="modal2" title="children modal" appendbody='true' visible='false' class="children-modal">
             <div slot="content">嵌套子modal</div>
         </sp-modal>
+        
     </div>
 </sp-modal>
 <script>

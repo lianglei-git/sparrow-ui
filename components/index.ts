@@ -7,10 +7,12 @@ import {Message} from './message'
 import {Modal} from "./modal"
 import './switch/index'
 import './alert'
+import {Loading} from './loading'
 // export * as alert from "./alert/alert";
 const Spui = {
     Modal,
-    Message
+    Message,
+    Loading
 }
 
 
@@ -19,5 +21,6 @@ export default Spui
 
 export {
     Modal,
-    Message
+    Message,
+    Loading
 }

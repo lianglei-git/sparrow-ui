@@ -1,0 +1,45 @@
+.sp-loading {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
+    z-index: 7;
+    color: var(--color-primary);
+    
+    &-content {
+        display: flex;
+        font-size: 14px ;
+        margin-top: 3px;
+
+    }
+    &-icon {
+        &::before {
+            display: inline-block;
+            animation: loadingCircle 1s infinite linear;
+          }
+    }
+    &-fade-enter {
+        opacity:1 !important
+    }
+    &-fade-leave {opacity:0 !important}
+    &-fade-enter-active {
+        opacity:1
+    }
+}
+
+  @keyframes loadingCircle {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  

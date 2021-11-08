@@ -120,7 +120,7 @@ class Alert {
     private set({ attrs, target, contentEl, iconEl, closeEl }: any) {
         runIFELSE(new Set([
             [attrs?.icon && iconEl, () => {
-                iconEl.className = iconEl.basename + ' sp-icon sp-icon-' + attrs?.icon
+                iconEl.className = iconEl.basename + ' sp-icon ' + attrs?.icon
             }],
             [attrs?.closable && closeEl, () => {
                 let display = attrs.closable == 'true' ? 'block' : attrs.closable == 'false' ? 'none' : ''
