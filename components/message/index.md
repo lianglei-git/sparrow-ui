@@ -37,7 +37,8 @@ subTitle: 消息提示
 | center      | 文字是否居中                          | boolean                  | false     |      |
 | offset      | Message 距离窗口顶部的偏移量          | number, string           | 20        |      |
 | beforeClose | 关闭前回调                            | function                 | -         |      |
-
+| visible | 是否展示                            | string & boolean                 | false         |      |
+| message | 展示信息                            | string                 | -         |      |
 ### 全局方法
 
 还提供了全局配置和全局销毁方法：

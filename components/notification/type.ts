@@ -14,7 +14,7 @@ export interface notifyTypesProps {
 // default
 export const notifyProps:Partial<notifyTypesProps> = {
     visible: false, // 展示
-    type: 'success', // 主题
+    type: undefined,// 'success' // 主题
     message: undefined, // ''
     duration: 4500, // 3000 // 显示时间, 毫秒。设为 0 则不会自动关闭
     showclose: 'true', // false	是否显示关闭按钮

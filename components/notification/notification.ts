@@ -116,14 +116,14 @@ class NotifyBase {
 
     protected initView(root: El<any>) {
         let t: number = 0
-        const init: <T = El<any>>(args: { [k: string]: T }) => void = ({ iconEl, closeEl }) => {
+        const init: <T = El<any>>(args: { [k: string]: T }) => void = ({ closeEl }) => {
             if (+root.attrs.duration > 0) {
                 t = sto(() => {
                     root['attr-visible'] = false;
                 }, +root.attrs.duration)
             }
             if (closeEl) {
-                closeEl.onclick = () => {
+                (closeEl as any).onclick = () => {
                     t > 0 && clearTimeout(t)
                     root['attr-visible'] = false
                 }
@@ -151,10 +151,9 @@ function Notify(params: notifyTypesProps) {
             delete params.classname;
         }]
     ]))
-
     for (let k in props) {
         let v = (props as any)[k]
-        if (!v) continue
+        if (v == undefined) continue
         t[`attr-${k}`] = v + '';
     }
     document.body.appendChild(t);
@@ -173,5 +172,12 @@ function Notify(params: notifyTypesProps) {
         return Notify({ type, message: options, ...args })
     }
 });
+
+Notify.closeAll = () => {
+    let allEls: NodeList | any = $el('sp-notify');
+    [...allEls].forEach((el: HTMLElement | any) => {
+        el['attr-visible'] = false;
+    });
+}
 export { Notify }
 export default new NotifyBase()

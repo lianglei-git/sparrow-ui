@@ -29,7 +29,12 @@ const Content = (props: any) => {
     const to = ($$i: Meta) => {
         let toL = $$i.filename.split('/');
         let topath = toL[0] + '/' + toL[1] + '/';
-        [...$el('.temp_scripts')].map(i => i.remove())
+        [...$el('.temp_scripts')].map((i, idx) => {
+            if(idx == 0) {
+                [...$el('.children-modal')].map(i2 => i2?.remove())
+            }
+            i.remove()
+        })
         return <Link to={topath}> {$$i.title} {$$i.subTitle}</Link>
     }
 
