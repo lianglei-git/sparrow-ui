@@ -1,8 +1,8 @@
 @font-face {
   font-family: "sp-icon"; /* Project id 2850031 */
-  src: url('iconfont.woff2?t=1636093103268') format('woff2'),
-       url('iconfont.woff?t=1636093103268') format('woff'),
-       url('iconfont.ttf?t=1636093103268') format('truetype');
+  src: url('iconfont.woff2?t=1636454053803') format('woff2'),
+       url('iconfont.woff?t=1636454053803') format('woff'),
+       url('iconfont.ttf?t=1636454053803') format('truetype');
 }
 
 .sp-icon {
@@ -13,7 +13,31 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.sp-icon-Loading:before {
+.sp-icon-loading1:before {
+  content: "\e700";
+}
+
+.sp-icon-close:before {
+  content: "\e600";
+}
+
+.sp-icon-error:before {
+  content: "\e62b";
+}
+
+.sp-icon-warning:before {
+  content: "\e62c";
+}
+
+.sp-icon-info:before {
+  content: "\e608";
+}
+
+.sp-icon-success:before {
+  content: "\e60c";
+}
+
+.sp-icon-loading:before {
   content: "\e65d";
 }
 
@@ -25,7 +49,7 @@
   content: "\e690";
 }
 
-.sp-icon-loading:before {
+.sp-icon-loading2:before {
   content: "\e613";
 }
 
@@ -41,19 +65,11 @@
   content: "\e610";
 }
 
-.sp-icon-info:before {
-  content: "\e659";
-}
-
-.sp-icon-success:before {
+.sp-icon-success2:before {
   content: "\e617";
 }
 
-.sp-icon-error:before {
-  content: "\e6c6";
-}
-
-.sp-icon-close:before {
+.sp-icon-closew:before {
   content: "\e69e";
 }
 
