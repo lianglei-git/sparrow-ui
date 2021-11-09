@@ -33,6 +33,10 @@ class MessageBase {
                         let offsetHeight = this.offsetHeight
                         newval && setIndex();
                         if (newval == 'false') {
+                            setStyle(this, {
+                                opacity: '0',
+                                zIndex: '0'
+                            })
                             this.classList.add('sp-message-fade-leave')
                             let _index = elAlls.findIndex(i => i.id == this.id);
                             this.beforeClose && this.beforeClose();

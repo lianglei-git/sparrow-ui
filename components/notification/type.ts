@@ -1,9 +1,9 @@
 export interface notifyTypesProps {
     visible?: boolean, // 展示
-    type: 'success' | 'error' | 'info', // 主题
+    type: 'success' | 'error' | 'info' | 'warning', // 主题
     message:  string,
     duration: number, // 显示时间, 毫秒。设为 0 则不会自动关闭
-    showclose: boolean, // 	是否显示关闭按钮
+    showclose: boolean | string, // 	是否显示关闭按钮
     offset: number, // Message 距离窗口顶部的偏移量
     beforeClose?: () => any,
     style: undefined,
@@ -16,8 +16,8 @@ export const notifyProps:Partial<notifyTypesProps> = {
     visible: false, // 展示
     type: 'success', // 主题
     message: undefined, // ''
-    duration: 3000, // 3000 // 显示时间, 毫秒。设为 0 则不会自动关闭
-    showclose: undefined, // false	是否显示关闭按钮
+    duration: 4500, // 3000 // 显示时间, 毫秒。设为 0 则不会自动关闭
+    showclose: 'true', // false	是否显示关闭按钮
     offset: 20, // Message 距离窗口顶部的偏移量
     beforeClose: () => {},
     style: undefined,

@@ -33,21 +33,27 @@ class NotifyBase {
                     let offsetHeight = this.offsetHeight
                     newval && setIndex();
                     if (newval == 'false') {
-                        this.classList.add('sp-notify-fade-leave-'+ this['attr-position'])
+                        this.classList.add('sp-notify-fade-leave-' + this['attr-position']);
+                        setStyle(this, {
+                            opacity: '0',
+                            zIndex: '0'
+                        })
                         let _index = elAlls.findIndex(i => i.id == this.id);
                         this.beforeClose && this.beforeClose();
                         elAlls.forEach((element: any, i: number) => {
-                            if (i >= _index) {
+                            if (i >= _index && element['attr-position'].indexOf(this['attr-position']) > -1) {
+                                let dir = this['attr-position'].indexOf('bottom') > -1 ? 'bottom' : 'top'
+                                let px = parseInt(element.style[dir], 10) - offsetHeight - 20 + 'px'
                                 setStyle(element, {
-                                    top: parseInt(element.style.top, 10) - offsetHeight - 20 + 'px'
+                                    [dir]: px
                                 })
                             }
                         });
                         this.beforeDistroy?.()
                         sto(() => this.remove(), 290)
                     } else {
-                        this.classList.add('sp-notify-fade-enter-'+ this['attr-position']+'')
-                        sto(() => this.classList.add('sp-notify-fade-enter-'+ this['attr-position']+'-active'))
+                        this.classList.add('sp-notify-fade-enter-' + this['attr-position'] + '')
+                        sto(() => this.classList.add('sp-notify-fade-enter-' + this['attr-position'] + '-active'))
                     }
                 }
             }
@@ -61,7 +67,6 @@ class NotifyBase {
             root?.['attr-classname'] || root?.attrs?.['classname'],
             root?.['attr-position'] || root?.attrs?.['position'],
             basename + '--' + root?.['attr-type'] || root?.attrs?.['type'],
-
         ]
         root.className = classList.join(' ');
 
@@ -74,6 +79,7 @@ class NotifyBase {
             closeEl: HTMLSpanElement | any = createEl('i'),
             basename = root.tagName.toLocaleLowerCase();
         this._setClassName(root)
+        root.id = 'sp-notify__' + getIndex()
         iconEl.basename = basename + '-icon';
         contentEl.basename = basename + '-content';
         closeEl.basename = basename + '-close';
@@ -95,12 +101,14 @@ class NotifyBase {
         let allEls: NodeList | any = $el('sp-notify')
         let propsOffset = parseInt(this.attrs.offset) || 20
         let top: Number = [...allEls].reduce((total, el) => {
-            el['attr-visible'] == 'true' && (total += el.offsetHeight + propsOffset)
+            if (el['attr-position'].indexOf(this['attr-position']) > -1) {
+                el['attr-visible'] == 'true' && (total += el.offsetHeight + propsOffset)
+            }
             return total
         }, propsOffset);
         this['attr-visible'] = 'true';
         setStyle(this, {
-            top: top + 'px',
+            [this['attr-position'].indexOf('bottom') > -1 ? 'bottom' : 'top']: top + 'px',
             zIndex: getIndex() + '',
         });
 
@@ -109,10 +117,9 @@ class NotifyBase {
     protected initView(root: El<any>) {
         let t: number = 0
         const init: <T = El<any>>(args: { [k: string]: T }) => void = ({ iconEl, closeEl }) => {
-
             if (+root.attrs.duration > 0) {
                 t = sto(() => {
-                        root['attr-visible'] = false;
+                    root['attr-visible'] = false;
                 }, +root.attrs.duration)
             }
             if (closeEl) {
@@ -121,23 +128,8 @@ class NotifyBase {
                     root['attr-visible'] = false
                 }
             }
-            this.set({
-                attrs: root.attrs,
-                target: root,
-                iconEl,
-                // contentEl,
-            })
         }
         this.initChildrens(root, init)
-    }
-
-    protected set({ attrs, target, iconEl }: any) {// , contentEl
-        runIFELSE(new Set([
-            [attrs?.['position'], () => {
-                console.log(attrs?.['position'])
-            }]
-        ]))
-
     }
 }
 
@@ -173,5 +165,13 @@ function Notify(params: notifyTypesProps) {
     return Object.assign(p, t)
 }
 
+['info', 'success', 'error', 'warning'].forEach((type: notifyTypesProps['type']) => {
+    (Notify as any)[type] = (options: notifyTypesProps | any, args: any) => {
+        if (isObject(options)) {
+            return Notify({ ...options, type })
+        }
+        return Notify({ type, message: options, ...args })
+    }
+});
 export { Notify }
 export default new NotifyBase()
