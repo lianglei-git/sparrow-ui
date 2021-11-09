@@ -1,18 +1,20 @@
 /// 这里引用 和 抛出组件
 // @ts-nocheck
-import {runIFELSE, getGlobalThis} from './_utils/common'
+import { runIFELSE, getGlobalThis } from './_utils/common'
 import './common/styles'
 export * as button from "./button/index"
-import {Message} from './message'
-import {Modal} from "./modal"
+import { Message } from './message'
+import { Modal } from "./modal"
 import './switch/index'
 import './alert'
-import {Loading} from './loading'
+import { Loading } from './loading'
+import { Notify } from './notification'
 // export * as alert from "./alert/alert";
 const Spui = {
     Modal,
     Message,
-    Loading
+    Loading,
+    Notify
 }
 
 
@@ -22,5 +24,6 @@ export default Spui
 export {
     Modal,
     Message,
-    Loading
+    Loading,
+    Notify
 }

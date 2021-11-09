@@ -1,58 +1,66 @@
 .sp-notify {
-    width: fit-content;
+    min-width: 380px;
+    position: fixed;
     display: flex;
+    background-color: var(--color-white);
+    padding: 10px;
+    box-shadow: 0 0 10px 1px #ccc;
+    border-radius: 3px;
     align-items: center;
-    height: 20px;
-    border-radius: 10px;
-    background-color: #dcdfed;
-    cursor: pointer;
-    vertical-align: middle;
-    border: 1px solid #dcdfed;
-    box-sizing: border-box;
-    position: relative;
-    transition: all .3s, border 0s;
+    transition: top .3s, left .3s, bottom .3s, right .3s;
+    opacity: 1;
 
-    &-icon {
-        width: 16px;
-        height: 16px;
+    &-fade-enter-top-right,
+    &-fade-leave-top-right {
+        opacity: 0;
+        right: -100%;
+    }
+
+    &-fade-enter-top-right-active {
+        opacity: 1;
+        right: 10px !important;
+    }
+
+
+    &-content {
         display: flex;
-        background-color: #fff;
-        border-radius: 50%;
-        position: absolute;
-        top: 1px;
-        left: 1px;
-        transition: left .3s;
+        flex: 1;
+    }
 
-        &.sp-icon-loading {
-            background-color: transparent;
+    .sp-icon {
+        font-size: 18px;
+        margin-right: 10px;
+
+        &-success {
+            color: green;
+        }
+
+        &-error {
+            color: rgb(219, 22, 22);
+        }
+
+        &-info {
+            color: var(--color-text-regular);
+        }
+
+        &-loading {
+            color: var(--color-primary);
+
         }
     }
 
-    &-text {
-        font-size: 14px;
-        transform: translateX(3px);
+    .sp-icon-close {
+        // opacity: 0;
+        margin-left: 10px;
+        font-size: 18px;
+        color: var(--color-text-secondary);
+        cursor: pointer;
+        font-weight: bold;
 
-        &.enter {
-            transition: transform .3s;
+        &:hover {
+            color: var(--color-primary);
         }
     }
 
-    &.small {
-        height: 16px;
 
-        .sp-switch-icon {
-            width: 12px;
-            height: 12px;
-            font-size: 12px;
-        }
-
-        .sp-switch-text {
-            font-size: 12px;
-        }
-    }
-
-    &.is-disabled {
-        cursor: not-allowed;
-        opacity: 0.4;
-    }
 }
