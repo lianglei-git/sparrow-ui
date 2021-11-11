@@ -96,8 +96,7 @@ const Content = (props: any) => {
         })
     }
     useEffect(() => {
-
-        console.log($el('.temp_scripts'))
+        // console.log($el('.temp_scripts'))
         testElId = 0
         setMetaId('')
         setSwitchVal(false)

@@ -1,7 +1,82 @@
 .sp-drawer {
-    width: 300px;
-    height: 100%;
+    // width: 0;
+    // height: 100%;
     display: flex;
-    flex-direction: column;
-    
+    transition: all .3s ;
+    transition-property: right, left, top, bottom;
+    position: absolute;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: -6px 0 16px -8px #00000014, -9px 0 28px #0000000d, -12px 0 48px 16px #00000008;
+    flex-flow: column nowrap;
+
+    &.is-fixed {
+        position: fixed;
+    }
+
+    &._-_right {
+        top: 0;
+        right: -50%;
+        width: 40%;
+        height: 100%;
+
+        &-open {
+            right: 0
+        }
+    }
+
+    &._-_left {
+        top: 0; 
+        left: -50%;
+        width: 40%;
+        height: 100%;
+
+        &-open {
+            
+            left: 0
+        }
+    }
+
+    &._-_top {
+        top: -50%;
+        left: 0;
+        width: 100%;
+        height: 40%;
+
+        &-open {
+          
+            top: 0
+        }
+    }
+
+    &._-_bottom {
+        bottom: -50%;
+        left: 0;
+        width: 100%;
+        height: 40%;
+
+        &-open {
+            bottom: 0
+        }
+    }
+}
+
+.sp-drawer-mask {
+    background-color: rgba(0, 0, 0, .5);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    opacity: 0;
+    transition: .3s;
+
+    &.block {
+        display: block;
+    }
+
+    &.open {
+        opacity: 1;
+    }
 }

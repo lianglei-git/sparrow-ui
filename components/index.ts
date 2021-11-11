@@ -9,6 +9,7 @@ import './switch/index'
 import './alert'
 import { Loading } from './loading'
 import { Notify } from './notification'
+import './drawer'
 // export * as alert from "./alert/alert";
 const Spui = {
     Modal,
