@@ -3,38 +3,90 @@ import { runIFELSE, sto, isObject, has } from '../_utils/common'
 import { getIndex, setIndex } from '../common/index'
 import { drawerProps, drawerTypesProps } from './type'
 import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
+import SlotsBase from '../_utils/Slots'
 import './style';
 
+const { log } = console
+
 const keys: string[] = Object.keys(drawerProps);
-
-class Base {
-    public _setClassName(root: HTMLElement | any) {
-        let basename = root.tagName.toLocaleLowerCase();
-        root.$$placement = root?.['attr-placement'] || root?.attrs?.['placement']
-        let classList = [
-            basename,
-            root?.['attr-classname'] || root?.attrs?.['classname'],
-            '_-_' + root.$$placement,
-            (root?.['append-to-body'] || root?.attrs?.['append-to-body']) == 'true' ? 'is-fixed' : ''
-        ];
-        root.className = classList.join(' ');
+const $$style: string = `
+    .template {
+        position: absolute;
+        overflow: hidden;
+        background-color: #fff;
+        box-shadow: -6px 0 16px -8px #00000014, -9px 0 28px #0000000d, -12px 0 48px 16px #00000008;
+        display: flex;
+        flex-flow: column nowrap;
+        transition: all .3s;
+        transition-property: right, left, top, bottom;
     }
-}
-
-
-class Drawer extends Base {
+    
+    .template._-_right {
+        top: 0;
+        right: -50%;
+        width: 40%;
+        height: 100%;
+    }
+    .template._-_right-open {
+      right: 0;
+    }
+    .template._-_left {
+        top: 0;
+        left: -50%;
+        width: 40%;
+        height: 100%;
+    }
+    .template._-_left-open {
+     left: 0;
+    }
+    .template._-_top {
+        top: -50%;
+        left: 0;
+        width: 100%;
+        height: 40%;
+    }
+    .template._-_top-open {
+        top: 0;
+    }
+    .template._-_bottom {
+        bottom: -50%;
+        left: 0;
+        width: 100%;
+        height: 40%;
+    }
+    .template._-_bottom-open {
+     bottom: 0;
+    }
+`
+class Drawer extends SlotsBase {
     context: this
     constructor() {
-        super()
+        super({
+            $$style
+        })
         const context = this;
         defineEl({
             tag: 'sp-drawer',
+            shadow: 'open',
             observedAttributes: keys,
             connectedCallback() {
                 (this.attrs as Partial<drawerTypesProps>) = getProps(this);
                 this.attrs = { ...drawerProps, ...this.attrs };
-
-                context.initView(this)
+                // if (this.attrs['append-to-body'] == 'true') {
+                //     this.isbody = true
+                //     // this.remove();
+                //     this['attr-append-to-body'] = 'false' // 重新走下面
+                //     context._setClassName(this)
+                //     // document.body.append(this)
+                //     // return;
+                // }
+                if(this.attrs.fullscreen == 'true') {
+                    this.isbody = true;
+                    context._setClassName(this)
+                }
+                sto(() => {
+                    context.initView(this)
+                });// 初始化视图
             },
             attributeChangedCallback(...args) {
                 let [key, _, newval] = args;
@@ -62,36 +114,37 @@ class Drawer extends Base {
         ]))
     }
 
+
     protected initView(root: HTMLElement | any) {
         let header = createEl('header'),
             title = createEl('span'),
             close = createEl('i'),
-            mask = createEl('div');
+            mask = createEl('div'),
+            template = createEl('template'),
+            slotObj = this._showContentType(root, ['header']);
         mask.className = 'sp-drawer-mask __' + getIndex();
-        setIndex()
-        setStyle(mask, {
-            zIndex: getIndex() + ''
-        })
-        setStyle(root, {
-            zIndex: (setIndex() + 1) + ''
-        })
-        root.attrs?.['keyboard'] == 'true' && listener(document.body, 'keydown', (e:KeyboardEvent) => {
-            if (e.which === 27 && root['attr-visible'] == 'true'){
+        template.innerHTML = this._template(root)
+        this._setClassName(root)
+        header.setAttribute('slot', 'header')
+        header.append(title, close);
+        listener(close, 'click', () => root?.onClose())
+        root.attrs?.['keyboard'] == 'true' && listener(document.body, 'keydown', (e: KeyboardEvent) => {
+            if (e.which === 27 && root['attr-visible'] == 'true') {
                 root?.onClose()
             }
         })
-        listener(close, 'click', () => root?.onClose())
-        this._setClassName(root)
 
-        header.append(title, close);
+
+
         root.attrs?.['mask'] == 'false' && (mask = '')
         root.attrs?.['mask-closable'] == 'true' && mask && listener(mask, 'click', () => root?.onClose())
-        root.headerEl = header
+        root.headerEl = header;
+        !slotObj.header && root.insertBefore(header, root.firstChild);
+        root.shadowRoot.appendChild(template.content.cloneNode(true))
         this.set({ title, attrs: root.attrs, close, target: root, mask, header })
-        root.insertBefore(header, root.firstChild);
         root.maskEl = mask
-
     }
+
     protected set(args: any) {
         let { title, attrs, close, target, mask, header } = args;
         runIFELSE(new Set([
@@ -107,13 +160,24 @@ class Drawer extends Base {
             }],
             [attrs?.['classname'], () => this._setClassName(target)],
             [attrs?.['visible'], () => {
+                let width = target['attr-width']
                 if (attrs?.['visible'] == 'true') {
                     target.classList.add('_-_' + target?.$$placement)
                     mask?.classList.add('block')
                     sto(() => {
+                        width && setStyle(target, {width})
                         target.classList.add('_-_' + target?.$$placement + '-open')
                         mask?.classList.add('open')
                     });
+                    {
+                        setIndex()
+                        setStyle(mask, {
+                            zIndex: getIndex() + ''
+                        })
+                        setStyle(target, {
+                            zIndex: (getIndex() + 1) + ''
+                        })
+                    }
                     return
                 }
 
@@ -125,21 +189,18 @@ class Drawer extends Base {
                     }, 290);
                 }
             }],
-            [attrs?.['append-to-body'], () => {
-                if (attrs?.['append-to-body'] == 'true' && !target.isbody) {
-                    this._setClassName(target)
-                    target.remove();
-                    target.isbody = true;
-                    document.body.append(target, mask)
-                    target?.headerEl?.remove();
+            [attrs?.fullscreen, () => {
+                if (!mask) return
+                if (target.isbody) {
+                    document.body.append(mask);
+                    return
                 }
-                if (attrs?.['append-to-body'] == 'false') {
-                    let nesetparent = target.parentElement;
-                    nesetparent.append(mask)
-                    setStyle(nesetparent, {
-                        position: 'relative'
-                    });
-                }
+
+                let nesetparent = target.parentElement;
+                nesetparent.append(mask)
+                setStyle(nesetparent, {
+                    position: 'relative'
+                });
             }]
         ]))
     }

@@ -97,7 +97,7 @@ const Home = (props) => {
             </sp-modal>
 
             <sp-button onClick={e => setVisible2(true)} > 打开嵌套modal </sp-button>
-            <sp-modal ref={modaltwo} title="嵌套modal" visible={visible2} center={false}>
+            <sp-modal ref={modaltwo} title="嵌套modal"  visible={visible2} center={false}>
                 <div slot="content">
                 <sp-button onClick={e => setVisible3(true)} > 打开子模块 </sp-button>
                 <sp-modal ref={modalthree} title="子modal" appendbody visible={visible3} class="children-modal">

@@ -9,11 +9,13 @@ export interface drawerTypesProps {
     'mask-closable': string | boolean // 点击蒙层是否允许关闭
     placement: 	'top' | 'right' | 'bottom' | 'left' // 抽屉的方向
     visible	: string | boolean,
-    'append-to-body': string | boolean
+    'append-to-body': string | boolean // 以目前的各种因素来看 不得不舍去这个属性， 没有太多的对react和vue进行考虑 
+    fullscreen:string | boolean // 代替 是否全局和局部
+    width: string | number
 }
 
 export const drawerProps: Partial<drawerTypesProps> = {
-    'append-to-body': 'true',
+    'append-to-body': 'true', 
     'mask-closable': 'true',
     keyboard: 'true',
     visible: undefined,
@@ -22,5 +24,6 @@ export const drawerProps: Partial<drawerTypesProps> = {
     closable: 'true',
     closeicon: undefined,
     mask: 'true',
-
+    fullscreen: 'true',
+    width: undefined
 } 
