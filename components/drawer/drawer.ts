@@ -6,58 +6,8 @@ import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
 import SlotsBase from '../_utils/Slots'
 import './style';
 
-const { log } = console
-
 const keys: string[] = Object.keys(drawerProps);
-const $$style: string = `
-    .template {
-        position: absolute;
-        overflow: hidden;
-        background-color: #fff;
-        box-shadow: -6px 0 16px -8px #00000014, -9px 0 28px #0000000d, -12px 0 48px 16px #00000008;
-        display: flex;
-        flex-flow: column nowrap;
-        transition: all .3s;
-        transition-property: right, left, top, bottom;
-    }
-    
-    .template._-_right {
-        top: 0;
-        right: -50%;
-        width: 40%;
-        height: 100%;
-    }
-    .template._-_right-open {
-      right: 0;
-    }
-    .template._-_left {
-        top: 0;
-        left: -50%;
-        width: 40%;
-        height: 100%;
-    }
-    .template._-_left-open {
-     left: 0;
-    }
-    .template._-_top {
-        top: -50%;
-        left: 0;
-        width: 100%;
-        height: 40%;
-    }
-    .template._-_top-open {
-        top: 0;
-    }
-    .template._-_bottom {
-        bottom: -50%;
-        left: 0;
-        width: 100%;
-        height: 40%;
-    }
-    .template._-_bottom-open {
-     bottom: 0;
-    }
-`
+const $$style: string = ``
 class Drawer extends SlotsBase {
     context: this
     constructor() {
@@ -146,7 +96,7 @@ class Drawer extends SlotsBase {
     }
 
     protected set(args: any) {
-        let { title, attrs, close, target, mask, header } = args;
+        let { title, attrs, close, target, mask } = args;
         runIFELSE(new Set([
             [attrs?.['title'] && title, () => {
                 title.innerText = attrs['title']

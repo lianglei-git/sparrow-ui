@@ -10,7 +10,7 @@ type createElTyp = {
     getConstructor?: (target: HTMLElement) => any | void
 }
 
-export const $el: HTMLElement | any = (el: string) => document.querySelectorAll(el)
+export const $el: HTMLElement | any = (el: string, target:HTMLElement|Document = document) => target.querySelectorAll(el)
 
 export const createEl = (tag: string, type: string = 'createElement') => (document as any)[type](tag)
 

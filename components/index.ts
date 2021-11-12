@@ -10,7 +10,7 @@ import './alert'
 import { Loading } from './loading'
 import { Notify } from './notification'
 import './drawer'
-// export * as alert from "./alert/alert";
+import './timeline'
 const Spui = {
     Modal,
     Message,

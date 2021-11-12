@@ -1,0 +1,77 @@
+.sp-timeline {
+    box-sizing: border-box;
+    color: #000000d9;
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    font-feature-settings: "tnum";
+    margin: 0;
+    padding: 0;
+
+    &-label {
+        .sp-timeline-item {
+            padding-left: calc(50% + 25px);
+
+            .sp-timeline-item-line {
+                left: 50%;
+            }
+
+            .sp-timeline-item-icon {
+                left: calc(50% - 4px)
+            }
+
+            .sp-icon {
+                left: calc(50% - 6px)
+            }
+        }
+    }
+
+    &.label-reverse {
+        .sp-timeline-item {
+            padding-right: calc(50% + 25px);
+            text-align: right;
+            padding-left: 0;
+
+            .sp-timeline-item-label {
+                left: calc(50% + 25px);
+                text-align: left;
+            }
+        }
+    }
+
+    &.is-reverse {
+        .sp-timeline-item {
+            padding-right:  25px ;
+            text-align: right;
+            padding-left: 0;
+            &-line {
+                position: absolute;
+                right: 4px;
+                top: 18px;
+                width: 2px;
+                height: calc(100% - 16px);
+                background-color: #f0f0f0;
+                left: initial;
+            }
+        
+            &-icon {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                right: 0;
+                top: 6px;
+                border: 2px solid var(--color-primary);
+                border-radius: 100px;
+                left: initial;
+            }
+            >.sp-icon {
+                position: absolute;
+                // font-size: 13px;
+                right: -3px;
+                top: -3.5px;
+                left: initial;
+            }
+        }
+
+    }
+}
