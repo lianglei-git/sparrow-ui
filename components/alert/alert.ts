@@ -1,5 +1,5 @@
 import { alertTypesProps, alertProps } from './type'
-import { runIFELSE, sto } from '../_utils/common'
+import { runIFELSE } from '../_utils/common'
 import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
 import './style'
 const keys: string[] = Object.keys(alertProps);

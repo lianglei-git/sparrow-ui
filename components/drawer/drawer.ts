@@ -1,5 +1,5 @@
 
-import { runIFELSE, sto, isObject, has } from '../_utils/common'
+import { runIFELSE, sto} from '../_utils/common'
 import { getIndex, setIndex } from '../common/index'
 import { drawerProps, drawerTypesProps } from './type'
 import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
@@ -51,18 +51,18 @@ class Drawer extends SlotsBase {
     }
 
 
-    protected beforeAppend(...args: any) {
-        let { title, attrs, close } = args;
+    // protected beforeAppend(...args: any) {
+    //     let { title, attrs, close } = args;
 
-        runIFELSE(new Set([
-            [!attrs?.['title'], () => {
-                title = ''
-            }],
-            [!attrs?.['closable'], () => {
-                close = ''
-            }]
-        ]))
-    }
+    //     runIFELSE(new Set([
+    //         [!attrs?.['title'], () => {
+    //             title = ''
+    //         }],
+    //         [!attrs?.['closable'], () => {
+    //             close = ''
+    //         }]
+    //     ]))
+    // }
 
 
     protected initView(root: HTMLElement | any) {

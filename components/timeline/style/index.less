@@ -68,10 +68,19 @@
                 position: absolute;
                 // font-size: 13px;
                 right: -3px;
-                top: -3.5px;
+                top: -1px;
                 left: initial;
             }
         }
 
+    }
+
+    &.is-pending {
+        .sp-timeline-item:nth-last-child(2) {
+            .sp-timeline-item-line {
+                border-left-style: dotted;
+                // border-left-color: #c1abab;
+            }
+        }
     }
 }

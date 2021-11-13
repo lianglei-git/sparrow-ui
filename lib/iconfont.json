@@ -1,0 +1,114 @@
+{
+  "id": "2850031",
+  "name": "sparrow-ui",
+  "font_family": "sp-icon",
+  "css_prefix_text": "sp-icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "11747910",
+      "name": "loading",
+      "font_class": "loading1",
+      "unicode": "e700",
+      "unicode_decimal": 59136
+    },
+    {
+      "icon_id": "15783536",
+      "name": "close",
+      "font_class": "close",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "59346",
+      "name": "error",
+      "font_class": "error",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "59347",
+      "name": "warning",
+      "font_class": "warning",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "1336074",
+      "name": "Info",
+      "font_class": "info",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "10304434",
+      "name": "success",
+      "font_class": "success",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "2861028",
+      "name": "Loading",
+      "font_class": "loading",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "14341916",
+      "name": "backward",
+      "font_class": "backward",
+      "unicode": "e7b2",
+      "unicode_decimal": 59314
+    },
+    {
+      "icon_id": "24648590",
+      "name": "前进",
+      "font_class": "qianjin",
+      "unicode": "e690",
+      "unicode_decimal": 59024
+    },
+    {
+      "icon_id": "1191851",
+      "name": "loading_2",
+      "font_class": "loading2",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "10561807",
+      "name": "Code",
+      "font_class": "Code",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
+      "icon_id": "19100224",
+      "name": "copy",
+      "font_class": "copy",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "24450207",
+      "name": "运行",
+      "font_class": "yunhang",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "1526019",
+      "name": "success",
+      "font_class": "success2",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "8106245",
+      "name": "close",
+      "font_class": "closew",
+      "unicode": "e69e",
+      "unicode_decimal": 59038
+    }
+  ]
+}

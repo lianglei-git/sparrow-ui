@@ -1,7 +1,7 @@
-import typeProps, { ButtonProps, baseprops } from './type'
+import typeProps, { ButtonProps } from './type'
 import './style'
 import { runIFELSE, sto } from '../_utils/common'
-import { defineEl, createEl, setStyle, getProps } from '../_utils/dom'
+import { defineEl, createEl, getProps } from '../_utils/dom'
 const typePropsObj: ButtonProps | any = typeProps()
 const changeProps = (elconstr: HTMLElement & any, props: object | any) => {
     let includes: Array<string> = ['shape', 'size', 'type'] // , 'disabled'

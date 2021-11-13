@@ -37,7 +37,7 @@ export const getProps = (target: HTMLElement): object => {
 }
 
 export const defineEl = (props: createElTyp, Element?: CustomElementConstructor): void => {
-    let _corel: HTMLElement | { [key: string]: any } | any = null
+    // let _corel: HTMLElement | { [key: string]: any } | any = null
     let is: boolean | void = runIFELSE(new Set([
         [props.tag.indexOf('-') == -1, () => {
             // 这里后续会替换成 用我们本组件内的提示
@@ -78,7 +78,7 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
                 super()
                 props.shadow ? this.attachShadow({ mode: props.shadow }) : ''
                 new Proxy(this, {})
-                _corel = this
+                // _corel = this
                 getAttribute(this, props?.observedAttributes)
             }
             connectedCallback() {
