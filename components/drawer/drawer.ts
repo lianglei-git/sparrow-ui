@@ -109,6 +109,7 @@ class Drawer extends SlotsBase {
                 }
             }],
             [attrs?.['classname'], () => this._setClassName(target)],
+            [attrs?.['placement'], () => this._setClassName(target)],
             [attrs?.['visible'], () => {
                 let width = target['attr-width']
                 if (attrs?.['visible'] == 'true') {
