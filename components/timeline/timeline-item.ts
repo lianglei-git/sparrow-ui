@@ -79,7 +79,6 @@ class TimeLineItem {
                 root.labelEl = label;
             })],
             [attrs['position'], () => {
-                console.log(attrs['position'])
                 if (attrs['position'] == 'right') {
                     this._setClassName(root)
                     return
