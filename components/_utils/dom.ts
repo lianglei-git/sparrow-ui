@@ -20,7 +20,6 @@ type Styletype<T> = {
 export const setStyle = (target: HTMLElement, obj: Styletype<CSSStyleRule['style']>) => {
     for (const key in obj) {
         if (Object.prototype.hasOwnProperty.call(target['style'], key) && (obj as any)[key] != "") {
-            // console.log('设置了::::', key, obj[key]);
             (target as any)['style'][key] = (obj as any)[key];
         }
     }
@@ -57,15 +56,10 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
                     enumerable: false,
                     configurable: false,
                     get() {
-                        // if (_corel) {
                             return target.getAttribute(attr)
-                        // }
-                        // return 'empty!'
                     },
                     set(val) {
-                        // console.log(val, attr)
                         target.setAttribute(attr, val)
-                        // target[attr] = val
                     }
                 })
             })
