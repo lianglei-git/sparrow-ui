@@ -8,7 +8,7 @@ const Header: React.FC = () => {
         label: '设计'
     },
     {
-        to: '/docs',
+        to: '/docs/react/index/',
         label: '文档'
     },
     {

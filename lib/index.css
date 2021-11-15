@@ -31,7 +31,7 @@
   color: var(--color-info);
 }
 .sp-icon-loading {
-  color: var(--color-primary);
+  color: #0e60b5;
 }
 .sp-icon-warning {
   color: var(--color-warning);
@@ -312,7 +312,7 @@
   color: var(--color-info);
 }
 .sp-icon-loading {
-  color: var(--color-primary);
+  color: #0e60b5;
 }
 .sp-icon-warning {
   color: var(--color-warning);
@@ -862,8 +862,11 @@
 .sp-timeline.is-reverse .sp-timeline-item > .sp-icon {
   position: absolute;
   right: -3px;
-  top: -3.5px;
+  top: -1px;
   left: initial;
+}
+.sp-timeline.is-pending .sp-timeline-item:nth-last-child(2) .sp-timeline-item-line {
+  border-left-style: dotted;
 }
 
 .sp-timeline-item {
@@ -896,9 +899,8 @@
   position: absolute;
   left: 4px;
   top: 18px;
-  width: 2px;
+  border-left: 2px solid #f0f0f0;
   height: calc(100% - 16px);
-  background-color: #f0f0f0;
 }
 .sp-timeline-item-icon {
   position: absolute;
@@ -912,5 +914,41 @@
 .sp-timeline-item > .sp-icon {
   position: absolute;
   left: -3px;
-  top: -3.5px;
+  top: -1px;
+}
+
+.sp-breadcrumb {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.sp-breadcrumb-item {
+  display: inline-block;
+  white-space: nowrap;
+  color: var(--color-text-regular);
+}
+.sp-breadcrumb-item a {
+  transition: color 0.2s;
+}
+.sp-breadcrumb-item a:hover {
+  color: var(--color-primary);
+}
+.sp-breadcrumb-item:last-child .sp-separator {
+  display: none;
+  margin: 0;
+}
+.sp-breadcrumb-item .sp-separator {
+  margin: 0 5px;
+  color: #ccc;
+  overflow: hidden;
+  display: inline-block;
+  line-height: 0.9;
+  font-size: 13px;
+  font-weight: bold;
+  vertical-align: baseline;
+}
+.sp-breadcrumb-item .sp-separator.sp-icon {
+  line-height: 1;
 }

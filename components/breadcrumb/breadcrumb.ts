@@ -1,6 +1,5 @@
-import { runIFELSE, sto } from '../_utils/common'
 import { breadcrumbTypesProps, breadcrumbProps } from './type'
-import { defineEl, getProps, $el, createEl } from '../_utils/dom'
+import { defineEl, getProps, createEl } from '../_utils/dom'
 
 
 class BreadCrumb {
