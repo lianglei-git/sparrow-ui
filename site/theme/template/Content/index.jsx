@@ -6,9 +6,9 @@ export default collect((nextProps) => {
     let {pathname} = nextProps.location;
     let pageDataPath = pathname.split('/');
     let pageData =  nextProps.utils.get(nextProps.data, pageDataPath);
+    let type = pathname.indexOf('docs/react') > -1 ? 'react' : pathname.indexOf('docs/spec') > -1 ? 'spec' : 'cmps'
     if (!pageData) {
         throw 404; // eslint-disable-line no-throw-literal
       }
-      console.log(pageData)
-    return Promise.resolve({...pageData})// 这段回掉注入参数 多半是react的源码。要查看一下在bisheng/tmp里面的routers.index.js的文件
+    return Promise.resolve({...pageData, $type: type})// 这段回掉注入参数 多半是react的源码。要查看一下在bisheng/tmp里面的routers.index.js的文件
 })(Main)

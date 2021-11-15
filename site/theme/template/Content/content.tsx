@@ -30,7 +30,7 @@ const Content = (props: any) => {
         let toL = $$i.filename.split('/');
         let topath = toL[0] + '/' + toL[1] + '/';
         [...$el('.temp_scripts')].map((i, idx) => {
-            if(idx == 0) {
+            if (idx == 0) {
                 [...$el('.children-modal')].map(i2 => i2?.remove())
             }
             i.remove()
@@ -39,24 +39,38 @@ const Content = (props: any) => {
     }
 
     const getMenuItems = () => {
-        let cdata = props.data.components;
-        let components = new Array()
-        for (let k in cdata) {
-            let _i = cdata[k]?.index
-            let title = _i?.meta?.title || false;
-            if (_i?.meta?.category === 'Components') {
-                let typed = components.find($$i => $$i.type == _i?.meta?.type);
-                if (typed) {
-                    typed.children.push(_i?.meta)
-                } else {
-                    let type = {
-                        type: _i?.meta?.type,
-                        children: [_i?.meta]
+        let components = new Array();
+        if (props.$type == 'cmps') {
+            let cdata = props.data.components;
+            for (let k in cdata) {
+                let _i = cdata[k]?.index
+                let title = _i?.meta?.title || false;
+                if (_i?.meta?.category === 'Components') {
+                    let typed = components.find($$i => $$i.type == _i?.meta?.type);
+                    if (typed) {
+                        typed.children.push(_i?.meta)
+                    } else {
+                        let type = {
+                            type: _i?.meta?.type,
+                            children: [_i?.meta]
+                        }
+                        components.push(type)
                     }
-                    components.push(type)
                 }
             }
+        } else if(props.$type == 'react') {
+            let docs = props.data.docs[props.$type];
+            let children = new Array()
+            for(let k in docs) {
+                let _i = docs[k];
+                children.push(_i?.meta)
+            }
+            components.push({
+                children,
+                type: 'Docs'
+            })
         }
+
         return <ul>
             {
                 components.map(item => {
@@ -82,6 +96,7 @@ const Content = (props: any) => {
     }
 
     const demo = () => {
+        if (!props.demo) return <></>
         const demos = props.demo;
         const l = new Array();
         for (let [_, v] of Object.entries(demos)) {
@@ -120,10 +135,15 @@ const Content = (props: any) => {
         <div className="show-components">
             <div className="_cmps">
                 <h1>
-                    {props.index.meta.title} {props.index.meta.subTitle}
+                    {props.$type == 'cmps' ? props.index.meta.title : props?.meta.title} {props.$type == 'cmps' ? props.index.meta.subTitle : props?.meta.subTitle}
                 </h1>
-                <ComponentInMarkdown utils={props.utils} content={props.index.content}></ComponentInMarkdown>
-                <h2><span>代码演示</span> <sp-switch inactive-text='调试' active-text='关闭' ref={switchEl} value={switchVal}></sp-switch></h2>
+                <ComponentInMarkdown utils={props.utils} content={props.$type == 'cmps' ? props.index.content : props?.content}></ComponentInMarkdown>
+                {
+                    props.$type == 'cmps' ?
+                        <h2><span>代码演示</span> <sp-switch inactive-text='调试' active-text='关闭' ref={switchEl} value={switchVal}></sp-switch></h2>
+                        : <div ref={switchEl}></div>
+                }
+
                 {demo()}
                 {props.utils.toReactComponent(
                     [
@@ -131,12 +151,13 @@ const Content = (props: any) => {
                         {
                             className: 'markdown api-container',
                         },
-                    ].concat(getChildren(props.index.api || ['placeholder'])),
+                    ].concat(getChildren(props?.index?.api || ['placeholder'])),
                 )}
             </div>
         </div>
         <div className={code !== null ? 'code active' : 'code'} ref={codeEl} >
-            <div className="back" onClick={() => setCode(null)} dangerouslySetInnerHTML={{__html: `<svg class="icon" aria-hidden="true">
+            <div className="back" onClick={() => setCode(null)} dangerouslySetInnerHTML={{
+                __html: `<svg class="icon" aria-hidden="true">
                 <use xlink:href="#sp-icon-qianjin"></use>
             </svg>`}}></div>
             <CodeView toReactComponent={props.utils.toReactComponent} code={code} />

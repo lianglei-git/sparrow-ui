@@ -1,18 +1,19 @@
 const path = require('path');
 const isDev = process.env.NODE_ENV === 'development';
-
+const themeConfig = require('./themeConfig')
 const {ESBuildMinifyPlugin} = require('esbuild-loader');
 const TerserPlugin = require('terser-webpack-plugin');
 module.exports = {
   source: {
     components: './components',
+    docs: './docs',
   },
   hash: false,
   theme: './site/theme',
   port: 8000,
   root: './',
   htmlTemplate: './site/theme/static/index.html',
-  themeConfig: {},
+  themeConfig,
   webpackConfig(config) {
     config.resolve.alias = {
       'sparrow-ui': path.resolve('./', 'components'),

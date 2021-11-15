@@ -1,7 +1,7 @@
 const path = require('path');
 const home = './template/Home/index.jsx';
 const content = './template/Content/index.jsx';
-
+const docs = './template/Docs/index.jsx'
 module.exports = {
     plugins: [
         'bisheng-plugin-description',
@@ -38,6 +38,10 @@ module.exports = {
         childRoutes: [
             {
                 path: 'components/:children/',
+                component: content
+            },
+            {
+                path: 'docs/react/:children/',
                 component: content
             }
         ]

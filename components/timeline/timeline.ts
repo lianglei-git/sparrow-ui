@@ -1,7 +1,7 @@
-import { runIFELSE , sto} from '../_utils/common'
+import { runIFELSE} from '../_utils/common'
 // import { getIndex, setIndex } from '../common/index'
 import { timelineProps, timelineTypesProps } from './type'
-import { defineEl, getProps, $el } from '../_utils/dom'
+import { defineEl, getProps } from '../_utils/dom'
 
 class TimeLine {
     constructor() {
