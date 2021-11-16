@@ -24,13 +24,13 @@ describe('sp-button', () => {
                target['attr-loading'] = 'false'
             })
         }
-          expect(target['attr-type']).toBe('default');
-          expect(target['attr-size']).toBe('middle');
-          expect(target['attr-shape']).toBe('default');
+          expect(target['attr-type']).toBe(null);
+          expect(target['attr-size']).toBe(null);
+          expect(target['attr-shape']).toBe(null);
 
         // click --- 
         target.click();
-        expect([...target.classList].includes('sp-button-circle')).toBeTruthy();
+        expect([...target.classList].includes('sp-button-shape--circle')).toBeTruthy();
         expect(target['attr-loading']).toBe('true');
         await sto(1200).then(() => {
             expect(target['attr-loading']).toBe('false');

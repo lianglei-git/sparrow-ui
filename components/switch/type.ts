@@ -20,7 +20,7 @@ export const switchProps:Partial<{[K in keyof switchTypesProps]?: switchTypesPro
     'classname': '',// 👌
     'default-checked': 'false',// 👌
     'loading': 'false',// 👌
-    'size': 'default',// 👌
+    'size': '',// 👌
     'active-text': '',// 👌
     'inactive-text': '',// 👌
     'active-color': '',// 👌

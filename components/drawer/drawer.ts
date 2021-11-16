@@ -3,7 +3,7 @@ import { runIFELSE, sto} from '../_utils/common'
 import { getIndex, setIndex } from '../common/index'
 import { drawerProps, drawerTypesProps } from './type'
 import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
-import SlotsBase from '../_utils/Slots'
+import SlotsBase from './Slots'
 import './style';
 
 const keys: string[] = Object.keys(drawerProps);

@@ -1,12 +1,15 @@
 import { switchTypesProps, switchProps } from './type'
 import { runIFELSE, sto } from '../_utils/common'
 import { defineEl, createEl, setStyle, getProps } from '../_utils/dom'
-import './style'
+import './style';
+import Base from '../_utils/Base'
+
 const keys: string[] = Object.keys(switchProps);
 
 const iconbaseclass = 'sp-switch-icon sp-icon '
-class Switch {
+class Switch extends Base {
     constructor() {
+        super()
         let self = this
         defineEl({
             tag: 'sp-switch',
@@ -66,7 +69,8 @@ class Switch {
     private initView(root: HTMLElement & { isActive: boolean } | any) {
         let text: HTMLSpanElement = createEl('span'),
             icon: HTMLElement & { set(v: string): any } = createEl('em');
-        root.classList.add('sp-switch');
+        // root.classList.add('sp-switch');
+        this._setClassName(root)
         icon.classList.add('sp-switch-icon');
         text.classList.add('sp-switch-text');
         if (root.attrs?.['default-checked'] == 'true') {
@@ -80,17 +84,22 @@ class Switch {
         this.set({ attrs: root.attrs, target: root, text, icon })
         root.textEl = text;
         root.iconEl = icon;
-        !root['attr-width'] && (root['attr-width'] = (root.offsetWidth + 22) > 40 ? root.offsetWidth + 22 : root['attr-size'] == 'small'? 28:40)
+        !root['attr-width'] && (root['attr-width'] = (root.offsetWidth + 22) > 40 ? root.offsetWidth + 22 : root['attr-size'] == 'small' ? 28 : 40)
         sto(() => root.textEl.classList.add('enter')) // 加载完后 添加transition
     };
     // 变更 属性更新
     set({ attrs, target, icon, text }: any) {
         runIFELSE(new Set([
             [attrs?.['classname'], () => {
-                let str = 'sp-switch ' + attrs?.['classname'] + ' '
-                    + (target?.['attr-size'] || 'default') + ' '
-                    + (target?.['attr-disabled'] == 'true' ? 'is-disabled ' : ' ')
-                target.className = str
+                // let cl = 
+                // let str = 'sp-switch ' + attrs?.['classname'] + ' '
+                //     + (target?.['attr-size'] || 'default') + ' '
+                //     + (target?.['attr-disabled'] == 'true' ? 'is-disabled ' : ' ')
+                // target.className = str
+                this._setClassName(target, [
+                    target?.['attr-size'] || '',
+                    target?.['attr-disabled'] == 'true' ? 'is-disabled' : ''
+                ])
             }],
             [attrs?.['loading'] && icon, () => {
                 let isloading: string = attrs?.['loading'];

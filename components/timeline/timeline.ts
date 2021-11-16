@@ -2,9 +2,10 @@ import { runIFELSE} from '../_utils/common'
 // import { getIndex, setIndex } from '../common/index'
 import { timelineProps, timelineTypesProps } from './type'
 import { defineEl, getProps } from '../_utils/dom'
-
-class TimeLine {
+import Base from '../_utils/Base'
+class TimeLine extends Base {
     constructor() {
+        super()
         const context = this
         defineEl({
             tag: 'sp-timeline',
@@ -30,7 +31,7 @@ class TimeLine {
             el.getAttribute('label') && (islabel = true)
             return el.tagName == 'SP-TIMELINE-ITEM'
         })
-        root.className = 'sp-timeline' + (islabel ? ' sp-timeline-label' : '');
+        this._setClassName(root, islabel ? ' sp-timeline-label' : '')
         root.islabel = islabel
         this.set({
             root,

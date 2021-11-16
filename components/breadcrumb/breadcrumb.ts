@@ -10,7 +10,7 @@ class BreadCrumb {
             connectedCallback() {
                 (this.attrs as Partial<breadcrumbTypesProps>) = getProps(this);
                 this.attrs = { ...breadcrumbProps, ...this.attrs };
-                this.className = this.tagName.toLocaleLowerCase()
+                this.className += ' '+this.tagName.toLocaleLowerCase()
                 context.initView(this);
             }
         })

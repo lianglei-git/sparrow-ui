@@ -9,8 +9,8 @@ title: 基本用法
 ```html
 <!-- HTML 中使用 -->
 <h3>Html: </h3>
-<sp-timeline>
-    <sp-timeline-item>Create a services site 2015-09-01</sp-timeline-item>
+<sp-timeline class='8899'>
+    <sp-timeline-item class='123123123'>Create a services site 2015-09-01</sp-timeline-item>
     <sp-timeline-item>Solve initial network problems 2015-09-01</sp-timeline-item>
     <sp-timeline-item>Technical testing 2015-09-01</sp-timeline-item>
     <sp-timeline-item>Network problems being solved 2015-09-01</sp-timeline-item>
