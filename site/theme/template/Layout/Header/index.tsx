@@ -22,6 +22,10 @@ const Header: React.FC = () => {
         to: '/github',
         label: 'github'
     },
+    {
+        to: '/custom',
+        label: '定制'
+    },
     ]
 
     useEffect(() => {

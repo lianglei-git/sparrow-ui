@@ -28,7 +28,13 @@ const Content = (props: any) => {
     const codeEl = createRef<HTMLDivElement>()
     const to = ($$i: Meta) => {
         let toL = $$i.filename.split('/');
-        let topath = toL[0] + '/' + toL[1] + '/';
+        let topath
+        try {
+            topath = props.$type == 'cmps' ? toL[0] + '/' + toL[1] + '/' : toL.join('/').slice(0, toL.join('/').indexOf('.md')) + '/';
+        } catch (error) {
+            topath = '/'
+            throw Error('路由解析错误，请检查！ content--36')
+        }
         [...$el('.temp_scripts')].map((i, idx) => {
             if (idx == 0) {
                 [...$el('.children-modal')].map(i2 => i2?.remove())
@@ -52,16 +58,17 @@ const Content = (props: any) => {
                     } else {
                         let type = {
                             type: _i?.meta?.type,
+                            order: props.themeConfig.typeOrder[_i?.meta?.type] || 9,
                             children: [_i?.meta]
                         }
                         components.push(type)
                     }
                 }
             }
-        } else if(props.$type == 'react') {
+        } else if (props.$type == 'react') {
             let docs = props.data.docs[props.$type];
             let children = new Array()
-            for(let k in docs) {
+            for (let k in docs) {
                 let _i = docs[k];
                 children.push(_i?.meta)
             }
@@ -70,6 +77,7 @@ const Content = (props: any) => {
                 type: 'Docs'
             })
         }
+        components = components.sort((a, b) => (a.order || 0) - (b.order || 0));
 
         return <ul>
             {
@@ -80,7 +88,7 @@ const Content = (props: any) => {
                             {item.children.map((i2: Meta) => {
                                 return <li
                                     key={i2.title}
-                                    className={i2.filename.indexOf(location.pathname.slice(1)) > -1 ? 'active' : ''}
+                                    className={i2.filename.indexOf(location.pathname.slice(1, location.pathname.length -1)) > -1 ? 'active' : ''}
                                 >{to(i2)}</li>
                             })}
                         </ol>
@@ -96,6 +104,7 @@ const Content = (props: any) => {
     }
 
     const demo = () => {
+        console.log(props)
         if (!props.demo) return <></>
         const demos = props.demo;
         const l = new Array();

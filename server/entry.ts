@@ -1,13 +1,16 @@
+// @ts-nocheck
 const http = require('http');
 
 var fs = require("fs");
 
 var url = require('url');
 
-var routes = require('./routes');
+var routes = require('./routes/index.ts');
 
 var has = Reflect.has
-
+// lib的排除文件如果不能使用的话； 解决方案
+// 1. 重新组装index.js
+// 2. 写一个rollup的插件 
 const server = http.createServer((req, res) => {
     var urlPath = url.parse(req.url);
     var meth = req.method.toLocaleLowerCase();

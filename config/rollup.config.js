@@ -15,7 +15,7 @@ const config = {
     output: {
         file: join(__dirname, '../lib/index.js'),// process.env.npm_package_main
         format: 'iife', // cjs
-        name: "named", // ElectronMainBundle
+        // name: "named", // ElectronMainBundle
         sourcemap: true,
     },
     plugins: [
@@ -31,7 +31,7 @@ const config = {
         external(),
         typescript(),
         babel({
-            exclude: 'node_modules/**',
+            exclude: ['node_modules/**', 'components/loading/index.ts'],
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
         }),
         resolve(),

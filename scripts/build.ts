@@ -18,6 +18,7 @@ const compilers = webpack(webOptions)
 const siteFunc = () => compilers.run()
 
 const uiFunc = async () => {
+    console.log('开始打包')
     const bundle = await Rollup.rollup(rollupConfig)
 
     await bundle.generate(rollupConfig.output)
@@ -42,3 +43,4 @@ runIFELSE(new Set([
 ]))
 
 
+module.exports = uiFunc

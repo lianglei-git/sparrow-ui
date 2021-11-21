@@ -25,9 +25,9 @@ subTitle: 通知
 - `Notify.info(params)`
 - `Notify.wraning(params)`
 
-| 参数    | 说明                         | 类型   | 默认值 |
-| ------- | ---------------------------- | ------ | ------ |
-| params  | 如下参考，另包括 beforeClose | {}     | object |
+| 参数   | 说明                         | 类型 | 默认值 |
+| ------ | ---------------------------- | ---- | ------ |
+| params | 如下参考，另包括 beforeClose | {}   | object |
 也可以对象的形式传递参数：
 - `Notify[type](config)` 如下参数。
 
@@ -45,6 +45,7 @@ subTitle: 通知
 | message     | 消息内容                              | string                                                    | -           |      |
 | title       | 标题                                  | string                                                    | -           |      |
 | position    | 位置                                  | 'top-right'\| 'top-left'\| 'bottom-right' \|'bottom-left' | 'top-right' |      |
+| classname   | 自定义class                           | string                                                        | -           | -    |
 
 ### 全局方法
 
