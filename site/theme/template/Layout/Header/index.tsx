@@ -1,5 +1,6 @@
+
 import React, { useEffect, useRef, useState } from 'react'
-import { Link, browserHistory } from 'bisheng/router';
+import { Link } from 'bisheng/router';
 import './index.less';
 const Header: React.FC = () => {
     const [isotherClass, setOther] = useState('');

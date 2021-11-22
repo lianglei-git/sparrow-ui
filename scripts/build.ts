@@ -17,13 +17,17 @@ const compilers = webpack(webOptions)
 
 const siteFunc = () => compilers.run()
 
-const uiFunc = async () => {
-    console.log('开始打包')
-    const bundle = await Rollup.rollup(rollupConfig)
+const uiFunc = async ({ isCustom, entryPath }: { isCustom: boolean, entryPath: '' }) => {
+    let copy = { ...rollupConfig }
+    if (isCustom) {
+        copy.input = entryPath
+    }
+    const bundle = await Rollup.rollup(isCustom ? copy : rollupConfig)
 
     await bundle.generate(rollupConfig.output)
 
-    await bundle.write(rollupConfig.output)
+    await bundle.write(rollupConfig.output);
+    return Promise.resolve(rollupConfig.output.file)
 }
 
 let runIFELSE: (sets: Set<any[]>) => void | any = (sets) => {

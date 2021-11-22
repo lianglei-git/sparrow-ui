@@ -18,7 +18,7 @@ interface Meta {
 const ComponentInMarkdown = React.memo(({ content, utils }: any) =>
     utils.toReactComponent(['section', { className: 'markdown' }].concat(getChildren(content))),
 );
-let testElId = ''
+let testElId = 0
 const Content = (props: any) => {
     const [code, setCode] = useState<Object | any>(null);
     const [curCodeDetails, setCodeDetails] = useState('');
