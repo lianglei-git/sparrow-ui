@@ -16,11 +16,12 @@ const Header: React.FC = () => {
         to: '/components/modal/',
         label: '组件'
     },
+    // {
+    //     to: '/theme',
+    //     label: '主题'
+    // }, 
     {
-        to: '/theme',
-        label: '主题'
-    }, {
-        to: '/github',
+        to: () => (<a href='https://github.com/lianglei-git/' target="_blank" >github</a>),
         label: 'github'
     },
     {
@@ -49,8 +50,11 @@ const Header: React.FC = () => {
                     <ul>
                         {
                             l.map(i => {
-                                return <li key={i.label} className={location.pathname == i.to || (location.pathname.indexOf('components') > -1 && i.to.indexOf('components') > -1) ? 'active' : ''}>
-                                    <Link to={i.to} > {i.label}</Link>
+                                return <li key={i.label} className={location.pathname == i.to || (location.pathname.indexOf('components') > -1 && typeof i.to == 'string' && i.to.indexOf('components') > -1) ? 'active' : ''}>
+                                    {
+                                      typeof i.to == 'function'? i.to() :  <Link to={i.to} > {i.label}</Link>  
+                                    }
+                                   
                                 </li>
                             })
                         }
