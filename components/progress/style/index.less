@@ -1,0 +1,70 @@
+.sp-progress {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    &-bar {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        &__outer {
+            flex: 1;
+            background-color: rgb(229, 233, 242);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        &__inner {
+            height: 100%;
+            background-color: var(--color-primary);
+            display: flex;
+            align-self: center;
+            align-items: center;
+            transition: width .6s ease;
+            border-bottom-right-radius: 3px;
+            border-top-right-radius: 3px;
+            >.sp-progress-bar__text {
+                width: 100%;
+                font-size: 13px;
+                color: #fff;
+                text-align: right;
+                margin-right: 5px;
+            }
+        }
+
+        >.sp-progress-bar__text {
+            display: inline-block;
+            margin-left: 5px;
+            font-size: 13px;
+            width: 35px;
+        }
+    }
+
+    &-circle, &-dashboard {
+        position: relative;
+        &__track {
+            stroke: rgb(229, 233, 242);
+        }
+
+        &__path {}
+
+        >.sp-progress-bar__text {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: fit-content;
+            height: fit-content;
+        }   
+    }
+
+
+    // status ↓
+
+    &__success {}
+
+    &__exception {}
+
+    &__warning {}
+}
