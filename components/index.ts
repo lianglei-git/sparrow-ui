@@ -11,6 +11,7 @@ import { Notify } from './notification'
 import './drawer'
 import './timeline'
 import './breadcrumb'
+import './progress'
 const Spui = {
     Modal,
     Message,
