@@ -22,9 +22,10 @@ let testElId = 0
 const Content = (props: any) => {
     const [code, setCode] = useState<Object | any>(null);
     const [curCodeDetails, setCodeDetails] = useState('');
-    const [switchVal, setSwitchVal] = useState(false);
+    const [showCode, setshowCode] = useState(false);
     const [metaId, setMetaId] = useState('')
     const switchEl = useRef(null)
+    const [affixList, setAffixList] = useState(new Array());
     const codeEl = createRef<HTMLDivElement>()
     const to = ($$i: Meta) => {
         let toL = $$i.filename.split('/');
@@ -88,7 +89,7 @@ const Content = (props: any) => {
                             {item.children.map((i2: Meta) => {
                                 return <li
                                     key={i2.title}
-                                    className={i2.filename.indexOf(location.pathname.slice(1, location.pathname.length -1)) > -1 ? 'active' : ''}
+                                    className={i2.filename.indexOf(location.pathname.slice(1, location.pathname.length - 1)) > -1 ? 'active' : ''}
                                 >{to(i2)}</li>
                             })}
                         </ol>
@@ -103,15 +104,23 @@ const Content = (props: any) => {
         setCode(_code)
     }
 
-    const demo = () => {
-        console.log(props)
-        if (!props.demo) return <></>
+    const sortDemos = () => {
+        if (!props.demo) return []
         const demos = props.demo;
         const l = new Array();
         for (let [_, v] of Object.entries(demos)) {
             l.push(v)
         }
-        let $l = l.sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
+        return l.sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
+    }
+    function clearActiveToc() {
+        [].forEach.call(document.querySelectorAll('.fixed-content li a'), node => {
+            node.className = '';
+        });
+    }
+    const demo = () => {
+        if (!props.demo) return <></>
+        let $l = sortDemos();
         return $l.map((content, i) => {
             if (content.meta.id.indexOf('demo-test') > -1) {
                 testElId = content.meta.id
@@ -119,11 +128,32 @@ const Content = (props: any) => {
             return <Demo key={i} {...{ ...content, childrenSetCode, utils: props.utils, className: content.meta.id == curCodeDetails ? 'active' : '', location, metaId }} />
         })
     }
+
+    function updateActiveToc(id) {
+        const currentNode = document.querySelectorAll(`.fixed-content li a[href="#${id}"]`)[0];
+        if (currentNode) {
+            clearActiveToc()
+            currentNode.className = 'current';
+        }
+    }
+    function scroller() {
+        require('intersection-observer');
+        // eslint-disable-next-line global-require
+        const scrollama = require('scrollama');
+        scroller = scrollama();
+        scroller
+            .setup({
+                step: ' .preview ', // required
+                offset: '10px',
+            })
+            .onStepEnter(({ element }) => {
+                updateActiveToc(element.id);
+            });
+    }
     useEffect(() => {
-        // console.log($el('.temp_scripts'))
         testElId = 0
         setMetaId('')
-        setSwitchVal(false)
+        setshowCode(false)
         setCode(null);
         switchEl.current.style.color = '#000'
         switchEl.current.onChange = (is: Boolean, _: EventTarget) => {
@@ -134,12 +164,29 @@ const Content = (props: any) => {
             if (!testElId) Message.error('该组件暂无测试模块！')
         }
         switchEl.current.onClick = (is: boolean, context: EventTarget) => {
-            setSwitchVal(!is);
-        }
+            setshowCode(!is);
+        };
+
+        let $l = sortDemos()
+        let _affixList = new Array();
+        $l.map(i => {
+            _affixList.push(i.meta)
+        })
+        setAffixList(_affixList);
+
+        window.addEventListener('hashchange', () => {
+            updateActiveToc(window.location.hash.replace(/^#/, ''))
+        })
+
+        setTimeout(() => updateActiveToc(window.location.hash.replace(/^#/, '')))
+        scroller()
+
     }, [location.pathname])
     return <div className='main'>
         <div className="menu">
+            {/* <sp-affix offset-top='84'>  */}
             {getMenuItems()}
+            {/* </sp-affix> */}
         </div>
         <div className="show-components">
             <div className="_cmps">
@@ -149,7 +196,7 @@ const Content = (props: any) => {
                 <ComponentInMarkdown utils={props.utils} content={props.$type == 'cmps' ? props.index.content : props?.content}></ComponentInMarkdown>
                 {
                     props.$type == 'cmps' ?
-                        <h2><span>代码演示</span> <sp-switch inactive-text='调试' active-text='关闭' ref={switchEl} value={switchVal}></sp-switch></h2>
+                        <h2><span>代码演示</span> <sp-switch inactive-text='调试' active-text='关闭' ref={switchEl} value={showCode}></sp-switch></h2>
                         : <div ref={switchEl}></div>
                 }
 
@@ -162,7 +209,22 @@ const Content = (props: any) => {
                         },
                     ].concat(getChildren(props?.index?.api || ['placeholder'])),
                 )}
+                <div className='fixed-content'>
+                <sp-affix offset-top="74" >
+                    <ul>
+                        {
+                            affixList.map((meta, index) => {
+                                return <li key={meta.id} style={{ display: !showCode && meta.id.indexOf('demo-test') > -1 ? 'none' : 'block' }}>
+                                    <a href={'#' + meta.id}> {meta.title} </a>
+                                </li>
+                            })
+                        }
+                    </ul>
+                </sp-affix>
             </div>
+            </div>
+            
+
         </div>
         <div className={code !== null ? 'code active' : 'code'} ref={codeEl} >
             <div className="back" onClick={() => setCode(null)} dangerouslySetInnerHTML={{
@@ -171,7 +233,10 @@ const Content = (props: any) => {
             </svg>`}}></div>
             <CodeView toReactComponent={props.utils.toReactComponent} code={code} />
         </div>
+        {/* <div className={code !== null ? 'place active' : 'place'}>
+        <CodeView toReactComponent={props.utils.toReactComponent} code={code} />
 
+        </div> */}
     </div>
 }
 

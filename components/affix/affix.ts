@@ -43,6 +43,10 @@ class Affix extends Base {
             width: root.offsetWidth + 'px',
             height: root.offsetHeight + 'px'
         });
+        setStyle(root, {
+            width: root.offsetWidth + 'px',
+            height: root.offsetHeight + 'px'
+        });
 
         function handler(t: any, distance: number, type: string, cal: (distance: number) => any) {
             if (root[type == 'bottom' ? 'top' : 'bottom']) return;
@@ -83,8 +87,11 @@ class Affix extends Base {
             }
         }
         root.star = star
+        star(0)
         listener((window as any), 'scroll', star, true)
-        listener((window as any), 'resize', star, true)
+        listener((window as any), 'resize', () => {
+            star(0)
+        }, true)
     }
 
 }

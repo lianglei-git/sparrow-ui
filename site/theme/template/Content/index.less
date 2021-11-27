@@ -2,12 +2,10 @@
     width: 100%;
     height: calc(100% - 64px);
     display: flex;
-
     .menu {
         width: 15%;
         height: 100%;
         padding: 20px 40px 0 40px;
-        overflow-y: auto;
         border-right: 1px dashed #e6dddd;
 
         ol {
@@ -23,7 +21,7 @@
                 }
 
                 p {
-                    
+
                     color: #00000073;
                     font-size: 13px;
                     border-bottom: 1px solid #3531312e;
@@ -59,8 +57,9 @@
     .show-components {
         padding: 20px;
         flex: 1;
+        display: flex;
         overflow-y: auto;
-
+        position: relative;
         ._cmps {
             box-sizing: border-box;
             width: fit-content;
@@ -74,18 +73,59 @@
             }
         }
 
+        .fixed-content {
+            position: absolute;
+            margin-top: 20px;
+            right: 0;
+            top: 0;
+            .sp-affix {
+                background: #fff;
+
+            }
+            ul {
+                transition: all .3s cubic-bezier(.78, .14, .15, .86);
+                font-size: 12px;
+                list-style: none;
+                border-left: 1px solid #f0f0f0;
+
+                li {
+                    margin-bottom: 4px;
+                    line-height: 1.5;
+
+                    a {
+                        display: block;
+                        width: 110px;
+                        margin-left: -1px;
+                        padding-left: 16px;
+                        overflow: hidden;
+                        color: #000000d9;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        border-left: 1px solid transparent;
+                        transition: all .3s ease;
+
+                        &.current {
+                            color: var(--color-primary);
+                            border-color: var(--color-primary);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
-    .code {
+    .code,.place {
         width: 0;
         height: 100%;
         transition: .5s;
-        overflow: auto;
+       
         &.active {
             width: 35%;
             box-sizing: border-box;
             background-color: rgb(250, 250, 250);
             border-left: 1px dashed #ccc;
+
             .back {
                 position: absolute;
                 top: 50%;
@@ -93,12 +133,15 @@
                 font-size: 47px;
                 opacity: 0.6;
                 cursor: pointer;
+
                 &:hover {
                     opacity: 1;
                 }
+
                 &:active {
                     filter: brightness(0.9);
                 }
+
                 >.icon {
                     border-radius: 50%;
                     box-shadow: 0 0 7px 0 #632020;
@@ -106,6 +149,11 @@
             }
         }
     }
+    //  .code{
+    //     position: fixed;
+    //     top: 64px;
+    //     right: 0;
+    // }
 }
 
 h1,
