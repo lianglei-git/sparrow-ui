@@ -100,4 +100,4 @@ export const last:<T extends any>(l: T[]) => T = (l) => {
 }
 
 // 绑定事件
-export const listener:(target:HTMLElement, event:string, func:(e:Event | ProgressEvent<EventTarget> ) => any) => void = (target, event, func) => { target.addEventListener(event, func) }
+export const listener:(target:HTMLElement, event:string, func:(e:Event | ProgressEvent<EventTarget> ) => any, arg?:any) => void = (target, event, func, arg) => { target.addEventListener(event, func, arg) }

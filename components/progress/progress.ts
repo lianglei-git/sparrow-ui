@@ -1,6 +1,6 @@
 import { progressTypes, progressProps } from './type'
 import { runIFELSE, sto, has } from '../_utils/common'
-import { defineEl, setStyle, getProps, $el } from '../_utils/dom'
+import { defineEl, setStyle, getProps } from '../_utils/dom'
 import './style'
 import Base from '../_utils/Base'
 import { createEl } from 'sparrow-ui/_utils/dom';
