@@ -137,18 +137,18 @@ const Content = (props: any) => {
         }
     }
     function scroller() {
-        require('intersection-observer');
-        // eslint-disable-next-line global-require
-        const scrollama = require('scrollama');
-        scroller = scrollama();
-        scroller
-            .setup({
-                step: ' .preview ', // required
-                offset: '10px',
-            })
-            .onStepEnter(({ element }) => {
-                updateActiveToc(element.id);
-            });
+        // require('intersection-observer');
+        // // eslint-disable-next-line global-require
+        // const scrollama = require('scrollama');
+        // scroller = scrollama();
+        // scroller
+        //     .setup({
+        //         step: ' .preview ', // required
+        //         offset: '10px',
+        //     })
+        //     .onStepEnter(({ element }) => {
+        //         updateActiveToc(element.id);
+        //     });
     }
     useEffect(() => {
         testElId = 0
@@ -237,6 +237,7 @@ const Content = (props: any) => {
         <CodeView toReactComponent={props.utils.toReactComponent} code={code} />
 
         </div> */}
+        <sp-backtop target='.show-components'></sp-backtop>        
     </div>
 }
 
