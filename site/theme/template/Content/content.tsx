@@ -245,6 +245,7 @@ const Content = (props: any) => {
         <CodeView toReactComponent={props.utils.toReactComponent} code={code} />
 
         </div> */}
+        <sp-backtop target='.show-components'></sp-backtop>        
     </div>
 }
 
