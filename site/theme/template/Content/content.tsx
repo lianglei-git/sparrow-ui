@@ -5,6 +5,7 @@ import Demo from './Demo';
 import CodeView from './Demo/CodePreView'
 import { getChildren } from 'jsonml.js/lib/utils';
 import { Message } from 'sparrow-ui'
+import raf from 'sparrow-ui/_utils/raf'
 import './index.less';
 import { $el, setStyle } from 'sparrow-ui/_utils/dom';
 interface Meta {
@@ -137,18 +138,21 @@ const Content = (props: any) => {
         }
     }
     function scroller() {
-        require('intersection-observer');
-        // eslint-disable-next-line global-require
-        const scrollama = require('scrollama');
-        scroller = scrollama();
-        scroller
-            .setup({
-                step: ' .preview ', // required
-                offset: '10px',
+        let i = 0;
+        const handler = () => {
+            if (i < 10) {
+                i++;
+                return
+            }
+            i = 0;
+            let lists = document.querySelectorAll('.preview');
+            let filter = [...lists].filter((item: HTMLElement) => {
+                let top = item.getBoundingClientRect().top
+                return top > 0
             })
-            .onStepEnter(({ element }) => {
-                updateActiveToc(element.id);
-            });
+            filter[0] && updateActiveToc(filter[0].id)
+        }
+        window.addEventListener('scroll', handler, true)
     }
     useEffect(() => {
         testElId = 0
@@ -171,6 +175,10 @@ const Content = (props: any) => {
         let _affixList = new Array();
         $l.map(i => {
             _affixList.push(i.meta)
+        })
+        _affixList.push({
+            title: 'API',
+            id:'API'
         })
         setAffixList(_affixList);
 
@@ -210,20 +218,20 @@ const Content = (props: any) => {
                     ].concat(getChildren(props?.index?.api || ['placeholder'])),
                 )}
                 <div className='fixed-content'>
-                <sp-affix offset-top="74" >
-                    <ul>
-                        {
-                            affixList.map((meta, index) => {
-                                return <li key={meta.id} style={{ display: !showCode && meta.id.indexOf('demo-test') > -1 ? 'none' : 'block' }}>
-                                    <a href={'#' + meta.id}> {meta.title} </a>
-                                </li>
-                            })
-                        }
-                    </ul>
-                </sp-affix>
+                    <sp-affix offset-top="74" >
+                        <ul>
+                            {
+                                affixList.map((meta, index) => {
+                                    return <li key={meta.id} style={{ display: !showCode && meta.id.indexOf('demo-test') > -1 ? 'none' : 'block' }}>
+                                        <a href={'#' + meta.id}> {meta.title} </a>
+                                    </li>
+                                })
+                            }
+                        </ul>
+                    </sp-affix>
+                </div>
             </div>
-            </div>
-            
+
 
         </div>
         <div className={code !== null ? 'code active' : 'code'} ref={codeEl} >
