@@ -13,6 +13,7 @@ import './timeline'
 import './breadcrumb'
 import './progress'
 import './affix'
+import './backtop'
 const Spui = {
     Modal,
     Message,
