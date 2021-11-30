@@ -13,6 +13,9 @@ title: 基操
 <!-- HTML 中使用 -->
 <h3>Html:</h3>
  <sp-progress percentage='30'></sp-progress>
+ <sp-progress percentage='30' status='success'></sp-progress>
+ <sp-progress percentage='30' status='error'></sp-progress>
+ <sp-progress percentage='30' show-info='false'></sp-progress>
 ```
 
 
@@ -24,6 +27,7 @@ const Test = () => {
     <h3>React: </h3>
     <div className='box'>
     <sp-progress percentage={30} text-inside='true' stroke-width='30' ></sp-progress>
+    <sp-progress percentage={30} text-inside='true' show-info='false'></sp-progress>
     </div>
         
     </div>
@@ -34,5 +38,8 @@ ReactDOM.render(<Test />, mountNode)
 <style> 
 .box {
     width: 200px;
+}
+.sp-progress {
+    margin: 10px 0;
 }
 </style>

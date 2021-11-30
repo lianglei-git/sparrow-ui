@@ -14,8 +14,8 @@ subTitle: 固钉
 
 ## API
 
-| 参数 | 说明 | 类型 | 可选 | 默认值 |
-| ---- | ---- | ---- | ---- | ------ |
-|offset-top|距离顶部的距离|number|-|0|
-|offset-bottom|距离底部的距离|number|-|undefined|
-|onChange|回掉|function||(isFixed, type) => void|
+| 参数          | 说明           | 类型     | 可选 | 默认值                  |
+| ------------- | -------------- | -------- | ---- | ----------------------- |
+| offset-top    | 距离顶部的距离 | number   | -    | 0                       |
+| offset-bottom | 距离底部的距离 | number   | -    | undefined               |
+| onChange      | 回掉           | function |      | (isFixed, type) => void |
