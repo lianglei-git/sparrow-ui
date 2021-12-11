@@ -17,7 +17,7 @@ const compilers = webpack(webOptions)
 
 const siteFunc = () => compilers.run()
 
-const uiFunc = async ({ isCustom, entryPath }: { isCustom: boolean, entryPath: '' }) => {
+const uiFunc = async ({ isCustom, entryPath } ={ isCustom: undefined, entryPath: '' }) => {
     let copy = { ...rollupConfig }
     if (isCustom) {
         copy.input = entryPath

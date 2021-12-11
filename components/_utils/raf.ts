@@ -23,7 +23,7 @@ function cleanup(id:number) {
   rafIds.delete(id);
 }
 
-function wrapperRaf(callback: () => void, delayFrames: number = 1): number  {
+function wrapperRaf(callback: () => void, _delayFrames: number = 1): number  {
   var times = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
   rafUUID += 1;
   var id = rafUUID;
