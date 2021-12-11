@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+
+        "downlevelIteration": true,
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es6",
+        "jsx": "react",
+        "allowJs": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+    
+        "moduleResolution": "node",
+        "lib": [
+            "es2017",
+            "dom"
+        ]
+    }
+}
