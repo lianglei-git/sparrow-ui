@@ -1,5 +1,4 @@
 
-import Base from '../_utils/Base'
 import { createEl, defineEl, getProps } from '../_utils/dom'
 import {tooltipProps, tooltipTypesProps} from './type'
 import ToolTipCommon from './Common'
@@ -20,8 +19,8 @@ class Tooltip extends ToolTipCommon {
                 context.initView(this);
     
             },
-            attributeChangedCallback(...args) {
-                let [key, _, newval] = args;
+            attributeChangedCallback(..._args) {
+                // let [key, _, newval] = args;
                 // context.set({ attrs: { [key]: newval }, root: this })
             }
         });

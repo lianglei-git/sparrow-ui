@@ -2,6 +2,8 @@ const path = require('path');
 const home = './template/Home/index.jsx';
 const content = './template/Content/index.jsx';
 const custom = './template/Custom/index.jsx'
+
+
 module.exports = {
     plugins: [
         'bisheng-plugin-description',

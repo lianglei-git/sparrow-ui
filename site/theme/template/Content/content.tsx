@@ -235,10 +235,11 @@ const Content = (props: any) => {
 
         </div>
         <div className={code !== null ? 'code active' : 'code'} ref={codeEl} >
-            <div className="back" onClick={() => setCode(null)} dangerouslySetInnerHTML={{
+            {/* <div className="back" onClick={() => setCode(null)} dangerouslySetInnerHTML={{
                 __html: `<svg class="icon" aria-hidden="true">
                 <use xlink:href="#sp-icon-qianjin"></use>
-            </svg>`}}></div>
+            </svg>`}}></div> */}
+            <div className="back sp-icon sp-icon-double-arro-right"  onClick={() => setCode(null)}></div>
             <CodeView toReactComponent={props.utils.toReactComponent} code={code} />
         </div>
         {/* <div className={code !== null ? 'place active' : 'place'}>

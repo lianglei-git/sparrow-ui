@@ -2,12 +2,14 @@
     width: 100%;
     height: calc(100% - 64px);
     display: flex;
+
     .menu {
         width: 15%;
         height: 100%;
         padding: 20px 40px 0 40px;
         border-right: 1px dashed #e6dddd;
         overflow-y: auto;
+
         ol {
             list-style: none;
         }
@@ -60,6 +62,7 @@
         display: flex;
         overflow-y: auto;
         position: relative;
+
         ._cmps {
             box-sizing: border-box;
             width: fit-content;
@@ -78,10 +81,12 @@
             margin-top: 20px;
             right: 0;
             top: 0;
+
             .sp-affix {
                 background: #fff;
 
             }
+
             ul {
                 transition: all .3s cubic-bezier(.78, .14, .15, .86);
                 font-size: 12px;
@@ -115,11 +120,13 @@
 
     }
 
-    .code,.place {
+    .code,
+    .place {
         width: 0;
         height: 100%;
         transition: .5s;
         overflow: auto;
+
         &.active {
             width: 35%;
             box-sizing: border-box;
@@ -142,13 +149,12 @@
                     filter: brightness(0.9);
                 }
 
-                >.icon {
-                    border-radius: 50%;
-                    box-shadow: 0 0 7px 0 #632020;
-                }
+                border-radius: 50%;
+                box-shadow: 0 0 7px 0 #632020;
             }
         }
     }
+
     //  .code{
     //     position: fixed;
     //     top: 64px;

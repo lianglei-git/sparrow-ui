@@ -3,6 +3,8 @@
 简单、纯DOM UI库
 
 
+望你度过美好的一天！
+
 **<center>春江花月夜</center>**
 
 <center>

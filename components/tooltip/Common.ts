@@ -60,7 +60,7 @@ export default class ToolTipCommon extends Base {
         })
     }
 
-    _changePosition(target: HTMLElement, placement: tooltipTypesProps['placement']) {
+    _changePosition(target: HTMLElement, _placement: tooltipTypesProps['placement']) {
         let rect: DOMRect = getTargetRect(target)
         console.log(rect);
     }
