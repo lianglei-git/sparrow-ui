@@ -14,6 +14,7 @@ import './breadcrumb'
 import './progress'
 import './affix'
 import './backtop'
+import './tooltip'
 const Spui = {
     Modal,
     Message,

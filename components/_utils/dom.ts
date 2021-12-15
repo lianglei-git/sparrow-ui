@@ -10,14 +10,14 @@ type createElTyp = {
     getConstructor?: (target: HTMLElement) => any | void
 }
 
-export const $el: HTMLElement | any = (el: string, target:HTMLElement|Document = document) => target.querySelectorAll(el)
+const $el: HTMLElement | any = (el: string, target: HTMLElement | Document = document) => target.querySelectorAll(el)
 
-export const createEl = (tag: string, type: string = 'createElement') => (document as any)[type](tag)
+const createEl = (tag: string, type: string = 'createElement') => (document as any)[type](tag)
 
 type Styletype<T> = {
     [K in keyof T]?: T[K]
 }
-export const setStyle = (target: HTMLElement, obj: Styletype<CSSStyleRule['style']>) => {
+const setStyle = (target: HTMLElement, obj: Styletype<CSSStyleRule['style']>) => {
     for (const key in obj) {
         if (Object.prototype.hasOwnProperty.call(target['style'], key) && (obj as any)[key] != "") {
             (target as any)['style'][key] = (obj as any)[key];
@@ -25,7 +25,7 @@ export const setStyle = (target: HTMLElement, obj: Styletype<CSSStyleRule['style
     }
 }
 
-export const getProps = (target: HTMLElement): object => {
+const getProps = (target: HTMLElement): object => {
     let attributes: NamedNodeMap = target.attributes
     let _o: object = new Array(attributes.length).fill(null).reduce((obj, _, index) => {
         let prop: Attr | { nodeName: string, value: string | object | any } | any = attributes.item(index)
@@ -35,7 +35,7 @@ export const getProps = (target: HTMLElement): object => {
     return _o
 }
 
-export const defineEl = (props: createElTyp, Element?: CustomElementConstructor): void => {
+const defineEl = (props: createElTyp, Element?: CustomElementConstructor): void => {
     // let _corel: HTMLElement | { [key: string]: any } | any = null
     let is: boolean | void = runIFELSE(new Set([
         [props.tag.indexOf('-') == -1, () => {
@@ -56,7 +56,7 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
                     enumerable: false,
                     configurable: false,
                     get() {
-                            return target.getAttribute(attr)
+                        return target.getAttribute(attr)
                     },
                     set(val) {
                         target.setAttribute(attr, val)
@@ -65,39 +65,56 @@ export const defineEl = (props: createElTyp, Element?: CustomElementConstructor)
             })
         }
     }
-    let wishClass = (name: string) => ({
-        [name]: class extends HTMLElement {
-            static target = this
-            constructor() {
-                super()
-                props.shadow ? this.attachShadow({ mode: props.shadow }) : ''
-                new Proxy(this, {})
-                // _corel = this
-                getAttribute(this, props?.observedAttributes)
-            }
-            connectedCallback() {
-                props.connectedCallback.bind(this)() || (() => { });
-                (this as any).onload?.()
-            }
-            disconnectedCallback() {
-                props.disconnectedCallback?.bind(this)() || (() => { })
-            }
-            attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-                props.attributeChangedCallback?.bind(this)(name, oldValue, newValue)
+    let wishClass = (name: string) => {
+        let o = {
+            [name]: class extends HTMLElement {
+                static target = undefined
+                constructor() {
+                    super()
+                    props.shadow ? this.attachShadow({ mode: props.shadow }) : '';
+                    // new Proxy(this, {});
+                    (o[name] as any).target = this;
+                    // _corel = this
+                    getAttribute(this, props?.observedAttributes);
+                }
+                connectedCallback() {
+                    props.connectedCallback.bind(this)() || (() => { });
+                    (this as any).onload?.()
+                }
+                disconnectedCallback() {
+                    props.disconnectedCallback?.bind(this)() || (() => { })
+                }
+                attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+                    props.attributeChangedCallback?.bind(this)(name, oldValue, newValue)
+                }
             }
         }
-    })[name]
-    let HTMl: HTMLElement | any = wishClass(props.tag)
+        return o[name];
+    }
+    let HTMl: HTMLElement | any = wishClass(props.tag);
     Reflect.has(props, 'getConstructor') && props.getConstructor?.bind(this)(HTMl)
     HTMl.observedAttributes = props?.observedAttributes || []
-    getAttribute(HTMl.target, props?.observedAttributes)
-     window.customElements.define(props.tag, Element || HTMl)
+    // getAttribute(HTMl?.target, props?.observedAttributes)
+    window.customElements.define(props.tag, Element || HTMl)
+    // console.log(HTMl.target)
     return HTMl
 }
 
-export const last:<T extends any>(l: T[]) => T = (l) => {
+const last: <T extends any>(l: T[]) => T = (l) => {
     return l[l.length - 1]
 }
 
 // 绑定事件
-export const listener:(target:HTMLElement, event:string, func:(e:Event | ProgressEvent<EventTarget> ) => any, arg?:any) => void = (target, event, func, arg) => { target.addEventListener(event, func, arg) }
+const listener: (target: HTMLElement, event: string, func: (e: Event | ProgressEvent<EventTarget>) => any, arg?: any) => void = (target, event, func, arg) => { target.addEventListener(event, func, arg) }
+
+
+
+export {
+    $el,
+    last,
+    listener,
+    defineEl,
+    getProps,
+    setStyle,
+    createEl
+}
