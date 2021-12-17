@@ -1,39 +1,49 @@
 
-import { createEl, defineEl, getProps } from '../_utils/dom'
+import { createEl, defineEl, getProps, setStyle } from '../_utils/dom'
 import {tooltipProps, tooltipTypesProps} from './type'
 import ToolTipCommon from './Common'
+import { runIFELSE} from '../_utils/common'
 
 
-class Tooltip extends ToolTipCommon {
+class Tooltip {
     context:any
      constructor() {
-        super()
         const context = this;
         defineEl({
             tag: 'sp-tooltip',
-            observedAttributes: ['pending', 'mode'],
+            observedAttributes: Object.keys(tooltipProps),
             connectedCallback() {
                 (this.attrs as Partial<tooltipTypesProps>) = getProps(this);
                 this.attrs = { ...tooltipProps, ...this.attrs };
-                context.init(this)
-                context.initView(this);
+                this.setAttribute('hidefocus', true)
+                this.setAttribute('tabindex', 0)
+                setStyle(this, {
+                    outline: '0'
+                })
+                this.contextTarget = new ToolTipCommon(this);
+                context.initView(this.contextTarget, this.attrs);
     
             },
             attributeChangedCallback(..._args) {
-                // let [key, _, newval] = args;
-                // context.set({ attrs: { [key]: newval }, root: this })
+                let [key, _, newval] = _args;
+                context.obsevseAttrs({ attrs: { [key]: newval }, root: this.contextTarget ?? this })
             }
         });
     }
 
-    initView(target: HTMLElement & any) {
+    initView(contextTarget: HTMLElement & any, attrs: tooltipTypesProps) {
         const text = createEl('span');
-        text.textContent = target.attrs.title || ''
+        text.textContent = attrs.title || ''
         
     }
 
-    set() {
-
+    obsevseAttrs({attrs, root}: {attrs: tooltipTypesProps} | any) {
+        console.log(attrs)
+        runIFELSE(new Set([
+            ['visible' in attrs, () => {
+                root.visible(attrs.visible+'');
+            }]
+        ]))
     }
 }
 

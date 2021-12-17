@@ -46,7 +46,8 @@ class BackTop extends Base {
             root?.click?.(e)
         }
         function scroller(__tar: HTMLElement) {
-            if (__tar.scrollTop > vHeight && !root.show) {
+            let scrollTop = propTarget == 'body' ? document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset : __tar.scrollTop
+            if (scrollTop > vHeight && !root.show) {
                 root.show = true;
                 setStyle(root, {
                     display: 'flex',
@@ -58,7 +59,7 @@ class BackTop extends Base {
                 sto(() => setStyle(root, { opacity: '1' }), 190)
                 return
             }
-            if (__tar.scrollTop < vHeight && root.show) {
+            if (scrollTop < vHeight && root.show) {
                 root.show = false;
                 setStyle(root, { opacity: '0' })
                 sto(() => setStyle(root, { display: 'none' }),190)

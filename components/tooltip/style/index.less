@@ -20,4 +20,44 @@
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 2px;
+    box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+    padding: 12px 16px;
+    &:after {
+        position: absolute;
+        bottom: -10px;
+        height: 10px;
+        width: 100%;
+        left: 0;
+        content: '';
+    }
+
+    &__arrow {
+        position: absolute;
+        // bottom: 1.51471863px;
+        top: 100%;
+        display: block;
+        width: 8.48528137px;
+        height: 8.48528137px;
+        overflow: hidden;
+        background: 0 0;
+        pointer-events: none;
+        left: 50%;
+        transform: translate(-50%);
+        >span {
+            position: absolute;
+            box-shadow: 3px 3px 7px #00000012;
+            transform: translateY(-4.24264069px) rotate(45deg);
+            inset: 0;
+            display: block;
+            width: 6px;
+            height: 6px;
+            margin: auto;
+            background-color: #fff;
+            content: "";
+            pointer-events: auto;
+        }
+    }
 }

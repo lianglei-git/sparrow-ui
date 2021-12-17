@@ -307,7 +307,7 @@ function getTargetRect(target) {
 }
 
 listener(document.body, 'click', e => {
-    get(DISPOSE, 'container').style.display = 'none'
+    get(DISPOSE, 'container') && (get(DISPOSE, 'container').style.display = 'none')
 })
 
 
