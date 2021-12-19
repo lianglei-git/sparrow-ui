@@ -130,7 +130,7 @@ export default class ToolTipCommon extends Base {
         if (type == 'tooltip') {
             content = ''
         } else {
-            content.innerHTML = attrs?.content
+            content.innerHTML = attrs?.content || this.contextTarget?.content || ''
         }
         arrow.append(arrow_child)
         core.append(title, content, arrow)

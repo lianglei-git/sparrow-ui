@@ -11,8 +11,8 @@ import React,{useRef, useEffect} from 'react'
 const Test = () => {
     return <div>
         <h3>React: </h3>
-        <sp-popover title='标题' trigger='click' id='popover' content='提示内容' get-popup-container='.show-components'>
-            <sp-button type='primary' onClick={() => popover['attr-visible'] = false}>Click Me</sp-button>
+        <sp-popover title='标题' trigger='click' id='popover' content={`<sp-button type="primary" onclick="popover['attr-visible'] = false"}>close</sp-button>`} get-popup-container='.show-components'>
+            <sp-button>Click Me</sp-button>
         </sp-popover>
             
     </div>
