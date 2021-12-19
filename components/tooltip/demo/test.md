@@ -19,9 +19,8 @@ const Test = () => {
         //  c.current['attr-visible'] = true 
     }, [])
     return <div>
-        六六六啊 
-        <sp-tooltip title='可用来代替系统默认的 title 提示，提供一个 按钮/文字/操作 的文案解释。可用来代替系统默认的 title 提示，提供一个 按钮/文字/操作 的文案解释。可用来代替系统默认的 title 提示，提供一个 按钮/文字/操作 的文案解释。' trigger='["click", "contextmenu"]' 
-         popupstyle='width:50px'
+        <sp-tooltip title='1.德高望重、有大智、已达到人类最高最完美境界的人、有时也专指孔子。2.封建时代对君主的尊称。' trigger='["click", "contextmenu"]' 
+         popupstyle='width:150px'
         get-popup-container='.show-components' classname='ssllsl'>
             <sp-button>何为圣人？（点击 + 右键）</sp-button>
         </sp-tooltip>

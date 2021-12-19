@@ -11,6 +11,7 @@ export interface tooltipTypesProps {
     color: string // 背景颜色
     popupstyle: string // 弹出层style
     'arrow-point-at-center': string | boolean
+    effect: 'drak' | 'light' // 主题
 }
 
 
@@ -28,6 +29,7 @@ export const tooltipProps: Partial<tooltipTypesProps> = {
     classname: undefined,
     color: undefined,
     popupstyle: undefined, // 弹出层style
-    'arrow-point-at-center': false
+    'arrow-point-at-center': false,
+    effect: 'drak'
 
 }

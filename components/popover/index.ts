@@ -1,19 +1,23 @@
 
-import { createEl, defineEl, getProps, setStyle } from '../_utils/dom'
-import { tooltipProps, tooltipTypesProps } from './type'
-import ToolTipCommon from './Common'
+import { defineEl, getProps, setStyle } from '../_utils/dom'
+import { tooltipProps, tooltipTypesProps } from '../tooltip/type'
+import ToolTipCommon from '../tooltip/Common'
 import { runIFELSE } from '../_utils/common'
-
-class Tooltip {
+import './style'
+type Props = {
+    content: any
+}
+let popverProps = Object.freeze({...tooltipProps, content: '', effect: 'light'})
+class Popover {
     context: any
     constructor() {
         const context = this;
         defineEl({
-            tag: 'sp-tooltip',
-            observedAttributes: Object.keys(tooltipProps),
+            tag: 'sp-popover',
+            observedAttributes: Object.keys(popverProps),
             connectedCallback() {
-                (this.attrs as Partial<tooltipTypesProps>) = getProps(this);
-                this.attrs = { ...tooltipProps, ...this.attrs };
+                (this.attrs as Partial<tooltipTypesProps & Props>) = getProps(this);
+                this.attrs = { ...popverProps, ...this.attrs };
                 this.super = new ToolTipCommon(this);
                 this.setAttribute('hidefocus', true)
                 this.setAttribute('tabindex', 0)
@@ -27,7 +31,8 @@ class Tooltip {
             }
         });
     }
-    obsevseAttrs(attrs: Partial<tooltipTypesProps>) {
+
+    obsevseAttrs(attrs: Partial<tooltipTypesProps & Props>) {
         let root:ToolTipCommon = (this as any).super;
         root && runIFELSE(new Set([
             ['visible' in attrs, () => {
@@ -36,9 +41,12 @@ class Tooltip {
             ['placement' in attrs, () => {
                 root.fixedEl.className =
                     root.getRootClassName(root.contextTarget, ['__' + attrs['placement'] ?? '__top', (this as any).APAC? 'APAC': ''])
+            }],
+            ['content' in attrs, () => {
+                root.fixedEl.contentEl.innerHTML = attrs['content']
             }]
         ]))
     }
 }
 
-export default new Tooltip()
+export default new Popover()

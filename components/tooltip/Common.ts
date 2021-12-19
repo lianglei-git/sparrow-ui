@@ -1,11 +1,9 @@
 
-import { getTargetRect } from 'sparrow-ui/affix/utils';
 import { setIndex, getIndex } from 'sparrow-ui/common';
 import { sto } from 'sparrow-ui/_utils/common';
 import { $el, createEl, listener, setStyle } from 'sparrow-ui/_utils/dom';
 import Base from '../_utils/Base'
 import { tooltipTypesProps } from './type'
-import './style/common.less'
 
 export default class ToolTipCommon extends Base {
     protected _target: HTMLElement | any
@@ -41,7 +39,6 @@ export default class ToolTipCommon extends Base {
         let t = 0;
         let attrs: tooltipTypesProps = target.attrs;
         let trigger: tooltipTypesProps['trigger'] = this._adapterTrigger<tooltipTypesProps['trigger']>(attrs.trigger);
-
         this._type = this.tagName.indexOf('sp-tooltip') > -1 ? 'tooltip' : 'popover';
         this.fixedView(this._type, attrs);
 
@@ -78,6 +75,10 @@ export default class ToolTipCommon extends Base {
             listener(this.fixedEl, 'click', e => { e.stopPropagation(); e.preventDefault(); });
         }
 
+        if (trigger.includes('click') || trigger.includes('contextmenu')) {
+            listener(document.body, 'click', () => setStyle(this.fixedEl, { zIndex: '-1', left: '-100%', top: '-100%' }))
+        }
+
     }
 
     get tagName() {
@@ -102,7 +103,7 @@ export default class ToolTipCommon extends Base {
             arrow_child: HTMLSpanElement = createEl('span'),
             title: HTMLSpanElement = createEl('span');
         core.setAttribute('role', 'tooltip');
-        core.className = this.getRootClassName(this.contextTarget, ['__' + attrs['placement'] ?? '__top', this.contextTarget?.APAC? 'APAC': '']);
+        core.className = this.getRootClassName(this.contextTarget, ['__' + attrs['placement'] ?? '__top', this.contextTarget?.APAC ? 'APAC' : '']);
         arrow.className = this.tagName + '__arrow';
         title.className = this.tagName + '__title';
         content.className = this.tagName + '__content';
@@ -112,6 +113,15 @@ export default class ToolTipCommon extends Base {
             catch (error) { throw Error(error) }
         }
 
+        if (attrs['effect'] == 'light') {
+            setStyle(core, {
+                backgroundColor: '#fff',
+                color: '#000'
+            })
+            setStyle(arrow_child, {
+                backgroundColor: '#fff'
+            })
+        }
         if (attrs.color) {
             setStyle(arrow_child, { backgroundColor: attrs.color });
             setStyle(core, { backgroundColor: attrs.color });
@@ -120,7 +130,7 @@ export default class ToolTipCommon extends Base {
         if (type == 'tooltip') {
             content = ''
         } else {
-            content = attrs?.content
+            content.innerHTML = attrs?.content
         }
         arrow.append(arrow_child)
         core.append(title, content, arrow)
@@ -128,24 +138,24 @@ export default class ToolTipCommon extends Base {
         this.fixedEl.contentEl = content;
         this.fixedEl.arrowEl = arrow;
         this.fixedEl.titleEl = title;
+
         setStyle(this.fixedEl, { zIndex: '-1', left: '-100%', top: '-100%' });
         this._appendTarget(attrs).append(this.fixedEl);
     }
 
     _contextmenu(e: Event) {
-        e.stopPropagation(); e.preventDefault();
+        !this.contextTarget.attrs?.['ispreventdefault'] && document.body.click()
+        e.stopPropagation();
+        e.preventDefault();
         this._changePosition(this.fixedEl);
-        listener(document.body, 'click', this._leave.bind(this))
     }
     _click(e: Event) {
-        console.log('点击');
+        !this.contextTarget.attrs?.['ispreventdefault'] &&document.body.click()
         e.stopPropagation(); e.preventDefault();
-        this._changePosition(this.fixedEl);
-        listener(document.body, 'click', this._leave.bind(this))
+        this._changePosition(this.fixedEl)
     }
 
     _focus(e: Event) {
-        console.log('聚焦');
         e.stopPropagation(); e.preventDefault();
         this._changePosition(this.fixedEl);
     }
@@ -153,24 +163,19 @@ export default class ToolTipCommon extends Base {
         this.fixedEl.inset = true;
         if (this.fixedEl.outset) return
         this._changePosition(this.fixedEl);
-        console.log('内侧进入')
     }
     _mouseleave(e: MouseEvent) {
         this.fixedEl.inset = false
         if (!this.fixedEl.outset) this._leave()
-        console.log('内侧出去')
 
     }
     _fixedEl_mouseenter(e: any) {
         e.stopPropagation(); e.preventDefault();
         this.fixedEl.outset = true
-        console.log('外侧进入')
-        // this._changePosition(this.fixedEl);
     }
     _fixedEl_mouseleave() {
         this.fixedEl.outset = false;
         if (!this.fixedEl.inset) this._leave()
-        console.log('外侧出去')
     }
 
     _leave() {
@@ -207,7 +212,7 @@ export default class ToolTipCommon extends Base {
     }
 
     _changePosition($target: HTMLElement | any, _placement: tooltipTypesProps['placement'] = this.contextTarget.attrs?.placement) {
-        let rect: DOMRect = getTargetRect(this.contextTarget);
+        // let rect: DOMRect = getTargetRect(this.contextTarget);
         let lixinH = 4; // 离心点
         let oLeft = this.contextTarget.offsetLeft;
         let oTop = this.contextTarget.offsetTop;
@@ -215,77 +220,88 @@ export default class ToolTipCommon extends Base {
         let fixW = $target.clientWidth;
         let ctxH = this.contextTarget.offsetHeight;
         let ctxW = this.contextTarget.offsetWidth;
-        let APAC = this.contextTarget?.APAC
+        let APAC = this.contextTarget?.APAC;
+        const setArrow = (dir: any) => {
+            // 有极端条件
+            let fan = dir == 'left' ? 'right' : dir == 'right' ? 'left' : dir == 'top' ? 'bottom' : 'top';
+            let value = dir == 'left' || dir == 'right' ?
+                (APAC ? (ctxW / 2 > fixW ? fixW / 2 - 4.5 : ctxW / 2 - 4.5) : ((ctxW > fixW ? fixW : ctxW) / 4) - 4.5) : // (ctxW / 4 + 8.5 > fixW ? fixW - 10 : ctxW / 4 - 4.5)
+                (APAC ? (ctxH / 2 > fixH ? fixH / 2 - 5.5 : ctxH / 2 - 5.5) : ((ctxH > fixH ? fixH : ctxH) / 4) - 4.5) // (ctxH / 4 + 8.5 > fixH ? fixH - 10 : ctxH / 4 - 5.5)
+            setStyle(this.fixedEl.arrowEl,
+                {
+                    [dir]: value + 'px',
+                    [fan]: 'initial',
+                    transform: 'initial'
+                })
+        }
         switch (_placement) {
             case 'bottom': setStyle($target, {
                 top: oTop + ctxH + 5 + lixinH + 'px',
                 left: oLeft + ctxW / 2 - fixW / 2 + 'px',
             }); break
-            case 'bottom-left': 
-            setStyle(this.fixedEl.arrowEl, {left: (APAC ?ctxW / 2 :ctxW / 4) + 'px', right: 'initial',transform: 'initial'})
-            setStyle($target, {
-                top: oTop + ctxH + 5 + lixinH + 'px',
-                left: oLeft + 'px',
-            }); break
-            case 'bottom-right': 
-            setStyle(this.fixedEl.arrowEl, {right: (APAC ?ctxW / 2 :ctxW / 4) + 'px', left: 'initial',transform: 'initial'})
-            setStyle($target, {
-                top: oTop + ctxH + 5 + lixinH + 'px',
-                left: oLeft + ctxW - fixW+ 'px',
-            }); break
+            case 'bottom-left':
+                setArrow('left')
+                setStyle($target, {
+                    top: oTop + ctxH + 5 + lixinH + 'px',
+                    left: oLeft + 'px',
+                }); break
+            case 'bottom-right':
+                setArrow('right')
+                setStyle($target, {
+                    top: oTop + ctxH + 5 + lixinH + 'px',
+                    left: oLeft + ctxW - fixW + 'px',
+                }); break
             case 'top': setStyle($target, {
                 left: oLeft + ctxW / 2 - fixW / 2 + 'px',
-                top: oTop - fixH -5 - lixinH + 'px'
+                top: oTop - fixH - 5 - lixinH + 'px'
             }); break
-            case 'top-left': 
-            setStyle(this.fixedEl.arrowEl, {left: (APAC ?ctxW / 2 :ctxW / 4) + 'px', right: 'initial',transform: 'initial'})
-            setStyle($target, {
-                left: oLeft + 'px',
-                top:oTop - fixH -5 - lixinH + 'px'
-            }); break
-            case 'top-right': 
-            setStyle(this.fixedEl.arrowEl, {right: (APAC ?ctxW / 2 :ctxW / 4) + 'px', left: 'initial',transform: 'initial'})
-            setStyle($target, {
-                left: oLeft + ctxW - fixW+ 'px',
-                top: oTop - fixH -5 - lixinH + 'px'
-            }); break
+            case 'top-left':
+                setArrow('left')
+                setStyle($target, {
+                    left: oLeft + 'px',
+                    top: oTop - fixH - 5 - lixinH + 'px'
+                }); break
+            case 'top-right':
+                setArrow('right')
+                setStyle($target, {
+                    left: oLeft + ctxW - fixW + 'px',
+                    top: oTop - fixH - 5 - lixinH + 'px'
+                }); break
             case 'right': setStyle($target, {
-                left: oLeft + ctxW + lixinH +'px',
-                top: oTop + ctxH / 2 - fixH / 2+ 'px'
+                left: oLeft + ctxW + lixinH + 'px',
+                top: oTop + ctxH / 2 - fixH / 2 + 'px'
             }); break
-            case 'right-bottom': 
-            setStyle(this.fixedEl.arrowEl, {bottom: (APAC ?ctxH / 2 :ctxH / 4) + 'px', top: 'initial',transform: 'initial'})
-            setStyle($target, {
-                left: oLeft + ctxW + lixinH +'px',
-                top: oTop - Math.abs(fixH - ctxH)+ 'px'
-            }); break
-            case 'right-top': 
-            setStyle(this.fixedEl.arrowEl, {top: (APAC ?ctxH / 2 :ctxH / 4) + 'px', bottom: 'initial',transform: 'initial'})
-            setStyle($target, {
-                left: oLeft + ctxW + lixinH +'px',
-                top: oTop+ 'px'
-            }); break
+            case 'right-bottom':
+                setArrow('bottom')
+                setStyle($target, {
+                    left: oLeft + ctxW + lixinH + 'px',
+                    top: oTop - fixH + ctxH + 'px'
+                }); break
+            case 'right-top':
+                setArrow('top')
+                setStyle($target, {
+                    left: oLeft + ctxW + lixinH + 'px',
+                    top: oTop + 'px'
+                }); break
             case 'left': setStyle($target, {
-                left: oLeft - fixW- lixinH+'px',
-                top: oTop + ctxH / 2 - fixH / 2+ 'px'
+                left: oLeft - fixW - lixinH + 'px',
+                top: oTop + ctxH / 2 - fixH / 2 + 'px'
             }); break
-            case 'left-bottom': 
-            setStyle(this.fixedEl.arrowEl, {bottom: (APAC ?ctxH / 2 :ctxH / 4) + 'px', top: 'initial',transform: 'initial'})
-            setStyle($target, {
-                left: oLeft - fixW- lixinH+'px',
-                top: oTop - Math.abs(fixH - ctxH)+ 'px'
-            }); break
-            case 'left-top': 
-            setStyle(this.fixedEl.arrowEl, {top: (APAC ?ctxH / 2 :ctxH / 4) + 'px', bottom: 'initial',transform: 'initial'})
-            setStyle($target, {
-                left: oLeft - fixW- lixinH+'px',
-                top: oTop+ 'px'// +Math.abs((fixH - (ctxH/ 2)) / 2)
-            }); break
+            case 'left-bottom':
+                setArrow('bottom')
+                setStyle($target, {
+                    left: oLeft - fixW - lixinH + 'px',
+                    top: oTop - fixH + ctxH + 'px'
+                }); break
+            case 'left-top':
+                setArrow('top')
+                setStyle($target, {
+                    left: oLeft - fixW - lixinH + 'px',
+                    top: oTop + 'px'
+                }); break
         }
         this._weight($target);
         this._animation($target);
-
     }
-
 }
 
