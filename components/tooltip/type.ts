@@ -22,9 +22,9 @@ export const tooltipProps: Partial<tooltipTypesProps> = {
     trigger: 'hover',
     visible: undefined,
     'get-popup-container': undefined,
-    'mouse-enter-delay': 1000,
-    'mouse-leave-delay': 1000,
-    'mouse-move-delay': 900,
+    'mouse-enter-delay': 100,
+    'mouse-leave-delay': 100,
+    'mouse-move-delay': 90,
     classname: undefined,
     color: undefined,
     popupstyle: undefined, // 弹出层style

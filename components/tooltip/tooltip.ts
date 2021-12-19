@@ -1,13 +1,13 @@
 
 import { createEl, defineEl, getProps, setStyle } from '../_utils/dom'
-import {tooltipProps, tooltipTypesProps} from './type'
+import { tooltipProps, tooltipTypesProps } from './type'
 import ToolTipCommon from './Common'
-import { runIFELSE} from '../_utils/common'
+import { runIFELSE } from '../_utils/common'
 
 
 class Tooltip {
-    context:any
-     constructor() {
+    context: any
+    constructor() {
         const context = this;
         defineEl({
             tag: 'sp-tooltip',
@@ -15,18 +15,18 @@ class Tooltip {
             connectedCallback() {
                 (this.attrs as Partial<tooltipTypesProps>) = getProps(this);
                 this.attrs = { ...tooltipProps, ...this.attrs };
+                this.super = new ToolTipCommon(this);
                 this.setAttribute('hidefocus', true)
                 this.setAttribute('tabindex', 0)
                 setStyle(this, {
                     outline: '0'
                 })
-                this.contextTarget = new ToolTipCommon(this);
-                context.initView(this.contextTarget, this.attrs);
-    
+                context.initView(this.super, this.attrs);
+
             },
             attributeChangedCallback(..._args) {
                 let [key, _, newval] = _args;
-                context.obsevseAttrs({ attrs: { [key]: newval }, root: this.contextTarget ?? this })
+                context.obsevseAttrs.call(this, { [key]: newval })
             }
         });
     }
@@ -34,14 +34,18 @@ class Tooltip {
     initView(contextTarget: HTMLElement & any, attrs: tooltipTypesProps) {
         const text = createEl('span');
         text.textContent = attrs.title || ''
-        
+
     }
 
-    obsevseAttrs({attrs, root}: {attrs: tooltipTypesProps} | any) {
-        console.log(attrs)
-        runIFELSE(new Set([
+    obsevseAttrs(attrs: Partial<tooltipTypesProps>) {
+        let root:ToolTipCommon = (this as any).super;
+        root && runIFELSE(new Set([
             ['visible' in attrs, () => {
-                root.visible(attrs.visible+'');
+                root.visible(attrs.visible + '' as any);
+            }],
+            ['placement' in attrs, () => {
+                root.fixedEl.className =
+                    root.getRootClassName(root.contextTarget, ['__' + attrs['placement'] ?? '__top', (this as any).APAC? 'APAC': ''])
             }]
         ]))
     }
