@@ -31,6 +31,7 @@ class Tooltip {
         let root:ToolTipCommon = (this as any).super;
         root && runIFELSE(new Set([
             ['visible' in attrs, () => {
+                console.log('阿斯科利是的阿莱克斯到家了打开j', attrs.visible)
                 root.visible(attrs.visible + '' as any);
             }],
             ['placement' in attrs, () => {

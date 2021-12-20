@@ -20,6 +20,8 @@ subTitle: 弹窗
 | center | 垂直居中展示 Modal | boolean | false |  |
 | modal | 是否需要遮罩 | boolean | true |  |
 | class | 类名 | string | - |  |
+| onOk | 确认回调 | function | - |  |
+| onClose | 取消回调 | function | - |  |
 | visible | Modal 显示 | string, boolean | false |  |
 | footer | 底部内容，当不需要默认底部按钮时，可以设为 `footer=null` | ReactNode | (确定取消按钮) |  |
 ## 须知

@@ -9,7 +9,7 @@ title: 边缘对齐
 ```html
 <!-- HTML 中使用 -->
 <h3>Html: </h3>
-<sp-tooltip title='prompt text' effect='light' arrow-point-at-center='true' get-popup-container='.show-components'>
+<sp-tooltip title='prompt text' effect='light' arrow-point-at-center='true' get-popup-container='.show-components' >
     Arrow points to center / 箭头指向中心
 </sp-tooltip>    
 ```

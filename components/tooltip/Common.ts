@@ -5,12 +5,26 @@ import { $el, createEl, listener, setStyle } from 'sparrow-ui/_utils/dom';
 import Base from '../_utils/Base'
 import { tooltipTypesProps } from './type'
 
-export default class ToolTipCommon extends Base {
+type ComType = 'tooltip' | 'popover' | 'confirm'
+
+interface Config {
+    readonly contextTarget: HTMLElement;
+    readonly tagName: string
+    fixedView(type: ComType, attrs: tooltipTypesProps, calback: (args: {
+        core: HTMLElement,
+        title: HTMLElement,
+        arrow: HTMLElement,
+        content: HTMLElement
+    }) => void): any
+}
+
+export default class ToolTipCommon extends Base implements Config {
     protected _target: HTMLElement | any
     public fixedEl: HTMLElement & {
         [key: string]: HTMLElement | any
     }
-    private _type: 'tooltip' | 'popover'
+    private _type: ComType
+    protected visibleStatus: boolean | string; // 字符串的布尔值 当前是否显示(为了避免重复调用一样的参数)
     constructor(target: any) {
         super()
         this._target = target;
@@ -18,7 +32,6 @@ export default class ToolTipCommon extends Base {
             this._target.APAC = true // 是否常驻局中
         }
         this.init(this._target);
-
     }
 
 
@@ -34,12 +47,20 @@ export default class ToolTipCommon extends Base {
         }
         return ["hover"]
     }
+
+    protected getType(): ComType {
+        return this.tagName.indexOf('sp-tooltip') > -1 ?
+            'tooltip' :
+            this.tagName.indexOf('sp-popover') > -1 ?
+                'popover'
+                : 'confirm'
+    }
     protected init(target: HTMLElement | any) {
         let interval = 0;
         let t = 0;
         let attrs: tooltipTypesProps = target.attrs;
         let trigger: tooltipTypesProps['trigger'] = this._adapterTrigger<tooltipTypesProps['trigger']>(attrs.trigger);
-        this._type = this.tagName.indexOf('sp-tooltip') > -1 ? 'tooltip' : 'popover';
+        this._type = this.getType();
         this.fixedView(this._type, attrs);
 
         if (trigger.includes('hover')) {
@@ -74,7 +95,6 @@ export default class ToolTipCommon extends Base {
             listener(target, 'focus', _ => this._focus.call(this, _));
             listener(this.fixedEl, 'click', e => { e.stopPropagation(); e.preventDefault(); });
         }
-
         if (trigger.includes('click') || trigger.includes('contextmenu')) {
             listener(document.body, 'click', () => setStyle(this.fixedEl, { zIndex: '-1', left: '-100%', top: '-100%' }))
         }
@@ -89,20 +109,23 @@ export default class ToolTipCommon extends Base {
     }
 
     public visible(is: 'true' | 'false') {
+        if(this.visibleStatus == is) return;
         if (is == 'true') {
             this._changePosition(this.fixedEl);
+            this.visibleStatus = is
             return
         }
-        this._leave()
+        this._leave();
+        this.visibleStatus = is
     }
 
-    fixedView(type: 'tooltip' | 'popover', attrs: any) {
+    fixedView(type: ComType, attrs: any, callback?: (args: any) => any) {
         let core: HTMLElement = createEl('div'),
             arrow: HTMLSpanElement = createEl('span'),
             content: HTMLDivElement | any = createEl('div'),
             arrow_child: HTMLSpanElement = createEl('span'),
             title: HTMLSpanElement = createEl('span');
-        core.setAttribute('role', 'tooltip');
+        core.setAttribute('role', type);
         core.className = this.getRootClassName(this.contextTarget, ['__' + attrs['placement'] ?? '__top', this.contextTarget?.APAC ? 'APAC' : '']);
         arrow.className = this.tagName + '__arrow';
         title.className = this.tagName + '__title';
@@ -132,6 +155,9 @@ export default class ToolTipCommon extends Base {
         } else {
             content.innerHTML = attrs?.content || this.contextTarget?.content || ''
         }
+        callback?.({ core, title, arrow, content })
+
+
         arrow.append(arrow_child)
         core.append(title, content, arrow)
         this.fixedEl = core;
@@ -141,6 +167,11 @@ export default class ToolTipCommon extends Base {
 
         setStyle(this.fixedEl, { zIndex: '-1', left: '-100%', top: '-100%' });
         this._appendTarget(attrs).append(this.fixedEl);
+
+        // 临时加的 可能会注视掉 // 漠视为默认的行为
+        if(attrs['visible'] + '' == 'true'){
+            sto(() => this.visible('true'), 200)
+        }
     }
 
     _contextmenu(e: Event) {
@@ -150,7 +181,7 @@ export default class ToolTipCommon extends Base {
         this._changePosition(this.fixedEl);
     }
     _click(e: Event) {
-        !this.contextTarget.attrs?.['ispreventdefault'] &&document.body.click()
+        !this.contextTarget.attrs?.['ispreventdefault'] && document.body.click()
         e.stopPropagation(); e.preventDefault();
         this._changePosition(this.fixedEl)
     }
