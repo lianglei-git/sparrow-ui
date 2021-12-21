@@ -109,14 +109,14 @@ export default class ToolTipCommon extends Base implements Config {
     }
 
     public visible(is: 'true' | 'false') {
-        if(this.visibleStatus == is) return;
+        if (this.visibleStatus == is) return;
         if (is == 'true') {
-            this._changePosition(this.fixedEl);
             this.visibleStatus = is
+            this._changePosition(this.fixedEl);
             return
         }
-        this._leave();
         this.visibleStatus = is
+        this._leave();
     }
 
     fixedView(type: ComType, attrs: any, callback?: (args: any) => any) {
@@ -169,7 +169,7 @@ export default class ToolTipCommon extends Base implements Config {
         this._appendTarget(attrs).append(this.fixedEl);
 
         // 临时加的 可能会注视掉 // 漠视为默认的行为
-        if(attrs['visible'] + '' == 'true'){
+        if (attrs['visible'] + '' == 'true') {
             sto(() => this.visible('true'), 200)
         }
     }

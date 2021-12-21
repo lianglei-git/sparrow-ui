@@ -178,7 +178,7 @@ const Content = (props: any) => {
         })
         _affixList.push({
             title: 'API',
-            id:'API'
+            id: 'API'
         })
         setAffixList(_affixList);
 
@@ -217,6 +217,28 @@ const Content = (props: any) => {
                         },
                     ].concat(getChildren(props?.index?.api || ['placeholder'])),
                 )}
+                <footer className='footer'>
+                    <div className="blogroll">
+                        <h2>友情链接</h2>
+                        <ul>
+                            <li><a href="https://ant.design/">Ant Design</a></li>
+                            <li><a href="https://element-angular.faas.ele.me/">Element-Angular</a></li>
+                            <li><a href="https://elemefe.github.io/element-react/">Element-React</a></li>
+                            <li><a href="https://mint-ui.github.io/#!/zh-cn">Mint UI</a></li>
+                            <li><a href="https://www.iviewui.com">iView UI</a></li>
+                            <li><a href="https://youzan.github.io/vant/#/zh-CN/intro">vant UI</a></li>
+                        </ul>
+                    </div>
+                    <div className="about">
+                        <h2>关于</h2>
+                    </div>
+                    <div className="help">
+                        <h2>帮助</h2>
+                    </div>
+                    <div className="more">
+                        <h2>更多</h2>
+                    </div>
+                </footer>
                 <div className='fixed-content'>
                     <sp-affix offset-top="74" >
                         <ul>
@@ -231,22 +253,16 @@ const Content = (props: any) => {
                     </sp-affix>
                 </div>
             </div>
-
-
         </div>
         <div className={code !== null ? 'code active' : 'code'} ref={codeEl} >
             {/* <div className="back" onClick={() => setCode(null)} dangerouslySetInnerHTML={{
                 __html: `<svg class="icon" aria-hidden="true">
                 <use xlink:href="#sp-icon-qianjin"></use>
             </svg>`}}></div> */}
-            <div className="back sp-icon sp-icon-double-arro-right"  onClick={() => setCode(null)}></div>
+            <div className="back sp-icon sp-icon-double-arro-right" onClick={() => setCode(null)}></div>
             <CodeView toReactComponent={props.utils.toReactComponent} code={code} />
         </div>
-        {/* <div className={code !== null ? 'place active' : 'place'}>
-        <CodeView toReactComponent={props.utils.toReactComponent} code={code} />
-
-        </div> */}
-        <sp-backtop target='.show-components'></sp-backtop>        
+        <sp-backtop target='.show-components'></sp-backtop>
     </div>
 }
 

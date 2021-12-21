@@ -9,12 +9,12 @@ title: 测试模块
 
 
 ```jsx
-import React,{useRef, useState, useEffect} from 'react'
+import React,{useRef, useState, useLayoutEffect} from 'react'
 const Test = () => {
     const c = useRef();
     const d = useRef();
     const [visible, setVisible] = useState(true)
-    useEffect(() => {
+    useLayoutEffect(() => {
         c.current.onVisibleChange = visible => {
             console.log(visible)
         }
@@ -29,6 +29,11 @@ const Test = () => {
         };
         d.current.onVisibleChange = (visible) => {
             visible && setVisible(visible)
+        }
+        d.current.okButtonProps = {
+            type: 'dashed',
+            size: 'small',
+            shape: 'round'
         }
         d.current.onConfirm = e => {
              e.target['attr-loading'] = true
@@ -57,6 +62,6 @@ ReactDOM.render(<Test />, mountNode);
 
 <style>
 .sp-icon-loading {
-    color: #fff
+    color: #f53f3f
 }
 </style>

@@ -215,7 +215,7 @@ h1 {
 
 .api-container {
     >table {
-        width: fit-content !important;
+        // width: fit-content !important;
 
         thead {
             tr {
@@ -224,5 +224,34 @@ h1 {
                 }
             }
         }
+    }
+}
+
+footer.footer {
+    height: 500px;
+    width: 100%;
+    background-color: rgba(4, 4, 4, 0.878);
+    display: flex;
+    justify-content: space-between;
+    padding: 60px;
+    box-sizing: border-box;
+
+    ul {
+        li {
+            margin: 12px 0;
+
+            a {
+                transition: all .3s;
+                color: #ffffffe6;
+                text-decoration: none;
+            }
+        }
+    }
+
+    h2 {
+        margin: 0 auto 24px;
+        font-weight: 500;
+        font-size: 16px;
+        color: #fff;
     }
 }

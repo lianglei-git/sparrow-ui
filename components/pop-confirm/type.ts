@@ -13,8 +13,9 @@ export const popconfirmProps = Object.freeze({
     ...tooltipProps,
     icon: 'sp-icon-warning',
     'ok-type': 'primary',
-    'ok-text': 'Yes',
-    'cancel-text': 'No',
+    'ok-text': '确定',
+    'cancel-text': '取消',
     effect: 'light',
+    trigger: 'click',
     'hide-icon': false
 })

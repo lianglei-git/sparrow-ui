@@ -18,3 +18,6 @@ subTitle: 气泡卡片
 | ------- | -------- | ------ | ------ | ---- |
 | title   | 提示文字 | string | -      | -    |
 | content | 卡片内容 | html   | -      | -    |
+
+
+更多属性请参考 [Tooltip](/components/tooltip/#API)。

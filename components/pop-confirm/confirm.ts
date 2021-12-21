@@ -1,8 +1,8 @@
 
-import { $el, createEl, defineEl, getProps, listener, setStyle } from '../_utils/dom'
+import { createEl, defineEl, getProps, listener, setStyle } from '../_utils/dom'
 import ToolTipCommon from '../tooltip/Common';
 import { popconfirmTypesProps, popconfirmProps } from './type'
-import { runIFELSE } from '../_utils/common'
+import { runIFELSE, isObject, sto } from '../_utils/common'
 
 interface classI {
     fixedView(type: 'tooltip' | 'popover' | 'confirm', attrs: popconfirmTypesProps): any
@@ -22,6 +22,9 @@ class PopConfirmEds extends ToolTipCommon implements classI {
     }
     fixedView() {
         let attrs: popconfirmTypesProps = this.contextTarget.attrs;
+        // 内部button的参数配置；
+        let cancelButtonProps = this.contextTarget?.cancelButtonProps
+        let okButtonProps = this.contextTarget?.okButtonProps
         const handler = (type: 'ok' | 'cancel', e: any) => {
             let onCancel = this.contextTarget?.onCancel || (() => { });
             let onConfirm = this.contextTarget?.onConfirm || (() => { });
@@ -31,10 +34,10 @@ class PopConfirmEds extends ToolTipCommon implements classI {
             }
             let promise = type == 'ok' ? onConfirm(e) : onCancel(e);
             if (promise?.then) {
-                promise.then(() => this.visible('false'));
+                promise.then(() => this._leave());
                 return
             }
-            this.visible('false')
+            this._leave()
         }
         const view = ({ title, content }: any) => {
             let icon = createEl('em'),
@@ -50,7 +53,20 @@ class PopConfirmEds extends ToolTipCommon implements classI {
             !attrs['hide-icon'] && title.insertBefore(icon, title.firstChild);
             content.innerHTML = '';
             listener(cancelBut, 'click', e => handler('cancel', e))
-            listener(okBut, 'click', e => handler('ok', e))
+            listener(okBut, 'click', e => handler('ok', e));
+            if (cancelButtonProps) {
+                if (!isObject(cancelButtonProps)) throw Error('Please pass in the "Object!"');
+                for (let key in cancelButtonProps) {
+                    cancelBut['attr-' + key] = cancelButtonProps[key];
+                }
+            }
+            console.log(this.contextTarget?.okButtonProps)
+            if (okButtonProps) {
+                if (!isObject(okButtonProps)) throw Error('Please pass in the "Object!"');
+                for (let key in okButtonProps) {
+                    okBut['attr-' + key] = okButtonProps[key];
+                }
+            }
             content.append(cancelBut, okBut);
         }
         super.fixedView('confirm', attrs, view);
@@ -65,12 +81,12 @@ const PopConfirm = function () {
         connectedCallback() {
             (this.attrs as Partial<popconfirmTypesProps>) = getProps(this);
             this.attrs = { ...popconfirmProps, ...this.attrs };
-            this.super = new PopConfirmEds(this);
             this.setAttribute('hidefocus', true)
             this.setAttribute('tabindex', 0)
             setStyle(this, {
                 outline: '0'
             })
+            sto(() => this.super = new PopConfirmEds(this))
         },
         attributeChangedCallback(..._args) {
             let [key, _, newval] = _args;
