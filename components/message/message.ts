@@ -133,7 +133,7 @@ function Message(params: Props = typeProps()) {
     return Object.assign(p, t)
 }
 
-['info', 'success', 'error', 'loading'].forEach((type: string) => {
+['info', 'success', 'error', 'loading', 'warning'].forEach((type: string) => {
     (Message as any)[type] = (options: Props | any, args: any[]) => {
         if (isObject(options)) {
             return Message({ ...options, type })

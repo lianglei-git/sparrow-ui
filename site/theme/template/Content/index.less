@@ -6,7 +6,7 @@
     .menu {
         width: 15%;
         height: 100%;
-        padding: 20px 40px 0 40px;
+        padding: 20px 0 0 0;
         border-right: 1px dashed #e6dddd;
         overflow-y: auto;
 
@@ -23,23 +23,30 @@
                 }
 
                 p {
-
+                    margin: 0 40px;
                     color: #00000073;
                     font-size: 13px;
-                    border-bottom: 1px solid #3531312e;
+                    border-bottom: 1px solid #f0f0f0;
                     padding-bottom: 10px;
                 }
 
                 ol {
+                    li {
+                        position: relative;
+                        padding: 40px;
+                        border-right: 3px solid #09b8b800;
+                    }
 
                     li,
                     a {
                         transition: .5s;
                         font-size: 13.5px;
                         color: #33423f;
-                        padding: 10px 0;
+                        padding-top: 10px;
+                        padding-bottom: 10px;
                         font-family: Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
                         cursor: pointer;
+
 
                         &:hover {
                             color: #09b8b8;
@@ -49,6 +56,8 @@
                             a {
                                 color: #09b8b8;
                             }
+                            border-right: 3px solid #09b8b8;
+                            background-color: #11d2cc29;
                         }
                     }
                 }

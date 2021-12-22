@@ -25,8 +25,8 @@ const config = {
         postcss({
             extract:join(__dirname, '../lib/index.css'),
             extensions: ['.css', '.less'],
-            // minimize: true,
-            // exec: true,
+            minimize: true,
+            exec: true,
         }),
         external(),
         typescript(),
@@ -42,7 +42,7 @@ const config = {
             // }
         }),
         replace({ 'process.env.NODE_ENV': JSON.stringify('production') }),
-        uglify(),
+        // uglify(),
 
     ],
     onwarn: function(warning) { 

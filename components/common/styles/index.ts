@@ -1,2 +1,2 @@
-import './theme.less'
-// import './iconfont.js'
+import './iconfont.less'
+import './theme.less';

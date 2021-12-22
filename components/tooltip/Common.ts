@@ -190,12 +190,12 @@ export default class ToolTipCommon extends Base implements Config {
         e.stopPropagation(); e.preventDefault();
         this._changePosition(this.fixedEl);
     }
-    _mouseenter(e: MouseEvent) {
+    _mouseenter(_: MouseEvent) {
         this.fixedEl.inset = true;
         if (this.fixedEl.outset) return
         this._changePosition(this.fixedEl);
     }
-    _mouseleave(e: MouseEvent) {
+    _mouseleave(_: MouseEvent) {
         this.fixedEl.inset = false
         if (!this.fixedEl.outset) this._leave()
 
