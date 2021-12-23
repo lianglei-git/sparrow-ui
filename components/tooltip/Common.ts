@@ -96,7 +96,7 @@ export default class ToolTipCommon extends Base implements Config {
             listener(this.fixedEl, 'click', e => { e.stopPropagation(); e.preventDefault(); });
         }
         if (trigger.includes('click') || trigger.includes('contextmenu')) {
-            listener(document.body, 'click', () => setStyle(this.fixedEl, { zIndex: '-1', left: '-100%', top: '-100%' }))
+            listener(document.body, 'click', this._reset.bind(this))
         }
 
     }
@@ -165,7 +165,7 @@ export default class ToolTipCommon extends Base implements Config {
         this.fixedEl.arrowEl = arrow;
         this.fixedEl.titleEl = title;
 
-        setStyle(this.fixedEl, { zIndex: '-1', left: '-100%', top: '-100%' });
+        this._reset()
         this._appendTarget(attrs).append(this.fixedEl);
 
         // 临时加的 可能会注视掉 // 漠视为默认的行为
@@ -208,11 +208,12 @@ export default class ToolTipCommon extends Base implements Config {
         this.fixedEl.outset = false;
         if (!this.fixedEl.inset) this._leave()
     }
+    _reset() {
+        setStyle(this.fixedEl, { zIndex: '-1', opacity: '0', left: '-100%', top: '-100%' });
+    }
 
     _leave() {
-        this._animation(this.fixedEl, 'leave').then(() => {
-            setStyle(this.fixedEl, { zIndex: '-1', left: '-100%', top: '-100%' });
-        })
+        this._animation(this.fixedEl, 'leave').then(this._reset.bind(this))
     }
 
     _appendTarget(attrs: tooltipTypesProps): HTMLElement {
@@ -226,7 +227,8 @@ export default class ToolTipCommon extends Base implements Config {
     _weight(target: HTMLElement) {
         setIndex()
         setStyle(target, {
-            zIndex: '' + getIndex()
+            zIndex: '' + getIndex(),
+            opacity: '1'
         })
     }
 

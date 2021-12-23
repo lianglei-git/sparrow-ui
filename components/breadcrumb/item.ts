@@ -8,7 +8,10 @@ class Item {
             tag: 'sp-breadcrumb-item',
             connectedCallback() {
                 this.className += ' ' + this.tagName.toLocaleLowerCase()
-                !this.innerHTML ? sto(() => this.appendChild(this.parentElement.icon.cloneNode(true))) :this.appendChild(this.parentElement.icon.cloneNode(true))
+                // !this.innerHTML ?
+                
+                sto(() => this.appendChild(this.parentElement.icon.cloneNode(true))) 
+                // :this.appendChild(this.parentElement.icon.cloneNode(true))
             }
         })
     }

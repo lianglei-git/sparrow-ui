@@ -42,7 +42,7 @@ const config = {
             // }
         }),
         replace({ 'process.env.NODE_ENV': JSON.stringify('production') }),
-        // uglify(),
+        uglify(),
 
     ],
     onwarn: function(warning) { 
