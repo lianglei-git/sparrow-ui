@@ -107,7 +107,20 @@ const last: <T extends any>(l: T[]) => T = (l) => {
 }
 
 // 绑定事件
-const listener: (target: HTMLElement, event: string, func: (e: Event | ProgressEvent<EventTarget>) => any, arg?: any) => void = (target, event, func, arg) => { target.addEventListener(event, func, arg) }
+const listener: (target: HTMLElement |Document, event: string, func: (e: Event | ProgressEvent<EventTarget>) => any, opt?: any) => void =
+    (target, event, func, opt) => {
+        if (target.addEventListener) {
+            target.addEventListener(event, func, opt)
+        }
+        return {
+            remove: function remove() {
+                if (target.removeEventListener) {
+                    target.removeEventListener(event, func)
+                }
+            }
+        }
+
+    }
 
 
 

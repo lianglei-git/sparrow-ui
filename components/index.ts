@@ -17,6 +17,7 @@ import './backtop'
 import './tooltip'
 import './popover'
 import './pop-confirm'
+import './slider'
 
 // 打包ui时候关闭下面这些代码，打包site时候打开这个定制代码。
 // import './custom-tc-brands';

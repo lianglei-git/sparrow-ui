@@ -244,7 +244,7 @@ export default class ToolTipCommon extends Base implements Config {
 
     }
 
-    _changePosition($target: HTMLElement | any, _placement: tooltipTypesProps['placement'] = this.contextTarget.attrs?.placement) {
+    _changePosition($target: HTMLElement | any, _placement: tooltipTypesProps['placement'] = this.contextTarget.attrs?.placement, isshow:boolean = true) {
         // let rect: DOMRect = getTargetRect(this.contextTarget);
         let lixinH = 4; // 离心点
         let oLeft = this.contextTarget.offsetLeft;
@@ -333,6 +333,7 @@ export default class ToolTipCommon extends Base implements Config {
                     top: oTop + 'px'
                 }); break
         }
+        if(!isshow) return;
         this._weight($target);
         this._animation($target);
     }

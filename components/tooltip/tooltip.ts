@@ -31,13 +31,15 @@ class Tooltip {
         let root:ToolTipCommon = (this as any).super;
         root && runIFELSE(new Set([
             ['visible' in attrs, () => {
-                console.log('阿斯科利是的阿莱克斯到家了打开j', attrs.visible)
                 root.visible(attrs.visible + '' as any);
             }],
             ['placement' in attrs, () => {
                 root.fixedEl.className =
                     root.getRootClassName(root.contextTarget, ['__' + attrs['placement'] ?? '__top', (this as any).APAC? 'APAC': ''])
-            }]
+            }],
+            ['title' in attrs, () => {
+                (root.fixedEl.titleEl as any).textContent = attrs['title']
+            }],
         ]))
     }
 }
