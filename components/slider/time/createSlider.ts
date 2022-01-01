@@ -9,8 +9,18 @@ interface ComponentEnhancerProps {
     min: number
     max: number
     handlesRefs: HTMLElement[]
+    draggabletrack: boolean;
+    defaults: Array<any>
+    trackEl: any
 }
 
+
+const enum SortEnum {
+    handleEl,
+    handleEl2,
+    trackEl
+}
+type SortType = SortEnum;
 type Calcs = {
     reverse?: boolean; vertical?: boolean; position: number; ctxTarget: any
 }
@@ -37,9 +47,12 @@ class ComponentEnhancer {
     _curValues: {
         o?: number | undefined // 由左向右第一个
         t?: number | undefined // 由左向右第二个
-    } = {};
+        curHandle: SortType
+    } = { curHandle: 0 };
 
     handlesRefs: any
+
+    trackEvent: any;
 
     defaultProps: {
 
@@ -49,12 +62,17 @@ class ComponentEnhancer {
     PROPSCHANGE(args: {
         o_percent?: number
         t_percent?: number
+        oValue?: number
+        tValue?: number
+        trackValue?: number
+        trackEvent?: any
+        curHandle?: SortType// 当前handle
     }) { }
     // props handle mouse down
-    PROPSHANDLEMOUSEDOWN(e:any) {};
+    PROPSHANDLEMOUSEDOWN(e: any, curHandle: SortType) { };
 
     // props handle mouse up
-    PROPSHANDLEMOUSEUP(e:any) {};
+    PROPSHANDLEMOUSEUP(e: any, curHandle: SortType) { };
 
 
     constructor(props: ComponentEnhancerProps) {
@@ -69,8 +87,11 @@ class ComponentEnhancer {
 
 
     onMounted() {
-        listener(this.handlesRefs[0], 'mousedown', this.onMouseDown);
-
+        listener(this.handlesRefs[0], 'mousedown', e => this.onMouseDown(e, 0));
+        this.handlesRefs[1] && listener(this.handlesRefs[1], 'mousedown', e => this.onMouseDown(e, 1));
+        if (this.props.defaults.length >= 2 && this.props.draggabletrack) {
+            listener(this.props.trackEl, 'mousedown', e => this.onMouseDown(e, 2));
+        }
     }
 
     onMouseMove = (e: any) => {
@@ -81,21 +102,32 @@ class ComponentEnhancer {
         this.constrCalc = new CalcValueByPos<CalcValueByPosProps>({
             position,
             ...this.props,
-            _change: ({ value, range }: { value: number, range?: number }) => {
-                let { o, t = undefined } = this._curValues
-                if (!range && o != value) {
+            _change: ({ value }: { value: number }) => {
+                let { o, t = undefined, curHandle } = this._curValues;
+                let percent = 100 / this.balance * (value - this.props.min);
+                if (curHandle === 0 && o != value) {
                     this._curValues.o = value;
-                    let percent = 100 / this.balance * (this._curValues.o - this.props.min)
-                    this.PROPSCHANGE({ o_percent: ~~percent })
+                    this.PROPSCHANGE({ o_percent: ~~percent, oValue: value, curHandle });
+                    return
                 }
+                if (curHandle === 1 && t != value) {
+                    this._curValues.t = value;
+                    this.PROPSCHANGE({ t_percent: ~~percent, tValue: value, curHandle })
+                    return
+                }
+                // track 拖拽
+                if (curHandle === 2) {
+                    this.PROPSCHANGE({ t_percent: ~~percent, trackValue: value, trackEvent: this.trackEvent, curHandle })
+                }
+
             }
         })
 
     }
 
-    onMouseStart(e:any) {
+    onMouseStart(e: any, sort: SortType = 0) {
         this.removeDocumentEvents();
-        this.onMouseDown(e);
+        this.onMouseDown(e, sort);
         this.onMouseMove(e);
         this.addDocumentMouseEvents();
         this.focus()
@@ -107,19 +139,23 @@ class ComponentEnhancer {
 
     focus() {
         if (this.props.disabled) {
-          return;
+            return;
         }
         this.handlesRefs[0]?.focus();
-      }
+    }
 
-    onMouseDown(e: any) {
+    onMouseDown(e: any, sort: SortType) {
+        this._curValues.curHandle = sort;
         e.target.focus()
-        console.log(e.button, this, '按下')
         this.removeDocumentEvents();
         this.onDown(e)
         this.addDocumentMouseEvents();
         pauseEvent(e);
-        this.PROPSHANDLEMOUSEDOWN(e)
+        if (sort !== SortEnum.trackEl) {
+            this.PROPSHANDLEMOUSEDOWN(e, sort)
+        } else {
+            this.trackEvent = e;
+        }
     }
 
     onDown(e: MouseEvent) {
@@ -134,10 +170,10 @@ class ComponentEnhancer {
         }
     }
 
-    onEnd(e:any) {
+    onEnd(e: any) {
         console.log('离开')
         this.removeDocumentEvents();
-        this.PROPSHANDLEMOUSEUP(e)
+        this.PROPSHANDLEMOUSEUP(e, this._curValues.curHandle)
     }
 
     blur() {

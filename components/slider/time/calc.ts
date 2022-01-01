@@ -7,21 +7,22 @@ let clacMethds: any = {
         let vertical = this.props.vertical;
         let reverse = this.props.reverse;
         if (vertical) {
-            return reverse ? rect.bottom : rect.top;
+            return reverse+'' == 'true' ? rect.bottom : rect.top;
         }
-        return window.pageXOffset + (reverse ? rect.right : rect.left);
+        return window.pageXOffset + (reverse+'' == 'true' ? rect.right : rect.left);
     },
-    getSliderLength() {
-        const slider = this.props.ctxTarget;
+    getSliderLength(ctxTarget?:any, vertical?:any) {
+        const slider = ctxTarget 
         if (!slider) {
             return 0;
         }
         const coords = slider.getBoundingClientRect();
-        return this.props.vertical ? coords.height : coords.width;
+        return vertical ? coords.height : coords.width;
     },
-    calcValue(offset: number) {
-        const { vertical, min, max } = this.props;
-        const ratio = Math.abs(Math.max(offset, 0) / this.getSliderLength());
+    calcValue(offset: number, props:any = false) {
+        const { vertical, min, max, ctxTarget } = props || this.props;
+        let func = this.getSliderLength || clacMethds.getSliderLength
+        const ratio = Math.abs(Math.max(offset, 0) / func(ctxTarget, vertical));
         const value = vertical ? (1 - ratio) * (max - min) + min : ratio * (max - min) + min;
         return value;
     },
@@ -41,11 +42,17 @@ let clacMethds: any = {
 
 export const CalcValueByPos = function <T>(args: T): void {
     let { reverse = false, position } = this.props = (args as any);
-    const sign = reverse ? -1 : +1;
+    const sign = reverse+'' == 'true' ? -1 : +1;
     const pixelOffset = sign * (position - this.getSliderStart());
     const nextValue = this.trimAlignValue(this.calcValue(pixelOffset));
     this.props._change({value: nextValue})
 } as any
 for (let k in clacMethds) {
     CalcValueByPos.prototype[k] = clacMethds[k]
+}
+
+
+let deep = {...clacMethds}
+export {
+    deep as clacMethds
 }

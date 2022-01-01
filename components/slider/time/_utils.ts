@@ -9,8 +9,8 @@ function bindAll(fns: string[], context: any) {
     })
 }
 function pauseEvent(e: any) {
-    e.stopPropagation();
-    e.preventDefault();
+    e?.stopPropagation?.();
+    e?.preventDefault?.();
 }
 
 function getMousePosition(vertical: boolean, e: MouseEvent) {
@@ -67,5 +67,6 @@ export {
     getHandleCenterPosition,
     getMousePosition,
     ensureValuePrecision,
-    ensureValueInRange
+    ensureValueInRange,
+    getPrecision
 }
