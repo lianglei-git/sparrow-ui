@@ -32,35 +32,41 @@ class Silder extends Base {
 
                     this.core.PROPSCHANGE = ({ o_percent, t_percent, oValue, tValue, trackEvent, trackValue, curHandle }: any) => {
                         if (curHandle == 2) {
-                            let targetwidth = this.offsetWidth;
-                            let reverse = this.attrs.reverse + '' == 'true'
-                            let min = targetwidth * (t_percent / 100) - trackEvent.offsetX;
-                            let max = targetwidth * (t_percent / 100) + trackEvent.target.offsetWidth - trackEvent.offsetX;
+                            let offset_xy:any = [this.attrs.vertical ? 'offsetY' : 'offsetX'];
+                            let offset_wh:any = [this.attrs.vertical ? 'offsetHeight' : 'offsetWidth'];
+                            let offset_lt:any = [this.attrs.vertical ? 'offsetTop' : 'offsetLeft'];
+                            let style_lp:any = [this.attrs.vertical ? 'top' : 'left'];
+                            let style_rt:any = [this.attrs.vertical ? 'bottom' : 'right'];
+                            let reverse = this.attrs.vertical ? this.attrs.vertical : !this.attrs.vertical;
+                            let target_wh = this[offset_wh];
+
+                            let min = target_wh * (t_percent / 100) - trackEvent[offset_xy];
+                            let max = target_wh * (t_percent / 100) + trackEvent.target[offset_wh] - trackEvent[offset_xy];
                             setStyle(trackEl, {
-                                left: reverse ? 'auto' : min < 0 ? '0' : max >= targetwidth ? targetwidth - trackEvent.target.offsetWidth + 'px' : `calc(${t_percent + '%'} - ${trackEvent.offsetX}px)`,
-                                right: !reverse ? 'auto' : min < 0 ? '0' : max >= targetwidth ? targetwidth - trackEvent.target.offsetWidth + 'px' : `calc(${t_percent + '%'} - ${trackEvent.offsetX}px)`,
+                                [style_lp]: reverse ? 'auto' : min < 0 ? '0' : max >= target_wh ? target_wh - trackEvent.target[offset_wh] + 'px' : `calc(${t_percent + '%'} - ${trackEvent[offset_xy]}px)`,
+                                [style_rt]: !reverse ? 'auto' : min < 0 ? '0' : max >= target_wh ? target_wh - trackEvent.target[offset_wh] + 'px' : `calc(${t_percent + '%'} - ${trackEvent[offset_xy]}px)`,
                             })
                             setStyle(handleEl, {
-                                left: reverse ? 'auto' : min < 0 ? '0' : max >= targetwidth ? targetwidth - trackEvent.target.offsetWidth + 'px' : `calc(${t_percent}% - ${trackEvent.offsetX + 4}px)`,
-                                right: !reverse ? 'auto' : min < 0 ? '0' : max >= targetwidth ? targetwidth - trackEvent.target.offsetWidth + 'px' : `calc(${t_percent}% - ${trackEvent.offsetX + 4}px)`,
+                                [style_lp]: reverse ? 'auto' : min < 0 ? '0' : max >= target_wh ? target_wh - trackEvent.target[offset_wh] + 'px' : `calc(${t_percent}% - ${trackEvent[offset_xy] + 4}px)`,
+                                [style_rt]: !reverse ? 'auto' : min < 0 ? '0' : max >= target_wh ? target_wh - trackEvent.target[offset_wh] + 'px' : `calc(${t_percent}% - ${trackEvent[offset_xy] + 4}px)`,
                             })
                             setStyle(handleEl2, {
-                                left: reverse ? 'auto' : min < 0 ? trackEvent.target.offsetWidth + 'px' : max >= targetwidth ? targetwidth - 5 + 'px' : `calc(${t_percent}% + ${trackEvent.target.offsetWidth - trackEvent.offsetX - 5}px)`,
-                                right: !reverse ? 'auto' : min < 0 ? trackEvent.target.offsetWidth + 'px' : max >= targetwidth ? targetwidth - 5 + 'px' : `calc(${t_percent}% + ${trackEvent.target.offsetWidth - trackEvent.offsetX - 5}px)`,
+                                [style_lp]: reverse ? 'auto' : min < 0 ? trackEvent.target[offset_wh] + 'px' : max >= target_wh ? target_wh - 5 + 'px' : `calc(${t_percent}% + ${trackEvent.target[offset_wh] - trackEvent[offset_xy] - 5}px)`,
+                                [style_rt]: !reverse ? 'auto' : min < 0 ? trackEvent.target[offset_wh] + 'px' : max >= target_wh ? target_wh - 5 + 'px' : `calc(${t_percent}% + ${trackEvent.target[offset_wh] - trackEvent[offset_xy] - 5}px)`,
                             })
-                            let h1v = clacMethds.calcValue(handleEl.offsetLeft + 3, {
+                            let h1v = clacMethds.calcValue(handleEl[offset_lt] + 3, {
                                 ctxTarget: this,
                                 ...this.attrs
                             });
-                            let h2v = clacMethds.calcValue(handleEl2.offsetLeft + 3, {
+                            let h2v = clacMethds.calcValue(handleEl2[offset_lt] + 3, {
                                 ctxTarget: this,
                                 ...this.attrs
                             });
                             handleEl['attr-title'] = parseFloat(h1v.toFixed(getPrecision(this.attrs.step)));
                             handleEl2['attr-title'] = parseFloat(h2v.toFixed(getPrecision(this.attrs.step)));
                             if (this.attrs.tooltipvisible && this.attrs.tooltipvisible + '' == 'true') {
-                                handleEl?.super?._changePosition(handleEl.super.fixedEl, 'top', false)
-                                handleEl2?.super?._changePosition(handleEl2.super.fixedEl, 'top', false)
+                                handleEl?.super?._changePosition(handleEl.super.fixedEl, this.attrs.vertical ? 'right' :'top', false)
+                                handleEl2?.super?._changePosition(handleEl2.super.fixedEl, this.attrs.vertical ? 'right' :'top', false)
                             }
                             return;
                         }
