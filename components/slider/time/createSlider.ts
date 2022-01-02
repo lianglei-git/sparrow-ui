@@ -164,7 +164,6 @@ class ComponentEnhancer {
         if (!isVertical) {
             const handlePosition = getHandleCenterPosition(isVertical, e.target as any);
             this.dragOffset = position - handlePosition;
-            console.log(position, handlePosition)
         } else {
             this.dragOffset = 0;
         }

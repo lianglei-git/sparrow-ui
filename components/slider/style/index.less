@@ -1,5 +1,7 @@
 @import url(../../common/styles/theme.less);
-.sp-slider {
+@className: sp-slider;
+
+.@{className} {
     display: block;
     box-sizing: border-box;
     color: #000000d9;
@@ -14,20 +16,48 @@
     padding: 4px 0;
     cursor: pointer;
     touch-action: none;
+
     &:hover {
-       .sp-slider-rail {
+        .sp-slider-rail {
             background-color: #e1e1e1;
         }
+
         .sp-slider-track {
             background-color: var(--color-primary-4);
         }
-        .sp-slider-handle  {
+
+        .sp-slider-handle {
             border: solid 2px var(--color-primary-4);
+
             &:hover {
                 border: solid 2px var(--color-primary-6);
             }
         }
     }
+
+    &.--vertical {
+        width: 12px;
+        height: 100%;
+        margin: 6px 10px;
+        padding: 0 4px;
+        display: inline-block;
+
+        .@{className}-rail,
+        .@{className}-track {
+            height: 100%;
+            width: 4px;
+        }
+
+        .@{className}-handle,
+        .@{className}-handle-t,
+        sp-tooltip[name='slider-handle'],
+        sp-tooltip[name='slider-handle-t'] {
+            left: -1px;
+        }
+    }
+
+
+
     &-rail {
         position: absolute;
         width: 100%;
@@ -36,6 +66,7 @@
         border-radius: 2px;
         transition: background-color .3s;
     }
+
     &-track {
         position: absolute;
         height: 4px;
@@ -43,7 +74,11 @@
         border-radius: 2px;
         transition: background-color .3s;
     }
-    &-handle, &-handle-t, sp-tooltip[name='slider-handle'], sp-tooltip[name='slider-handle-t'] {
+
+    &-handle,
+    &-handle-t,
+    sp-tooltip[name='slider-handle'],
+    sp-tooltip[name='slider-handle-t'] {
         position: absolute;
         width: 14px;
         height: 14px;
@@ -53,10 +88,12 @@
         border-radius: 50%;
         box-shadow: 0;
         cursor: pointer;
-        transition: border-color .3s,box-shadow .6s,transform .3s cubic-bezier(.18,.89,.32,1.28);
+        transition: border-color .3s, box-shadow .6s, transform .3s cubic-bezier(.18, .89, .32, 1.28);
+
         &:hover {
             border: solid 2px var(--color-primary-6);
         }
+
         &:focus {
             border-color: var(--sp-primary-color-deprecated-t-20);
             outline: none;

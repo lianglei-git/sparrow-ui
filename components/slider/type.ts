@@ -24,5 +24,5 @@ export const sliderProps = {
     // range: undefined, // 去除双滑块模式 采用default 数组传两个参数自动变为双滑块模式
     disabled: undefined,
     tooltipvisible: undefined,
-    draggabletrack: true
+    draggabletrack: undefined
 }
