@@ -38,7 +38,7 @@ class ComponentEnhancer {
 
     dragOffset: number;
 
-    ctxTarget: HTMLElement;
+    ctxTarget: HTMLElement | any;
 
     constrCalc: any = null
 
@@ -138,13 +138,14 @@ class ComponentEnhancer {
     }
 
     focus() {
-        if (this.props.disabled) {
+        if (this.ctxTarget.disabled) {
             return;
         }
         this.handlesRefs[0]?.focus();
     }
 
     onMouseDown(e: any, sort: SortType) {
+        if (this.ctxTarget.disabled)return;
         this._curValues.curHandle = sort;
         e.target.focus()
         this.removeDocumentEvents();
@@ -176,7 +177,7 @@ class ComponentEnhancer {
     }
 
     blur() {
-        if (this.props.disabled) {
+        if (this.ctxTarget.disabled) {
             return;
         }
         Object.keys(this.handlesRefs).forEach((key) => {

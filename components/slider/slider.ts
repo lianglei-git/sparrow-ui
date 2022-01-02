@@ -18,8 +18,12 @@ class Silder extends Base {
                 (this.attrs as Partial<sliderTypes>) = getProps(this);
                 this.attrs = { ...sliderProps, ...this.attrs };
                 this.attrs.vertical = this.attrs.vertical + '' == 'true' ? true : false
+                this.attrs.disabled = this.attrs.disabled + '' == 'true' ? true : false;
+                this.attrs.max = +this.attrs.max;
+                this.attrs.min = +this.attrs.min;
+                this.attrs.step = +this.attrs.step;
+                this.disabled = this.attrs.disabled
                 //  还要做一层数据转换 ‘true’ 修改为 boolean
-                console.log(this.attrs.marks)
                 this.attrs.marks = this.attrs.marks !== undefined &&
                     this.attrs.marks.indexOf('{') > -1 ?
                     JSON.parse(this.attrs.marks) :
@@ -53,10 +57,13 @@ class Silder extends Base {
                         marks.append(item);
 
                     })
+                    this.railEl = railEl;
+                    this.trackEl = trackEl;
+                    this.handleEl = handleEl;
+                    this.handleEl2 = handleEl2;
+                    this.marks = marks;
+                    this.defaults = defaults;
                     this.append(railEl, trackEl, handleEl, handleEl2, marks);
-
-
-
                     this.core.PROPSCHANGE = ({ o_percent, t_percent, oValue, tValue, trackEvent, trackValue, curHandle }: any) => {
                         if (curHandle == 2) {
                             let offset_xy: any = [this.attrs.vertical ? 'offsetY' : 'offsetX'];
@@ -88,8 +95,8 @@ class Silder extends Base {
                                 ctxTarget: this,
                                 ...this.attrs
                             });
-                            handleEl['attr-title'] = parseFloat(h1v.toFixed(getPrecision(this.attrs.step)));
-                            handleEl2['attr-title'] = parseFloat(h2v.toFixed(getPrecision(this.attrs.step)));
+                            handleEl['attr-title'] = context.adapterTips(this, parseFloat(h1v.toFixed(getPrecision(this.attrs.step))));
+                            handleEl2['attr-title'] = context.adapterTips(this, parseFloat(h2v.toFixed(getPrecision(this.attrs.step))));
                             if (this.attrs.tooltipvisible && this.attrs.tooltipvisible + '' == 'true') {
                                 handleEl?.super?._changePosition(handleEl.super.fixedEl, this.attrs.vertical ? 'right' : 'top', false)
                                 handleEl2?.super?._changePosition(handleEl2.super.fixedEl, this.attrs.vertical ? 'right' : 'top', false)
@@ -98,6 +105,7 @@ class Silder extends Base {
                         }
                         context.changeStyle({
                             trackEl,
+                            target: this,
                             handleRefs: {
                                 o: handleEl,
                                 o_percent: o_percent ?? undefined,
@@ -110,11 +118,11 @@ class Silder extends Base {
                         });
                         if (this.attrs.tooltipvisible + '' !== 'false') {
                             if (oValue) {
-                                handleEl['attr-title'] = oValue;
+                                handleEl['attr-title'] = context.adapterTips(this, oValue);
                                 handleEl?.super?._changePosition(handleEl.super.fixedEl, this.attrs.vertical ? 'right' : 'top', false)
                             }
                             if (tValue) {
-                                handleEl2['attr-title'] = tValue;
+                                handleEl2['attr-title'] = context.adapterTips(this, tValue);
                                 handleEl2?.super?._changePosition(handleEl2.super.fixedEl, this.attrs.vertical ? 'right' : 'top', false)
                             }
                         }
@@ -130,20 +138,75 @@ class Silder extends Base {
                     }
                     this.core.onMounted();
                     // 需要处理
-                    console.log(this.attrs.draggabletrack + '' !== 'true' && defaults.length < 2, this.attrs.default)
                     if (this.attrs.draggabletrack + '' !== 'true' && defaults.length < 2) {
                         listener(railEl, 'mousedown', e => {
-                            console.log(1)
+                            if (this.disabled) return
                             this.core.onMouseStart(e)
                         })
-                        listener(trackEl, 'mousedown', e => this.core.onMouseStart(e))
+                        listener(trackEl, 'mousedown', e => {
+                            if (this.disabled) return
+                            this.core.onMouseStart(e)
+                        })
                     }
                 })
 
+            },
+            attributeChangedCallback(..._args: any) {
+                let [key, _, newval] = _args;
+                context.obsevseAttrs({ [key]: newval }, this)
             }
         })
     }
-
+    // this call target
+    obsevseAttrs(attrs: Partial<sliderTypes>, root: any) {
+        runIFELSE(new Set([
+            ['disabled' in attrs, () => {
+                root.disabled = attrs.disabled + '' == 'true' ? true : false;
+                this._setClassName(root, [root['attr-vertical'] ? '--vertical' : '', root.disabled ? '--disabled' : ''])
+            }],
+            ['value' in attrs, () => {
+                if(!root.attrs) return;
+                let [oValue, tValue] = this.adapterDefaults(attrs.value);
+                if(oValue>=root.attrs.max) {
+                    oValue=root.attrs.max
+                }
+                if(oValue<=root.attrs.min) {
+                    oValue=root.attrs.min
+                }
+                if(tValue>=root.attrs.max) {
+                    tValue=root.attrs.max
+                }
+                if(tValue<=root.attrs.min) {
+                    tValue=root.attrs.min
+                }
+                let o_percent = 100 / (root.attrs.max - root.attrs.min) * (oValue - root.attrs.min);
+                let t_percent = tValue !== undefined ? 100 / (root.attrs.max - root.attrs.min) * (tValue - root.attrs.min) : undefined;
+                this.changeStyle({
+                    trackEl: root.trackEl,
+                    target: root,
+                    handleRefs: {
+                        o_percent,
+                        o: root.handleEl,
+                        t_percent: root.defaults[1] && t_percent,
+                        t: root.handleEl2,
+                        defaults: root.defaults
+                    },
+                    reverse: root.attrs.reverse+ '' == 'true' ? true : false,
+                    vertical: root.attrs.vertical + '' == 'true' ? true : false,
+                });
+                if (root.attrs['tooltipvisible'] + '' !== 'false') {
+                    if (oValue) {
+                        root.handleEl['attr-title'] = this.adapterTips(root, oValue);
+                        root.handleEl?.super?._changePosition(root.handleEl.super.fixedEl, root['attrs']['vertical'] ? 'right' : 'top', false)
+                    }
+                    if (tValue) {
+                        root.handleEl2['attr-title'] = this.adapterTips(root, tValue);
+                        root.handleEl2?.super?._changePosition(root.handleEl2.super.fixedEl, root.attrs['vertical'] ? 'right' : 'top', false)
+                    }
+                }
+            }]
+        ]))
+    }
     setTrackStyle({
         o_percent,
         t_percent,
@@ -267,6 +330,11 @@ class Silder extends Base {
         }
     }
 
+    adapterTips(target: any, _v: any) {
+        let tipFormatterFunc = target?.tipFormatter || ((value: string) => value + (target.attrs?.['tip-formatter'] || ''))
+        return tipFormatterFunc(_v)
+    }
+
     adapterDefaults(_default: string | any[] | number | any): any[] {
         return _default.pop ?
             _default :
@@ -286,7 +354,7 @@ class Silder extends Base {
             tempHandleEl2: any = '',
             tooltip = createEl('sp-tooltip'),
             defaults: any = this.adapterDefaults(attrs.default as any);
-        tooltip['attr-title'] = defaults[0];
+        tooltip['attr-title'] = this.adapterTips(target, defaults[0]);
         tooltip['attr-trigger'] = 'no';
         tooltip.getPopupContainer = () => target
         tooltip.setAttribute('name', 'slider-handle');
@@ -314,7 +382,7 @@ class Silder extends Base {
             if (defaults.length >= 2) {
                 let tmpTool2 = tooltip.cloneNode(true);
                 tmpTool2.getPopupContainer = () => target;
-                tmpTool2['attr-title'] = defaults[1];
+                tmpTool2['attr-title'] = this.adapterTips(target, defaults[1]);
                 tmpTool2.append(tempHandleEl2.cloneNode(true));
                 tempHandleEl2 = tmpTool2;
                 this.tooltipShow(attrs.tooltipvisible, tempHandleEl2);
@@ -329,6 +397,7 @@ class Silder extends Base {
         tempHandleEl2 && tempHandleEl2.setAttribute('tabindex', 0);
         this.changeStyle({
             trackEl,
+            target,
             handleRefs: {
                 o_percent,
                 o: tempHandleEl,
@@ -340,7 +409,7 @@ class Silder extends Base {
             vertical: attrs.vertical + '' == 'true' ? true : false,
             init: true
         })
-        this._setClassName(target, (attrs.vertical ? '--vertical' : ''))
+        this._setClassName(target, [attrs.vertical ? '--vertical' : '', attrs.disabled ? '--disabled' : ''])
 
         return Promise.resolve({
             railEl, trackEl, handleEl: tempHandleEl, tooltip, defaults, handleEl2: tempHandleEl2

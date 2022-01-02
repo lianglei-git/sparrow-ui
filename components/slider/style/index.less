@@ -48,8 +48,10 @@
             height: 100%;
             width: 4px;
         }
+
         .@{className}-marks {
             width: 0px;
+
             &-item {
                 em {
                     top: 0;
@@ -70,8 +72,10 @@
     &-marks {
         width: 100%;
         position: absolute;
+
         &-item {
             position: absolute;
+
             em {
                 position: absolute;
                 top: -2px;
@@ -86,6 +90,7 @@
             }
         }
     }
+
     &-rail {
         position: absolute;
         width: 100%;
@@ -102,7 +107,7 @@
         border-radius: 2px;
         transition: background-color .3s;
     }
-   
+
 
     &-handle,
     &-handle-t,
@@ -127,6 +132,26 @@
             border-color: var(--sp-primary-color-deprecated-t-20);
             outline: none;
             box-shadow: 0 0 0 5px var(--sp-primary-color-deprecated-f-12);
+        }
+    }
+
+    &.--disabled {
+        .@{className}-track {
+            background-color: rgba(0, 0, 0, 0.25);
+            cursor: default;
+        }
+        .@{className}-rail {
+            cursor: default;
+
+        }
+        .@{className}-handle,
+        .@{className}-handle-t,
+        sp-tooltip[name='slider-handle'],
+        sp-tooltip[name='slider-handle-t'] {
+            background-color: #fff;
+            border-color: rgba(0, 0, 0, 0.25) !important;
+            box-shadow: none;
+            cursor: not-allowed;
         }
     }
 }
