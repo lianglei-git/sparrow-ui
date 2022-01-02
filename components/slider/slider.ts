@@ -18,10 +18,15 @@ class Silder extends Base {
                 (this.attrs as Partial<sliderTypes>) = getProps(this);
                 this.attrs = { ...sliderProps, ...this.attrs };
                 this.attrs.vertical = this.attrs.vertical + '' == 'true' ? true : false
-
+                //  还要做一层数据转换 ‘true’ 修改为 boolean
+                console.log(this.attrs.marks)
+                this.attrs.marks = this.attrs.marks !== undefined &&
+                    this.attrs.marks.indexOf('{') > -1 ?
+                    JSON.parse(this.attrs.marks) :
+                    this?.marks
+                        ? this?.marks :
+                        {}
                 context.initView(this, this.attrs).then(({ railEl, trackEl, handleEl, tooltip, defaults, handleEl2 }) => {
-                    this.append(railEl, trackEl, handleEl, handleEl2);
-
                     this.core = new CreateSlider({
                         ctxTarget: this,
                         handlesRefs: [handleEl, handleEl2 || false],
@@ -29,14 +34,35 @@ class Silder extends Base {
                         defaults,
                         ...this.attrs
                     })
+                    let marks = createEl('div');
+                    let style_lp: any = [this.attrs.vertical ? 'top' : 'left'];
+                    let style_rt: any = [this.attrs.vertical ? 'bottom' : 'right'];
+                    marks.className = 'sp-slider-marks'
+                    Object.keys(this.attrs.marks).map((k: any) => {
+                        let item = createEl('div');
+                        listener(item, 'mousedown', e => this.core.onMouseStart(e))
+                        let point = createEl('em');
+                        let text: HTMLSpanElement = createEl('span');
+                        text.textContent = this.attrs.marks[k];
+                        item.className = 'sp-slider-marks-item';
+                        let percent = 100 / (this.attrs.max - this.attrs.min) * (k - this.attrs.min);
+                        setStyle(item, {
+                            [style_lp]: percent + '%'
+                        });
+                        item.append(point, text);
+                        marks.append(item);
+
+                    })
+                    this.append(railEl, trackEl, handleEl, handleEl2, marks);
+
+
 
                     this.core.PROPSCHANGE = ({ o_percent, t_percent, oValue, tValue, trackEvent, trackValue, curHandle }: any) => {
                         if (curHandle == 2) {
-                            let offset_xy:any = [this.attrs.vertical ? 'offsetY' : 'offsetX'];
-                            let offset_wh:any = [this.attrs.vertical ? 'offsetHeight' : 'offsetWidth'];
-                            let offset_lt:any = [this.attrs.vertical ? 'offsetTop' : 'offsetLeft'];
-                            let style_lp:any = [this.attrs.vertical ? 'top' : 'left'];
-                            let style_rt:any = [this.attrs.vertical ? 'bottom' : 'right'];
+                            let offset_xy: any = [this.attrs.vertical ? 'offsetY' : 'offsetX'];
+                            let offset_wh: any = [this.attrs.vertical ? 'offsetHeight' : 'offsetWidth'];
+                            let offset_lt: any = [this.attrs.vertical ? 'offsetTop' : 'offsetLeft'];
+
                             let reverse = this.attrs.vertical ? this.attrs.vertical : !this.attrs.vertical;
                             let target_wh = this[offset_wh];
 
@@ -65,12 +91,11 @@ class Silder extends Base {
                             handleEl['attr-title'] = parseFloat(h1v.toFixed(getPrecision(this.attrs.step)));
                             handleEl2['attr-title'] = parseFloat(h2v.toFixed(getPrecision(this.attrs.step)));
                             if (this.attrs.tooltipvisible && this.attrs.tooltipvisible + '' == 'true') {
-                                handleEl?.super?._changePosition(handleEl.super.fixedEl, this.attrs.vertical ? 'right' :'top', false)
-                                handleEl2?.super?._changePosition(handleEl2.super.fixedEl, this.attrs.vertical ? 'right' :'top', false)
+                                handleEl?.super?._changePosition(handleEl.super.fixedEl, this.attrs.vertical ? 'right' : 'top', false)
+                                handleEl2?.super?._changePosition(handleEl2.super.fixedEl, this.attrs.vertical ? 'right' : 'top', false)
                             }
                             return;
                         }
-                        // console.log(o_percent)
                         context.changeStyle({
                             trackEl,
                             handleRefs: {
@@ -105,8 +130,12 @@ class Silder extends Base {
                     }
                     this.core.onMounted();
                     // 需要处理
-                    if (!this.attrs.draggabletrack && defaults.length < 2) {
-                        listener(railEl, 'mousedown', e => this.core.onMouseStart(e))
+                    console.log(this.attrs.draggabletrack + '' !== 'true' && defaults.length < 2, this.attrs.default)
+                    if (this.attrs.draggabletrack + '' !== 'true' && defaults.length < 2) {
+                        listener(railEl, 'mousedown', e => {
+                            console.log(1)
+                            this.core.onMouseStart(e)
+                        })
                         listener(trackEl, 'mousedown', e => this.core.onMouseStart(e))
                     }
                 })
@@ -127,25 +156,26 @@ class Silder extends Base {
         let _offset: any = handleEl2[offset] > handleEl[offset] ? handleEl[offset] + 'px' : handleEl[offset] > handleEl2[offset] ? handleEl2[offset] + 'px' : 0;
         let distance = unit == 'px' ? Math.abs(handleEl2[offset] - handleEl[offset]) + 'px' : Math.abs(t_percent - o_percent) + '%'
         setStyle(trackEl, {
-            height:offset.indexOf('Top') > -1 ? distance : undefined,
-            width:offset.indexOf('Left') > -1 ? distance : undefined,
+            height: offset.indexOf('Top') > -1 ? distance : undefined,
+            width: offset.indexOf('Left') > -1 ? distance : undefined,
             top: offset.indexOf('Top') > -1 ? _offset : 'auto',
             left: offset.indexOf('Left') > -1 ? _offset : 'auto',
         })
     }
 
     changeStyle({ trackEl, handleRefs, reverse, vertical, init = false }: any) {
-        reverse = reverse + '' == 'true'
+        reverse = reverse + '' == 'true';
+        let fixpx = vertical ? '4px' : '7px'
         let { o_percent, t_percent, t: handleEl2, o: handleEl, defaults } = handleRefs
         if (vertical) {
             if (defaults.length >= 2) {
                 o_percent !== undefined && setStyle(handleEl, {
-                    bottom: reverse ? 'auto' : `calc(${o_percent}% - 4px)`,
-                    top: !reverse ? 'auto' : `calc(${o_percent}% - 10px)`,
+                    bottom: reverse ? 'auto' : `calc(${o_percent}% - ${fixpx})`,
+                    top: !reverse ? 'auto' : `calc(${o_percent}% - ${fixpx})`,
                 })
                 t_percent !== undefined && setStyle(handleEl2, {
-                    bottom: reverse ? 'auto' : `calc(${t_percent}% - 4px)`,
-                    top: !reverse ? 'auto' : `calc(${t_percent}% - 10px)`,
+                    bottom: reverse ? 'auto' : `calc(${t_percent}% - ${fixpx})`,
+                    top: !reverse ? 'auto' : `calc(${t_percent}% - ${fixpx})`,
                 })
                 let params = {
                     o_percent,
@@ -164,21 +194,21 @@ class Silder extends Base {
                 bottom: reverse ? 'auto' : '0%',
             })
             setStyle(handleEl, {
-                top: !reverse ? 'auto' : `calc(${o_percent}% - 4px)`,
-                bottom: reverse ? 'auto' : `calc(${o_percent}% - 10px)`,
+                top: !reverse ? 'auto' : `calc(${o_percent}% - ${fixpx})`,
+                bottom: reverse ? 'auto' : `calc(${o_percent}% - ${fixpx})`,
             })
             return
         }
         if (defaults.length >= 2) {
 
             o_percent !== undefined && setStyle(handleEl, {
-                left: reverse ? 'auto' : `calc(${o_percent}% - 4px)`,
-                right: !reverse ? 'auto' : `calc(${o_percent}% - 10px)`,
+                left: reverse ? 'auto' : `calc(${o_percent}% - ${fixpx})`,
+                right: !reverse ? 'auto' : `calc(${o_percent}% - ${fixpx})`,
             })
 
             t_percent !== undefined && setStyle(handleEl2, {
-                left: reverse ? 'auto' : `calc(${t_percent}% - 4px)`,
-                right: !reverse ? 'auto' : `calc(${t_percent}% - 10px)`,
+                left: reverse ? 'auto' : `calc(${t_percent}% - ${fixpx})`,
+                right: !reverse ? 'auto' : `calc(${t_percent}% - ${fixpx})`,
             })
 
             // sto(() => {
@@ -208,8 +238,8 @@ class Silder extends Base {
             right: !reverse ? 'auto' : '0%',
         })
         setStyle(handleEl, {
-            left: reverse ? 'auto' : `calc(${o_percent}% - 4px)`,
-            right: !reverse ? 'auto' : `calc(${o_percent}% - 10px)`,
+            left: reverse ? 'auto' : `calc(${o_percent}% - ${fixpx})`,
+            right: !reverse ? 'auto' : `calc(${o_percent}% - ${fixpx})`,
         })
     }
 
@@ -264,7 +294,6 @@ class Silder extends Base {
         trackEl.className = tagName + '-track';
         if (attrs.vertical) {
             tooltip['attr-placement'] = 'right';
-
         }
         if (defaults.length >= 2) {
             tempHandleEl2 = createEl('div');

@@ -43,9 +43,19 @@
         display: inline-block;
 
         .@{className}-rail,
-        .@{className}-track {
+        .@{className}-track,
+        .@{className}-marks {
             height: 100%;
             width: 4px;
+        }
+        .@{className}-marks {
+            width: 0px;
+            &-item {
+                em {
+                    top: 0;
+                    left: 2px;
+                }
+            }
         }
 
         .@{className}-handle,
@@ -57,7 +67,25 @@
     }
 
 
-
+    &-marks {
+        width: 100%;
+        position: absolute;
+        &-item {
+            position: absolute;
+            em {
+                position: absolute;
+                top: -2px;
+                left: 0;
+                width: 8px;
+                height: 8px;
+                margin-left: -4px;
+                background-color: #fff;
+                border: 2px solid var(--color-primary-3);
+                border-radius: 50%;
+                cursor: pointer;
+            }
+        }
+    }
     &-rail {
         position: absolute;
         width: 100%;
@@ -74,6 +102,7 @@
         border-radius: 2px;
         transition: background-color .3s;
     }
+   
 
     &-handle,
     &-handle-t,
