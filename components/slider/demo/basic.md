@@ -5,25 +5,30 @@ title: 基本的用法
 
 
 ## desc-cn 
-测试咯
+base
+
+```html
+<h3>Html:</h3>
+<sp-slider default='22'></sp-slider>
+
+```
 
 ```jsx
 import React, { useState, useEffect, useRef } from 'react'
 const Test = () => {
 return <div> 
-<sp-slider default={90} disabled='true'></sp-slider>
-<sp-slider default={90} reverse='true'></sp-slider>
-<sp-slider default={[50.5, 70.5]}></sp-slider>
-<sp-slider default={[50, 70]} tooltipvisible='true' marks='{"20": "20°C", "87": "87°C"}'></sp-slider>
-<sp-slider default={[44, 55]} draggabletrack='true' reverse='true'></sp-slider>
-<sp-slider default="[22,33]" reverse='true'></sp-slider>
-<sp-slider default="[18, 52]" tooltipvisible='false'></sp-slider>
-<sp-slider default="64" vertical='true' style={{height:'300px'}}></sp-slider>
-<sp-slider default="20"  vertical='true' reverse='true' style={{height:'300px'}}></sp-slider>
-<sp-slider default="[50, 70]" disabled='true' draggabletrack='true' tooltipvisible='true' vertical='true' style={{height:'300px'}}></sp-slider>
-<sp-slider default="[30, 70]" tooltipvisible='true' vertical='true' reverse='true' style={{height:'300px'}}></sp-slider>
+<h3>React:</h3>
+<sp-slider default={[44]} ></sp-slider>
+
 </div>
 }
 ReactDOM.render(<Test />, mountNode)
 
 ```
+
+
+<style>
+    ._cmps {
+        width: 900px !important;
+    }
+</style>

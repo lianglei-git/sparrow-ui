@@ -171,7 +171,6 @@ class ComponentEnhancer {
     }
 
     onEnd(e: any) {
-        console.log('离开')
         this.removeDocumentEvents();
         this.PROPSHANDLEMOUSEUP(e, this._curValues.curHandle)
     }

@@ -39,8 +39,8 @@ class Silder extends Base {
                         ...this.attrs
                     })
                     let marks = createEl('div');
-                    let style_lp: any = [this.attrs.vertical ? 'top' : 'left'];
-                    let style_rt: any = [this.attrs.vertical ? 'bottom' : 'right'];
+                    let style_lp: any = [this.attrs.vertical ? 'bottom' : 'left'];
+                    let style_rt: any = [this.attrs.vertical ? 'top' : 'right'];
                     marks.className = 'sp-slider-marks'
                     Object.keys(this.attrs.marks).map((k: any) => {
                         let item = createEl('div');
@@ -70,7 +70,7 @@ class Silder extends Base {
                             let offset_wh: any = [this.attrs.vertical ? 'offsetHeight' : 'offsetWidth'];
                             let offset_lt: any = [this.attrs.vertical ? 'offsetTop' : 'offsetLeft'];
 
-                            let reverse = this.attrs.vertical ? this.attrs.vertical : !this.attrs.vertical;
+                            let reverse = this.attrs.reverse+''== 'true' ? true : false;
                             let target_wh = this[offset_wh];
 
                             let min = target_wh * (t_percent / 100) - trackEvent[offset_xy];
@@ -126,11 +126,12 @@ class Silder extends Base {
                                 handleEl2?.super?._changePosition(handleEl2.super.fixedEl, this.attrs.vertical ? 'right' : 'top', false)
                             }
                         }
+                        this?.onChange?.([oValue || parseFloat(handleEl['attr-title'] || 0), tValue||parseFloat(handleEl2['attr-title'] || 0), curHandle])
 
                     }
                     this.core.PROPSHANDLEMOUSEUP = (_: any, handleFlag: number = 0) => {
                         context.tooltipShow(this.attrs.tooltipvisible, handleFlag ? handleEl2 : handleEl, 'false', false);
-
+                        this?.onAfterChange?.([parseFloat(handleEl['attr-title'] || 0), parseFloat(handleEl2['attr-title'] || 0)])
                     }
                     this.core.PROPSHANDLEMOUSEDOWN = (_: any, handleFlag: number = 0) => {
                         context.tooltipShow(this.attrs.tooltipvisible, handleFlag ? handleEl2 : handleEl, 'true', false);
