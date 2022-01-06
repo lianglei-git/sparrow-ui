@@ -2,7 +2,7 @@
 category: Components
 type: 展示
 title: Avatar 
-subTitle: 数据展示
+subTitle: 头像
 ---
 
 ## 何时使用
