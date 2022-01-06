@@ -19,7 +19,7 @@ const Demo = () => {
                 <p>内容0000</p>
             </div>
         </sp-card>
-         <sp-card style={{width:'340px'}} title='第一个卡片' dis-hover='false' extra='<a>更多</a>'>
+         <sp-card style={{width:'340px'}} title='第一个卡片' dis-hover='true' extra='<a>更多</a>'>
             <div>
                 <p>内容6666</p>
                 <p>内容9999</p>
@@ -47,8 +47,9 @@ ReactDOM.render(<Demo />, mountNode)
 ```
 
 <style>
-    a {
-        color: blue;
+    sp-card a {
+        color: #4074eb;
+        cursor: pointer;
     }
     sp-card {
         margin-top: 20px

@@ -13,3 +13,7 @@ subTitle: 卡片
 ## API
 | 参数 | 说明 | 类型 | 可选 | 默认值 |
 | ---- | ---- | ---- | ---- | ------ |
+no-boder|	不显示边框，建议在灰色背景下使用| boolean|-|	false
+dis-hover|	禁用鼠标悬停显示阴影|boolean|-|	false
+title|	卡片标题|string|-|-
+extra|	卡片额外操作的内容|	-|-|-

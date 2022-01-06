@@ -20,19 +20,16 @@ class Card extends Base {
             },
             attributeChangedCallback(...args: any) {
                 let [key, _, newval] = args;
-                if (!this.badge) return;
+                if(key == 'title' && this.titleEl) {
+                    this.titleEl.textContent = newval
+                }
             }
         })
     }
 
-
-    set() {
-        
-    }
-
     initView(root: HTMLElement | any) {
         let attrs = root.attrs;
-        this._setClassName(root, [attrs['dis-hover']+ '' == 'false' ? '' : 'hover']);
+        this._setClassName(root, [attrs['dis-hover']+ '' == 'true' ? '' : 'hover']);
         let headerEl:HTMLElement| any = createEl('header'),
             titleEl:HTMLElement | any = '',
             extraEl:HTMLElement | any = '';
@@ -47,6 +44,7 @@ class Card extends Base {
             titleEl = createEl('span');
             titleEl.className = 'sp-card-title'
             titleEl.textContent = attrs.title;
+            root.titleEl = titleEl
         } else {
             headerEl = ''
         }
@@ -55,9 +53,8 @@ class Card extends Base {
             extraEl.className = 'sp-card-extra';
             extraEl.innerHTML = attrs.extra;
         }
-
-        headerEl?.append(titleEl, extraEl);
-        (root as HTMLElement).insertBefore(headerEl,  root.firstChild);
+        headerEl?.append?.(titleEl, extraEl);
+        (root as HTMLElement).insertBefore(headerEl || createEl('sup'),  root.firstChild);
     }
 }
 
