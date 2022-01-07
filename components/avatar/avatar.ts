@@ -1,11 +1,9 @@
 import { avatarProps, avatarTypes } from './type'
 import { sto, runIFELSE } from '../_utils/common'
-import raf from '../_utils/raf'
-import { getIndex } from '../common/index'
 import { defineEl, setStyle, getProps } from '../_utils/dom'
 import './style'
 import Base from '../_utils/Base'
-import { createEl, $el } from 'sparrow-ui/_utils/dom';
+import { createEl } from 'sparrow-ui/_utils/dom';
 
 
 class Avatar extends Base {

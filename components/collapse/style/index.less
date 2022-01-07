@@ -1,0 +1,97 @@
+sp-collapse {
+    display: block;
+    background-color: #fff;
+    border-radius: 2px;
+    border: 1px solid #dcdee2;
+    box-sizing: border-box;
+
+    &-panel {
+        display: block;
+    }
+}
+
+.sp-collapse {
+    &.--ghost {
+        border: 0;
+
+        .sp-collapse-panel-header {
+            background: 0;
+
+            &.active {
+                &:after {
+                    border: 0;
+                }
+            }
+
+            &:after,
+            &:before {
+                border: 0;
+            }
+        }
+    }
+
+    &.--simple {
+        background: #fafafa;
+        border: 0;
+    }
+
+    &-panel {
+        height: 38px;
+        overflow: hidden;
+        transition: height .3s;
+        padding: 0 16px;
+
+        &:first-child {
+            .sp-collapse-panel-header {
+                &:after {
+                    border: 0;
+                }
+            }
+        }
+
+        &-header {
+            height: 38px;
+            line-height: 38px;
+            color: #666;
+            cursor: pointer;
+            position: relative;
+            color: rgb(85, 88, 94);
+            position: relative;
+            transition: margin .3s;
+            background-color: #fafafa;
+
+            &.active {
+                margin-bottom: 16px;
+
+                &::before {
+                    position: absolute;
+                    bottom: 0;
+                    left: -16px;
+                    width: calc(100% + 32px);
+                    border-top: 1px solid #dcdee2;
+                    content: "";
+                }
+
+                >.sp-icon {
+                    transform: scale(1.2) rotate(90deg);
+                }
+            }
+
+            &:after {
+                position: absolute;
+                top: 0;
+                left: -16px;
+                width: calc(100% + 32px);
+                border-top: 1px solid #dcdee2;
+                content: "";
+            }
+
+            >.sp-icon {
+                transition: transform .2s ease-in-out;
+                margin-right: 14px;
+                transform: scale(1.2);
+                display: inline-block;
+            }
+        }
+    }
+}

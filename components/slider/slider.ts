@@ -1,5 +1,5 @@
 import { sliderTypes, sliderProps } from './type';
-import { runIFELSE, sto, has } from '../_utils/common';
+import { runIFELSE, sto } from '../_utils/common';
 import { defineEl, setStyle, getProps, listener } from '../_utils/dom';
 import Base from '../_utils/Base';
 import { createEl } from 'sparrow-ui/_utils/dom';
@@ -30,7 +30,7 @@ class Silder extends Base {
                     this?.marks
                         ? this?.marks :
                         {}
-                context.initView(this, this.attrs).then(({ railEl, trackEl, handleEl, tooltip, defaults, handleEl2 }) => {
+                context.initView(this, this.attrs).then(({ railEl, trackEl, handleEl, defaults, handleEl2 }) => {
                     this.core = new CreateSlider({
                         ctxTarget: this,
                         handlesRefs: [handleEl, handleEl2 || false],
@@ -64,7 +64,7 @@ class Silder extends Base {
                     this.marks = marks;
                     this.defaults = defaults;
                     this.append(railEl, trackEl, handleEl, handleEl2, marks);
-                    this.core.PROPSCHANGE = ({ o_percent, t_percent, oValue, tValue, trackEvent, trackValue, curHandle }: any) => {
+                    this.core.PROPSCHANGE = ({ o_percent, t_percent, oValue, tValue, trackEvent, curHandle }: any) => {
                         if (curHandle == 2) {
                             let offset_xy: any = [this.attrs.vertical ? 'offsetY' : 'offsetX'];
                             let offset_wh: any = [this.attrs.vertical ? 'offsetHeight' : 'offsetWidth'];

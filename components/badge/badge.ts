@@ -1,11 +1,8 @@
 import { badgeProps, badgeTypes } from './type'
-import { sto } from '../_utils/common'
-import raf from '../_utils/raf'
-import { getIndex } from '../common/index'
 import { defineEl, setStyle, getProps } from '../_utils/dom'
 import './style'
 import Base from '../_utils/Base'
-import { createEl, $el } from 'sparrow-ui/_utils/dom';
+import { createEl } from 'sparrow-ui/_utils/dom';
 
 class Badge extends Base {
     context: this
@@ -29,7 +26,7 @@ class Badge extends Base {
     }
 
 
-    set([badge, key, newval, root]: any, init = false) {
+    set([badge, key, newval, root]: any) {
         if (key == 'count' || key == 'text') {
             if (key == 'count' && badge.showZero && newval>0) {
                 root.showZero = false;
@@ -83,7 +80,7 @@ class Badge extends Base {
         badge.className = 'sp-badge' + (count || text ? '--count' : '--point');
         badge.textContent = count || text;
         for (let k in root.attrs) {
-            this.set([badge, k, root.attrs[k], root], true)
+            this.set([badge, k, root.attrs[k], root])
         }
         root.badge = badge;
         if (badge.className.indexOf('point') > -1) {

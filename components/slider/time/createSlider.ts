@@ -59,7 +59,7 @@ class ComponentEnhancer {
     }
     // 下面是重载函数 全部为大写 
     // props change
-    PROPSCHANGE(args: {
+    PROPSCHANGE(_args: {
         o_percent?: number
         t_percent?: number
         oValue?: number
@@ -69,10 +69,10 @@ class ComponentEnhancer {
         curHandle?: SortType// 当前handle
     }) { }
     // props handle mouse down
-    PROPSHANDLEMOUSEDOWN(e: any, curHandle: SortType) { };
+    PROPSHANDLEMOUSEDOWN(_e: any, _curHandle: SortType) { };
 
     // props handle mouse up
-    PROPSHANDLEMOUSEUP(e: any, curHandle: SortType) { };
+    PROPSHANDLEMOUSEUP(_e: any, _curHandle: SortType) { };
 
 
     constructor(props: ComponentEnhancerProps) {
