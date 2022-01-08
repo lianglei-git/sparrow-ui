@@ -18,11 +18,11 @@ class CollapseItem extends Base {
                 this.attrs = { ...collapseProps, ...this.attrs };
                 sto(() => context.initView(this))
             },
-            attributeChangedCallback(...args: any) {
-                let [key, _, newval] = args;
-                key
-                newval
-            }
+            // attributeChangedCallback(...args: any) {
+            //     let [key, _, newval] = args;
+            //     key
+            //     newval
+            // }
         })
     }
 
