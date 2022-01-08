@@ -10,7 +10,7 @@ title: 手风琴
 
 ```html
 <h3>Html: </h3>
-<sp-collapse active-index='1' accordion='true'>
+<sp-collapse active-index='2' accordion='true'>
     <sp-collapse-panel index='1' title='This is panel header 1'>
         A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
     </sp-collapse-panel>

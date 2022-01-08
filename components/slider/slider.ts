@@ -70,7 +70,7 @@ class Silder extends Base {
                             let offset_wh: any = [this.attrs.vertical ? 'offsetHeight' : 'offsetWidth'];
                             let offset_lt: any = [this.attrs.vertical ? 'offsetTop' : 'offsetLeft'];
 
-                            let reverse = this.attrs.reverse+''== 'true' ? true : false;
+                            let reverse = this.attrs.reverse + '' == 'true' ? true : false;
                             let target_wh = this[offset_wh];
 
                             let min = target_wh * (t_percent / 100) - trackEvent[offset_xy];
@@ -126,7 +126,7 @@ class Silder extends Base {
                                 handleEl2?.super?._changePosition(handleEl2.super.fixedEl, this.attrs.vertical ? 'right' : 'top', false)
                             }
                         }
-                        this?.onChange?.([oValue || parseFloat(handleEl['attr-title'] || 0), tValue||parseFloat(handleEl2['attr-title'] || 0), curHandle])
+                        this?.onChange?.([oValue || parseFloat(handleEl['attr-title'] || 0), tValue || parseFloat(handleEl2['attr-title'] || 0), curHandle])
 
                     }
                     this.core.PROPSHANDLEMOUSEUP = (_: any, handleFlag: number = 0) => {
@@ -166,19 +166,19 @@ class Silder extends Base {
                 this._setClassName(root, [root['attr-vertical'] ? '--vertical' : '', root.disabled ? '--disabled' : ''])
             }],
             ['value' in attrs, () => {
-                if(!root.attrs) return;
+                if (!root.attrs) return;
                 let [oValue, tValue] = this.adapterDefaults(attrs.value);
-                if(oValue>=root.attrs.max) {
-                    oValue=root.attrs.max
+                if (oValue >= root.attrs.max) {
+                    oValue = root.attrs.max
                 }
-                if(oValue<=root.attrs.min) {
-                    oValue=root.attrs.min
+                if (oValue <= root.attrs.min) {
+                    oValue = root.attrs.min
                 }
-                if(tValue>=root.attrs.max) {
-                    tValue=root.attrs.max
+                if (tValue >= root.attrs.max) {
+                    tValue = root.attrs.max
                 }
-                if(tValue<=root.attrs.min) {
-                    tValue=root.attrs.min
+                if (tValue <= root.attrs.min) {
+                    tValue = root.attrs.min
                 }
                 let o_percent = 100 / (root.attrs.max - root.attrs.min) * (oValue - root.attrs.min);
                 let t_percent = tValue !== undefined ? 100 / (root.attrs.max - root.attrs.min) * (tValue - root.attrs.min) : undefined;
@@ -192,7 +192,7 @@ class Silder extends Base {
                         t: root.handleEl2,
                         defaults: root.defaults
                     },
-                    reverse: root.attrs.reverse+ '' == 'true' ? true : false,
+                    reverse: root.attrs.reverse + '' == 'true' ? true : false,
                     vertical: root.attrs.vertical + '' == 'true' ? true : false,
                 });
                 if (root.attrs['tooltipvisible'] + '' !== 'false') {
@@ -339,10 +339,11 @@ class Silder extends Base {
     adapterDefaults(_default: string | any[] | number | any): any[] {
         return _default.pop ?
             _default :
-            _default.indexOf(',') == -1 ?
-                [_default]
-                : _default.indexOf('[') > -1 ?
-                    JSON.parse(_default)
+            _default.indexOf('[') > -1 ?
+                JSON.parse(_default)
+                :
+                _default.indexOf(',') == -1 ?
+                    [_default]
                     : _default.split(',');
     }
 

@@ -10,7 +10,7 @@ title: 基本操作
 
 ```html
 <h3>Html: </h3>
-<sp-collapse active-index='1'>
+<sp-collapse active-index='2'>
     <sp-collapse-panel index='1' title='This is panel header 1'>
         A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
     </sp-collapse-panel>
@@ -24,15 +24,15 @@ title: 基本操作
 const Demo = () => {
     return <div>
     <h3>React: </h3>
-      <sp-collapse active-index='1'>
-    <sp-collapse-panel index='1' title='标题1'>
+      <sp-collapse active-index='[1]'>
+    <sp-collapse-panel title='标题1'>
         <div>
         <p>content....</p>
         <p>content....</p>
         <p>content....</p>
         </div>
     </sp-collapse-panel>
-    <sp-collapse-panel index='2' title='标题2'>
+    <sp-collapse-panel title='标题2'>
        <div>
         <p>content....</p>
         <p>content....</p>

@@ -9,7 +9,7 @@ base
 
 ```html
 <h3>Html:</h3>
-<sp-slider default='22'></sp-slider>
+<sp-slider default='[22]'></sp-slider>
 
 ```
 
