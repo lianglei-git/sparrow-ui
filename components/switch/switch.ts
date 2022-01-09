@@ -1,6 +1,6 @@
 import { switchTypesProps, switchProps } from './type'
 import { runIFELSE, sto } from '../_utils/common'
-import { defineEl, createEl, setStyle, getProps } from '../_utils/dom'
+import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
 import './style';
 import Base from '../_utils/Base'
 
@@ -18,7 +18,6 @@ class Switch extends Base {
                 (this.attrs as Partial<switchTypesProps>) = getProps(this);
                 this.attrs = { ...switchProps, ...this.attrs };
                 this.isActive = false;
-
                 this.onclick = (_: Event) => {
                     this.onClick?.(this.isActive, this)
                     if (this['attr-disabled'] == 'true') return
@@ -69,7 +68,6 @@ class Switch extends Base {
     private initView(root: HTMLElement & { isActive: boolean } | any) {
         let text: HTMLSpanElement = createEl('span'),
             icon: HTMLElement & { set(v: string): any } = createEl('em');
-        // root.classList.add('sp-switch');
         this._setClassName(root)
         icon.classList.add('sp-switch-icon');
         text.classList.add('sp-switch-text');
@@ -91,11 +89,6 @@ class Switch extends Base {
     set({ attrs, target, icon, text }: any) {
         runIFELSE(new Set([
             [attrs?.['classname'], () => {
-                // let cl = 
-                // let str = 'sp-switch ' + attrs?.['classname'] + ' '
-                //     + (target?.['attr-size'] || 'default') + ' '
-                //     + (target?.['attr-disabled'] == 'true' ? 'is-disabled ' : ' ')
-                // target.className = str
                 this._setClassName(target, [
                     target?.['attr-size'] || '',
                     target?.['attr-disabled'] == 'true' ? 'is-disabled' : ''
