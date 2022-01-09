@@ -37,7 +37,7 @@ const getProps = (target: HTMLElement): object => {
     return _o
 }
 
-const defineEl = (props: createElTyp, Element?: CustomElementConstructor): void => {
+const defineEl = (props: createElTyp, Element?: CustomElementConstructor, options?: {extends?:any}): void => {
     // let _corel: HTMLElement | { [key: string]: any } | any = null
     let is: boolean | void = runIFELSE(new Set([
         [props.tag.indexOf('-') == -1, () => {
@@ -97,7 +97,7 @@ const defineEl = (props: createElTyp, Element?: CustomElementConstructor): void 
     Reflect.has(props, 'getConstructor') && props.getConstructor?.bind(this)(HTMl)
     HTMl.observedAttributes = props?.observedAttributes || []
     // getAttribute(HTMl?.target, props?.observedAttributes)
-    window.customElements.define(props.tag, Element || HTMl)
+    window.customElements.define(props.tag, Element || HTMl, options)
     // console.log(HTMl.target)
     return HTMl
 }

@@ -31,4 +31,14 @@ export default class Base {
         ];
        return classList.join(' ');
     }
+
+    static setClassName(root: HTMLElement | any, classesarr: string | string[] = []) {
+        let basename = root.tagName.toLocaleLowerCase();
+        let classList = [
+            basename,
+            root?.['attr-classname'] || root?.attrs?.['classname'],
+            ...(typeof classesarr == 'string' ? [classesarr] : classesarr)
+        ];
+        root.className = classList.join(' ');
+    }
 }
