@@ -19,7 +19,6 @@ type Styletype<T> = {
 }
 const setStyle = (target: HTMLElement, obj: Styletype<CSSStyleRule['style']>) => {
     for (const key in obj) {
-        console.log()
         // Object.prototype.hasOwnProperty.call(target['style'], key) && 
         if ((obj as any)[key] != "") {
             (target as any)['style'][key] = (obj as any)[key];

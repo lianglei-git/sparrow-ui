@@ -28,7 +28,6 @@ class Avatar extends Base {
         const shape = attr.shape == 'circle' ? '50%' : attr.shape == 'square' ? '3px' : '0';
         let iconEl: any = '', textEl: any = '', imgEl: any = '';
         this._setClassName(root, [attr.size || '', attr.shape || '']);
-        console.log(attr)
         runIFELSE(new Set([
             [attr.icon, () => {
                 iconEl = createEl('i');

@@ -80,12 +80,12 @@ export default class InputCommon {
         this.init()
     }
     init() {
-        let ipt = this._core();
+        let allowClear = this.allowClear();
         let prefix = this.prefix();
         let suffix = this.suffix();
-        let allowClear = this.allowClear();
         let addonBefore = this.addonBefore(this.supRoot.attrs['addon-before'])
         let addonAfter = this.addonAfter(this.supRoot.attrs['addon-after'])
+        let ipt = this._core();
         let showCountEl = this.showCount()
         this.disabled(this.supRootAttrs['disabled'])
         this.bordered(this.supRootAttrs['bordered'])
@@ -109,7 +109,6 @@ export default class InputCommon {
             this.changeCountOfSupRoot(value.length)
         }
         if (this.maxLength && this.maxLength <= value.length) {
-            (Spui.Message as any).error('啥玩意 最多了')
             return true
         }
         set(target, p, value)
@@ -152,8 +151,7 @@ export default class InputCommon {
             let clearIcon = this.supRoot._allowClearEl = createEl('em');
             clearIcon.className = 'allow-clear sp-icon sp-icon-error';
             listener(this.supRoot._allowClearEl, 'click', _ => {
-                this.supValues.inputValues = ''
-                this[this.type].value = ''
+                this.supValues.inputValues = this[this.type].value = '';
             })
             return this.supRoot._allowClearEl;
         }
@@ -189,8 +187,13 @@ export default class InputCommon {
 
     changeCountOfSupRoot(count: string | number = this.supValues.inputValues.length) {
         let _count = this.maxLength ? `${count} / ${this.maxLength}` : count
-        // this[this.type].setAttribute('count', _count)
-        this.supRoot.showCountEl.textContent = _count
+        if (this.type == 'textarea') {
+            this.supRoot.setAttribute('count', _count);
+            return
+        }
+        if(this.supRoot?.showCountEl) {
+            this.supRoot.showCountEl.textContent = _count
+        }
     }
 
     onFocus(e: Event) {
@@ -209,6 +212,10 @@ export default class InputCommon {
         this.supRoot?.onChange?.(value)
     }
 
+    onPressEnter(value: string) {
+        this.supValues.inputValues = value
+        this.supRoot?.onPressEnter?.(value)
+    }
     _core() {
         let type = this.type;
         let placeholder = this.supRoot?.attrs?.['placeholder']
@@ -232,12 +239,24 @@ export default class InputCommon {
                 }
             }],
         ]))
+
+        this[type].value = this.supValues.inputValues = this.supRootAttrs['value'] || ''
+
+
         if (this.maxLength) {
             this[type].setAttribute('maxlength', this.maxLength)
         }
+
         listener(this[type], 'input', (e: any) => {
             this.change(e.target.value)
         })
+
+        listener(this[type], 'keydown', (e: any) => {
+            if (e.keyCode == "13") {
+                this.onPressEnter(e.target.value)
+            }
+        })
+
         listener(this[type], 'focus', (e: any) => {
             if (this.supRoot._addonBeforeEl || this.supRoot._addonAfterEl) {
                 return
@@ -246,6 +265,7 @@ export default class InputCommon {
             e.preventDefault()
             this.onFocus(e)
         })
+
         listener(this[type], 'blur', (e: any) => {
             this.onBlur(e)
         })
@@ -284,13 +304,14 @@ export default class InputCommon {
 
     _searchButton() {
         let icon = createEl('em'), button = createEl('sp-button');
-        icon.className = 'sp-icon sp-icon-rmb';
-        button.className = 'sp-input-search';
+        icon.className = 'sp-icon sp-icon-search';
+        button.setAttribute('classname', 'sp-input-search')
+        button.iconEl = icon;
+        button.append(icon)
         this.supRoot._searchIconEl = button;
-        listener(icon, 'click', _ => {
+        listener(button, 'click', _ => {
             this.supRoot?.onSearch?.(_, this.supValues.inputValues)
         })
-        this.supRoot._searchIconEl.append(this.supRoot._searchIconEl)
         return this.supRoot._searchIconEl
     }
 

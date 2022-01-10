@@ -269,7 +269,6 @@ function level2Click(e, item, index) {
             styleId: item.id
         }
     })
-    console.log(e, item, index)
 }
 
 function level3Click(e, item, index) {

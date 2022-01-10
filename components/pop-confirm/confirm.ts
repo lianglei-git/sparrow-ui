@@ -60,7 +60,6 @@ class PopConfirmEds extends ToolTipCommon implements classI {
                     cancelBut['attr-' + key] = cancelButtonProps[key];
                 }
             }
-            console.log(this.contextTarget?.okButtonProps)
             if (okButtonProps) {
                 if (!isObject(okButtonProps)) throw Error('Please pass in the "Object!"');
                 for (let key in okButtonProps) {

@@ -72,6 +72,8 @@ export default
             this.loadinEl = null
             this.baseClassName = 'sp-button ' + base;
             this.className = 'sp-button ' + base;
+            this.setAttribute('hidefocus', true)
+            this.setAttribute('tabindex', 0)
             // type styletype = { // Partial
             //     [P in keyof CSSStyleDeclaration]?: CSSStyleDeclaration[P]
             // }

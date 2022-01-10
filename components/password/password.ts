@@ -1,16 +1,15 @@
-import { InputProps as Props, InputTypes as Types } from './type'
-import { defineEl, getProps } from '../_utils/dom' // setStyle
+import { PasswordProps as Props, PasswordTypes as Types } from './type'
+import { createEl, defineEl, getProps, listener } from '../_utils/dom' // setStyle
 import Base from '../_utils/Base'
-import InputCommon from './Common'
-import MixinSet from './Mixins';
-
-class Input extends Base {
+import InputCommon from '../input/Common'
+import MixinSet from '../input/Mixins';
+class Password extends Base {
     context: this
     constructor() {
         super()
         const context = this;
         defineEl({
-            tag: 'sp-input',
+            tag: 'sp-password',
             observedAttributes: Object.keys(Props),
             connectedCallback() {
                 (this.attrs as Partial<Types>) = getProps(this);
@@ -36,11 +35,28 @@ class Input extends Base {
 
     initView(root: HTMLElement | any, args: any, _Common: InputCommon) {
         let { ipt, prefix, suffix, allowClear, addonBefore, showCountEl, addonAfter } = args
-        prefix && root.insertBefore(prefix, root.firstChild)
+        prefix && root.insertBefore(prefix, root.firstChild);
+        let iconShow = root['attrs']['icon-show'];
+        let iconUnShow = root['attrs']['icon-unshow'];
+        let visible = root['attrs']['visible'] + '' == 'true' ? 1 : 0
+        let el = createEl('em');
+        el.className = 'password-el sp-icon ' + iconUnShow;
+        listener(el, 'click', _ => {
+            if (ipt.getAttribute('type') == 'password') {
+                ipt.setAttribute('type', 'default');
+                el.className = 'password-el sp-icon ' + iconShow;
+                return
+            }
+            el.className = 'password-el sp-icon ' + iconUnShow;
+            ipt.setAttribute('type', 'password');
+
+        })
+        ipt.setAttribute('type', 'password');
+
         addonBefore && root.insertBefore(addonBefore, root.firstChild)
-        root.append(ipt, allowClear, showCountEl, suffix, addonAfter);
+        root.append(ipt, allowClear, showCountEl, suffix, addonAfter, (visible ? el : ''));
     }
 }
 
 
-export default new Input()
+export default new Password()

@@ -1,0 +1,53 @@
+@classname: sp-search;
+
+@import url(../../input/style/common.less);
+
+
+.sp-input-search {
+    margin: 0 !important;
+    padding: 0;
+    padding: 5px 8px;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-radius: 0;
+    border-radius: 0 2px 2px 0;
+    position: relative;
+    line-height: 1.5;
+
+    &:hover,
+    &:focus {
+        &:after {
+            border-color: var(--sp-primary-color-hover);
+        }
+
+    }
+
+    &.sp-button--primary {
+        background: var(--color-primary-6);
+        border-radius: 0 1px 1px 0;
+        display: flex;
+        align-items: center;
+        .sp-icon-loading {
+            color: #fff;
+        }
+        &:after {
+            border-color: var(--color-primary-6);
+
+        }
+
+    }
+
+    &:after {
+        position: absolute;
+        left: -1px;
+        top: -1px;
+        width: calc(100% + 2px);
+        height: calc(100% + 2px);
+        content: '';
+        transition: all .3s;
+        border: 1px solid transparent;
+        border-radius: 0 2px 2px 0;
+
+    }
+}
