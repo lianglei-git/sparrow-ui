@@ -3,6 +3,7 @@ import { sto, runIFELSE } from '../_utils/common'
 import { createEl, defineEl, getProps, listener, setStyle } from '../_utils/dom' // setStyle
 import './style'
 import Base from '../_utils/Base';
+import Spui from '..';
 const get = Reflect.get;
 const set = Reflect.set;
 
@@ -18,7 +19,6 @@ function ArrayRemove(any: any) {
     this.map((i: any, idx: number) => i == any && this.splice(idx, 1))
 }
 
-let CommonClassname: any[] | any = [];
 
 export default class InputCommon {
 
@@ -30,9 +30,15 @@ export default class InputCommon {
 
     password?: HTMLTextAreaElement | any
 
+    CommonClassname: any[] | any = [];
+
+    IptCommonClassname: any = []
+
     supRootAttrs: Partial<Types>
 
     supRoot: HTMLElement | any
+
+    maxLength: string | number
 
     callback = (_arg: any) => { }
 
@@ -48,14 +54,17 @@ export default class InputCommon {
         this.supRoot._addonBeforeEl = ''
         this.supRoot._addonAfterEl = ''
         this.supRoot._searchIconEl = '';
+        this.supRoot.showCountEl = '';
         this.supRoot._suffixEl = '';
         this.supRoot._prefixEl = '';
         this.supRootAttrs = this.supRoot.attrs
+        this.maxLength = this.supRootAttrs['max-length'] || ''
         this.type = this.supRoot.attrs['type'];
         this.callback = callback || (() => { })
-        CommonClassname = ['sp-' + this.type + '-core', this.supRootAttrs['addon-before'] || this.supRootAttrs['addon-after'] ? '--shows' : ''];
-        console.log(this.supRootAttrs['addon-before'] || this.supRootAttrs['addon-after'])
-        CommonClassname.remove = ArrayRemove;
+        this.CommonClassname = ['sp-' + this.type + '-core', this.supRootAttrs['addon-before'] || this.supRootAttrs['addon-after'] ? '--shows' : ''];
+        this.IptCommonClassname = [this.type + '-core']
+        this.CommonClassname.remove = ArrayRemove;
+        this.IptCommonClassname.remove = ArrayRemove;
         const self = this
         this.supValues = new Proxy({ inputValues: '' }, {
             get(target, p) {
@@ -64,7 +73,6 @@ export default class InputCommon {
             set(target, p, value) {
                 // mac-length
                 self.valueObevse(target, p, value)
-                set(target, p, value)
                 return get(target, p) || value + '' || true
             }
         })
@@ -78,11 +86,12 @@ export default class InputCommon {
         let allowClear = this.allowClear();
         let addonBefore = this.addonBefore(this.supRoot.attrs['addon-before'])
         let addonAfter = this.addonAfter(this.supRoot.attrs['addon-after'])
+        let showCountEl = this.showCount()
         this.disabled(this.supRootAttrs['disabled'])
         this.bordered(this.supRootAttrs['bordered'])
         let type = this.type;
         this.callback({
-            ipt, type, prefix, suffix, allowClear, addonBefore, addonAfter
+            ipt, type, prefix, suffix, allowClear, addonBefore, addonAfter, showCountEl
         })
     }
 
@@ -95,7 +104,16 @@ export default class InputCommon {
         if (this.supRootAttrs['allow-clear'] + '' == 'true') {
             setStyle(this.supRoot._allowClearEl, { opacity: value.length > 0 ? '1' : '0' })
         }
-        console.log(target, p, value)
+
+        if (this.supRootAttrs['show-count'] + '' == 'true') {
+            this.changeCountOfSupRoot(value.length)
+        }
+        if (this.maxLength && this.maxLength <= value.length) {
+            (Spui.Message as any).error('啥玩意 最多了')
+            return true
+        }
+        set(target, p, value)
+        // console.log(target, p, value)
     }
 
     prefix() {
@@ -144,14 +162,35 @@ export default class InputCommon {
 
     disabled(is: string | boolean | undefined) {
         let $is = is + '' == 'true' ? 1 : 0;
-        CommonClassname[$is ? 'push' : 'remove']('--disabled');
-        Base.setClassName(this.supRoot, CommonClassname)
+        if ($is && this.CommonClassname.includes('--disabled')) return;
+        this.CommonClassname[$is ? 'push' : 'remove']('--disabled');
+        Base.setClassName(this.supRoot, this.CommonClassname);
     }
 
     bordered(is: string | boolean | undefined) {
         let $is = is + '' == 'true' ? 1 : 0;
-        CommonClassname[$is ? 'push' : 'remove']('--bordered');
-        Base.setClassName(this.supRoot, CommonClassname)
+        if ($is && this.CommonClassname.includes('--bordered')) return;
+        this.CommonClassname[$is ? 'push' : 'remove']('--bordered');
+        Base.setClassName(this.supRoot, this.CommonClassname);
+
+    }
+
+    showCount() {
+        let is = this.supRootAttrs['show-count'] + '' == 'true' ? 1 : 0
+        if (is) {
+            let el = this.supRoot.showCountEl = createEl('span');
+            el.className = 'showCount';
+            this.IptCommonClassname[is ? 'push' : 'remove']('showCount')
+            Base.setClassName(this[this.type], this.IptCommonClassname);
+            this.changeCountOfSupRoot()
+        }
+        return this.supRoot.showCountEl;
+    }
+
+    changeCountOfSupRoot(count: string | number = this.supValues.inputValues.length) {
+        let _count = this.maxLength ? `${count} / ${this.maxLength}` : count
+        // this[this.type].setAttribute('count', _count)
+        this.supRoot.showCountEl.textContent = _count
     }
 
     onFocus(e: Event) {
@@ -177,9 +216,11 @@ export default class InputCommon {
             [type == 'input' || type == 'password' || type == 'search', () => {
                 if (!this[type]) {
                     this[type] = createEl('input');
+
                     this[type].placeholder = placeholder || ''
-                    console.log(CommonClassname)
-                    Base.setClassName(this[type], CommonClassname);
+                    // console.log(this.supRoot, this.CommonClassname)
+
+                    Base.setClassName(this[type], this.IptCommonClassname);
 
                 }
             }],
@@ -187,10 +228,13 @@ export default class InputCommon {
                 if (!this.textarea) {
                     this.textarea = createEl('textarea');
                     this.textarea.placeholder = placeholder || ''
-                    Base.setClassName(this.textarea, CommonClassname);
+                    Base.setClassName(this.textarea, this.IptCommonClassname);
                 }
             }],
         ]))
+        if (this.maxLength) {
+            this[type].setAttribute('maxlength', this.maxLength)
+        }
         listener(this[type], 'input', (e: any) => {
             this.change(e.target.value)
         })

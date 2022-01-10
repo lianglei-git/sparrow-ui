@@ -30,9 +30,9 @@ class Input extends Base {
 
     
     initView(root: HTMLElement | any, args: any, Common:InputCommon) {
-        let {ipt, type, prefix, suffix, allowClear,addonBefore, addonAfter} = args
+        let {ipt, type, prefix, suffix, allowClear,addonBefore,showCountEl, addonAfter} = args
         let attrs = root.attrs;
-        this._setClassName(root);
+        // this._setClassName(root);
 
         if(type =='search') {
             console.log('search')
@@ -40,10 +40,10 @@ class Input extends Base {
         // if(allowClear) {
         //     suffix = ''
         // }
-        console.log(ipt, type, prefix, suffix, allowClear)
+        // console.log(ipt, type, prefix, suffix, allowClear)
         prefix && root.insertBefore(prefix, root.firstChild)
         addonBefore && root.insertBefore(addonBefore, root.firstChild)
-        root.append(ipt, allowClear, suffix,addonAfter);
+        root.append(ipt, allowClear,showCountEl , suffix,addonAfter);
 
 
     }

@@ -1,7 +1,7 @@
 export interface InputTypes {
-    size:'large'|'default'|'small'
-    'addon-before': string | HTMLElement
-    'addon-after': string | HTMLElement
+    size:'large'|'default'|'small' // ok 
+    'addon-before': string | HTMLElement // ok
+    'addon-after': string | HTMLElement // ok
     type: 'textarea' | 'input' | 'password' | 'search'
     disabled:string | boolean  
     bordered: string | boolean
@@ -19,6 +19,7 @@ export const InputProps = {
     size: 'default',
     type: 'input',
     placeholder: '这是一个简单的输入框',
+    'max-length': undefined
     // prefix: 'sp-icon-rmb'
 }
 

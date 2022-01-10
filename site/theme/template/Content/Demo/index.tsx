@@ -97,9 +97,9 @@ class Demo extends React.Component<Props> {
                 <pre>{this.renderContent(content)}</pre>
             </div>
             <ul className='tools'>
-                <li onClick={() => this.copy(highlightedCodes)} className='sp-icon sp-icon-copy' title='复制代码'></li>
-                <li onClick={() => childrenSetCode(this.state.codes, this.props)} className='sp-icon sp-icon-Code' title='代码展示'></li>
-                <li className='sp-icon sp-icon-yunhang' title='在线运行'></li>
+               <sp-tooltip title='复制代码' get-popup-container='.show-components' ><li onClick={() => this.copy(highlightedCodes)} className='sp-icon sp-icon-copy' ></li></sp-tooltip>
+               <sp-tooltip title='查看代码' get-popup-container='.show-components' ><li onClick={() => childrenSetCode(this.state.codes, this.props)} className='sp-icon sp-icon-Code' ></li></sp-tooltip>
+               <sp-tooltip title='在线运行' get-popup-container='.show-components' ><li className='sp-icon sp-icon-yunhang'></li></sp-tooltip>
             </ul>
         </section>
     }
