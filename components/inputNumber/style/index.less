@@ -1,0 +1,65 @@
+@classname: sp-input-number;
+
+@import url(../../input/style/common.less);
+
+sp-input-number {
+    &:hover, &.focus {
+        .number-handle-wrap {
+            opacity: 1;
+        }
+    }
+}
+.number-handle-wrap {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 22px;
+    height: 100%;
+    background: #fff;
+    border-radius: 0 2px 2px 0;
+    opacity: 0;
+    transition: opacity .24s linear .1s;
+
+    &-up,
+    &-down {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 50%;
+        overflow: hidden;
+        color: #00000073;
+        font-weight: 700;
+        line-height: 0;
+        text-align: center;
+        border-left: 1px solid #d9d9d9;
+        transition: all .1s linear;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: auto;
+        margin-right: 0;
+        font-size: 7px;
+        &:hover, &:focus {
+            color: var(--sp-primary-color-hover);
+        }
+    }
+
+    &-up {
+        border-top-right-radius: 2px;
+        cursor: pointer;
+        &:hover {
+            height: 60%;
+        }
+    }
+    
+    &-down {
+        top: 0;
+        border-top: 1px solid #d9d9d9;
+        border-bottom-right-radius: 2px;
+        cursor: pointer;
+        &:hover {
+            top: -10%;
+            height: 60%;
+        }
+    }
+}

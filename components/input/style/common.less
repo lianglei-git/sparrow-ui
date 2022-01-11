@@ -8,12 +8,10 @@
         flex: 1;
         padding: 6px 4px 4px 4px;
         line-height: 1.55;
-        
-       
-
-
     }
-
+    &:hover {
+        border-color: var(--sp-primary-color-hover);
+    }
     box-sizing: border-box;
     margin: 0;
     font-variant: tabular-nums;
@@ -40,16 +38,17 @@
         }
 
     &.--shows {
-
+        &:hover {
+            border-color: #d9d9d9;
+        }
         input,
         textarea {
             border: 1px solid transparent;
             transition: all .3s;
-            // margin: 0 1px;
             z-index: 9;
             border-radius: 2px;
 
-            &:focus {
+            &:focus, &:hover {
                 border-color: var(--sp-primary-color-hover);
                 box-shadow: 0 0 0 2px var(--sp-primary-color-outline);
                 border-right-width: 1px !important;

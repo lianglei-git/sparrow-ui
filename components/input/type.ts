@@ -2,7 +2,7 @@ export interface InputTypes {
     size: 'large' | 'default' | 'small'
     'addon-before': string | HTMLElement
     'addon-after': string | HTMLElement
-    type: 'textarea' | 'input' | 'password' | 'search'
+    type: 'textarea' | 'input' | 'password' | 'search' | 'number'
     disabled: string | boolean
     bordered: string | boolean
     value: string | number

@@ -91,12 +91,13 @@ export default class ToolTipCommon extends Base implements Config {
         if (trigger.includes('focus')) {
             // listener(target, 'focus', _ => { console.log('聚焦') })
             // listener(target, 'blur', _ => { console.log('失焦') })
-            listener(target, 'blur', this._leave.bind(this))
-            listener(target, 'focus', _ => this._focus.call(this, _));
+            // 第三个参数 2022/1/10修改 （并修改了button的聚焦问题）
+            listener(target, 'blur', this._leave.bind(this), true)
+            listener(target, 'focus', _ => this._focus.call(this, _), true);
             listener(this.fixedEl, 'click', e => { e.stopPropagation(); e.preventDefault(); });
         }
         if (trigger.includes('click') || trigger.includes('contextmenu')) {
-            listener(document.body, 'click', this._reset.bind(this))
+            listener(document.body, 'click', this._reset.bind(this)) 
         }
 
     }
@@ -187,6 +188,7 @@ export default class ToolTipCommon extends Base implements Config {
     }
 
     _focus(e: Event) {
+        console.log(12312312312)
         e.stopPropagation(); e.preventDefault();
         this._changePosition(this.fixedEl);
     }
