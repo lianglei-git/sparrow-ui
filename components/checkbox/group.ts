@@ -19,7 +19,6 @@ class CheckBoxGroup extends Base {
             },
             attributeChangedCallback(...args: any) {
                 let [k, _o, v] = args;
-                console.log(k, v)
                 if (k == 'value') {
                     this.sup = true
                     context?.onValue?.(this, v, false)
@@ -91,7 +90,6 @@ class CheckBoxGroup extends Base {
             el.classList[formt ? 'add' : 'remove']('--disabled');
         })
         return
-
     }
 
     initView(root: HTMLElement | any) {

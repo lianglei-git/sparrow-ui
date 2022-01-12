@@ -19,7 +19,6 @@ class CheckBox extends Base {
             },
             attributeChangedCallback(...args: any) {
                 let [k, _o, v] = args;
-                console.log(k, v)
                 if (k == 'checked') {
                     this?.checked?.(v)
                 }
