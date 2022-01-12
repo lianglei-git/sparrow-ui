@@ -43,3 +43,16 @@ export const sto: (fn: Function, time?: number) => any = (fn, time = 16) => {
 export const isObject = (tar:any) => Object.prototype.toString.call(tar) === '[object Object]'
 
 export const has = (target:Object, key: string) => Reflect.has(target, key)
+
+
+export function ArrayRemove(any: any) {
+  if (Array.isArray(any)) {
+      any.map(i => {
+          this.map((i2: any, idx: number) => {
+              if (i == i2) this.splice(idx, 1)
+          })
+      });
+      return;
+  }
+  this.map((i: any, idx: number) => i == any && this.splice(idx, 1))
+}
