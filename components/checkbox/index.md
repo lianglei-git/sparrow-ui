@@ -5,17 +5,26 @@ title: CheckBox
 subTitle: 多选框
 ---
 
-通过鼠标或键盘输入内容，是最基础的表单域的包装。
+多选框。
 
 ## 何时使用
-- 需要用户输入表单域内容时。
-- 提供组合型输入框，带搜索的输入框，还可以进行大小选择。
+- 在一组可选项中进行多项选择时；
+- 单独使用可以表示两种状态之间的切换，和 switch 类似。区别在于切换 switch 会直接触发状态改变，而 checkbox 一般用于状态标记，需要和提交操作配合。
+
+
 
 
 
 ## API 
-| 参数        | 说明             | 类型    | 可选                   | 默认值     |
-| ----------- | ---------------- | ------- | ---------------------- | ---------- |
-| type        | 水平还是垂直类型 | string  | horizontal 或 vertical | horizontal |
-| orientation | 分割线标题的位置 | string  | left、right 或 center  | center     |
-| dashed      | 是否虚线         | boolean | -                      | false      |
+| 参数          | 说明       | 类型    | 可选 | 默认值 |
+| ------------- | ---------- | ------- | ---- | ------ |
+| checked       | 是否选中   | boolean | -    | false  |
+| disabled      | 是否不可用 | boolean | -    | false  |
+| indeterminate | 半全选壮他 | boolean | -    | false  |
+
+
+## Group API
+| 参数     | 说明           | 类型     | 可选 | 默认值 |
+| -------- | -------------- | -------- | ---- | ------ |
+| value    | 选中的数组     | string[] | -    | -      |
+| disabled | 是否全部不可用 | boolean  | -    | -      |
