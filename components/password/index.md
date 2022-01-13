@@ -14,8 +14,10 @@ subTitle: 密码框
 
 
 ## API 
-| 参数        | 说明             | 类型    | 可选                   | 默认值     |
-| ----------- | ---------------- | ------- | ---------------------- | ---------- |
-| type        | 水平还是垂直类型 | string  | horizontal 或 vertical | horizontal |
-| orientation | 分割线标题的位置 | string  | left、right 或 center  | center     |
-| dashed      | 是否虚线         | boolean | -                      | false      |
+| 参数        | 说明             | 类型         | 可选 | 默认值       |
+| ----------- | ---------------- | ------------ | ---- | ------------ |
+| icon-show   | 展示时icon       | string\|icon | -    | sp-icon-eye  |
+| icon-unshow | 不展示时icon     | string\|icon | -    | sp-icon-eyes |
+| visible     | 是否显示切换按钮 | boolean      | -    | true         |
+
+更多属性请参考 [Input](/components/input/#API)。

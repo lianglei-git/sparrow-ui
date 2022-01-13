@@ -358,7 +358,7 @@ export default class InputCommon {
         // 暂时支持字符串格式吧...
         if (!this.supRoot._addonBeforeEl && any) {
             let tmpb = createEl('span');
-            tmpb.className = 'sp-input-before';
+            tmpb.className = 'sp-'+ this.type+'-before';
             tmpb.innerHTML = any;
             this.supRoot._addonBeforeEl = tmpb;
         }
@@ -367,7 +367,7 @@ export default class InputCommon {
     addonAfter(any: Types['addon-after']) {
         if (!this.supRoot._addonAfterEl && any) {
             let tmpb = createEl('span');
-            tmpb.className = 'sp-input-after';
+            tmpb.className = 'sp-'+ this.type+'-after';
             tmpb.innerHTML = any;
             this.supRoot._addonAfterEl = tmpb;
         }

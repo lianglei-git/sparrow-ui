@@ -54,7 +54,7 @@ class Password extends Base {
         ipt.setAttribute('type', 'password');
 
         addonBefore && root.insertBefore(addonBefore, root.firstChild)
-        root.append(ipt, allowClear, showCountEl, suffix, addonAfter, (visible ? el : ''));
+        root.append(ipt, allowClear, showCountEl, suffix, (visible ? el : ''), addonAfter);
     }
 }
 
