@@ -1,7 +1,9 @@
 // @ts-nocheck
 import React, { useState, useEffect, useRef } from 'react'
 // import ReactDOM  from 'react-dom'
-import './index.less'
+import './index.less';
+
+window.$ = s =>  document.querySelector(s);
 const Home = (props) => {
     
     return <div className="home">

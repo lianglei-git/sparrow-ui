@@ -14,8 +14,8 @@ subTitle: 搜索框
 
 
 ## API 
-| 参数        | 说明             | 类型    | 可选                   | 默认值     |
-| ----------- | ---------------- | ------- | ---------------------- | ---------- |
-| type        | 水平还是垂直类型 | string  | horizontal 或 vertical | horizontal |
-| orientation | 分割线标题的位置 | string  | left、right 或 center  | center     |
-| dashed      | 是否虚线         | boolean | -                      | false      |
+| 参数         | 说明                                         | 类型                   | 可选 | 默认值 |
+| ------------ | -------------------------------------------- | ---------------------- | ---- | ------ |
+| enter-button | 是否有确认按钮，可设为按钮文字。             | html\|string           | -    | false  |
+| loading      | 搜索 loading                                 | boolean                | -    | false  |
+| onSearch     | 点击搜索图标、清除图标，或按下回车键时的回调 | function(value, event) | -    | - |

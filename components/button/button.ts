@@ -23,7 +23,8 @@ const changeProps = (elconstr: HTMLElement & any, props: object | any) => {
                 if (!props[key] || (props[key] == 'false')) {
                     if (elconstr.loadinEl) {
                         elconstr.loadinEl.classList.remove('sp-icon', 'sp-icon-loading')
-                        elconstr.classList.remove('is-loading')
+                        elconstr.classList.remove('is-loading');
+                        elconstr.loadinEl.remove()
                         elconstr.loadinEl = null
                     }
                 } else {
@@ -61,6 +62,7 @@ const changeProps = (elconstr: HTMLElement & any, props: object | any) => {
         ]))
     }
 }
+// 需要重构第三次!!
 export default
     // 为了避免冲突引发问题， 动态获取 标签属性要通过（attr-name）来获取 
     defineEl({

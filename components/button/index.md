@@ -14,5 +14,6 @@ subTitle: 按钮
 | disabled  | 禁用属性          | string & boolean                                         | 'false'   |      |
 | shape     | 形状              | 'circle', 'default', 'round'                             | 'default' |      |
 | classname | 默认类名          | string                                                   | -         |      |
+| loading   | 加载          | boolean                                                  | false     | -    |
 
 其他事件与原生一致
