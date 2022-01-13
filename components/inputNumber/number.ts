@@ -45,7 +45,6 @@ class InputNumber extends Base {
         ipt.value = _Common.supValues.inputValues = parser(ipt.value);
         listener(number.up, 'click', e => {
             let value = parseFloat(ipt.value);
-            console.log(value, max)
             if (value >= max) {
                 setStyle(number.up, { cursor: 'not-allowed' })
                 return
@@ -55,10 +54,10 @@ class InputNumber extends Base {
             setStyle(number.down, { cursor: 'pointer' })
             let nv = value + (step ? +step : 1);
             ipt.value = _Common.supValues.inputValues = parser(nv);
+            root?.onStep?.(value, 'up')
         })
         listener(number.down, 'click', e => {
             let value = parseFloat(ipt.value);
-            console.log(value, min)
             if (value <= min) {
                 setStyle(number.down, { cursor: 'not-allowed' })
                 return
@@ -67,6 +66,7 @@ class InputNumber extends Base {
             setStyle(number.up, { cursor: 'pointer' })
             let nv = value - (step ? +step : 1)
             ipt.value = _Common.supValues.inputValues = parser(nv);
+            root?.onStep?.(value, 'down')
         })
         root.append(ipt, allowClear, suffix, number, addonAfter);
     }

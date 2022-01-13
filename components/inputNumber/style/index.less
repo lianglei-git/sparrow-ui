@@ -2,6 +2,7 @@
 
 @import url(../../input/style/common.less);
 
+
 sp-input-number {
     &:hover, &.focus {
         .number-handle-wrap {
@@ -49,6 +50,9 @@ sp-input-number {
         cursor: pointer;
         &:hover {
             height: 60%;
+            &~.number-handle-wrap-down {
+                height: 40%;
+            }
         }
     }
     
