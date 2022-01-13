@@ -1,17 +1,15 @@
 ---
 order: 0
-title: 搜索框
+title: 测试
 ---
 
 ## desc-cn 
-带有搜索按钮的输入框。
+。。。
 
 ```html
-<sp-textarea value='这身不错啦' auto-size='true'></sp-textarea>
-<sp-textarea value='这身不错啦' max-length='20' show-count='true' allow-clear='true'></sp-textarea>
-
-
-<sp-textarea value='这身不错啦' min-rows='2' max-rows='8' ></sp-textarea>
+<sp-textarea value='身法可以' auto-size='true'></sp-textarea>
+<sp-textarea value='身法欠考虑' max-length='20' show-count='true' allow-clear='true'></sp-textarea>
+<sp-textarea value='♻️ 🍑' min-rows='2' max-rows='8' ></sp-textarea>
 
 
 

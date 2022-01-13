@@ -29,3 +29,11 @@ subTitle: 输入框
 | value        | 输入框内容                                       | string         | -      |      |
 | onChange     | 输入框内容变化时的回调                           | function(e)    | -      |      |
 | onPressEnter | 按下回车的回调                                   | function(e)    | -      |      |
+
+## Input Methods
+| 名称              | 说明               | 参数                                                                              | 版本  |
+| ----------------- | ------------------ | --------------------------------------------------------------------------------- | ----- |
+| blur              | 取消焦点           | -                                                                                 | -     |
+| focus             | 获取焦点           | (option?: { cursor?: 'start'                                                      | 'end' | 'all' })	option | - | - |
+| setSelectionRange | 修改焦点(光标)位置 | (start:number, end:number, direction?: 'forward' \| 'backward' \| 'none') => void | -     |
+| select            | 选中               | -                                                                                 | -     |

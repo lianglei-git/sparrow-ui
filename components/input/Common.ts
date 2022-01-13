@@ -319,7 +319,8 @@ export default class InputCommon {
 
         listener(this[type], 'keydown', (e: any) => {
             if (e.keyCode == "13") {
-                this.onPressEnter(e.target.value)
+                this.onPressEnter(e.target.value);
+                this.supRoot?.onSearch?.(e, e.target.value)
             }
         })
 

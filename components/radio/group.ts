@@ -37,12 +37,13 @@ class RadioGroup extends Base {
                     if(root.lastRadio && root.lastRadio!= el) {
                         root.lastRadio.checked(false);
                         root.lastRadio = el
-                    };
+                    }else {
+                        root.lastRadio = el
+                    }
                 })
                 el.onChange = (value: boolean) => {
                     onChange?.(el?.label);
-                    root?.checkedArr?.[value + '' == 'true' ? 'push' : 'remove'](el?.label)
-                    root?.onChange?.(el?.label);
+                    value +'' == 'true' && root?.onChange?.(el?.label);
                 }
             }
             if(value == el?.label) {
