@@ -16,6 +16,10 @@ class MixinSet {
         this.Common['supValues'].inputValues = v
     }
 
+    disabled(v:string) {
+        this.Common.disabled(v)
+    }
+
     // static getInstance(supRoot: any, Common:InputCommon) {
 
     //     if(MixinSet.supRoot == supRoot ){

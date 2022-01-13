@@ -131,7 +131,11 @@ export default class ToolTipCommon extends Base implements Config {
         arrow.className = this.tagName + '__arrow';
         title.className = this.tagName + '__title';
         content.className = this.tagName + '__content';
-        title.textContent = attrs?.title || '';
+        if(attrs?.title && attrs?.title.indexOf('<') > -1 && attrs?.title.indexOf('/>') > -1) {
+            title.innerHTML = attrs.title
+        }else {
+            title.textContent = attrs?.title || '';
+        }
         if (attrs.popupstyle) {
             try { (core as any).style = attrs.popupstyle }
             catch (error) { throw Error(error) }
@@ -188,7 +192,6 @@ export default class ToolTipCommon extends Base implements Config {
     }
 
     _focus(e: Event) {
-        console.log(12312312312)
         e.stopPropagation(); e.preventDefault();
         this._changePosition(this.fixedEl);
     }
@@ -248,7 +251,7 @@ export default class ToolTipCommon extends Base implements Config {
 
     _changePosition($target: HTMLElement | any, _placement: tooltipTypesProps['placement'] = this.contextTarget.attrs?.placement, isshow:boolean = true) {
         // let rect: DOMRect = getTargetRect(this.contextTarget);
-        let lixinH = 4; // 离心点
+        let lixinH = this.contextTarget.attrs['offcenter'] || 4; // 离心点
         let oLeft = this.contextTarget.offsetLeft;
         let oTop = this.contextTarget.offsetTop;
         let fixH = $target.clientHeight;

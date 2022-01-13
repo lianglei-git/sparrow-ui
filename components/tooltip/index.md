@@ -33,6 +33,6 @@ subTitle: 文字提示
 | classname             | 弹出层的自定义name 原始的建议通过属性选择器选择， 这何况不是一种方式呢？                                                                               | string              | -      | -    |
 | arrow-point-at-center | 箭头是否指向弹出层元素中心                                                                                                                             | boolean             | false  | -    |
 | onVisibleChange       | 显示隐藏的回调函数                                                                                                                                     | (visible) => void   | -      | -    |
-
+| offcenter             | 离心距离                                                                                                                                               | string\|nmber       | 4         | - |
 
 `getPopupContainer 或 get-popup-container 前者为function 后者为string 不同的传参数方式， 属性权重较大`

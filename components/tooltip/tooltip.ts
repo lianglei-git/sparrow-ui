@@ -43,7 +43,11 @@ class Tooltip {
                     root.getRootClassName(root.contextTarget, ['__' + attrs['placement'] ?? '__top', (this as any).APAC ? 'APAC' : ''])
             }],
             ['title' in attrs, () => {
-                (root.fixedEl.titleEl as any).textContent = attrs['title']
+                if(attrs?.title && attrs?.title.indexOf('<') > -1 && attrs?.title.indexOf('/>') > -1) {
+                    (root.fixedEl.titleEl as any).innerHTML = attrs.title
+                }else {
+                    (root.fixedEl.titleEl as any).textContent = attrs?.title || '';
+                }
             }],
         ]))
     }

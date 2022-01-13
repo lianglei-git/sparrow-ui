@@ -12,6 +12,7 @@ export interface tooltipTypesProps {
     popupstyle: string // 弹出层style
     'arrow-point-at-center': string | boolean
     effect: 'drak' | 'light' // 主题
+    offcenter: string | number
 }
 
 
@@ -30,6 +31,7 @@ export const tooltipProps: Partial<tooltipTypesProps> = {
     color: undefined,
     popupstyle: undefined, // 弹出层style
     'arrow-point-at-center': false,
-    effect: 'drak'
+    effect: 'drak',
+    offcenter: undefined
 
 }

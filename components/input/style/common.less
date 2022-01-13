@@ -1,24 +1,11 @@
 .@{classname} {
-
-    // overflow: hidden;
-    input,
-    textarea {
-        border: none;
-        outline: none;
-        flex: 1;
-        padding: 6px 4px 4px 4px;
-        line-height: 1.55;
-    }
-    &:hover {
-        border-color: var(--sp-primary-color-hover);
-    }
     box-sizing: border-box;
     margin: 0;
     font-variant: tabular-nums;
     list-style: none;
     font-feature-settings: "tnum";
     position: relative;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     width: 100%;
     min-width: 0;
@@ -31,16 +18,43 @@
     transition: all .3s;
     touch-action: manipulation;
 
+
+    input,
+    textarea {
+        border: none;
+        outline: none;
+        flex: 1;
+        width: 1px;
+        padding: 6px 4px 4px 4px;
+        line-height: 1.55;
+        transition: background .3s, color .3s;
+
+        &::selection {
+            color: #FFFFFF;
+            background-color: var(--sp-primary-color-hover);
+            text-shadow: none;
+        }
+    }
+
+    &:hover {
+        border-color: var(--sp-primary-color-hover);
+    }
+
+    &:focus-visible {
+        outline: none;
+    }
+
     span.showCount {
         margin: 0 3px;
         color: #00000073;
 
-        }
+    }
 
     &.--shows {
         &:hover {
             border-color: #d9d9d9;
         }
+
         input,
         textarea {
             border: 1px solid transparent;
@@ -48,7 +62,8 @@
             z-index: 9;
             border-radius: 2px;
 
-            &:focus, &:hover {
+            &:focus,
+            &:hover {
                 border-color: var(--sp-primary-color-hover);
                 box-shadow: 0 0 0 2px var(--sp-primary-color-outline);
                 border-right-width: 1px !important;
@@ -60,9 +75,10 @@
 
     &.--bordered {
         border: none;
-
         &:focus,
+        &.focus,
         input,
+        input:hover,
         input:focus,
         textarea,
         textarea:focus,

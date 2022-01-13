@@ -16,6 +16,9 @@ const Demo = () => {
         }
     })
     return <div>
+    <sp-button onClick={() => {
+        demo.current.focus({cursor:'start'})
+    }}>光标置前</sp-button>
     <sp-input size='large' ref={demo}></sp-input>
     <sp-input allow-clear='true'></sp-input>
     <sp-input allow-clear='true' size='small'></sp-input>

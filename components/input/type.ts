@@ -18,7 +18,7 @@ export interface InputTypes {
 export const InputProps = {
     size: 'default',
     type: 'input',
-    placeholder: '这是一个简单的输入框',
+    placeholder: '',
     'max-length': undefined,
     value: undefined,
     prefix: undefined,

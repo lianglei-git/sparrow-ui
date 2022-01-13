@@ -1,5 +1,5 @@
 import { InputProps as Props, InputTypes as Types } from './type'
-import { sto, runIFELSE,  ArrayRemove } from '../_utils/common'
+import { sto, runIFELSE, ArrayRemove } from '../_utils/common'
 import { createEl, defineEl, getProps, listener, setStyle } from '../_utils/dom' // setStyle
 import './style'
 import Base from '../_utils/Base';
@@ -8,9 +8,37 @@ const set = Reflect.set;
 
 const svgup = `<svg viewBox="64 64 896 896" focusable="false" data-icon="up" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"></path></svg>`
 const svgdown = `<svg viewBox="64 64 896 896" focusable="false" data-icon="down" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"></path></svg>`
+export interface InputFocusOptions extends FocusOptions {
+    cursor?: 'start' | 'end' | 'all';
+}
 
+export function triggerFocus(
+    element?: HTMLInputElement | HTMLTextAreaElement,
+    option?: InputFocusOptions,
+) {
+    if (!element) return;
 
+    element.focus(option);
 
+    // Selection content
+    const { cursor } = option || {};
+    if (cursor) {
+        const len = element.value.length;
+
+        switch (cursor) {
+            case 'start':
+                element.setSelectionRange(0, 0);
+                break;
+
+            case 'end':
+                element.setSelectionRange(len, len);
+                break;
+
+            default:
+                element.setSelectionRange(0, len);
+        }
+    }
+}
 
 export default class InputCommon {
 
@@ -40,7 +68,8 @@ export default class InputCommon {
         inputValues?: string | number
     } | any
 
-    type: Types['type']
+    type: Types['type'];
+    // [func in ['focus', 'blur', 'setSelectionRange', 'select']]: any
 
     constructor({ root, callback }: any) {
         this.supRoot = root;
@@ -60,7 +89,7 @@ export default class InputCommon {
         this.IptCommonClassname = [this.type + '-core']
         this.CommonClassname.remove = ArrayRemove;
         this.IptCommonClassname.remove = ArrayRemove;
-        const self = this
+        const self = this;
         this.supValues = new Proxy({ inputValues: '' }, {
             get(target, p) {
                 return get(target, p)
@@ -72,8 +101,16 @@ export default class InputCommon {
             }
         })
 
-        this.init()
+        this.init();
+        this.mounted()
     }
+
+    mounted() {
+        ['focus', 'blur', 'setSelectionRange', 'select'].map((func: string) => {
+            this.supRoot[func] = (this as any)[func].bind(this);
+        })
+    }
+
     init() {
         let allowClear = this.allowClear();
         let prefix = this.prefix();
@@ -81,7 +118,7 @@ export default class InputCommon {
         let addonBefore = this.addonBefore(this.supRoot.attrs['addon-before'])
         let addonAfter = this.addonAfter(this.supRoot.attrs['addon-after'])
         let ipt = this._core();
-        let number =  this.numberView();
+        let number = this.numberView();
         let showCountEl = this.showCount();
         this.disabled(this.supRootAttrs['disabled'])
         this.bordered(this.supRootAttrs['bordered'])
@@ -193,7 +230,6 @@ export default class InputCommon {
     }
 
     onFocus(e: Event) {
-
         this.supRoot.classList.add('focus')
     }
 
@@ -203,9 +239,25 @@ export default class InputCommon {
 
     }
 
-    change(value: string) {
+    change(e:Event, value: string) {
         this.supValues.inputValues = value
-        this.supRoot?.onChange?.(value)
+        this.supRoot?.onChange?.(e, value)
+    }
+
+    focus(option?: InputFocusOptions) {
+        sto(() => triggerFocus(this[this.type], option));
+    };
+
+    blur() {
+        this[this.type].blur();
+    }
+
+    setSelectionRange(start: number, end: number, direction?: 'forward' | 'backward' | 'none') {
+        this[this.type].setSelectionRange(start, end, direction);
+    }
+
+    select() {
+        this[this.type].select();
     }
 
     numberView() {
@@ -233,8 +285,8 @@ export default class InputCommon {
         let type = this.type;
         let placeholder = this.supRoot?.attrs?.['placeholder']
         runIFELSE(new Set([
-             //type == 'input' || type == 'password' || type == 'search' || type == 'number'
-            [type != 'textarea' , () => {
+            //type == 'input' || type == 'password' || type == 'search' || type == 'number'
+            [type != 'textarea', () => {
                 if (!this[type]) {
                     this[type] = createEl('input');
 
@@ -262,7 +314,7 @@ export default class InputCommon {
         }
 
         listener(this[type], 'input', (e: any) => {
-            this.change(e.target.value)
+            this.change(e, e.target.value)
         })
 
         listener(this[type], 'keydown', (e: any) => {
@@ -272,13 +324,19 @@ export default class InputCommon {
         })
 
         listener(this[type], 'focus', (e: any) => {
+            console.log(this.CommonClassname.includes('--disabled'))
+            if(this.CommonClassname.includes('--disabled')) {
+                e.stopPropagation();
+                e.preventDefault();
+                this.blur()
+                return
+            }
             if (this.supRoot._addonBeforeEl || this.supRoot._addonAfterEl) {
                 return
             }
-            e.stopPropagation();
-            e.preventDefault()
+           
             this.onFocus(e)
-        })
+        }, true)
 
         listener(this[type], 'blur', (e: any) => {
             this.onBlur(e)
