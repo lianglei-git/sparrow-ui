@@ -19,6 +19,7 @@ class RadioGroup extends Base {
             attributeChangedCallback(...args: any) {
                 let [k, _o, v] = args;
                 if (k == 'value') {
+                    this.sup = true
                     context?.onValue?.(this, v, false)
                 }
                 if (k == 'disabled') {
@@ -42,8 +43,10 @@ class RadioGroup extends Base {
                     }
                 })
                 el.onChange = (value: boolean) => {
+                    if (!root.sup) { 
                     onChange?.(el?.label);
                     value +'' == 'true' && root?.onChange?.(el?.label);
+                    }
                 }
             }
             if(value == el?.label) {
@@ -52,6 +55,7 @@ class RadioGroup extends Base {
                 root.lastRadio = el; 
             }
         });
+        root.sup = false
     }
 
     onDisabled(root: any, disabled: boolean | string | undefined) {
@@ -64,14 +68,12 @@ class RadioGroup extends Base {
     }
 
     initView(root: HTMLElement | any) {
+        root.sup = true
         let attrs: Types = root['attrs'];
         let { value, disabled } = attrs;
         this.onValue(root, value);
         this.onDisabled(root, disabled);
         this._setClassName(root)
-
-        // if(attrs['type'] == 'button') {
-        // }
     }
 }
 
