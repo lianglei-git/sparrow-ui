@@ -61,7 +61,7 @@ class Loading {
     protected initView(root: HTMLElement | any) {
 
         const init: <T = El<HTMLElement>>(iconEl: T, contentEl: T) => void = (iconEl, contentEl) => {
-            let parent = root.parentElement.style
+            let parent = root?.parentElement?.style
             if (root.parentElement && parent.position == '' || parent.position == 'static') {
                 root.parentElement.style.position = 'relative'
             }
