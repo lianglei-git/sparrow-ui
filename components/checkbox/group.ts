@@ -49,7 +49,7 @@ class CheckBoxGroup extends Base {
 
     onValue(root: any, value: string, init = true) {
         let formt = this.adapterDefaults(value);
-        [...root.children].map((el: HTMLElement & { label: string, _checked?: any, checked: (is?: boolean, isSup?: boolean) => any, onChange?: any }, index: number) => {
+        [...root.children].map((el: HTMLElement & { label: string, _checked?: any, checked: (is?: boolean, isSup?: boolean) => any, onChange?: any }, _index: number) => {
             if (init) {
                 let onChange = el?.onChange
                 el.onChange = (value: boolean) => {

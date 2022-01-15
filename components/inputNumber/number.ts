@@ -1,5 +1,5 @@
 import { numberProps as Props, numberTypes as Types } from './type'
-import { createEl, defineEl, getProps, listener, setStyle } from '../_utils/dom' // setStyle
+import { defineEl, getProps, listener, setStyle } from '../_utils/dom' // setStyle
 import Base from '../_utils/Base'
 import InputCommon from '../input/Common'
 import MixinSet from '../input/Mixins';
@@ -43,7 +43,7 @@ class InputNumber extends Base {
         let parserStr = root['attrs']['parser']
         let parser = root?.parser || ((value: any) => value + (parserStr || ''))
         ipt.value = _Common.supValues.inputValues = parser(ipt.value);
-        listener(number.up, 'click', e => {
+        listener(number.up, 'click', _ => {
             let value = parseFloat(ipt.value);
             if (value >= max) {
                 setStyle(number.up, { cursor: 'not-allowed' })
@@ -56,7 +56,7 @@ class InputNumber extends Base {
             ipt.value = _Common.supValues.inputValues = parser(nv);
             root?.onStep?.(value, 'up')
         })
-        listener(number.down, 'click', e => {
+        listener(number.down, 'click', _ => {
             let value = parseFloat(ipt.value);
             if (value <= min) {
                 setStyle(number.down, { cursor: 'not-allowed' })

@@ -2,6 +2,7 @@
   "name": "sparrow-ui",
   "version": "1.0.0",
   "description": "\u001b[ ",
+  "homepage":".",
   "scripts": {
     "test": "jest",
     "tsnode": "node -r ts-node/register",
@@ -24,7 +25,6 @@
   "bugs": {
     "url": "https://github.com/lianglei-git/sparrow-ui/issues"
   },
-  "homepage": "https://github.com/lianglei-git/sparrow-ui#readme",
   "dependencies": {
     "@ant-design/bisheng-plugin": "^2.3.1",
     "@babel/plugin-proposal-decorators": "^7.15.8",
@@ -43,6 +43,8 @@
     "esbuild-loader": "^2.16.0",
     "history": "^5.0.1",
     "jsonml.js": "^0.1.0",
+    "koa": "^2.13.4",
+    "koa-static": "^5.0.0",
     "less": "^4.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

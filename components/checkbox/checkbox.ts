@@ -1,5 +1,5 @@
 import { checkboxProps as Props, checkboxTypes as Types } from './type'
-import { createEl, defineEl, getProps, listener, setStyle } from '../_utils/dom' // setStyle
+import { createEl, defineEl, getProps, listener } from '../_utils/dom' // setStyle
 import Base from '../_utils/Base'
 class CheckBox extends Base {
     context: this
@@ -12,7 +12,6 @@ class CheckBox extends Base {
             connectedCallback() {
                 (this.attrs as Partial<Types>) = getProps(this);
                 this.attrs = { ...Props, ...this.attrs };
-                const that = this;
                 this.setAttribute('hidefocus', true)
                 this.setAttribute('tabindex', 0)
                 context.initView(this)
@@ -94,7 +93,7 @@ class CheckBox extends Base {
 
 
 
-        listener(root, 'click', e => checked(true, false, true))
+        listener(root, 'click', _ => checked(true, false, true))
         checkbox.setAttribute('type', 'checkbox');
         core.className = 'sp-checkbox-core';
         checkbox.className = 'sp-checkbox-core-input';

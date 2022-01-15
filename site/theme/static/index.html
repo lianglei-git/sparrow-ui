@@ -12,15 +12,11 @@
 </head>
 
 <body>
-    <!-- <script type="module">
-        import { Button } from 'sparrow-ui/button/index'
-      </script> -->
     <div id="react-content">{{ content | safe }}</div>
     {% for jsFile in manifest["js"] %}
     <script src="{{ root }}{{jsFile}}"></script>
     {% endfor %}
 
-    <!-- <sp-button shape='round' loading class="sp-button-123" onclick="console.log(123123123)"> <p>布局</p> </sp-button> -->
 </body>
 
 </html>

@@ -1,29 +1,25 @@
 import { getGlobalThis } from './_utils/common'
-import {Message} from './message'
 import {Loading} from './loading'
-import {Notify} from './notification'
-import {Modal} from './modal'
-// import './common/styles'
-import './alert'
-import './switch/index'
-import './button/index'
+import './common/styles'
 import './drawer'
+import './switch'
+import './alert'
+import './button'
 import './timeline'
-import './breadcrumb'
+import './progress'
+import './popover'
+import './slider'
+import './badge'
+import './collapse'
+import './input'
 const Spui = {
-  Message,
   Loading,
-  Notify,
-  Modal,
 }
  
 getGlobalThis().Spui = Spui; 
 export default Spui
 
 export {
-  Message,
   Loading,
-  Notify,
-  Modal,
 }
  

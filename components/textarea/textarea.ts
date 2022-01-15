@@ -1,5 +1,5 @@
 import { TextareaProps as Props, TextareaTypes as Types } from './type'
-import { createEl, defineEl, getProps, listener, setStyle } from '../_utils/dom' // setStyle
+import { defineEl, getProps, listener, setStyle } from '../_utils/dom' // setStyle
 import Base from '../_utils/Base'
 import InputCommon from '../input/Common'
 import MixinSet from '../input/Mixins';

@@ -1,6 +1,6 @@
 import { switchTypesProps, switchProps } from './type'
 import { runIFELSE, sto } from '../_utils/common'
-import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
+import { defineEl, createEl, setStyle, getProps } from '../_utils/dom'
 import './style';
 import Base from '../_utils/Base'
 

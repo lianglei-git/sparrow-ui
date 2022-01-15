@@ -11,7 +11,7 @@ module.exports = {
   hash: false,
   theme: './site/theme',
   port: 8000,
-  root: './',
+  root: '/',
   htmlTemplate: './site/theme/static/index.html',
   themeConfig,
   webpackConfig(config) {
@@ -49,5 +49,13 @@ module.exports = {
     } 
     console.log(path.resolve('./', 'components'))
     return config
-  }
+  },
+  devServerConfig: {
+    public: process.env.DEV_HOST || 'localhost',
+    disableHostCheck: !!process.env.DEV_HOST,
+  },
+
+  htmlTemplateExtraData: {
+    isDev,
+  },
 };

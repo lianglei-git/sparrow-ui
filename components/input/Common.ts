@@ -1,6 +1,6 @@
-import { InputProps as Props, InputTypes as Types } from './type'
+import {InputTypes as Types } from './type'
 import { sto, runIFELSE, ArrayRemove } from '../_utils/common'
-import { createEl, defineEl, getProps, listener, setStyle } from '../_utils/dom' // setStyle
+import { createEl, listener, setStyle } from '../_utils/dom' // setStyle
 import './style'
 import Base from '../_utils/Base';
 const get = Reflect.get;
@@ -145,7 +145,6 @@ export default class InputCommon {
             return true
         }
         set(target, p, value)
-        // console.log(target, p, value)
     }
 
     prefix() {
@@ -229,12 +228,11 @@ export default class InputCommon {
         }
     }
 
-    onFocus(e: Event) {
+    onFocus(_: Event) {
         this.supRoot.classList.add('focus')
     }
 
-    onBlur(e: any) {
-        // this.supRoot.blur()
+    onBlur(_: any) {
         this.supRoot.classList.remove('focus')
 
     }
@@ -289,12 +287,8 @@ export default class InputCommon {
             [type != 'textarea', () => {
                 if (!this[type]) {
                     this[type] = createEl('input');
-
                     this[type].placeholder = placeholder || ''
-                    // console.log(this.supRoot, this.CommonClassname)
-
                     Base.setClassName(this[type], this.IptCommonClassname);
-
                 }
             }],
             [type == 'textarea', () => {

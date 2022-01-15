@@ -1,29 +1,21 @@
 Arguments: 
-  D:\node\node.exe D:\node\node_global\node_modules\yarn\bin\yarn.js
+  /usr/local/bin/node /usr/local/bin/yarn add koa koa-static
 
 PATH: 
-  C:\Program Files (x86)\Common Files\NetSarang;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;D:\tools\jdk8\bin;%JAVA_NOME%\jre\bin;D:\tools\apache-maven-3.3.9\bin;D:\tools\Redis3.2;D:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH\;D:\node\;E:\Program Files\TortoiseSVN\bin;C:\WINDOWS\system32;C:\Users\wanghuan\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.9;C:\Users\wanghuan\AppData\Local\Microsoft\WindowsApps;D:\node\nodejs;D:\node\node_global;C:\Users\wanghuan\AppData\Local\Programs\Microsoft VS Code\bin;
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 Yarn version: 
-  1.22.10
+  1.22.5
 
 Node version: 
-  14.16.0
+  16.13.0
 
 Platform: 
-  win32 x64
+  darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/date-fns/-/date-fns-2.25.0.tgz: ESOCKETTIMEDOUT
-      at ClientRequest.<anonymous> (D:\node\node_global\node_modules\yarn\lib\cli.js:141289:19)
-      at Object.onceWrapper (events.js:421:28)
-      at ClientRequest.emit (events.js:315:20)
-      at TLSSocket.emitRequestTimeout (_http_client.js:784:9)
-      at Object.onceWrapper (events.js:421:28)
-      at TLSSocket.emit (events.js:327:22)
-      at TLSSocket.Socket._onTimeout (net.js:483:8)
-      at listOnTimeout (internal/timers.js:554:17)
-      at processTimers (internal/timers.js:497:7)
+  Error: getaddrinfo ENOTFOUND registry.yarnpkg.com
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:71:26)
 
 npm manifest: 
   {
@@ -34,8 +26,8 @@ npm manifest:
       "test": "jest",
       "tsnode": "node -r ts-node/register",
       "start1": "yarn tsnode scripts/start.ts",
-      "start": "cross-env NODE_ENV=development bisheng start",
-      "build:ui": "yarn tsnode scripts/build.ts --ui",
+      "start": "cross-env NODE_ENV=development bisheng start ",
+      "build:ui": "cross-env BUILD=UI yarn tsnode scripts/build.ts --ui",
       "build:site": "yarn tsnode scripts/build.ts --site ",
       "build:all": "cross-env NODE_ENV=production yarn tsnode scripts/build.ts --ui & bisheng build",
       "aaa": "webpack --config ./scripts/webpack.config.js & rollup --config scripts/rollup.config.js"

@@ -1,5 +1,5 @@
 import { radioGroupProps as Props, radioGroupTypes as Types } from './type'
-import { createEl, defineEl, getProps, listener, setStyle } from '../_utils/dom' // setStyle
+import { defineEl, getProps, listener, } from '../_utils/dom' // setStyle
 import Base from '../_utils/Base'
 import { sto } from 'sparrow-ui/_utils/common'
 class RadioGroup extends Base {
@@ -31,7 +31,7 @@ class RadioGroup extends Base {
 
     onValue(root: any, value: any, init = true) {
        
-        [...root.children].map((el: HTMLElement & { label: string, _checked?: any, checked: (is?: boolean, isSup?: boolean) => any, onChange?: any }, index: number) => {
+        [...root.children].map((el: HTMLElement & { label: string, _checked?: any, checked: (is?: boolean, isSup?: boolean) => any, onChange?: any }) => {
             if (init) {
                 let onChange = el?.onChange;
                 listener(el, 'click', _ => {

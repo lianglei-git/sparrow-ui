@@ -1,15 +1,14 @@
 /// 这里引用 和 抛出组件
 import { getGlobalThis } from './_utils/common'
-import './common/styles'
-// export * as button from "./button/index"
-import './button'
 import { Message } from './message'
 import { Modal } from "./modal"
-import './switch/index'
-import './alert'
 import { Loading } from './loading'
 import { Notify } from './notification'
+import './common/styles'
 import './drawer'
+import './switch'
+import './alert'
+import './button'
 import './timeline'
 import './breadcrumb'
 import './progress'

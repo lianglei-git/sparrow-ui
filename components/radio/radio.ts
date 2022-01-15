@@ -1,5 +1,5 @@
 import { radioProps as Props, radioTypes as Types } from './type'
-import { createEl, defineEl, getProps, listener, setStyle } from '../_utils/dom' // setStyle
+import { createEl, defineEl, getProps, listener } from '../_utils/dom' // setStyle
 import Base from '../_utils/Base'
 class Radio extends Base {
     context: this
@@ -63,7 +63,7 @@ class Radio extends Base {
             root._disabled = true;
         }        this.setClassName(root);
 
-        listener(root, 'click', e => checked(true))
+        listener(root, 'click', _ => checked(true))
         radio.setAttribute('type', 'radio');
         core.className = 'sp-radio-core';
         radio.className = 'sp-radio-core-input';
