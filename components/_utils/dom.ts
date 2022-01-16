@@ -38,15 +38,16 @@ const getProps = (target: HTMLElement): object => {
 
 const defineEl = (props: createElTyp, Element?: CustomElementConstructor, options?: {extends?:any}): void => {
     // let _corel: HTMLElement | { [key: string]: any } | any = null
+    // let tags = window?.customElements?.get(props.tag)
     let is: boolean | void = runIFELSE(new Set([
         [props.tag.indexOf('-') == -1, () => {
             // 这里后续会替换成 用我们本组件内的提示
             alert('请检查 tag 参数！')
         }],
-        [customElements.get(props.tag), (): boolean => {
-            alert('已经存在了这个标签，bro')
-            return false
-        }]
+        // [tags , (): boolean => {
+        //     alert('已经存在了这个标签，bro')
+        //     return false
+        // }]
     ]))
     if (!is) return
     //props?.observedAttributes

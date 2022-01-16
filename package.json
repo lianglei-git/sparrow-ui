@@ -10,8 +10,8 @@
     "start": "cross-env NODE_ENV=development bisheng start ",
     "build:ui": "cross-env BUILD=UI yarn tsnode scripts/build.ts --ui",
     "build:site": "yarn tsnode scripts/build.ts --site ",
-    "build:all": "cross-env NODE_ENV=production yarn tsnode scripts/build.ts --ui & bisheng build",
-    "aaa": "webpack --config ./scripts/webpack.config.js & rollup --config scripts/rollup.config.js"
+    "build:all": "cross-env NODE_ENV=production yarn tsnode scripts/build.ts --ui & bisheng build -c ./bisheng.config.js",
+    "aaa": "webpack --config ./scripts/webpack.config.js & rollup --config scripts/rollup.config.js "
   },
   "repository": {
     "type": "git",
