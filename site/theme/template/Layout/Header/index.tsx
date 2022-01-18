@@ -41,8 +41,8 @@ const Header: React.FC = () => {
                     <div className="img" > </div>
                     <span>Sprrow</span>
                 </Link>
-                <div>
-                    Search
+                <div style={{width: 200}}>
+                    <sp-search placeholder='搜索组件' allow-clear='true' bordered='true'></sp-search>
                 </div>
             </div>
             <div className="r-h">

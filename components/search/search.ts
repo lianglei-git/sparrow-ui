@@ -54,7 +54,9 @@ class Search extends Base {
             el['attr-type'] = 'primary'
         }
 
-        // 
+        if(buttonText+'' == 'false') {
+            el = ''
+        }
 
         addonBefore && root.insertBefore(addonBefore, root.firstChild)
         root.append(ipt, allowClear, showCountEl, suffix, addonAfter, el);
