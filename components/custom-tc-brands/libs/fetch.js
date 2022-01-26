@@ -1,12 +1,16 @@
+import l1 from './level1'
+import l2 from './level2'
+import l3 from './level3'
+
 
 export default {
     getBrands({res}) {
-        res(require('./level1.json'))
+        res(l1)
     },
     tcStyle({res}) {
-        res(require('./level2.json'))
+        res(l2)
     },
     tcModel({res}) {
-        res(require('./level3.json'))
+        res(l3)
     },
 }

@@ -1,7 +1,11 @@
 // @ts-nocheck
-import React, { useState, useEffect, useRef } from 'react'
-import './index.less'
-import { Message } from 'sparrow-ui';
+import React, { useState } from 'react'
+import './index.less';
+let Message =(() => {})
+if(typeof window !== 'undefined') {
+ Message =  window?.Spui?.Message
+}
+
 const Home = (props) => {
     let components = [
         // {
@@ -124,7 +128,7 @@ const Home = (props) => {
             })
             .then(function (myJson) {
                 Message.success('打包成功，即将下载...')
-                if (myJson.status) {
+                if (myJson.status && typeof window != 'undefined') {
                     location.href = 'http://localhost:8214/downfile'
                 }
             }).catch(rej => {

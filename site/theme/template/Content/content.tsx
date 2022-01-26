@@ -4,10 +4,24 @@ import { Link, } from 'bisheng/router';
 import Demo from './Demo';
 import CodeView from './Demo/CodePreView'
 import { getChildren } from 'jsonml.js/lib/utils';
-import { Message } from 'sparrow-ui'
-import raf from 'sparrow-ui/_utils/raf'
 import './index.less';
-import { $el, setStyle } from 'sparrow-ui/_utils/dom';
+let Message = () => { }
+let location = { pathname: '' }
+let $el = () => { }
+if (typeof window !== 'undefined') {
+    Message = window?.Spui?.Message || (() => { });
+    location = window.location;
+    $el = (el: string, target: HTMLElement | Document = document) => target.querySelectorAll(el)
+}
+
+const setStyle = (target: HTMLElement, obj: Styletype<CSSStyleRule['style']>) => {
+    for (const key in obj) {
+        // Object.prototype.hasOwnProperty.call(target['style'], key) && 
+        if ((obj as any)[key] != "") {
+            (target as any)['style'][key] = (obj as any)[key];
+        }
+    }
+}
 interface Meta {
     category: string | "Components"
     filename: string
@@ -117,9 +131,12 @@ const Content = (props: any) => {
         return l.sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
     }
     function clearActiveToc() {
-        [].forEach.call(document.querySelectorAll('.fixed-content li a'), node => {
-            node.className = '';
-        });
+        if (typeof window !== 'undefined') {
+            [].forEach.call(document.querySelectorAll('.fixed-content li a'), node => {
+                node.className = '';
+            });
+        }
+
     }
     const demo = () => {
         if (!props.demo) return <></>
@@ -133,11 +150,14 @@ const Content = (props: any) => {
     }
 
     function updateActiveToc(id) {
-        const currentNode = document.querySelectorAll(`.fixed-content li a[href="#${id}"]`)[0];
-        if (currentNode) {
-            clearActiveToc()
-            currentNode.className = 'current';
+        if (typeof window !== 'undefined') {
+            const currentNode = document.querySelectorAll(`.fixed-content li a[href="#${id}"]`)[0];
+            if (currentNode) {
+                clearActiveToc()
+                currentNode.className = 'current';
+            }
         }
+
     }
     function scroller() {
         let i = 0;
@@ -147,14 +167,19 @@ const Content = (props: any) => {
                 return
             }
             i = 0;
-            let lists = document.querySelectorAll('.preview');
+            let lists;
+            if (typeof window !== 'undefined') {
+                lists = document?.querySelectorAll('.preview');
+            }
             let filter = [...lists].filter((item: HTMLElement) => {
                 let top = item.getBoundingClientRect().top
                 return top > 0
             })
             filter[0] && updateActiveToc(filter[0].id)
         }
-        window.addEventListener('scroll', handler, true)
+        if (typeof window !== 'undefined') {
+            window.addEventListener('scroll', handler, true)
+        }
     }
     useEffect(() => {
         testElId = 0
@@ -183,12 +208,14 @@ const Content = (props: any) => {
             id: 'API'
         })
         setAffixList(_affixList);
+        if (typeof window !== 'undefined') {
+            window.addEventListener('hashchange', () => {
+                updateActiveToc(window.location.hash.replace(/^#/, ''))
+            })
 
-        window.addEventListener('hashchange', () => {
-            updateActiveToc(window.location.hash.replace(/^#/, ''))
-        })
+            setTimeout(() => updateActiveToc(window.location.hash.replace(/^#/, '')))
+        }
 
-        setTimeout(() => updateActiveToc(window.location.hash.replace(/^#/, '')))
         scroller()
 
     }, [location.pathname])

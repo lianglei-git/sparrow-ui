@@ -1,24 +1,13 @@
 module.exports = {
     categoryOrder: {
-      'Ant Design': 0,
-      全局样式: 1,
-      'Global Styles': 1,
-      设计模式: 2,
-      'Design Patterns': 2,
-      '设计模式 - 探索': 3,
-      'Design Patterns (Research)': 3,
       Components: 100,
       组件: 100,
     },
     typeOrder: {
-      // Component
       组件总览: -1,
       General: 0,
       Layout: 1,
       Navigation: 2,
-      'Data Entry': 3,
-      'Data Display': 4,
-      Feedback: 5,
       Other: 6,
       Deprecated: 7,
   
@@ -32,22 +21,8 @@ module.exports = {
       其他: 6,
       废弃: 7,
   
-      // Design
-      原则: 1,
-      Principles: 1,
-      全局规则: 2,
-      'Global Rules': 2,
-      模板文档: 3,
-      'Template Document': 3,
     },
     docVersions: {
-      '3.x': 'http://3x.ant.design',
-      '2.x': 'http://2x.ant.design',
-      '1.x': 'http://1x.ant.design',
-      '0.12.x': 'http://012x.ant.design',
-      '0.11.x': 'http://011x.ant.design',
-      '0.10.x': 'http://010x.ant.design',
-      '0.9.x': 'http://09x.ant.design',
     },
   };
   

@@ -1,4 +1,4 @@
-{
+export default {
     "A": [
         {
             "penname": "A",

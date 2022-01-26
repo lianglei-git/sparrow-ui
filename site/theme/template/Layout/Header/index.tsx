@@ -2,7 +2,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'bisheng/router';
 import './index.less';
-const Header: React.FC = () => {
+let location = {pathname: ''}
+if(typeof window != 'undefined') {
+    location = window.location
+}
+ const Header: React.FC = () => {
     const [isotherClass, setOther] = useState('');
     const l = [{
         to: '/',
@@ -41,10 +45,10 @@ const Header: React.FC = () => {
                     <div className="img" > </div>
                     <span>Sprrow</span>
                 </Link>
-                <div style={{width: 200}}>
+                {/* <div style={{width: 200}}>
                     <sp-search placeholder='搜索组件' allow-clear='true' enter-button='false' bordered='true' className='seatch-site' prefix='<span class="sp-icon sp-icon-search"></span>'></sp-search>
                     <div className='fixed--searchComs'></div>
-                </div>
+                </div> */}
             </div>
             <div className="r-h">
                 <div className="l">

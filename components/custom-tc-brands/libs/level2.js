@@ -1,4 +1,4 @@
-[
+export default [
     {
         "brandName": "华晨宝马",
         "activityInfoList": [],
