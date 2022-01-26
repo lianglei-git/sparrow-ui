@@ -8,6 +8,10 @@ const path = require("path");
 
 const app = new Koa();
 
+
+const address = require('address')
+
+
 app.use(
     serve(
         path.join(__dirname, "../_site"), 
@@ -20,5 +24,5 @@ app.use(
 );
 
 app.listen(3031, () => {
-    console.log("node端口号为：：：：：", 3031);
+    console.log(address.ip() +':'+ 3031);
 });

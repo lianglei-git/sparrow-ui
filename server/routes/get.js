@@ -2,7 +2,7 @@
 const fss = require('fs')
 const path = require('path')
 module.exports = {
-    ['/'](_, res) {
+    ['/test'](_, res) {
         res.write('get 方法 ---  /')
     },
     ['/build'](req, res) {
