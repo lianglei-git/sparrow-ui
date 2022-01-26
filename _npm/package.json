@@ -1,0 +1,33 @@
+{
+  "name": "sparrow.ui",
+  "version": "1.0.0",
+  "description": "Simple page layout",
+  "main": "./index.js",
+  "title": "Sparrow Ui",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sparrow",
+    "component",
+    "components",
+    "design",
+    "framework",
+    "frontend",
+    "react",
+    "vue",
+    "react-component",
+    "ui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lianglei-git/sparrow-ui"
+  },
+  "author": "sparrow",
+  "license": "ISC",
+  "types": "./index.d.ts",
+  "bugs": {
+    "url": "https://github.com/lianglei-git/sparrow-ui/issues"
+  },
+  "homepage": "http://101.43.178.134:3031/"
+}
