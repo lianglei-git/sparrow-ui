@@ -48,6 +48,7 @@ const Content = (props: any) => {
 
     const getMenuItems = () => {
         let components = new Array();
+        let items = new Array();
         if (props.$type == 'cmps') {
             let cdata = props.data.components;
             for (let k in cdata) {
@@ -56,7 +57,8 @@ const Content = (props: any) => {
                 if (_i?.meta?.category === 'Components') {
                     let typed = components.find($$i => $$i.type == _i?.meta?.type);
                     if (typed) {
-                        typed.children.push(_i?.meta)
+                        typed.children.push(_i?.meta);
+                        items.push(_i?.meta);
                     } else {
                         let type = {
                             type: _i?.meta?.type,
@@ -80,7 +82,7 @@ const Content = (props: any) => {
             })
         }
         components = components.sort((a, b) => (a.order || 0) - (b.order || 0));
-
+        console.log(items)
         return <ul>
             {
                 components.map(item => {

@@ -42,7 +42,8 @@ const Header: React.FC = () => {
                     <span>Sprrow</span>
                 </Link>
                 <div style={{width: 200}}>
-                    <sp-search placeholder='搜索组件' allow-clear='true' bordered='true'></sp-search>
+                    <sp-search placeholder='搜索组件' allow-clear='true' enter-button='false' bordered='true' className='seatch-site' prefix='<span class="sp-icon sp-icon-search"></span>'></sp-search>
+                    <div className='fixed--searchComs'></div>
                 </div>
             </div>
             <div className="r-h">
