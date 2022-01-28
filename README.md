@@ -1,6 +1,6 @@
 # sparrow
 
-随笔。[官网](http://101.43.178.134:3031/)
+随笔。[官网](http://sparrowui.cn)
 
 望你度过美好的一天！
 <hr>
@@ -40,6 +40,5 @@
 
 #### 下载
 
-- [ZIP](http://101.43.178.134:8888/down/yMRFr9IzdDFR): http://101.43.178.134:8888/down/yMRFr9IzdDFR
+- [ZIP下载](http://101.43.178.134:8888/down/yMRFr9IzdDFR): http://101.43.178.134:8888/down/yMRFr9IzdDFR
 - npm暂时告一段落， 要去补习民刑了， 还有页面设计的也放一放...
-- npm: `yarn add sparrow.ui` 或 `npm `
