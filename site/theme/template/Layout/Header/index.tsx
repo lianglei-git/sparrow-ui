@@ -35,10 +35,16 @@ if(typeof window != 'undefined') {
     ]
 
     useEffect(() => {
-        setOther(location.pathname == '/' ? '' : 'other')
+        setOther(location.pathname == '/' ? '' : 'other');
+        if(location.pathname !== '/') {
+            (document.querySelector('#react-content') as HTMLElement).classList.add('active')
+        }  else {
+            (document.querySelector('#react-content') as HTMLElement).classList.remove('active')
+
+        }
     }, [location.pathname])
 
-    return <section className={'Header'}>
+    return <section className={['Header', isotherClass].join(' ')} >
         <div className={isotherClass}>
             <div className="l-h">
                 <Link to='/' className="logo">

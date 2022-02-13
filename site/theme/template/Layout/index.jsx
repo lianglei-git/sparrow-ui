@@ -10,7 +10,7 @@ export default class Layout extends React.Component {
     render() {
         const { children } = this.props
         return <>
-            <sp-affix offset-top="0" style={{zIndex: '9', background:'#fff'}}><H></H></sp-affix>
+            <sp-affix offset-top="0" style={{zIndex: '9', background:'#fff'}} className='sspp'><H></H></sp-affix>
             {children}
         </>
     }

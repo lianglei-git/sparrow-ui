@@ -260,12 +260,25 @@ const Content = (props: any) => {
                     </div>
                     <div className="about">
                         <h2>关于</h2>
+                        <ul>
+                            <li><a href="github.com/lianglei-git">麻雀的github</a></li>
+                        </ul>
                     </div>
                     <div className="help">
                         <h2>帮助</h2>
+                        <ul>
+                        <li><a href="">待完善</a></li>
+                         <li><a href="">待完善</a></li>
+                         <li><a href="">待完善</a></li>
+                        </ul>
                     </div>
                     <div className="more">
                         <h2>更多</h2>
+                        <ul>
+                        <li><a href="">待完善</a></li>
+                        <li><a href="">待完善</a></li>
+                        <li><a href="">待完善</a></li>
+                        </ul>
                     </div>
                 </footer>
                 <div className='fixed-content'>
