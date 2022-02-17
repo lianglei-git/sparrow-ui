@@ -49,7 +49,7 @@
 #react-content {
     background-image: url(../Layout/Header/background.png);
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 100% 100%;
     &.active {
         background: 0;
     }
@@ -57,7 +57,13 @@
 
 .fixed-cop {
     position: fixed;
-    left: 50%;
-    margin-left: -10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: #625e5e;
+    font-size: 13px;
     bottom: 10px;
+    a {
+        color: #625e5e;
+    }
 }

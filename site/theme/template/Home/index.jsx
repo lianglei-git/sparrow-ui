@@ -18,7 +18,9 @@ const Home = (props) => {
             <sp-button shape="round"><a href="https://github.com/lianglei-git" target="_blank">Github</a></sp-button>
         </div>
         <div className="fixed-cop">
-            <span>备案</span>
+            <span>Copyright © 2021-present Sparrow</span>
+            &nbsp;|&nbsp;
+            <span><a href="https://beian.miit.gov.cn/" target='_blank'>京ICP备2022004287号</a></span>
         </div>
     </div>
 }
