@@ -13,7 +13,6 @@ const resolveApp = ppath => path.resolve(fs.realpathSync(cwd()), ppath)
 module.exports = function (webpackEnv='production') {
     const isEnvDevelopment = webpackEnv === 'development';
     const isEnvProduction = webpackEnv === 'production';
-
     return {
         mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
         devtool: isEnvProduction ? false : 'source-map',
@@ -59,31 +58,6 @@ module.exports = function (webpackEnv='production') {
                         cacheCompression: false
                     }
                 },
-                // {
-                //     test: /\.(js|jsx)$/,
-                //     use:['babel-loader']
-                // },
-                // {
-                //     test: /\.(ts|tsx)$/,
-                //     use: [{
-                //         loader:'ts-loader',
-                //         options: {
-                //             transpliceOnly: true
-                //         }
-                //     }, 'babel-loader'],
-                //     exclude: /node_modules/,
-                // },
-                // {
-                //     test: /\.(ts|tsx)$/,
-                //     use: [{
-                //         loader:'awesome-typescript-loader',
-                //         options: {
-                //            useBabel: true,
-                //            babelCore: '@babel/core'
-                //         }
-                //     }],
-                //     exclude: /node_modules/,
-                // },
                 {
                     test: /\.css$/, use: [
                         { loader: !isEnvProduction ? 'style-loader' : MiniCssExtractPlugin.loader },
@@ -110,17 +84,6 @@ module.exports = function (webpackEnv='production') {
                     ],
                     type: 'javascript/auto'
                 },
-                // {
-                //     loader: require.resolve('file-loader'),
-                //     // Exclude `js` files to keep "css" loader working as it injects
-                //     // its runtime that would otherwise be processed through "file" loader.
-                //     // Also exclude `html` and `json` extensions so they get processed
-                //     // by webpacks internal loaders.
-                //     exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
-                //     options: {
-                //         name: 'static/media/[name].[hash:8].[ext]',
-                //     },
-                // },
             ]
         },
         optimization: {

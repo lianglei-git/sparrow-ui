@@ -1,7 +1,7 @@
 import React from 'react';
 import collect from 'bisheng/collect';
 import Main from './content'
-import './icon-com.css'
+import './icon-com.less'
 export default collect((nextProps) => { 
     // 这里基本已经成型
     let {pathname} = nextProps.location;

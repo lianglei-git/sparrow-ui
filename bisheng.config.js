@@ -1,8 +1,10 @@
 const path = require('path');
 const isDev = process.env.NODE_ENV === 'development';
 const themeConfig = require('./themeConfig')
-const {ESBuildMinifyPlugin} = require('esbuild-loader');
+const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
 module.exports = {
   source: {
     components: './components',
@@ -25,6 +27,9 @@ module.exports = {
       'react-router-dom': 'ReactRouterDom'
     }
 
+
+
+
     // config.module.rules.push({
     //     test: /\.(png|jpg|gif|eot|woff|ttf|svg|webp|PNG)(\?\S*)?$/,
     //     use: [
@@ -37,17 +42,47 @@ module.exports = {
         ...config.resolve.alias,
         'react': require.resolve('react')
       }
-    }else if (process.env.ESBUILD) {
+    } else if (process.env.ESBUILD) {
       config.optimization.minimizer = [
         new ESBuildMinifyPlugin({
           target: 'es2015',
           css: true
         }),
-        new TerserPlugin()
+        new TerserPlugin(),
+        new OptimizeCssAssetsPlugin({ // 压缩css
+          assetNameRegExp: /\.css$/g,
+          cssProcessor: require('cssnano'),
+          cssProcessorPluginOptions: {
+            preset: ['default', { discardComments: { removeAll: true } }],
+          },
+          canPrint: true
+        })
       ]
-     
-    } 
-    console.log(path.resolve('./', 'components'))
+    }
+
+
+    config.optimization.splitChunks =
+    {
+      chunks: 'async', 
+      minSize: 20000,
+      minRemainingSize: 0, 
+      minChunks: 1, 
+      maxAsyncRequests: 30, 
+      maxInitialRequests: 30, 
+      enforceSizeThreshold: 50000,
+      cacheGroups: { 
+        defaultVendors: {
+          test: /[\/]node_modules[\/]/,
+          priority: -10,
+          reuseExistingChunk: true,
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
+    }
     return config
   },
   devServerConfig: {
