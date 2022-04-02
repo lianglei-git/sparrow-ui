@@ -2,3 +2,4 @@ node_modules
 /_site
 coverage
 components/package.json
+/lib
