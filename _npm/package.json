@@ -1,6 +1,6 @@
 {
-  "name": "@sparrowend/sparrow.ui",
-  "version": "1.0.1",
+  "name": "@sparrowend/ui",
+  "version": "1.0.0",
   "description": "Easy Web UI",
   "main": "./es/index.js",
   "title": "Sparrow Ui",

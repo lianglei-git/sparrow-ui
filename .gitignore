@@ -2,8 +2,8 @@ node_modules
 /_site
 coverage
 components/package.json
+
+/_npm
 /lib
-_npm
-lib
-es
-dist
+/es
+/dist
