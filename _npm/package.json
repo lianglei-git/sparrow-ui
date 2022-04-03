@@ -1,8 +1,8 @@
 {
-  "name": "sparrow.ui",
-  "version": "1.0.0",
-  "description": "Simple page layout",
-  "main": "./index.js",
+  "name": "@sparrowend/sparrow.ui",
+  "version": "1.0.1",
+  "description": "Easy Web UI",
+  "main": "./es/index.js",
   "title": "Sparrow Ui",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,9 +25,9 @@
   },
   "author": "sparrow",
   "license": "ISC",
-  "types": "./index.d.ts",
+  "types": "./es/index.d.ts",
   "bugs": {
     "url": "https://github.com/lianglei-git/sparrow-ui/issues"
   },
-  "homepage": "http://101.43.178.134:3031/"
+  "homepage": "http://www.sparrowui.cn/"
 }

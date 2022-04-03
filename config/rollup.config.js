@@ -13,7 +13,7 @@ const postcss = require('rollup-plugin-postcss')
 const config = {
     input: join(__dirname, '../', 'components/index.ts'),
     output: {
-        file: join(__dirname, '../lib/index.js'),// process.env.npm_package_main
+        file: join(__dirname, '../dist/spui.js'),// process.env.npm_package_main
         format: 'iife', // cjs
         // name: "named", // ElectronMainBundle
         sourcemap: true,
@@ -23,7 +23,7 @@ const config = {
         //     output: join(__dirname, '../lib/index.css')
         // }),
         postcss({
-            extract:join(__dirname, '../lib/index.css'),
+            extract:join(__dirname, '../dist/spui.css'),
             extensions: ['.css', '.less'],
             minimize: true,
             exec: true,

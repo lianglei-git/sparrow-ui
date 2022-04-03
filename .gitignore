@@ -3,3 +3,7 @@ node_modules
 coverage
 components/package.json
 /lib
+_npm
+lib
+es
+dist
