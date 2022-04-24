@@ -3,6 +3,7 @@ import { defineEl, getProps, listener, setStyle } from '../_utils/dom' // setSty
 import Base from '../_utils/Base'
 import InputCommon from '../input/Common'
 import MixinSet from '../input/Mixins';
+import { __String } from 'typescript';
 class InputNumber extends Base {
     context: this
     constructor() {
@@ -43,8 +44,17 @@ class InputNumber extends Base {
         let parserStr = root['attrs']['parser']
         let parser = root?.parser || ((value: any) => value + (parserStr || ''))
         ipt.value = _Common.supValues.inputValues = parser(ipt.value);
+        root.onChange = (_: Event, value: string) => {
+             let num = value?.match(/(\-)+\d/g)?.join('') || value;
+             if(max+'' && num >= max) {
+                ipt.value =  _Common.supValues.inputValues = parser(max)
+             }
+             if(min+'' && num <= min) {
+                ipt.value =  _Common.supValues.inputValues = parser(min)
+             }
+        }
         listener(number.up, 'click', _ => {
-            let value = parseFloat(ipt.value);
+            let value = parseFloat(ipt.value) || 0;
             if (value >= max) {
                 setStyle(number.up, { cursor: 'not-allowed' })
                 return
@@ -57,7 +67,7 @@ class InputNumber extends Base {
             root?.onStep?.(value, 'up')
         })
         listener(number.down, 'click', _ => {
-            let value = parseFloat(ipt.value);
+            let value = parseFloat(ipt.value) || 0;
             if (value <= min) {
                 setStyle(number.down, { cursor: 'not-allowed' })
                 return

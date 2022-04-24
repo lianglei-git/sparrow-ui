@@ -319,7 +319,6 @@ export default class InputCommon {
         })
 
         listener(this[type], 'focus', (e: any) => {
-            console.log(this.CommonClassname.includes('--disabled'))
             if(this.CommonClassname.includes('--disabled')) {
                 e.stopPropagation();
                 e.preventDefault();
