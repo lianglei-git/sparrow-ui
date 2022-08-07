@@ -1,7 +1,7 @@
-const userAgent = navigator.userAgent;
-const isChrome = (userAgent.indexOf('Chrome') >= 0);
-const isFirefox = (userAgent.indexOf('Firefox') >= 0);
-const isSafari = (!isChrome && (userAgent.indexOf('Safari') >= 0));
+
+import * as browser from './browser';
+import { IframeUtils } from './iframe';
+import * as platform from './platform';
 
 export interface IMouseEvent {
 	readonly browserEvent: MouseEvent;
@@ -70,9 +70,9 @@ export class StandardMouseEvent implements IMouseEvent {
 		}
 
 		// Find the position of the iframe this code is executing in relative to the iframe where the event was captured.
-		// let iframeOffsets = IframeUtils.getPositionOfChildWindowRelativeToAncestorWindow(self, e.view);
-		// this.posx -= iframeOffsets.left;
-		// this.posy -= iframeOffsets.top;
+		let iframeOffsets = IframeUtils.getPositionOfChildWindowRelativeToAncestorWindow(self, e.view);
+		this.posx -= iframeOffsets.left;
+		this.posy -= iframeOffsets.top;
 	}
 
 	public preventDefault(): void {
@@ -131,7 +131,6 @@ interface IGeckoMouseWheelEvent {
 	detail: number;
 }
 
-
 export class StandardWheelEvent {
 
 	public readonly browserEvent: IMouseWheelEvent | null;
@@ -164,7 +163,7 @@ export class StandardWheelEvent {
 
 				if (ev.deltaMode === ev.DOM_DELTA_LINE) {
 					// the deltas are expressed in lines
-					if (isFirefox && !(userAgent.indexOf('Macintosh') >= 0)) {
+					if (browser.isFirefox && !platform.isMacintosh) {
 						this.deltaY = -e.deltaY / 3;
 					} else {
 						this.deltaY = -e.deltaY;
@@ -176,7 +175,7 @@ export class StandardWheelEvent {
 
 			// horizontal delta scroll
 			if (typeof e1.wheelDeltaX !== 'undefined') {
-				if (isSafari && userAgent.indexOf('Windows') >= 0) {
+				if (browser.isSafari && platform.isWindows) {
 					this.deltaX = - (e1.wheelDeltaX / 120);
 				} else {
 					this.deltaX = e1.wheelDeltaX / 120;
@@ -190,7 +189,7 @@ export class StandardWheelEvent {
 
 				if (ev.deltaMode === ev.DOM_DELTA_LINE) {
 					// the deltas are expressed in lines
-					if (isFirefox && !(userAgent.indexOf('Macintosh') >= 0)) {
+					if (browser.isFirefox && !platform.isMacintosh) {
 						this.deltaX = -e.deltaX / 3;
 					} else {
 						this.deltaX = -e.deltaX;

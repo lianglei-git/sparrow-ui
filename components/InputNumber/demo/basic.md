@@ -14,10 +14,15 @@ title: basic
 
 
 ```jsx
+import {useRef, useEffect} from 'react';
 const Demo = () => {
+    const ref = useRef();
+    useEffect(() => {
+        ref.current.onStep=(v,t) => console.log(v,t)
+    }, [])
      return <div>
      <h3>React: 最小 1</h3>
-    <sp-input-number value='10' min='1'></sp-input-number>
+    <sp-input-number value='10' min='1' ref={ref}></sp-input-number>
     </div>
 }
 ReactDOM.render(<Demo />, mountNode)

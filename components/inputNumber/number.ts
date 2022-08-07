@@ -64,7 +64,7 @@ class InputNumber extends Base {
             setStyle(number.down, { cursor: 'pointer' })
             let nv = value + (step ? +step : 1);
             ipt.value = _Common.supValues.inputValues = parser(nv);
-            root?.onStep?.(value, 'up')
+            root?.onStep?.(ipt.value, 'up')
         })
         listener(number.down, 'click', _ => {
             let value = parseFloat(ipt.value) || 0;
@@ -76,7 +76,7 @@ class InputNumber extends Base {
             setStyle(number.up, { cursor: 'pointer' })
             let nv = value - (step ? +step : 1)
             ipt.value = _Common.supValues.inputValues = parser(nv);
-            root?.onStep?.(value, 'down')
+            root?.onStep?.(ipt.value, 'down')
         })
         root.append(ipt, allowClear, suffix, number, addonAfter);
     }

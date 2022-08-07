@@ -13,6 +13,14 @@ function getRandomChineseWord () {
     }
     return _rsl;
 }
+
+/**
+ * @deprecated 不赞成使用
+ */
+function isn() {
+
+}
+
 class Lines extends Base {
     context: this
     constructor() {
@@ -28,7 +36,7 @@ class Lines extends Base {
                {
                 let i = 0;
                
-                for(; i<100; ) {
+                for(; i<1000; ) {
                     i++
                     var li = createEl('li');
                     var span = createEl('span');
@@ -43,16 +51,24 @@ class Lines extends Base {
                     dl.append(dt, dd)
                     li.append(dl)
                     ul.append(li)
+
                 }
                }
-                this.append(ul);
-
-                // listener(this, 'wheel', (e:WheelEvent) => {
-                //     e.preventDefault();
-                //     e.stopPropagation();
-                //     console.log(e.deltaY)
-                // })
-                new ScrollableElement(this, {})
+               this.append(ul);
+                let a = 0;
+                listener(this, 'wheel', (e:WheelEvent) => {
+                    // e.preventDefault();
+                    // e.stopPropagation();
+                    a=new Date().getTime();
+                    console.log('wheel')
+                })
+                listener(this, 'scroll', (e:WheelEvent) => {
+                    // e.preventDefault();
+                    // e.stopPropagation();
+                    let b = new Date().getTime() - a;
+                    console.log('scroll',b)
+                })
+                // new ScrollableElement(this, {})
             },
             attributeChangedCallback(...args) {
             }

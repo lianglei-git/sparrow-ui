@@ -1,5 +1,5 @@
 import { listener } from '../../_utils/dom';
-import { StandardWheelEvent } from './mouseEvent'
+import { StandardWheelEvent } from '../common/mouseEvent'
 import {MouseWheelClassifier} from './mousewheelclassifier'
 
 

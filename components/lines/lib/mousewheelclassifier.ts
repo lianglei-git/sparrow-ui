@@ -13,6 +13,7 @@ class MouseWheelClassifierItem {
 }
 
 
+/** 滚动记录，根据已追溯过的数据对本次活动进行判别 */
 export class MouseWheelClassifier {
 
 	public static readonly INSTANCE = new MouseWheelClassifier();
