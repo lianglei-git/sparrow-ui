@@ -16,16 +16,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/lianglei-git/sparrow-ui.git"
+    "url": "https://github.com/lianglei-git/sparrow-ui.git"
   },
   "keywords": [
     "sparrow-ui"
   ],
-  "author": "sparrow",
-  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lianglei-git/sparrow-ui/issues"
+    "url": "https://github.com/lianglei-git/sparrow-ui/issues",
+    "email": "lianglei_cool@163.com"
   },
+  "author": {
+    "name": "sparrow",
+    "email": "lianglei_cool@163.com",
+    "url": "https://github.com/lianglei-git/sparrow-ui"
+  },
+  "license": "MIT",
   "dependencies": {
     "@ant-design/bisheng-plugin": "^2.3.1",
     "@babel/plugin-proposal-decorators": "^7.17.8",
