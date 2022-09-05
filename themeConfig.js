@@ -4,7 +4,7 @@ module.exports = {
       组件: 100,
     },
     typeOrder: {
-      组件总览: -1,
+      Overview: -1,
       General: 0,
       Layout: 1,
       Navigation: 2,

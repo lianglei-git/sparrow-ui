@@ -188,11 +188,15 @@ const Content = (props: any) => {
         setCode(null);
         switchEl.current.style.color = '#000'
         switchEl.current.onChange = (is: Boolean, _: EventTarget) => {
+            if (!testElId){
+                setshowCode(false);
+             return Message.error('该组件暂无测试模块！');
+            }
+          
             setStyle(_, {
                 color: is ? '#fff' : '#000'
             })
             setMetaId(is ? 'components-' + props.params.children + '-demo-test' : '')
-            if (!testElId) Message.error('该组件暂无测试模块！')
         }
         switchEl.current.onClick = (is: boolean, context: EventTarget) => {
             setshowCode(!is);
@@ -261,23 +265,26 @@ const Content = (props: any) => {
                     <div className="about">
                         <h2>关于</h2>
                         <ul>
-                            <li><a href="github.com/lianglei-git">麻雀的github</a></li>
+                            <li><a href="github.com/lianglei-git">Sparrow</a></li>
+                            <li><a href="www.sparrowend.com">Page Home</a></li>
                         </ul>
                     </div>
                     <div className="help">
                         <h2>帮助</h2>
                         <ul>
-                        <li><a href="">待完善</a></li>
-                         <li><a href="">待完善</a></li>
-                         <li><a href="">待完善</a></li>
+                        <li><a href="https://github.com/lianglei-git/sparrow-ui/blob/master/README.md">readme</a></li>
+                         <li><a href="https://github.com/lianglei-git/sparrow-ui/issues">issues</a></li>
+                         <li><a href="https://mail.163.com/js6/main.jsp">lianglei_cool@163.com</a></li>
                         </ul>
                     </div>
                     <div className="more">
                         <h2>更多</h2>
                         <ul>
-                        <li><a href="">待完善</a></li>
-                        <li><a href="">待完善</a></li>
-                        <li><a href="">待完善</a></li>
+                        <li><a href="https://github.com/lianglei-git/sp-isoffline">sp-isoffline</a></li>
+                        <li><a href="https://github.com/lianglei-git/sproxy-server">sproxy-server</a></li>
+                        <li><a href="https://github.com/lianglei-git/splogged">splogged</a></li>
+                        <li><a href="https://github.com/lianglei-git/spmark">spmark</a></li>
+                        <li><a href="https://github.com/lianglei-git/review">review</a></li>
                         </ul>
                     </div>
                 </footer>

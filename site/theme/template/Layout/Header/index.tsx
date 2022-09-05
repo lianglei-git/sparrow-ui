@@ -17,7 +17,7 @@ if(typeof window != 'undefined') {
         label: '文档'
     },
     {
-        to: '/components/modal/',
+        to: '/components/overview/',
         label: '组件'
     },
     // {
