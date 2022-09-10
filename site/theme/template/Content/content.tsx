@@ -96,7 +96,6 @@ const Content = (props: any) => {
             })
         }
         components = components.sort((a, b) => (a.order || 0) - (b.order || 0));
-        console.log(items)
         return <ul>
             {
                 components.map(item => {
