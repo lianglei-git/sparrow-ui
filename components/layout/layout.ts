@@ -23,6 +23,7 @@ class Layout extends Base {
                 context.bindTargetFunc(this, ['reset', 'initView']);
             },
             attributeChangedCallback(...args: any) {
+                if(!this.attrs) return;
                 let [k, _o, v] = args;
                 if (k == 'iscustom') {
                     this.attrs['iscustom'] = v === 'false' || v === false ? false : v === 'true' || v === true ? true : null;
@@ -48,13 +49,13 @@ class Layout extends Base {
     initView(self: HTMLElement | any) {
         const controlCfg: LayoutProps = Object.create(self.attrs);
         
-        const UI = initUi([controlCfg.column, controlCfg.row], controlCfg as any);
+        const [UI, StyleElement] = initUi([controlCfg.column, controlCfg.row], controlCfg as any);
         controlCfg.checkCallback = (...args) => {
             self?.checkCallback?.(...args);
         };
         /** props */
         control(UI, controlCfg, UI.table);
-        self.append(UI);
+        self.append(UI, StyleElement);
     }
 
 }

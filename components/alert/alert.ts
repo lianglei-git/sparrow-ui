@@ -27,7 +27,7 @@ class Alert {
             connectedCallback() {
                 (this.attrs as Partial<alertTypesProps>) = getProps(this);
                 this.attrs = { ...alertProps, ...this.attrs };
-                context.initView(this)
+               setTimeout(() =>  context.initView(this))
             },
             attributeChangedCallback(...args) {
                 let [key, _, newval] = args;
@@ -71,6 +71,7 @@ class Alert {
     }
 
     private showContentType(root: any) {
+        console.log(root.children,'root.children')
         let nodes: HTMLElement | any[] = Array.from(root.children);
         let slots: string[] = ['title']
         let slotObj = nodes.reduce((obj, i) => {

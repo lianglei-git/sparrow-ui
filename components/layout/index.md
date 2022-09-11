@@ -17,15 +17,15 @@ subTitle: 布局
 ## API 
 | 参数       | 说明           | 类型    | 可选 | 默认值 |
 | ---------- | -------------- | ------- | ---- | ------ |
-| column     | 列数           | number  | -    | 4      |
-| row        | 行数           | number  | -    | 4      |
+| column     | 列数           | number  | -    | 6      |
+| row        | 行数           | number  | -    | 6      |
 | iscustom   | 是否自定义     | boolean | -    | false      |
-| cellHeight | 单元格高度     | number  | -    | 40      |
-| cellWidth  | 单元格高度宽度 | number  | -    | 40      |
+| cellheight | 单元格高度     | number  | -    | 60      |
+| cellwidth  | 单元格高度宽度 | number  | -    | 460      |
 
 
-### callback
-- `checkCallback(k: [startY:number, startX:number, endY:number, endX:number], pos:number[], style: {left: number, top: number, width: number, height: number})`
+## callback
+- `checkCallback(k: [startY:number, startX:number, endY:number, endX:number], pos:number[], style: {left: number, top: number, width: number, height: number})`(选中回调函数，自定义情况下第一次没有第三个参数)
   - jsx使用
     ```jsx
         const target = useRef(null);
@@ -35,7 +35,7 @@ subTitle: 布局
         return <sp-layout ref={target} ></sp-layout>
     ```
   - html使用
-    ```html
+    ```jsx
         <html>
             <sp-layout id='layout'></sp-layout>
             <script>
@@ -43,5 +43,4 @@ subTitle: 布局
                 $('#layout').checkCallback = (historyListPos,curPos,style) => {}
             </script>
         </html>
-
     ```

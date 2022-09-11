@@ -1,6 +1,6 @@
 import type { Args2 } from '_utils/types'
 
-type InitUi<T> = (modalNumber: [column: number, row: number], cfg: { cellHeight: number, cellWidth: number } & {}) => T;
+type InitUi<T> = (modalNumber: [column: number, row: number], cfg: { cellheight: number, cellwidth: number , cellstyle?: string}) => T;
 type InitUiPro = {
   _container?: HTMLElement;
   initTable: (
@@ -30,13 +30,13 @@ interface LayoutProps extends CfgP {
   iscustom: boolean
   checkCallback?:(k: [startY:number, startX:number, endY:number, endX:number][], pos:number[], style?: {[k in style_]: keyof any}) => void
 }
-
 const Props: LayoutProps = {
   column: 6,
   row: 6,
   iscustom: false, /** custom mode */
-  cellHeight: 60,
-  cellWidth: 60,
+  cellheight: 60,
+  cellwidth: 60,
+  cellstyle: null
 }
 export {
   Props,

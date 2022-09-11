@@ -38,7 +38,7 @@ textarea {
   margin: 0;
 }
 
-html {
+/* html {
   box-sizing: border-box;
 }
 
@@ -46,7 +46,7 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
-}
+} */
 
 img,
 embed,

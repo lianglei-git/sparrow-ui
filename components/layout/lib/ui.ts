@@ -1,30 +1,50 @@
+import { createEl } from '_utils/dom';
 import type { Cx, Container, CfgP } from '../type'
 
-const initUi: Cx<Container> = (modalNumber, cfg: CfgP) => {
-  // if (initUi._container) initUi._container.remove();
-  let container: Container = initUi._container = document.createElement("div");
-  let table = initUi.table = initUi.initTable(modalNumber, cfg || {});
+const uiStyle = (style:any) => `
+.sp-layout_cell {
+  background: rgba(0,0,0,.2);
+  width: fit-content;
+  transition: 0.5s;
+  padding: 5px
+}
+.sp-layout_cell_core {
+  height: 100%;
+  width: 100%;
+  border-radius: 3px;
+  background: #ff4d37
+}
+.sp-layout_cell.checked .sp-layout_cell_core  {
+  background: #0eb661
+}
+${style}
+`
 
-  container.style.background = "rgba(0,0,0,.2)";
-  container.style.width = "fit-content";
-  container.style.position = "relative";
+const initUi: Cx<[Container, HTMLElement]> = (modalNumber, cfg: CfgP) => {
+  // if (initUi._container) initUi._container.remove();
+  let container: Container = createEl("div");
+  const styleEl = createEl('style');
+  let table = initUi.table = initUi.initTable(modalNumber, cfg || {});
+  container.className = 'sp-layout_container'
+  container.style.position = 'relative';
+  styleEl.innerHTML = cfg.cellstyle || uiStyle(`.sp-layout_cell {
+    width: ${cfg.cellwidth - 5 * 2}px;
+    height: ${cfg.cellheight - 5 * 2}px;
+  }`);
   container.table = table;
   container.cfg = cfg;
+  // container.append(styleEl);
   table.appendEls.map((el: HTMLElement) => container.append(el));
   // document.body.append(container);
-  return container
+  return [container, styleEl]
 }
 
 initUi.cell = (width, height) => {
   let el = document.createElement("div");
-  el.style.width = width - 5 * 2 + 'px';
-  el.style.height = height - 5 * 2 + 'px';
-  el.style.padding = "5px";
-  el.style.transition = "0.5s";
-  // let tmp = document.createElement("div");
-  // // el.style.boxSizing = 'border-box'
-  el.style.background = "#ccc";
-  el.innerHTML = `<div style='background:red;height:100%;width:100%'></div>`
+  el.className = 'sp-layout_cell'
+  // el.style.width = width - 5 * 2 + 'px';
+  // el.style.height = height - 5 * 2 + 'px';
+  el.innerHTML = `<div class='sp-layout_cell_core'></div>`
   return el;
 };
 
@@ -32,19 +52,19 @@ initUi.initTable = (modalNumber, cfg) => {
   let rowNumber = modalNumber[0];
   let cellNumber = modalNumber[1];
 
-  const width = +cfg.cellWidth
-  const height = +cfg.cellHeight
+  const width = +cfg.cellwidth
+  const height = +cfg.cellheight
   const array = <T extends number>(length: T) => new Array(length).fill(1)
 
   return array(cellNumber).reduce(
     (table, _, index) => {
 
       let cells = document.createElement("div");
-      cells.style.display = "flex";
-
+      // cells.className = 'sp-layout_cell';
+      cells.style.display = 'flex';
       table.tableNx.push(
         array(rowNumber).map((__, idx) => {
-          let _cellEl: any = initUi.cell(width, height);
+          let _cellEl: any = initUi.cell();
           _cellEl.position = (index + 1) * width + "," + (idx + 1) * height;
           _cellEl.realPosition = `${index + 1},${idx + 1}`
           _cellEl.onclick = e => {

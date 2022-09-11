@@ -14,9 +14,9 @@ interface ControlEvent {
 
 class utils {
   // 屏幕坐标转换到表格坐标
-  static postotabpos(x: number, y: number, cellWidth, cellHeight) {
-    console.log(~~(x / cellWidth) + 1,
-      ~~(y / cellHeight) + 1)
+  static postotabpos(x: number, y: number, cellwidth, cellheight) {
+    console.log(~~(x / cellwidth) + 1,
+      ~~(y / cellheight) + 1)
   }
   static init() {
     return new utils();
@@ -48,16 +48,17 @@ function control(target: Control['target'], cfg: Control['cfg'] & LayoutProps, t
           let lt = indexY <= lastY && indexY >= y && indexX <= lastX && indexX >= x;
 
           if ((lb || rb || rt || lt) && !item.isChecked) {
-            item.children[0].style.background = "yellow";
+            item.classList.add('checked');
           } else if (!item.isChecked) {
-            item.children[0].style.background = "red";
+            item.classList.remove('checked');
           }
         }
-        if (!iscustom) {
-          if (cx > item.offsetLeft && cy > item.offsetTop && !item.isChecked) {
-            item.children[0].style.background = "yellow";
-          } else if (!item.isChecked) {
-            item.children[0].style.background = "red";
+        if (!iscustom && !item.isChecked) {
+          if (cx > item.offsetLeft && cy > item.offsetTop ) {
+            item.classList.add('checked');
+          } else {
+            item.classList.remove('checked');
+
           }
         }
       })
@@ -77,8 +78,7 @@ function control(target: Control['target'], cfg: Control['cfg'] & LayoutProps, t
       lastPoint = e.realPosition;
       const [lastY, lastX] = lastPoint.split(',').map(i => i - 1)
       const [y, x] = e.realPosition.split(',').map(i => i - 1);
-      y_childrens[y].childNodes[x].style.background = '#000';
-      y_childrens[y].childNodes[x].firstChild.style.background = '#000';
+      y_childrens[y].childNodes[x].classList.add('checked');
       const pos: any = [lastY, lastX, y, x];
       checked.push(pos);
       cfg?.checkCallback?.(checked, pos);
@@ -102,8 +102,7 @@ function control(target: Control['target'], cfg: Control['cfg'] & LayoutProps, t
           // }
           if (j >= minX) {
             element.isChecked = true;
-            element.style.background = b;
-            // element.firstChild.style.background = b;
+            element.classList.add('checked');
           }
         }
       }
@@ -113,7 +112,7 @@ function control(target: Control['target'], cfg: Control['cfg'] & LayoutProps, t
     const style = transfrom([maxY, maxX, minY, minX]);
     cfg?.checkCallback?.(checked, pos, style);
     lastPoint = null;
-    // utils.postotabpos(gcx, gcy, cfg.cellWidth, cfg.cellHeight)
+    // utils.postotabpos(gcx, gcy, cfg.cellwidth, cfg.cellheight)
   })
 
   function transfrom([maxY, maxX, minY, minX]: number[]):{[k: string]: keyof any} {

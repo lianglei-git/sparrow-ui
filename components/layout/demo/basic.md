@@ -46,8 +46,8 @@ const Demo = () => {
         <sp-button onClick={changeMode}>Change Mode(is custom)</sp-button>
         <sp-alert title='mode: Default' style={{marginBottom: '10px'}} ref={alertRef}></sp-alert>
         <div style={{display: 'flex'}}>
-            <sp-layout ref={target} ></sp-layout>
-            <div style={{width:'330px',  marginLeft: '20px',border: '1px dashed #8a8383', position:'relative'}}>
+            <sp-layout cellwidth="50" ref={target} ></sp-layout>
+            <div style={{width:'300px',  marginLeft: '20px',border: '1px dashed #8a8383', position:'relative'}}>
                 {layoutTrs.map((item,idx) => {
                     return <div key={idx} style={{position: 'absolute',...item, background: random()}}></div>
                 })}
@@ -58,10 +58,3 @@ const Demo = () => {
 }
 ReactDOM.render(<Demo />, mountNode)
 ```
-
-<style>
-    .sp-input-number {
-        width: 200px;
-        margin-top: 10px;
-    }
-</style>

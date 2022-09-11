@@ -11,8 +11,9 @@
     "build:site": "yarn tsnode scripts/build.ts --site ",
     "build:all": "cross-env NODE_ENV=production yarn tsnode scripts/build.ts --ui & bisheng build -c ./bisheng.config.js",
     "serve": "node ./server/entry.js",
-    "distlib": "node ./scripts/dist.js compile-with-lib",
-    "distes": "node ./scripts/dist.js compile-with-es"
+    "transform-lib": "node ./scripts/dist.js compile-with-lib",
+    "transform-es": "node ./scripts/dist.js compile-with-es",
+    "build-watch:ui": "node ./config/rollup.watch.js"
   },
   "repository": {
     "type": "git",
