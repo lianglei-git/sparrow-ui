@@ -1,8 +1,8 @@
 import { PasswordProps as Props, PasswordTypes as Types } from './type'
-import { createEl, defineEl, getProps, listener } from '../_utils/dom' // setStyle
-import Base from '../_utils/Base'
-import InputCommon from '../input/Common'
-import MixinSet from '../input/Mixins';
+import { createEl, defineEl, getProps, listener } from '_utils/dom' // setStyle
+import Base from '_utils/Base'
+import InputCommon from 'input/Common'
+import MixinSet from 'input/Mixins';
 class Password extends Base {
     context: this
     constructor() {

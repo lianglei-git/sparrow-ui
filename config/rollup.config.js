@@ -29,7 +29,9 @@ const config = {
             exec: true,
         }),
         external(),
-        typescript(),
+        typescript({
+            tsconfig: "components/tsconfig.json",
+        }),
         babel({
             exclude: ['node_modules/**', 'components/loading/index.ts'],
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -42,7 +44,7 @@ const config = {
             // }
         }),
         replace({ 'process.env.NODE_ENV': JSON.stringify('production') }),
-        uglify(),
+        // uglify(),
 
     ],
     onwarn: function(warning) { 

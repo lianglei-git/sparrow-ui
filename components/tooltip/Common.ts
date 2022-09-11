@@ -1,7 +1,7 @@
 
-import { setIndex, getIndex } from 'sparrow-ui/common';
-import { sto } from 'sparrow-ui/_utils/common';
-import { $el, createEl, listener, setStyle } from 'sparrow-ui/_utils/dom';
+import { setIndex, getIndex } from 'common';
+import { sto } from '_utils/common';
+import { $el, createEl, listener, setStyle } from '_utils/dom';
 import Base from '../_utils/Base'
 import { tooltipTypesProps } from './type'
 
@@ -89,8 +89,6 @@ export default class ToolTipCommon extends Base implements Config {
             listener(this.fixedEl, 'click', e => { e.stopPropagation(); e.preventDefault(); });
         }
         if (trigger.includes('focus')) {
-            // listener(target, 'focus', _ => { console.log('聚焦') })
-            // listener(target, 'blur', _ => { console.log('失焦') })
             // 第三个参数 2022/1/10修改 （并修改了button的聚焦问题）
             listener(target, 'blur', this._leave.bind(this), true)
             listener(target, 'focus', _ => this._focus.call(this, _), true);

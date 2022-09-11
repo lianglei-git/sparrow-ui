@@ -1,6 +1,6 @@
 import { checkboxProps as Props, checkboxTypes as Types } from './type'
-import { createEl, defineEl, getProps, listener } from '../_utils/dom' // setStyle
-import Base from '../_utils/Base'
+import { createEl, defineEl, getProps, listener } from '_utils/dom' // setStyle
+import Base from '_utils/Base'
 class CheckBox extends Base {
     context: this
     constructor() {

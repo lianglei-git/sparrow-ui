@@ -1,6 +1,6 @@
 import { loadingTypesProp, loadingProps } from './type'
 import { runIFELSE, sto } from '../_utils/common'
-import { defineEl, createEl, setStyle, getProps, $el } from '../_utils/dom'
+import { defineEl, createEl, setStyle, getProps, $el } from '_utils/dom'
 import './style'
 
 const keys: string[] = Object.keys(loadingProps);

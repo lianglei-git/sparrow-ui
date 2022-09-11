@@ -1,8 +1,8 @@
 
-import { createEl, defineEl, getProps, listener, setStyle } from '../_utils/dom'
-import ToolTipCommon from '../tooltip/Common';
+import { createEl, defineEl, getProps, listener, setStyle } from '_utils/dom'
+import ToolTipCommon from 'tooltip/Common';
 import { popconfirmTypesProps, popconfirmProps } from './type'
-import { runIFELSE, isObject, sto } from '../_utils/common'
+import { runIFELSE, isObject, sto } from '_utils/common'
 
 interface classI {
     fixedView(type: 'tooltip' | 'popover' | 'confirm', attrs: popconfirmTypesProps): any

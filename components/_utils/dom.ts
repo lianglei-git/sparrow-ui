@@ -100,7 +100,6 @@ const defineEl = (props: createElTyp, Element?: CustomElementConstructor, option
         HTMl.observedAttributes = props?.observedAttributes || []
         // getAttribute(HTMl?.target, props?.observedAttributes)
         window.customElements.define(props.tag, Element || HTMl, options)
-        // console.log(HTMl.target)
         return HTMl
     }
 }

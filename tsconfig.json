@@ -4,7 +4,8 @@
     "baseUrl": "./",
     "paths": {
       "sparrow-ui/*": ["components/*"],
-      "sparrow-ui/es/*": ["components/*"]
+      "sparrow-ui/es/*": ["components/*"],
+      "*": ["components/*"]
     },
     "strictNullChecks": true,
     "module": "esnext",

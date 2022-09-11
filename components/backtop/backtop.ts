@@ -1,11 +1,11 @@
 import { backTopProps, backTopTypes } from './type'
-import { sto } from '../_utils/common'
-import raf from '../_utils/raf'
-import { getIndex } from '../common/index'
-import { defineEl, setStyle, getProps } from '../_utils/dom'
+import { sto } from '_utils/common'
+import raf from '_utils/raf'
+import { getIndex } from 'common/index'
+import { defineEl, setStyle, getProps } from '_utils/dom'
 import './style'
-import Base from '../_utils/Base'
-import { createEl, $el } from 'sparrow-ui/_utils/dom';
+import Base from '_utils/Base'
+import { createEl, $el } from '_utils/dom';
 
 
 class BackTop extends Base {

@@ -1,8 +1,8 @@
-import { runIFELSE} from '../_utils/common'
-// import { getIndex, setIndex } from '../common/index'
+import { runIFELSE} from '_utils/common'
+// import { getIndex, setIndex } from 'common/index'
 import { timelineProps, timelineTypesProps } from './type'
-import { defineEl, getProps } from '../_utils/dom'
-import Base from '../_utils/Base'
+import { defineEl, getProps } from '_utils/dom'
+import Base from '_utils/Base'
 class TimeLine extends Base {
     constructor() {
         super()
@@ -22,9 +22,6 @@ class TimeLine extends Base {
             }
         })
     }
-    // changeChildren(child:any) {
-    //     console.log(child)
-    // }
     initView(root: HTMLElement | any) {
         let islabel = false
         Array.from(root.children).filter((el: HTMLElement) => {

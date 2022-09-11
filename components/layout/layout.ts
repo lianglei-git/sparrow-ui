@@ -3,7 +3,7 @@
 
 import { Props } from './type'
 import type { LayoutProps } from './type'
-import { defineEl, getProps } from '../_utils/dom' // setStyle
+import { defineEl, getProps } from '_utils/dom' // setStyle
 import Base from '../_utils/Base'
 import { initUi, control } from './lib'
 class Layout extends Base {
@@ -17,11 +17,9 @@ class Layout extends Base {
             connectedCallback() {
                 (this.attrs as Partial<LayoutProps>) = getProps(this);
                 this.attrs = { ...Props, ...this.attrs };
-                console.log(this.attrs)
-                const that = this;
                 this.setAttribute('hidefocus', true)
                 this.setAttribute('tabindex', 0);
-                context.initView<ThisType<{ attrs: any }>>(this);
+                context.initView(this);
                 context.bindTargetFunc(this, ['reset', 'initView']);
             },
             attributeChangedCallback(...args: any) {
@@ -33,9 +31,9 @@ class Layout extends Base {
         })
     }
 
-    bindTargetFunc(target, bindl) {
-        bindl.map(k => {
-            target[k] = (...args) => this[k](target, ...args)
+    bindTargetFunc(target:HTMLElement & {[k:string]:any}, bindl: string[]) {
+        bindl.map((k: string) => {
+            target[k] = (...args: any[]) => (this as any)[k](target, ...args)
         })
     }
 
@@ -47,9 +45,10 @@ class Layout extends Base {
     }
 
     /** init */
-    initView<T>(self) {
+    initView(self: HTMLElement | any) {
         const controlCfg: LayoutProps = Object.create(self.attrs);
-        const UI = initUi([controlCfg.column, controlCfg.row], controlCfg);
+        
+        const UI = initUi([controlCfg.column, controlCfg.row], controlCfg as any);
         controlCfg.checkCallback = (...args) => {
             self?.checkCallback?.(...args);
         };

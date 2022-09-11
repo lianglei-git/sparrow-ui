@@ -1,9 +1,9 @@
 import { collapseProps, collapseTypes } from './type'
-import { sto } from '../_utils/common'
-import { defineEl, getProps, listener, setStyle } from '../_utils/dom'
+import { sto } from '_utils/common'
+import { defineEl, getProps, listener, setStyle } from '_utils/dom'
 import './style'
-import Base from '../_utils/Base'
-import { createEl } from 'sparrow-ui/_utils/dom';
+import Base from '_utils/Base'
+import { createEl } from '_utils/dom';
 
 class CollapseItem extends Base {
     context: this

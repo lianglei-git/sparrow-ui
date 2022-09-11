@@ -1,4 +1,4 @@
-import { listener } from "sparrow-ui/_utils/dom";
+import { listener } from "_utils/dom";
 import { bindAll, pauseEvent, getHandleCenterPosition, getMousePosition } from './_utils'
 import { CalcValueByPos } from './calc'
 interface ComponentEnhancerProps {
@@ -97,7 +97,6 @@ class ComponentEnhancer {
     onMouseMove = (e: any) => {
         this.constrCalc = null;
         const position = getMousePosition(this.props.vertical, e);
-        // console.log(this.dragOffset - position, '滑动')
         // @ts-ignore
         this.constrCalc = new CalcValueByPos<CalcValueByPosProps>({
             position,

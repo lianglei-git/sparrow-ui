@@ -1,7 +1,7 @@
-import { runIFELSE, sto, isObject, has } from '../_utils/common'
-import { getIndex, setIndex } from '../common/index'
+import { runIFELSE, sto, isObject, has } from '_utils/common'
+import { getIndex, setIndex } from 'common/index'
 import { notifyTypesProps, notifyProps } from './type'
-import { defineEl, createEl, setStyle, getProps, $el } from '../_utils/dom'
+import { defineEl, createEl, setStyle, getProps, $el } from '_utils/dom'
 import './style'
 
 const keys: string[] = Object.keys(notifyProps);

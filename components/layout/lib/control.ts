@@ -6,9 +6,12 @@
 
 // params
 // 1. 3 * 3 || 二维数组
-import type { Control } from '../type'
-let modalNumber = [3, 3];
-let modal = new Array(3).fill(Array.from({ length: 3 }).fill(0));
+import type { Control, LayoutProps } from '../type'
+interface ControlEvent {
+  realPosition: string,
+  
+}
+
 class utils {
   // 屏幕坐标转换到表格坐标
   static postotabpos(x: number, y: number, cellWidth, cellHeight) {
@@ -20,7 +23,7 @@ class utils {
   }
 }
 
-function control(target: Control['target'], cfg: Control['cfg'], table: Control['table']) {
+function control(target: Control['target'], cfg: Control['cfg'] & LayoutProps, table: Control['table']) {
   const iscustom = cfg.iscustom;
   // utils.init()
   /** in case checkbox */
@@ -33,7 +36,7 @@ function control(target: Control['target'], cfg: Control['cfg'], table: Control[
     let lastY, lastX, x, y;
     if (lastPoint) {
       [lastY, lastX] = lastPoint.split(',').map(i => i - 1);
-      [y, x] = e.realPostion.split(",").map(i => i - 1);
+      [y, x] = e.realPosition.split(",").map(i => +i - 1);
     }
     table.tableNx.map((els, indexY) =>
       els.map((item, indexX) => {
@@ -64,16 +67,16 @@ function control(target: Control['target'], cfg: Control['cfg'], table: Control[
     return `rgb(${~~(Math.random() * 255)}, ${~~(Math.random() * 255)}, ${~~(Math.random() * 255)})`
   }
   control.click(target, (e) => {
-    const y_childrens = target.childNodes;
+    const y_childrens:any = target.childNodes;
     /** non custom */
     if (!iscustom) {
       lastPoint = '1,1';
     }
     /** custom ⬇️ */
     if (!lastPoint) {
-      lastPoint = e.realPostion;
+      lastPoint = e.realPosition;
       const [lastY, lastX] = lastPoint.split(',').map(i => i - 1)
-      const [y, x] = e.realPostion.split(',').map(i => i - 1);
+      const [y, x] = e.realPosition.split(',').map(i => i - 1);
       y_childrens[y].childNodes[x].style.background = '#000';
       y_childrens[y].childNodes[x].firstChild.style.background = '#000';
       const pos: any = [lastY, lastX, y, x];
@@ -83,7 +86,7 @@ function control(target: Control['target'], cfg: Control['cfg'], table: Control[
     }
 
     const [lastY, lastX] = lastPoint.split(',').map(i => i - 1)
-    const [y, x] = e.realPostion.split(',').map(i => i - 1);
+    const [y, x] = e.realPosition.split(',').map(i => i - 1);
     const b = random();
     let minY = Math.min(lastY, y);
     let minX = Math.min(lastX, x);
@@ -113,7 +116,7 @@ function control(target: Control['target'], cfg: Control['cfg'], table: Control[
     // utils.postotabpos(gcx, gcy, cfg.cellWidth, cfg.cellHeight)
   })
 
-  function transfrom([maxY, maxX, minY, minX]: number[]) {
+  function transfrom([maxY, maxX, minY, minX]: number[]):{[k: string]: keyof any} {
     let height = ((maxY - minY + 1) / cfg.row).toFixed(2);
     let width = ((maxX - minX + 1) / cfg.column).toFixed(2);
     let left = (minX /cfg.column).toFixed(2);
@@ -128,11 +131,13 @@ function control(target: Control['target'], cfg: Control['cfg'], table: Control[
 }
 control.move = (
   target: HTMLElement,
-  callback: <T>(
-    ...rest: any[]
-  ) => T extends (arg0: T, arg1: T) => infer S ? undefined : null
+  callback: (
+    e: MouseEvent & ControlEvent,
+    cx: number,
+    cy: number
+  ) => unknown
 ) => {
-  target.addEventListener("mousemove", (e) => {
+  target.addEventListener("mousemove", (e: MouseEvent & ControlEvent) => {
     let originalRect: DOMRect = target.getClientRects()[0];
     let curx = ~~(e.x - originalRect.x);
     let cury = ~~(e.y - originalRect.y);

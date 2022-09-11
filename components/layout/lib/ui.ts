@@ -1,7 +1,7 @@
 import type { Cx, Container, CfgP } from '../type'
 
 const initUi: Cx<Container> = (modalNumber, cfg: CfgP) => {
-  if (initUi._container) initUi._container.remove();
+  // if (initUi._container) initUi._container.remove();
   let container: Container = initUi._container = document.createElement("div");
   let table = initUi.table = initUi.initTable(modalNumber, cfg || {});
 
@@ -46,14 +46,14 @@ initUi.initTable = (modalNumber, cfg) => {
         array(rowNumber).map((__, idx) => {
           let _cellEl: any = initUi.cell(width, height);
           _cellEl.position = (index + 1) * width + "," + (idx + 1) * height;
-          _cellEl.realPostion = `${index + 1},${idx + 1}`
+          _cellEl.realPosition = `${index + 1},${idx + 1}`
           _cellEl.onclick = e => {
             e.position = (index + 1) * width + "," + (idx + 1) * height;
-            e.realPostion = `${index + 1},${idx + 1}`
+            e.realPosition = `${index + 1},${idx + 1}`
           }
           _cellEl.onmousemove = e => {
             e.position = (index + 1) * width + "," + (idx + 1) * height;
-            e.realPostion = `${index + 1},${idx + 1}`
+            e.realPosition = `${index + 1},${idx + 1}`
           }
           cells.append(_cellEl);
           return _cellEl;

@@ -1,8 +1,8 @@
 
-import { defineEl, getProps, setStyle } from '../_utils/dom'
+import { defineEl, getProps, setStyle } from '_utils/dom'
 import { tooltipProps, tooltipTypesProps } from './type'
 import ToolTipCommon from './Common'
-import { runIFELSE } from '../_utils/common'
+import { runIFELSE } from '_utils/common'
 
 class Tooltip {
     context: any

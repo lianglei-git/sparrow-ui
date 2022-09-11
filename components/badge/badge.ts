@@ -1,8 +1,7 @@
 import { badgeProps, badgeTypes } from './type'
-import { defineEl, setStyle, getProps } from '../_utils/dom'
+import { defineEl, setStyle, getProps, createEl } from '_utils/dom'
 import './style'
-import Base from '../_utils/Base'
-import { createEl } from 'sparrow-ui/_utils/dom';
+import Base from '_utils/Base'
 
 class Badge extends Base {
     context: this
@@ -28,7 +27,7 @@ class Badge extends Base {
 
     set([badge, key, newval, root]: any) {
         if (key == 'count' || key == 'text') {
-            if (key == 'count' && badge.showZero && newval>0) {
+            if (key == 'count' && badge.showZero && newval > 0) {
                 root.showZero = false;
                 badge.textContent = newval
                 setStyle(badge, { display: 'block' });
@@ -46,7 +45,7 @@ class Badge extends Base {
             }
             newval && (badge.textContent = newval);
         }
-        if (root.attrs['dot'] +'' == 'true' && key == 'status') {
+        if (root.attrs['dot'] + '' == 'true' && key == 'status') {
             if (newval == 'processing') {
             } else {
                 setStyle(badge, {
@@ -59,13 +58,13 @@ class Badge extends Base {
             if (newval + '' == 'true') {
                 badge.textContent = '';
                 badge.classList.add('sp-badge--point');
-                
+
             } else {
                 badge.classList.remove('sp-badge--point');
             }
         }
-        if(key == 'type') {
-            setStyle(badge, {backgroundColor: `var(--color-${newval})`})
+        if (key == 'type') {
+            setStyle(badge, { backgroundColor: `var(--color-${newval})` })
         }
 
         if (key == 'color') {

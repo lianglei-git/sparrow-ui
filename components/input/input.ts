@@ -1,6 +1,6 @@
 import { InputProps as Props, InputTypes as Types } from './type'
-import { defineEl, getProps } from '../_utils/dom' // setStyle
-import Base from '../_utils/Base'
+import { defineEl, getProps } from '_utils/dom' // setStyle
+import Base from '_utils/Base'
 import InputCommon from './Common'
 import MixinSet from './Mixins';
 

@@ -1,7 +1,7 @@
 import { checkboxGroupProps as Props, checkboxGroupTypes as Types } from './type'
-import { defineEl, getProps } from '../_utils/dom' // setStyle
-import Base from '../_utils/Base'
-import { sto, ArrayRemove } from 'sparrow-ui/_utils/common'
+import { defineEl, getProps } from '_utils/dom' // setStyle
+import Base from '_utils/Base'
+import { sto, ArrayRemove } from '_utils/common'
 class CheckBoxGroup extends Base {
     context: this
     constructor() {

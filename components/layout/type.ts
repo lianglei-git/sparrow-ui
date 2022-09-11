@@ -13,14 +13,14 @@ type InitUiPro = {
 type Cx<K = undefined> = InitUi<K> & InitUiPro;
 type CfgP = Args2<InitUi<undefined>, 1>;
 type Container = HTMLElement & { table?: any, cfg?: CfgP };
-
+type style_ = 'left' | 'top' | 'width' | 'height' | string;
 
 type Control = {
   target: Container
   cfg: CfgP & {
     iscustom: boolean
   }
-  table: any[]
+  table: any
 }
 
 
@@ -28,15 +28,15 @@ interface LayoutProps extends CfgP {
   column: number
   row: number
   iscustom: boolean
-  checkCallback?:(k: [startY:number, startX:number, endY:number, endX:number], pos:number[], style: {left: number, top: number, width: number, height: number}) => any[]
+  checkCallback?:(k: [startY:number, startX:number, endY:number, endX:number][], pos:number[], style?: {[k in style_]: keyof any}) => void
 }
 
 const Props: LayoutProps = {
-  column: 4,
-  row: 4,
+  column: 6,
+  row: 6,
   iscustom: false, /** custom mode */
-  cellHeight: 40,
-  cellWidth: 40,
+  cellHeight: 60,
+  cellWidth: 60,
 }
 export {
   Props,

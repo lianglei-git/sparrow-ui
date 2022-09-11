@@ -2,7 +2,7 @@
 import { runIFELSE, sto, isObject, has } from '../_utils/common'
 import { getIndex, setIndex } from '../common/index'
 import typeProps from './type'
-import { defineEl, createEl, setStyle, getProps, $el } from '../_utils/dom'
+import { defineEl, createEl, setStyle, getProps, $el } from '_utils/dom'
 
 type Props = Partial<ReturnType<typeof typeProps>>
 class MessageBase {

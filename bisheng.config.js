@@ -23,6 +23,7 @@ module.exports = {
       'site': path.resolve(process.cwd(), 'site'),
       'react-router': 'react-router/umd/ReactRouter'
     }
+    config.resolve.modules.push(path.resolve('./', 'components'),'node_modules')
     config.externals = {
       'react-router-dom': 'ReactRouterDom'
     }

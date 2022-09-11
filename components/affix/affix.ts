@@ -1,9 +1,9 @@
 import { affixTypes, affixProps } from './type'
-import { defineEl, setStyle, getProps, listener } from '../_utils/dom'
-import Base from '../_utils/Base'
-import { createEl } from 'sparrow-ui/_utils/dom';
+import { defineEl, setStyle, getProps, listener } from '_utils/dom'
+import Base from '_utils/Base'
+import { createEl } from '_utils/dom';
 import { getTargetRect, getFixedBottom, getFixedTop } from './utils'
-import raf from '../_utils/raf'
+import raf from '_utils/raf'
 
 
 // raf 代替 sto

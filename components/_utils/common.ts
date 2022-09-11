@@ -10,7 +10,8 @@ export const runIFELSE: (sets: Set<any[]>) => void | boolean = (sets) => {
       _arr.push(false)
     }
   }
-  if (!_arr.includes(false)) {
+  
+  if (!(_arr as any).includes(false)) {
     return true
   }
 }
