@@ -307,7 +307,8 @@ const Content = (props: any) => {
                 __html: `<svg class="icon" aria-hidden="true">
                 <use xlink:href="#sp-icon-qianjin"></use>
             </svg>`}}></div> */}
-            <div className="back sp-icon sp-icon-double-arro-right" onClick={() => setCode(null)}></div>
+            {/* <div className="back sp-icon sp-icon-double-arro-right" onClick={() => setCode(null)}></div> */}
+            <div className="back" onClick={() => setCode(null)}></div>
             <CodeView toReactComponent={props.utils.toReactComponent} code={code} />
         </div>
         <sp-backtop target='.show-components'></sp-backtop>

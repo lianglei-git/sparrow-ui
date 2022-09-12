@@ -22,6 +22,25 @@ subTitle: 布局
 | iscustom   | 是否自定义     | boolean | -    | false      |
 | cellheight | 单元格高度     | number  | -    | 60      |
 | cellwidth  | 单元格高度宽度 | number  | -    | 460      |
+| cellstyle | 样式 | string | - | 默认值👇 |
+```css
+/* cellstyle */
+.sp-layout_cell {
+  background: rgba(0,0,0,.2);
+  width: fit-content;
+  transition: 0.5s;
+  padding: 5px
+}
+.sp-layout_cell_core {
+  height: 100%;
+  width: 100%;
+  border-radius: 3px;
+  background: #ff4d37
+}
+.sp-layout_cell.checked .sp-layout_cell_core  {
+  background: #0eb661
+}
+```
 
 
 ## callback

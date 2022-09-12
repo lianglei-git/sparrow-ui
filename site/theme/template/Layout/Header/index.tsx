@@ -56,6 +56,8 @@ if(typeof window != 'undefined') {
                     <div className='fixed--searchComs'></div>
                 </div> */}
             </div>
+            {/** 动画 */}
+            <div className='c-center'></div>
             <div className="r-h">
                 <div className="l">
                     <ul>
