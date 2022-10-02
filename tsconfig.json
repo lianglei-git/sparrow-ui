@@ -7,6 +7,7 @@
       "sparrow-ui/es/*": ["components/*"],
       "*": ["components/*"]
     },
+    "strict": true,
     "strictNullChecks": true,
     "module": "esnext",
     "moduleResolution": "node",

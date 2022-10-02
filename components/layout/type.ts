@@ -1,4 +1,4 @@
-import type { Args2 } from '_utils/types'
+import type { Args2 } from '../_utils/type'
 
 type InitUi<T> = (modalNumber: [column: number, row: number], cfg: { cellheight: number, cellwidth: number , cellstyle?: string}) => T;
 type InitUiPro = {
