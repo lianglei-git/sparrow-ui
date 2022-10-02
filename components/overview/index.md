@@ -1,21 +1,23 @@
 ---
 category: Components
 type: 组件总览
-title: Overview 总览
+title: Overview
 ---
 
-<p align="center">
+<div align="center" style="width: 80%">
   <a href="https://ant.design">
     <img width="200" src="http://www.sparrowui.cn/6f510c040accd6425367b03b7f930462.png">
   </a>
-</p>
-
-<h1 align="center">Ant Design</h1>
-
-<div align="center">
-
-An enterprise-class UI design language and React UI library. Adapt to HTML, and compiled HTML.
 </div>
+
+
+<div align="center" style="width: 80%; font-size:27px; font-weight: 600;color:#000">Sparrow UI</div>
+
+<div align="center" style="width: 80%">
+An enterprise-class UI design language and React UI library. Adapt to HTML,   
+and compiled HTML.
+<!-- </div> -->
+
 ## 📦 Install
 
 - node (bash)
@@ -101,3 +103,4 @@ An enterprise-class UI design language and React UI library. Adapt to HTML, and 
     - ejs 等同
 
   
+<div style="opacity:0">占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占占</div>
