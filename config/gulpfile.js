@@ -26,8 +26,8 @@ const { src, dest } = gulp;
 //         .pipe(dest('output/'));
 // }
 
-const libDir = getProjectPath('lib');
-const esDir = getProjectPath('es');
+const libDir = getProjectPath('/npm/lib');
+const esDir = getProjectPath('/npm/es');
 // 暂时不考虑 ES module
 const compile = (modules) => {
     rimraf.sync(modules !== false ? libDir : esDir);

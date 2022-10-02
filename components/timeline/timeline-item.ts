@@ -1,5 +1,4 @@
 import { runIFELSE, sto } from '../_utils/common'
-// import { getIndex, setIndex } from 'common/index'
 import { timeItemlineProps, timelineItemTypesProps } from './type'
 import { defineEl, createEl, setStyle, getProps } from '../_utils/dom'
 

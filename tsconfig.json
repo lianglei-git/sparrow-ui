@@ -12,15 +12,15 @@
     "strictNullChecks": false,
     "module": "esnext",
     "moduleResolution": "node",
-    "esModuleInterop": false,
-    "experimentalDecorators": false,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
     "jsx": "preserve",
     "noUnusedParameters": false,
     "noUnusedLocals": false,
     "noImplicitAny": false,
     "target": "es6",
     "lib": ["dom", "es2017"],
-    "skipLibCheck": false
+    "skipLibCheck": true
   },
   "exclude": ["node_modules", "lib", "es"]
 }

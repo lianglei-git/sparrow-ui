@@ -1,5 +1,4 @@
 import { runIFELSE} from '../_utils/common'
-// import { getIndex, setIndex } from 'common/index'
 import { timelineProps, timelineTypesProps } from './type'
 import { defineEl, getProps } from '../_utils/dom'
 import Base from '../_utils/Base'

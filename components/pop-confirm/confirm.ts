@@ -1,6 +1,6 @@
 
 import { createEl, defineEl, getProps, listener, setStyle } from '../_utils/dom'
-import ToolTipCommon from 'tooltip/Common';
+import ToolTipCommon from '../tooltip/Common';
 import { popconfirmTypesProps, popconfirmProps } from './type'
 import { runIFELSE, isObject, sto } from '../_utils/common'
 

@@ -2,7 +2,8 @@ node_modules
 /_site
 coverage
 components/package.json
-
+/npm
+/__test__
 /_npm
 /lib
 /es

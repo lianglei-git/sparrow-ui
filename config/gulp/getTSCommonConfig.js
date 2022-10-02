@@ -8,8 +8,8 @@ const { getProjectPath } = require('./utils/projectHelper');
 module.exports = function () {
   let my = {};
   console.log(getProjectPath('./components/tsconfig.json'),`getProjectPath('tsconfig.json')`)
-  if (fs.existsSync(getProjectPath('./components/tsconfig.json'))) {
-    my = require(getProjectPath('./components/tsconfig.json'));
+  if (fs.existsSync(getProjectPath('tsconfig.json'))) {
+    my = require(getProjectPath('tsconfig.json'));
   }
   return assign(
     {

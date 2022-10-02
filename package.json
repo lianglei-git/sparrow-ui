@@ -13,7 +13,9 @@
     "serve": "node ./server/entry.js",
     "transform-lib": "node ./scripts/dist.js compile-with-lib",
     "transform-es": "node ./scripts/dist.js compile-with-es",
-    "build-watch:ui": "node ./config/rollup.watch.js"
+    "build-watch:ui": "node ./config/rollup.watch.js",
+    "copypack": "node ./scripts/clonefile.js",
+    "b:npm": "yarn build:ui && yarn transform-lib && yarn transform-es && yarn copypack"
   },
   "repository": {
     "type": "git",

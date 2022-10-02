@@ -9,11 +9,12 @@ const external = require('rollup-plugin-peer-deps-external')
 const replace = require('rollup-plugin-replace')
 const {uglify} = require('rollup-plugin-uglify')
 const { join } = require('path')
-const postcss = require('rollup-plugin-postcss')
+const postcss = require('rollup-plugin-postcss');
+let basePath = '/npm/dist';
 const config = {
     input: join(__dirname, '../', 'components/index.ts'),
     output: {
-        file: join(__dirname, '../dist/spui.js'),// process.env.npm_package_main
+        file: join(__dirname,'../'+ basePath+ '/spui.js'),// process.env.npm_package_main
         format: 'iife', // cjs
         // name: "named", // ElectronMainBundle
         sourcemap: true,
@@ -23,15 +24,16 @@ const config = {
         //     output: join(__dirname, '../lib/index.css')
         // }),
         postcss({
-            extract:join(__dirname, '../dist/spui.css'),
+            extract: join(__dirname,'../'+ basePath+ '/spui.css'),
             extensions: ['.css', '.less'],
             minimize: true,
             exec: true,
         }),
         external(),
-        typescript({
-            tsconfig: "components/tsconfig.json",
-        }),
+        // typescript({
+        //     tsconfig: "components/tsconfig.json",
+        // }),
+        typescript(),
         babel({
             exclude: ['node_modules/**', 'components/loading/index.ts'],
             extensions: ['.js', '.jsx', '.ts', '.tsx'],

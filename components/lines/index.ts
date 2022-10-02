@@ -1,5 +1,4 @@
 import { runIFELSE} from '../_utils/common'
-// import { getIndex, setIndex } from '../common/index'
 import { defineEl, getProps, createEl, listener } from '../_utils/dom'
 import Base from '../_utils/Base'
 import './index.scss'

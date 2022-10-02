@@ -1,6 +1,6 @@
 import typeProps, { modalProps } from './type'
 import { runIFELSE, sto} from '../_utils/common'
-import {getIndex, setIndex} from 'common/index'
+import {getIndex, setIndex} from '../common/index'
 import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
 import './style'
 
