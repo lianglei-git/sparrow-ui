@@ -1,6 +1,6 @@
 import { numberProps as Props, numberTypes as Types } from './type'
-import { defineEl, getProps, listener, setStyle } from '_utils/dom' // setStyle
-import Base from '_utils/Base'
+import { defineEl, getProps, listener, setStyle } from '../_utils/dom' // setStyle
+import Base from '../_utils/Base'
 import InputCommon from '../input/Common'
 import MixinSet from '../input/Mixins';
 import { __String } from 'typescript';

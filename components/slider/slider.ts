@@ -1,8 +1,8 @@
 import { sliderTypes, sliderProps } from './type';
-import { runIFELSE, sto } from '_utils/common';
-import { defineEl, setStyle, getProps, listener } from '_utils/dom';
-import Base from '_utils/Base';
-import { createEl } from '_utils/dom';
+import { runIFELSE, sto } from '../_utils/common';
+import { defineEl, setStyle, getProps, listener } from '../_utils/dom';
+import Base from '../_utils/Base';
+import { createEl } from '../_utils/dom';
 import CreateSlider from './time/createSlider'
 import { clacMethds } from './time/calc'
 import { getPrecision } from './time/_utils'

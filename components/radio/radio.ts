@@ -1,6 +1,6 @@
 import { radioProps as Props, radioTypes as Types } from './type'
-import { createEl, defineEl, getProps, listener } from '_utils/dom' // setStyle
-import Base from '_utils/Base'
+import { createEl, defineEl, getProps, listener } from '../_utils/dom' // setStyle
+import Base from '../_utils/Base'
 class Radio extends Base {
     context: this
     constructor() {

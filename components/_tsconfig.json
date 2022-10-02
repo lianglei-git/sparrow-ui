@@ -8,10 +8,11 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "_utils/types": ["_utils/type.ts"]
+      "_utils/types": ["_utils/type.ts"],
+      "*": ["./*"]
     },
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "esModuleInterop": false,
+    "skipLibCheck": false,
+    "forceConsistentCasingInFileNames": false
   }
 }

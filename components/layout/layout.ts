@@ -3,7 +3,7 @@
 
 import { Props } from './type'
 import type { LayoutProps } from './type'
-import { defineEl, getProps } from '_utils/dom' // setStyle
+import { defineEl, getProps } from '../_utils/dom' // setStyle
 import Base from '../_utils/Base'
 import { initUi, control } from './lib'
 class Layout extends Base {

@@ -1,7 +1,7 @@
 import { radioGroupProps as Props, radioGroupTypes as Types } from './type'
-import { defineEl, getProps, listener, } from '_utils/dom' // setStyle
-import Base from '_utils/Base'
-import { sto } from '_utils/common'
+import { defineEl, getProps, listener, } from '../_utils/dom' // setStyle
+import Base from '../_utils/Base'
+import { sto } from '../_utils/common'
 class RadioGroup extends Base {
     context: this
     constructor() {

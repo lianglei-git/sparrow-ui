@@ -1,5 +1,5 @@
-import { sto } from '_utils/common'
-import { defineEl } from '_utils/dom'
+import { sto } from '../_utils/common'
+import { defineEl } from '../_utils/dom'
 class Item {
     constructor() {
         defineEl({

@@ -1,9 +1,8 @@
 import { progressTypes, progressProps } from './type'
 import { runIFELSE, sto, has } from '../_utils/common'
-import { defineEl, setStyle, getProps } from '_utils/dom'
+import { defineEl, setStyle, getProps, createEl } from '../_utils/dom'
 import './style'
 import Base from '../_utils/Base'
-import { createEl } from '_utils/dom';
 
 
 const keys: string[] = Object.keys(progressProps);

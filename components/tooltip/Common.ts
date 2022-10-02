@@ -1,7 +1,7 @@
 
 import { setIndex, getIndex } from 'common';
-import { sto } from '_utils/common';
-import { $el, createEl, listener, setStyle } from '_utils/dom';
+import { sto } from '../_utils/common';
+import { $el, createEl, listener, setStyle } from '../_utils/dom';
 import Base from '../_utils/Base'
 import { tooltipTypesProps } from './type'
 

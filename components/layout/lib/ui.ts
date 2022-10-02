@@ -1,4 +1,4 @@
-import { createEl } from '_utils/dom';
+import { createEl } from '../../_utils/dom';
 import type { Cx, Container, CfgP } from '../type'
 
 const uiStyle = (style:any) => `

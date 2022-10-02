@@ -1,8 +1,8 @@
 import { cardProps, cardTypes } from './type'
-import { sto } from '_utils/common'
-import { defineEl, setStyle, getProps, createEl } from '_utils/dom'
+import { sto } from '../_utils/common'
+import { defineEl, setStyle, getProps, createEl } from '../_utils/dom'
 import './style'
-import Base from '_utils/Base'
+import Base from '../_utils/Base'
 
 class Card extends Base {
     context: this
