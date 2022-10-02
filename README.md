@@ -63,3 +63,18 @@
   3. 重写自己的单元测试
   4. 工程架构！！！！
 
+
+
+npm 
+
+```js
+import { Message } from "@sparrowend/ui";
+import '@sparrowend/ui/dist/spui.css'
+```
+
+or
+
+```js
+import { Message } from "@sparrowend/ui";
+import '@sparrowend/ui/es/message/style/css'
+```

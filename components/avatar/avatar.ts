@@ -1,7 +1,7 @@
 import { avatarProps, avatarTypes } from './type'
 import { sto, runIFELSE } from '../_utils/common'
 import { defineEl, setStyle, getProps } from '../_utils/dom'
-import './style'
+// import './style'
 import Base from '../_utils/Base'
 import { createEl } from '../_utils/dom';
 

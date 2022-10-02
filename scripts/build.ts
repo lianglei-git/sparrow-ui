@@ -17,17 +17,41 @@ const compilers = webpack(webOptions)
 
 const siteFunc = () => compilers.run()
 
-const uiFunc = async ({ isCustom, entryPath } ={ isCustom: undefined, entryPath: '' }) => {
-    let copy = { ...rollupConfig }
-    if (isCustom) {
-        copy.input = entryPath
+const uiRollupBuild = async (bundle, config) => {
+    if (Array.isArray(config.output)) {
+        config.output.map(async i => {
+            await bundle.generate(i)
+            await bundle.write(i);
+        })
+    } else {
+        await bundle.generate(config.output)
+        await bundle.write(config.output);
     }
-    const bundle = await Rollup.rollup(isCustom ? copy : rollupConfig)
+}
+const uiFunc = async ({ isCustom, entryPath } = { isCustom: undefined, entryPath: '' }) => {
+    let copy:any = Object.assign(rollupConfig);
+    let file = null;
+    if (isCustom) {
+        if (Array.isArray(copy)) {
+            copy[0].input = entryPath;
+            file = copy[0].output.file
+        } else {
+            copy.input = entryPath;
+            file = copy.output.file
+        }
+    }
 
-    await bundle.generate(rollupConfig.output)
+    if (Array.isArray(copy)) {
+        copy.forEach(async config => {
+            const bundle = await Rollup.rollup(config)
+            await uiRollupBuild(bundle, config);
+        })
+    } else {
+        const bundle = await Rollup.rollup(copy)
+        await uiRollupBuild(bundle, copy);
+    }
 
-    await bundle.write(rollupConfig.output);
-    return Promise.resolve(rollupConfig.output.file)
+    return Promise.resolve(file)
 }
 
 let runIFELSE: (sets: Set<any[]>) => void | any = (sets) => {

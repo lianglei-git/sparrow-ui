@@ -1,2 +1,2 @@
-import './style'
+// import './style'
 export * from './backtop'

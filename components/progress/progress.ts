@@ -1,7 +1,7 @@
 import { progressTypes, progressProps } from './type'
 import { runIFELSE, sto, has } from '../_utils/common'
 import { defineEl, setStyle, getProps, createEl } from '../_utils/dom'
-import './style'
+// import './style'
 import Base from '../_utils/Base'
 
 

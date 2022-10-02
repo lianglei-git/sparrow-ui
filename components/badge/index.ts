@@ -1,2 +1,2 @@
 export * from './badge';
-import './style'
+// import './style'

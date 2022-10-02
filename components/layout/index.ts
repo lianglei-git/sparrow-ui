@@ -1,2 +1,2 @@
-import './style/index'
+// import './style/index'
 export * from './layout'

@@ -1,7 +1,7 @@
 import { loadingTypesProp, loadingProps } from './type'
 import { runIFELSE, sto } from '../_utils/common'
 import { defineEl, createEl, setStyle, getProps, $el } from '../_utils/dom'
-import './style'
+// import './style'
 
 const keys: string[] = Object.keys(loadingProps);
 type El<T> = (T extends (infer U)[] ? U : T) | (any | any[]);

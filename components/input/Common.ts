@@ -1,7 +1,7 @@
 import {InputTypes as Types } from './type'
 import { sto, runIFELSE, ArrayRemove } from '../_utils/common'
 import { createEl, listener, setStyle } from '../_utils/dom' // setStyle
-import './style'
+// import './style'
 import Base from '../_utils/Base';
 const get = Reflect.get;
 const set = Reflect.set;

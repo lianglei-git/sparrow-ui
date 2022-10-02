@@ -1,5 +1,5 @@
 import typeProps, { ButtonProps } from './type'
-import './style'
+// import './style'
 import { runIFELSE, sto } from '../_utils/common'
 import { defineEl, createEl, getProps } from '../_utils/dom'
 const typePropsObj: ButtonProps | any = typeProps()

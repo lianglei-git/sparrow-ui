@@ -1,2 +1,2 @@
 export * from './card'
-import './style'
+// import './style'

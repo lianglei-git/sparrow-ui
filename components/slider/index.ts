@@ -1,2 +1,2 @@
 export * from './slider';
-import './style'
+// import './style'

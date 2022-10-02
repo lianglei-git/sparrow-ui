@@ -2,7 +2,7 @@ import typeProps, { modalProps } from './type'
 import { runIFELSE, sto} from '../_utils/common'
 import {getIndex, setIndex} from '../common/index'
 import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
-import './style'
+// import './style'
 
 
 // 考虑到loc 这边后续会增加依赖注入和后期依赖参数； (defineReactive)

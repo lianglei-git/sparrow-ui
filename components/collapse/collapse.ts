@@ -1,7 +1,7 @@
 import {collapseProps , collapseTypes } from './type'
 import { sto } from '../_utils/common'
 import { defineEl, getProps } from '../_utils/dom' // setStyle
-import './style'
+// import './style'
 import Base from '../_utils/Base'
 import './collapseItem'
 class Collapse extends Base {

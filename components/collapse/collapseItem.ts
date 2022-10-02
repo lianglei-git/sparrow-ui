@@ -1,7 +1,7 @@
 import { collapseProps, collapseTypes } from './type'
 import { sto } from '../_utils/common'
 import { defineEl, getProps, listener, setStyle } from '../_utils/dom'
-import './style'
+// import './style'
 import Base from '../_utils/Base'
 import { createEl } from '../_utils/dom';
 

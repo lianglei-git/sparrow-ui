@@ -1,7 +1,7 @@
 import { dividerProps as Props, dividerTypes as Types } from './type'
 import { sto } from '../_utils/common'
 import { createEl, defineEl, getProps } from '../_utils/dom' // setStyle
-import './style'
+// import './style'
 import Base from '../_utils/Base'
 class Divider extends Base {
     context: this

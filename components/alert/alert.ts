@@ -1,7 +1,7 @@
 import { alertTypesProps, alertProps } from './type'
 import { runIFELSE } from '../_utils/common'
 import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
-import './style'
+// import './style'
 const keys: string[] = Object.keys(alertProps);
 const spAlertTitleCss = `.sp-alert-content {
     width: 100%;

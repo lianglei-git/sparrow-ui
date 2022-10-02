@@ -1,6 +1,6 @@
 import { badgeProps, badgeTypes } from './type'
 import { defineEl, setStyle, getProps, createEl } from '../_utils/dom'
-import './style'
+// import './style'
 import Base from '../_utils/Base'
 
 class Badge extends Base {

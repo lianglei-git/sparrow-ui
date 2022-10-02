@@ -4,7 +4,7 @@ import { getIndex, setIndex } from '../common/index'
 import { drawerProps, drawerTypesProps } from './type'
 import { defineEl, createEl, setStyle, getProps, listener } from '../_utils/dom'
 import SlotsBase from './Slots'
-import './style';
+// import './style';
 
 const keys: string[] = Object.keys(drawerProps);
 const $$style: string = ``

@@ -4,7 +4,7 @@ import { Message } from './message'
 import { Modal } from "./modal"
 import { Loading } from './loading'
 import { Notify } from './notification'
-import './common/styles'
+// import './common/styles'
 import './drawer'
 import './switch'
 import './alert'

@@ -1,2 +1,2 @@
 export * from './confirm';
-import './style'
+// import './style'

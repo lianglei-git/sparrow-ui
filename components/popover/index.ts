@@ -3,7 +3,7 @@ import { defineEl, getProps, setStyle } from '../_utils/dom'
 import { tooltipProps, tooltipTypesProps } from '../tooltip/type'
 import ToolTipCommon from '../tooltip/Common'
 import { runIFELSE } from '../_utils/common'
-import './style'
+// import './style'
 type Props = {
     content: any
 }
