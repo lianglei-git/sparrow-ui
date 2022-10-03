@@ -4,7 +4,7 @@ import H from './Header'
 import '../../static/index.js'
 import 'sparrow-ui'
 
-import './loadstyle'
+// import './loadstyle'
 export default class Layout extends React.Component {
     constructor(props) {
         super(props)
