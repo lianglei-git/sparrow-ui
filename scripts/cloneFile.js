@@ -11,7 +11,10 @@ const maps = [
     },
     {
         fromFileName:  path.resolve(__dirname, '../components/overview/index.md'),
-        toFileName: path.resolve(__dirname, '../npm/index.md')
+        toFileName: path.resolve(__dirname, '../npm/README.md'),
+        readOptions: {
+            start: 63
+        }
     },
     {
         fromFileName:  path.resolve(__dirname, '../LICENSE'),
@@ -20,7 +23,7 @@ const maps = [
 
 ]
 
-maps.map(({fromFileName, toFileName}) => {
+maps.map(({fromFileName, toFileName, readOptions = {}}) => {
     try{
         fs.rmSync(toFileName);
     }catch(err) {
@@ -30,7 +33,8 @@ maps.map(({fromFileName, toFileName}) => {
         autoClose: true,
         encoding: 'utf-8',
         highWaterMark: 64 * 1024 * 1024,
-        flags: 'r'
+        flags: 'r',
+        ...readOptions
     })
     const ws = fs.createWriteStream(toFileName, {
         encoding: 'utf-8',
