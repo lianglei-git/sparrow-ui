@@ -1,14 +1,3 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -56,27 +45,81 @@ var argv = minimist(process.argv.slice(2));
 var webOptions = config();
 var compilers = webpack(webOptions);
 var siteFunc = function () { return compilers.run(); };
+var uiRollupBuild = function (bundle, config) { return __awaiter(_this, void 0, void 0, function () {
+    var _this = this;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (!Array.isArray(config.output)) return [3 /*break*/, 1];
+                config.output.map(function (i) { return __awaiter(_this, void 0, void 0, function () {
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4 /*yield*/, bundle.generate(i)];
+                            case 1:
+                                _a.sent();
+                                return [4 /*yield*/, bundle.write(i)];
+                            case 2:
+                                _a.sent();
+                                return [2 /*return*/];
+                        }
+                    });
+                }); });
+                return [3 /*break*/, 4];
+            case 1: return [4 /*yield*/, bundle.generate(config.output)];
+            case 2:
+                _a.sent();
+                return [4 /*yield*/, bundle.write(config.output)];
+            case 3:
+                _a.sent();
+                _a.label = 4;
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
 var uiFunc = function (_a) {
-    var isCustom = _a.isCustom, entryPath = _a.entryPath;
+    var _b = _a === void 0 ? { isCustom: undefined, entryPath: '' } : _a, isCustom = _b.isCustom, entryPath = _b.entryPath;
     return __awaiter(_this, void 0, void 0, function () {
-        var copy, bundle;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var copy, file, bundle;
+        var _this = this;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
                 case 0:
-                    copy = __assign({}, rollupConfig);
+                    copy = Object.assign(rollupConfig);
+                    file = null;
                     if (isCustom) {
-                        copy.input = entryPath;
+                        if (Array.isArray(copy)) {
+                            copy[0].input = entryPath;
+                            file = copy[0].output.file;
+                        }
+                        else {
+                            copy.input = entryPath;
+                            file = copy.output.file;
+                        }
                     }
-                    return [4 /*yield*/, Rollup.rollup(isCustom ? copy : rollupConfig)];
-                case 1:
-                    bundle = _b.sent();
-                    return [4 /*yield*/, bundle.generate(rollupConfig.output)];
+                    if (!Array.isArray(copy)) return [3 /*break*/, 1];
+                    copy.forEach(function (config) { return __awaiter(_this, void 0, void 0, function () {
+                        var bundle;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0: return [4 /*yield*/, Rollup.rollup(config)];
+                                case 1:
+                                    bundle = _a.sent();
+                                    return [4 /*yield*/, uiRollupBuild(bundle, config)];
+                                case 2:
+                                    _a.sent();
+                                    return [2 /*return*/];
+                            }
+                        });
+                    }); });
+                    return [3 /*break*/, 4];
+                case 1: return [4 /*yield*/, Rollup.rollup(copy)];
                 case 2:
-                    _b.sent();
-                    return [4 /*yield*/, bundle.write(rollupConfig.output)];
+                    bundle = _c.sent();
+                    return [4 /*yield*/, uiRollupBuild(bundle, copy)];
                 case 3:
-                    _b.sent();
-                    return [2 /*return*/, Promise.resolve(rollupConfig.output.file)];
+                    _c.sent();
+                    _c.label = 4;
+                case 4: return [2 /*return*/, Promise.resolve(file)];
             }
         });
     });
