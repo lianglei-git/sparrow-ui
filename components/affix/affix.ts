@@ -43,10 +43,10 @@ class Affix extends Base {
             width: root.offsetWidth + 'px',
             height: root.offsetHeight + 'px'
         });
-        setStyle(root, {
-            width: root.offsetWidth + 'px',
-            height: root.offsetHeight + 'px'
-        });
+        // setStyle(root, {
+        //     width: root.offsetWidth + 'px',
+        //     height: root.offsetHeight + 'px'
+        // });
 
         function handler(t: any, distance: number, type: string, cal: (distance: number) => any) {
             if (root[type == 'bottom' ? 'top' : 'bottom']) return;
