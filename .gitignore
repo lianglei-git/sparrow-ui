@@ -8,3 +8,4 @@ components/package.json
 /lib
 /es
 /dist
+/server/www.sparrowui.cn_nginx/*
