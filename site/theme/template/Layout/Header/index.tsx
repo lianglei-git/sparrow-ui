@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'bisheng/router';
 import './index.less';
+import { $ } from 'sparrow-ui/lines/common/dom';
 let location = {pathname: ''}
 if(typeof window != 'undefined') {
     location = window.location
@@ -33,7 +34,10 @@ if(typeof window != 'undefined') {
         label: '定制'
     },
     ]
-
+    const randomBack = (e) => {
+        const hot = `hue-rotate(${~~(Math.random() * 360)}deg)`;
+        document.body.style.filter = hot;
+    }
     useEffect(() => {
         setOther(location.pathname == '/' ? '' : 'other');
         if(location.pathname !== '/') {
@@ -50,14 +54,20 @@ if(typeof window != 'undefined') {
                 <Link to='/' className="logo">
                     <div className="img" > </div>
                     <span>Sprrow</span>
+                    
                 </Link>
+                <div className="sun" onClick={(e) => randomBack(e)}>
+                    <span className='sp-icon sp-icon-earth'></span>
+                </div>
                 {/* <div style={{width: 200}}>
                     <sp-search placeholder='搜索组件' allow-clear='true' enter-button='false' bordered='true' className='seatch-site' prefix='<span class="sp-icon sp-icon-search"></span>'></sp-search>
                     <div className='fixed--searchComs'></div>
                 </div> */}
             </div>
             {/** 动画 */}
-            <div className='c-center'></div>
+            <div className='c-center'>
+                
+            </div>
             <div className="r-h">
                 <div className="l">
                     <ul>

@@ -39,8 +39,7 @@
 
 .sp-icon-loading {
    &::before {
-      display: inline-block;
-      animation: loadingCircle 1s infinite linear;
+     #_loadingCircle();
    }
 }
 
@@ -64,6 +63,11 @@
    &-warning {
       color: var(--color-warning);
    }
+}
+
+#_loadingCircle(@time: 1s){
+   display: inline-block;
+   animation: loadingCircle @time infinite linear;
 }
 
 .icon {
