@@ -27,6 +27,7 @@ and compiled HTML.
 - <p style="text-decoration:line-through">🎨 Powerful theme customization in every detail.</p>
 - <p style="text-decoration:line-through">🚌 Super adaptive ability</p>
 - 🐍 Don't stick to any framework
+- 🆕 Support for Progressive Web Apps(PWA).
 
 ## 🖥 Environment Support
 

@@ -35,6 +35,8 @@ module.exports = {
     const SW = new WorkboxPlugin.GenerateSW({
       clientsClaim: true,
       skipWaiting: true,
+      additionalManifestEntries: ['index.js', 'index.html'],
+      // include: [/index\.js$/]
       // manifestEntries: [path.resolve(__dirname, './site/theme/static/manifest.json')]
     })
     config.plugins.push(SW)
@@ -72,7 +74,7 @@ module.exports = {
       {patterns : [
         {
           from: path.resolve(__dirname, './site/theme/static/img'),
-          to: path.resolve(__dirname, './_site/img')
+          to: path.resolve(__dirname, './_site/')
         },
         {
           from: path.resolve(__dirname, './site/theme/static/manifest.json'),

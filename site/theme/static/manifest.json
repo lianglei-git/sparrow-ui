@@ -1,7 +1,7 @@
 {
     "short_name": "Sparrow UI",
     "name": "Sparrow UI",
-    "start_url": "/?launcher=true",
+    "start_url": "/",
     "display": "standalone",
     "background_color": "#287fc5",
     "theme_color": "#fff",
