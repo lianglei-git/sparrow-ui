@@ -19,3 +19,4 @@ subTitle: 固钉
 | offset-top    | 距离顶部的距离 | number   | -    | 0                       |
 | offset-bottom | 距离底部的距离 | number   | -    | undefined               |
 | onChange      | 回掉           | function |      | (isFixed, type) => void |
+| origin-elfixed | 源元素是否根据原始宽度、高度进行固定|boolean\|string|false|

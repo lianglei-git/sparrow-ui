@@ -288,7 +288,7 @@ const Content = (props: any) => {
                     </div>
                 </footer>
                 <div className='fixed-content'>
-                    <sp-affix offset-top="74" >
+                    <sp-affix offset-top="74" origin-elfixed='true'>
                         <ul>
                             {
                                 affixList.map((meta, index) => {

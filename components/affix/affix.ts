@@ -37,16 +37,21 @@ class Affix extends Base {
         this._setClassName(root);
         let offsetTop = root.attrs?.['offset-top'] ? +root.attrs?.['offset-top'] : undefined;
         let offsetBottom = root.attrs?.['offset-bottom'] ? +root.attrs?.['offset-bottom'] : undefined;
+        let isOriginElFixed =  root.attrs?.['origin-elfixed'] + '' == 'true' ? true : false;
         let placeholderEl = createEl('div');
         let parent = root.parentElement || root.parentNode || document.body
         setStyle(placeholderEl, {
             width: root.offsetWidth + 'px',
             height: root.offsetHeight + 'px'
         });
-        // setStyle(root, {
-        //     width: root.offsetWidth + 'px',
-        //     height: root.offsetHeight + 'px'
-        // });
+        
+        if(isOriginElFixed) {
+            setStyle(root, {
+                width: root.offsetWidth + 'px',
+                height: root.offsetHeight + 'px'
+            });
+        }
+
 
         function handler(t: any, distance: number, type: string, cal: (distance: number) => any) {
             if (root[type == 'bottom' ? 'top' : 'bottom']) return;

@@ -71,7 +71,7 @@ class Alert {
     }
 
     private showContentType(root: any) {
-        console.log(root.children,'root.children')
+        // console.log(root.children,'root.children')
         let nodes: HTMLElement | any[] = Array.from(root.children);
         let slots: string[] = ['title']
         let slotObj = nodes.reduce((obj, i) => {
