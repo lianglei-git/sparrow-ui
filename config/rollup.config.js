@@ -117,13 +117,13 @@ const lessConfig = {
 }
 
 
-// module.exports = [basicConfig, lessConfig]
-// .map(element => {
-//     element.onwarn = onwarn;
-//     element.plugins = plugins;
-//     return element;
-// });
+module.exports = [basicConfig, lessConfig]
+.map(element => {
+    element.onwarn = onwarn;
+    element.plugins = plugins;
+    return element;
+});
 
-basicConfig.onwarn = onwarn;
-basicConfig.plugins = plugins;
-module.exports = basicConfig
+// basicConfig.onwarn = onwarn;
+// basicConfig.plugins = plugins;
+// module.exports = basicConfig

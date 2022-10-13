@@ -3,6 +3,7 @@ import React from 'react';
 import H from './Header'
 import '../../static/index.js'
 import 'sparrow-ui'
+import './loadstyle'
 // if (Reflect.has(window.navigator, 'serviceWorker')) {
 //     navigator.serviceWorker.register('/service-worker.js')
 //     .then((registration) => {

@@ -1,6 +1,6 @@
 /// 这里引用 和 抛出组件
 // build:ui 会直接把entryStyle输出成css，并不会有js残留文件。postcss特性!
-import './entryStyle'
+// import './entryStyle'
 import { getGlobalThis } from './_utils/common'
 import { Message } from './message'
 import { Modal } from "./modal"
