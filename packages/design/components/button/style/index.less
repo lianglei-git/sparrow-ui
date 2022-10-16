@@ -1,0 +1,234 @@
+@import '../../common/styles/theme.less';
+.sp-button {
+    background-color: var(--color-white);
+    display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid var(--border-color-base);
+    border-color: var(--border-color-base);
+    color: var(--color-text-regular);
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    transition: all .2s, background-color .1s;
+    font-weight: 500;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+
+    >.sp-icon {
+        line-height: 1;
+        vertical-align: baseline;
+        display: inline-block;
+    }
+
+    &:active {
+        border-color: #3a8ee6;
+        color: #136dc9;
+    }
+
+    &:hover,
+    &:focus {
+        color: var(--color-primary);
+        border-color: var(--color-primary);
+    }
+
+    &--primary {
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+        color: var(--color-white);
+
+        &:hover,
+        &:focus {
+            filter: brightness(1.1);
+            color: var(--color-white);
+        }
+
+        &:active {
+            filter: brightness(0.9);
+            opacity: 1;
+        }
+    }
+
+    &--dashed {
+        border-style: dashed;
+
+        &:active {
+            border-color: #136dc9;
+        }
+    }
+
+    &--danger {
+        color: var(--color-white);
+        background-color:var(--color-danger);
+        border-color: var(--color-danger);
+
+        &:hover,
+        &:focus {
+            filter: brightness(1.1);
+            color: var(--color-white);
+            border-color:var(--color-danger);
+        }
+
+        &:active {
+            filter: brightness(0.9);
+            opacity: 1;
+        }
+    }
+
+    &--text {
+        border-style: none;
+        background-color: var(--background-color-base);
+
+        &:active {
+            filter: brightness(0.9);
+        }
+    }
+
+    &--link {
+        color: var(--color-primary);
+        border: none;
+
+        &:active {
+            color: #136dc9;
+        }
+    }
+
+    &-shape {
+        &--circle {
+            border-radius: 50%;
+            padding: 12px;
+            min-width: 40px;
+        }
+
+        &--round {
+            border-radius: 20px;
+            padding: 12px 23px;
+        }
+    }
+
+
+    &-size {
+        &--mini {
+            font-size: 12px;
+            padding: 6px 10px;
+
+            &.sp-button-shape--circle {
+                padding: 7px;
+                min-width: 32px;
+            }
+
+            &.is-loading {
+                padding-left: 24px;
+
+                >.sp-icon-loading {
+                    left: 6px;
+                    width: 14px;
+                    height: 14px;
+                    font-size: 12px;
+                    animation: loadingLeftTmeMini .4s linear;
+                }
+            }
+
+            &.empty-loading {
+                padding: 6px;
+            }
+        }
+
+        &--small {
+            font-size: 13px;
+            padding: 9px 13px;
+
+            &.sp-button-shape--circle {
+                padding: 10px;
+                min-width: 35px;
+            }
+
+            &.is-loading {
+                padding-left: 27px;
+
+                >.sp-icon-loading {
+                    left: 9px;
+                    width: 15px;
+                    height: 15px;
+                }
+            }
+
+            &.empty-loading {
+                padding: 9px;
+            }
+        }
+    }
+
+    &.is-loading {
+        transition: .4s;
+        position: relative;
+        padding-left: 32px;
+
+        >.sp-icon-loading {
+            position: absolute;
+            display: inline-block;
+            left: 12px;
+            width: 16px;
+            height: 16px;
+            animation: loadingLeftTme .4s linear;
+        }
+    }
+
+    &.empty-loading {
+        position: inherit;
+        padding: 12px;
+
+        >.sp-icon-loading {
+            position: inherit;
+        }
+    }
+
+    &.is-disabled {
+        filter: brightness(0.9);
+        border-color: transparent;
+
+        &.sp-button--link {
+            color: var(--color-text-regular);
+        }
+
+        &:hover {
+            cursor: not-allowed;
+            border-color: transparent;
+            color: var(--color-text-regular);
+
+            &.sp-button--primary,
+            &.sp-button--danger {
+                color: var(--color-white);
+            }
+        }
+    }
+
+}
+
+@keyframes loadingLeftTme {
+    from {
+        left: 0px;
+    }
+
+    to {
+        left: 12px;
+    }
+}
+
+
+@keyframes loadingLeftTmeMini {
+    from {
+        left: 0px;
+    }
+
+    to {
+        left: 6px;
+    }
+}

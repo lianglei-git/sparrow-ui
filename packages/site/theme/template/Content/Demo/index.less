@@ -1,0 +1,127 @@
+.preview {
+    width: 100%; //calc(100% - 20px);
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #d6d5d5;
+    margin-top: 20px;
+    transition: .2s;
+
+    &:hover {
+        box-shadow: 0 0 4px 0 #058f95;
+    }
+
+    &.active {
+        box-shadow: inset 0 0 3px 0 rgb(175, 156, 156);
+    }
+
+    .cmps_p {
+        padding: 30px;
+
+        >div {
+            margin-bottom: 15px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        h3 {
+            position: relative;
+            left: -15px;
+            margin: 0;
+            margin-bottom: 10px;
+            color: #037a80;
+            font-size: 14px;
+
+        }
+
+    }
+
+    .introduce {
+
+        position: relative;
+
+        code {
+            display: inline-block;
+            margin: 0 1px;
+            padding: 0.2em 0.4em;
+            font-size: 0.9em;
+            background: #f2f4f5;
+            border: none; //1px solid rgba(0, 0, 0, 0.15)
+            border-radius: 3px;
+            line-height: inherit;
+            // color: #4e5059;
+            color: #344fca;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            border-top: 1px dotted #ccc;
+            display: block;
+            height: 1px;
+            top: 0;
+        }
+
+        h5 {
+            position: relative;
+            top: -10px;
+            left: 15px;
+            padding: 0 8px;
+            background: #fff;
+            width: fit-content;
+            font-weight: 600;
+            font-size: 15px;
+            margin-top: 0;
+            z-index: 3;
+        }
+
+        pre {
+            padding: 0 20px 20px 23px;
+            box-sizing: border-box;
+            font-size: 13.5px;
+            border-bottom: 1px dotted #ccc;
+            white-space: pre-wrap;
+        }
+    }
+
+    .tools {
+        display: flex;
+        justify-content: center;
+        margin: 10px;
+
+        li {
+            margin: 0 8px;
+            cursor: pointer;
+            transition: .2s;
+            color: #948d8d;
+        
+
+            &:hover {
+                color: rgb(6, 129, 136);
+                transform: scale(1.2);
+            }
+
+            &.active {
+                color: rgb(6, 129, 136);
+            }
+        }
+    }
+
+    .sp-button {
+        margin: 0 5px;
+    }
+}
+
+#desc-cn {
+    display: none;
+
+}
+
+.language-html {
+    display: none;
+}
+.showCode .language-html {
+    display: block;
+}

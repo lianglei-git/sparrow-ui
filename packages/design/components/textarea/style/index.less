@@ -1,0 +1,26 @@
+@classname: sp-textarea;
+
+@import url(../../input/style/common.less);
+
+.@{classname} {
+    textarea {
+        overflow: auto;
+        resize: vertical;
+        font-size: 100%;
+    }
+
+    position: relative;
+
+    .allow-clear {
+        position: absolute;
+        top: 3px;
+        right: 0px;
+    }
+
+    &:after {
+        position: absolute;
+        content: attr(count);
+        right: 0;
+        bottom: -25px;
+    }
+}

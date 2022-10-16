@@ -1,0 +1,41 @@
+{
+  "name": "@sparrowend/ui",
+  "version": "1.0.9",
+  "description": "Easy Web UI",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "unpkg": "dist/spui.min.js",
+  "typings": "lib/index.d.ts",
+  "title": "Sparrow Ui",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sparrow",
+    "component",
+    "components",
+    "design",
+    "framework",
+    "frontend",
+    "react",
+    "vue",
+    "react-component",
+    "ui"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lianglei-git/sparrow-ui"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "es"
+  ],
+  "author": "sparrow",
+  "license": "ISC",
+  "types": "./es/index.d.ts",
+  "bugs": {
+    "url": "https://github.com/lianglei-git/sparrow-ui/issues"
+  },
+  "homepage": "http://www.sparrowui.cn/"
+}

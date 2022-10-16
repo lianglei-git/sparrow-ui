@@ -1,0 +1,19 @@
+{
+  "name": "design",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node ./config/build.js --ui --trace-deprecation",
+    "transform-lib": "node ./config/dist.js compile-with-lib",
+    "transform-es": "node ./config/dist.js compile-with-es",
+    "transform-watch:ui": "node ./config/rollup.watch.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "object-assign": "^4.1.1",
+    "worker-shell": "workspace:^1.0.0"
+  }
+}

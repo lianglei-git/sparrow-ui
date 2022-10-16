@@ -1,0 +1,120 @@
+.zoom(@className, @keyframes) {
+    .zoom-big-@{className} {
+        -webkit-animation: @keyframes 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+        animation: @keyframes 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+}
+
+
+.zoom(enter, rabZoomBigIn);
+.zoom(leave, rabZoomBigOut);
+.zoom(fast-enter, rabZoomBigFastIn);
+.zoom(fast-leave, rabZoomBigFastOut);
+
+@-webkit-keyframes rabZoomBigIn {
+    0% {
+        -webkit-transform: scale(0.7);
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes rabZoomBigIn {
+    0% {
+        -webkit-transform: scale(0.7);
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes rabZoomBigOut {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    100% {
+        -webkit-transform: scale(0.7);
+        transform: scale(0.7);
+        opacity: 0;
+    }
+}
+
+@keyframes rabZoomBigOut {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    100% {
+        -webkit-transform: scale(0.7);
+        transform: scale(0.7);
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes rabZoomBigFastIn {
+    0% {
+        -webkit-transform: scale(0.6);
+        transform: scale(0.6);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes rabZoomBigFastIn {
+    0% {
+        -webkit-transform: scale(0.6);
+        transform: scale(0.6);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes rabZoomBigFastOut {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    100% {
+        -webkit-transform: scale(0.85);
+        transform: scale(0.85);
+        opacity: 0;
+    }
+}
+
+@keyframes rabZoomBigFastOut {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+
+    100% {
+        -webkit-transform: scale(0.85);
+        transform: scale(0.85);
+        opacity: 0;
+    }
+}

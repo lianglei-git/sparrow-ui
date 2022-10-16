@@ -3,10 +3,10 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "sparrow-ui/*": ["components/*"],
-      "sparrow-ui/es/*": ["components/*"],
-      "*": ["components/*"],
-      "_utils/*": ["components/_utils/*"]
+      "sparrow-ui/*": ["packages/design/components/*"],
+      "sparrow-ui/es/*": ["packages/design/components/*"],
+      "*": ["packages/design/components/*"],
+      "_utils/*": ["packages/design/components/_utils/*"]
     },
     "strict": false,
     "strictNullChecks": false,

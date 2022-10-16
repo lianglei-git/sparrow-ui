@@ -10,3 +10,8 @@ components/package.json
 /es
 /dist
 /server/www.sparrowui.cn_nginx/*
+dist
+es
+lib
+sparrow-ui
+www.sparrowui.cn_nginx

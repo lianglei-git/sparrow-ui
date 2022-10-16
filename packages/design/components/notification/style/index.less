@@ -1,0 +1,122 @@
+.sp-notify {
+    min-width: 380px;
+    position: fixed;
+    display: flex;
+    background-color: var(--color-white);
+    padding: 10px;
+    box-shadow: 0 0 10px 1px #ccc;
+    border-radius: 3px;
+    align-items: center;
+    transition: top .3s, left .3s, bottom .3s, right .3s, opacity .3s;
+    border-radius: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ebeef5;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    overflow: hidden;
+    &-fade-enter-top-right,
+    &-fade-leave-top-right {
+        opacity: 0;
+        right: -30%;
+    }
+
+    &-fade-enter-top-right-active {
+        opacity: 1;
+        right: 1% !important;
+    }
+
+    &-fade-enter-top-left,
+    &-fade-leave-top-left {
+        opacity: 0;
+        left: -30%;
+    }
+
+    &-fade-enter-top-left-active {
+        opacity: 1;
+        left: 1% !important;
+    }
+
+    &-fade-enter-bottom-left,
+    &-fade-leave-bottom-left {
+        opacity: 0;
+        left: -30%;
+    }
+
+    &-fade-enter-bottom-left-active {
+        opacity: 1;
+        left: 1% !important;
+        bottom: 0
+    }
+
+    &-fade-enter-bottom-right,
+    &-fade-leave-bottom-right {
+        opacity: 0;
+        right: -30%;
+    }
+
+    &-fade-enter-bottom-right-active {
+        opacity: 1;
+        right: 1% !important;
+        bottom: 0
+
+    }
+
+
+    &-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        >span {
+            font-weight: 700;
+            font-size: 16px;
+            color: #303133;
+            margin: 0;
+        }
+
+        >p {
+            margin-top: 5px;
+            font-size: 14px;
+            line-height: 21px;
+            color: #606266;
+            text-align: justify;
+        }
+    }
+
+    .sp-icon {
+        font-size: 20px;
+        margin-right: 10px;
+        align-self: baseline;
+        margin-top: 2px;
+
+        &-success {
+            color: green;
+        }
+
+        &-error {
+            color: rgb(219, 22, 22);
+        }
+
+        &-info {
+            color: var(--color-text-regular);
+        }
+
+        &-loading {
+            color: var(--color-primary);
+        }
+    }
+
+    .sp-icon-close {
+        // opacity: 0;
+        margin-left: 10px;
+        font-size: 18px;
+        color: var(--color-text-secondary);
+        cursor: pointer;
+        font-weight: bold;
+
+        &:hover {
+            color: var(--color-primary);
+        }
+    }
+
+
+}

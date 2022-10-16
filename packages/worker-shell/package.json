@@ -1,0 +1,12 @@
+{
+  "name": "worker-shell",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "copypack": "node ./scripts/clonefile.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

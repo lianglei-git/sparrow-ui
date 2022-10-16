@@ -1,0 +1,58 @@
+.custom {
+    width: 100%;
+    padding: 20px;
+
+    &-components {
+        ul {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 400px;
+
+            li {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                margin-right: 8px;
+                transition: .2s;
+                &:hover {
+                    filter: hue-rotate(184deg);
+                }
+                filter: drop-shadow(1px 1px 1px #a69e9e);
+                 em {
+                    display: inline-block;
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 50%;
+                    border: 1px solid rgb(182, 178, 178);
+                    background-color: transparent;
+                    position: relative;
+
+                    &::after {
+                        position: absolute;
+                        width: 0px;
+                        height: 0px;
+                        background: #17a7c0;
+                        border-radius: 50%;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        transition: .3s;
+                        content: '';
+                    }
+
+                    &.active {
+                        &::after {
+                            width: 7px;
+                            height: 7px;
+                        }
+                    }
+                }
+
+                span {
+                    margin: 12px 8px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "short_name": "Sparrow UI",
+    "name": "Sparrow UI",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#287fc5",
+    "theme_color": "#fff",
+    "icons": [
+        {
+            "src": "./img/48.png",
+            "type": "image/png",
+            "sizes": "48x48"
+        },
+        {
+            "src": "./img/96.png",
+            "type": "image/png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "./img/192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "./img/512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}

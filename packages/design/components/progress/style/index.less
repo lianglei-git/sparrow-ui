@@ -1,0 +1,104 @@
+.sp-progress {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+
+    &-bar {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        &__outer {
+            flex: 1;
+            background-color: rgb(229, 233, 242);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        &__inner {
+            height: 100%;
+            background-color: var(--color-primary);
+            display: flex;
+            align-self: center;
+            align-items: center;
+            transition: width .6s ease;
+            border-bottom-right-radius: 3px;
+            border-top-right-radius: 3px;
+
+            >.sp-progress-bar__text {
+                width: 100%;
+                font-size: 13px;
+                color: #fff;
+                text-align: right;
+                margin-right: 5px;
+            }
+        }
+
+        >.sp-progress-bar__text {
+            display: inline-block;
+            margin-left: 5px;
+            font-size: 13px;
+            width: 35px;
+        }
+    }
+
+    &-circle,
+    &-dashboard {
+        position: relative;
+
+        &__track {
+            stroke: rgb(229, 233, 242);
+        }
+
+        >.sp-progress-bar__text {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: fit-content;
+            height: fit-content;
+            &.sp-icon {
+                font-size: 2rem;
+            }
+        }
+        &.success {
+            .sp-icon {
+                color: var(--color-success)
+            }
+        }
+        &.error {
+            .sp-icon {
+                color:var(--color-danger)
+            }
+        }
+    }
+
+
+    // status ↓
+
+    &.success {
+        .sp-progress-bar__inner {
+            background-color: var(--color-success);
+        }
+
+        .el-progress-circle__track,
+        .el-progress-dashboard__track {
+            stroke: var(--color-success) !important;
+        }
+    }
+
+    &.error {
+        .sp-progress-bar__inner {
+            background-color: var(--color-danger);
+        }
+
+        .el-progress-circle__track,
+        .el-progress-dashboard__track {
+            stroke: var(--color-danger) !important;
+
+        }
+    }
+
+}

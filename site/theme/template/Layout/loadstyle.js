@@ -1,1 +1,0 @@
-import 'sparrow-ui/entryStyle.ts'

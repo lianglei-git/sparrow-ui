@@ -1,0 +1,85 @@
+// 提供动态切换主题
+// 方案一:跟元素替换属性值（css）
+// 方案二：利用less 动态生成css 重新引入（参考价值靠后）
+// 当然 两种方案都有弊利， 我将会两种都采用， 选择留给使用者或者强制兼容ie8以下的机器
+
+:root {
+   --color-primary: #5da8f3;
+   --color-primary-1: #e6f7ff;
+   --color-primary-2: #bae7ff;
+   --color-primary-3: #91d5ff;
+   --color-primary-4: #69c0ff;
+   --color-primary-5: #40a9ff;
+   --color-primary-6: #1890ff;
+   --color-primary-7: #096dd9;
+   --sp-primary-color-hover: #40a9ff;
+   --sp-primary-color-outline: rgba(24, 144, 255, .2);
+   --sp-primary-color-deprecated-t-20: #46a6ff;
+   --sp-primary-color-deprecated-f-12: rgba(24, 144, 255, .12);
+   --sp-primary-color-active-deprecated-f-30: rgba(230, 247, 255, .3);
+   --sp-primary-color-active-deprecated-d-02: #dcf4ff;
+   --color-success: #52c41a;
+   --color-warning: #E6A23C;
+   --color-normal: #e6ebf1;
+   --color-error: #F56C6C;
+   --color-danger: #ff4d4f; // #F56C6C
+   --color-info: #909399;
+   --color-text-primary: #303133;
+   --color-text-regular: #606266;
+   --color-text-secondary: #909399;
+   --color-text-placeholder: #C0C4CC;
+   --border-color-base: #DCDFE6;
+   --border-color-light: #E4E7ED;
+   --border-color-lighter: #E4E7ED;
+   --border-color-extra-light: #F2F6FC;
+   --color-white: #fff;
+   --color-black: #000;
+   --background-color-base: #F5F7FA;
+}
+
+.sp-icon-loading {
+   &::before {
+     #_loadingCircle();
+   }
+}
+
+.sp-icon {
+   &-success {
+      color: var(--color-success);
+   }
+
+   &-error {
+      color: var( --color-danger);
+  }
+
+   &-info {
+      color: var(--color-info);
+   }
+
+   &-loading {
+      color: var(--color-primary);
+  }
+
+   &-warning {
+      color: var(--color-warning);
+   }
+}
+
+#_loadingCircle(@time: 1s){
+   display: inline-block;
+   animation: loadingCircle @time infinite linear;
+}
+
+.icon {
+   width: 1em;
+   height: 1em;
+   vertical-align: -0.15em;
+   fill: currentColor;
+   overflow: hidden;
+}
+
+@keyframes loadingCircle {
+   to {
+      transform: rotate(360deg)
+   }
+}
