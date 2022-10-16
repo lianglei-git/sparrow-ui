@@ -4,16 +4,16 @@ import H from './Header'
 import '../../static/index.js'
 import 'sparrow-ui'
 import './loadstyle'
-// if (Reflect.has(window.navigator, 'serviceWorker')) {
-//     navigator.serviceWorker.register('/service-worker.js')
-//     .then((registration) => {
-//         window.registration = registration;
-//         console.log('SW registered: ');
-//     }).catch(registrationError => {
-//         window.registrationError = registrationError;
-//         console.log('SW registration failed: ');
-//       });
-// }
+if (Reflect.has(window.navigator, 'serviceWorker')) {
+    navigator.serviceWorker.register('/service-worker.js')
+    .then((registration) => {
+        window.registration = registration;
+        console.log('SW registered: ');
+    }).catch(registrationError => {
+        window.registrationError = registrationError;
+        console.log('SW registration failed: ');
+      });
+}
 export default class Layout extends React.Component {
     constructor(props) {
         super(props)

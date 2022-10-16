@@ -1,0 +1,238 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "server",
+      "version": "1.0.0",
+      "description": "",
+      "main": "entry.js",
+      "scripts": {
+        "server:build": "rollup -c"
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC",
+      "devDependencies": {
+        "@babel/core": "^7.19.3",
+        "@babel/node": "^7.19.1",
+        "@babel/preset-env": "^7.19.4"
+      }
+    },
+    "prefix": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server"
+  },
+  "2 debug pnpm:context": {
+    "currentLockfileExists": false,
+    "storeDir": "/Users/apple/Library/pnpm/store/v3",
+    "virtualStoreDir": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server/node_modules/.pnpm"
+  },
+  "3 debug pnpm:stage": {
+    "prefix": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "stage": "resolution_started"
+  },
+  "4 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@babel/preset-env/7.19.4",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@babel/preset-env",
+      "rawSpec": "^7.19.4"
+    }
+  },
+  "5 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@babel/core/7.19.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@babel/core",
+      "rawSpec": "^7.19.3"
+    }
+  },
+  "6 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@babel/node/7.19.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@babel/node",
+      "rawSpec": "^7.19.1"
+    }
+  },
+  "7 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@babel/preset-env/7.19.4",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "found_in_store"
+  },
+  "8 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@babel/preset-env/7.19.4",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "resolved"
+  },
+  "9 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@babel/core/7.19.3",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "found_in_store"
+  },
+  "10 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@babel/core/7.19.3",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "resolved"
+  },
+  "11 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@babel/node/7.19.1",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "found_in_store"
+  },
+  "12 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@babel/node/7.19.1",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "resolved"
+  },
+  "13 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/babel-loader/8.2.5",
+    "wanted": {
+      "dependentId": ".",
+      "name": "babel-loader",
+      "rawSpec": "latest"
+    }
+  },
+  "14 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/babel-loader/8.2.5",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "resolved"
+  },
+  "15 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/babel-loader/8.2.5",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "found_in_store"
+  },
+  "16 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@babel/plugin-transform-runtime/7.19.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@babel/plugin-transform-runtime",
+      "rawSpec": "latest"
+    }
+  },
+  "17 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@babel/plugin-transform-runtime/7.19.1",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "resolved"
+  },
+  "18 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@babel/plugin-transform-modules-commonjs/7.18.6",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@babel/plugin-transform-modules-commonjs",
+      "rawSpec": "latest"
+    }
+  },
+  "19 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@babel/plugin-transform-modules-commonjs/7.18.6",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "resolved"
+  },
+  "20 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@babel/plugin-transform-modules-commonjs/7.18.6",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "found_in_store"
+  },
+  "21 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@babel/plugin-proposal-decorators/7.19.3",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@babel/plugin-proposal-decorators",
+      "rawSpec": "latest"
+    }
+  },
+  "22 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@babel/plugin-proposal-decorators/7.19.3",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "resolved"
+  },
+  "23 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/webpack/5.74.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "webpack",
+      "rawSpec": "latest"
+    }
+  },
+  "24 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/webpack/5.74.0",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "resolved"
+  },
+  "25 debug pnpm:fetching-progress": {
+    "attempt": 1,
+    "packageId": "registry.npmjs.org/@babel/plugin-transform-runtime/7.19.1",
+    "size": 11200,
+    "status": "started"
+  },
+  "26 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@babel/plugin-transform-runtime/7.19.1",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "fetched"
+  },
+  "27 debug pnpm:fetching-progress": {
+    "attempt": 1,
+    "packageId": "registry.npmjs.org/webpack/5.74.0",
+    "size": 871988,
+    "status": "started"
+  },
+  "28 debug pnpm:fetching-progress": {
+    "attempt": 1,
+    "packageId": "registry.npmjs.org/@babel/plugin-proposal-decorators/7.19.3",
+    "size": 33930,
+    "status": "started"
+  },
+  "29 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@babel/plugin-proposal-decorators/7.19.3",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "fetched"
+  },
+  "30 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/webpack/5.74.0",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "fetched"
+  },
+  "31 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/webpack-cli/4.10.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "webpack-cli",
+      "rawSpec": "latest"
+    }
+  },
+  "32 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/webpack-cli/4.10.0",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "resolved"
+  },
+  "33 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/webpack-cli/4.10.0",
+    "requester": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui/server",
+    "status": "found_in_store"
+  },
+  "34 error pnpm": {
+    "code": "ERR_PNPM_FETCH_404",
+    "hint": "transform-remove-strict-mode is not in the npm registry, or you have no permission to fetch it.\n\nAn authorization header was used: Bearer npm_[hidden]",
+    "request": {
+      "authHeaderValue": "Bearer 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",
+      "url": "https://registry.npmjs.org/transform-remove-strict-mode"
+    },
+    "response": {
+      "size": 0
+    },
+    "pkgName": "transform-remove-strict-mode",
+    "spec": {
+      "fetchSpec": "latest",
+      "name": "transform-remove-strict-mode",
+      "type": "tag"
+    },
+    "pkgsStack": [],
+    "err": {
+      "name": "pnpm",
+      "message": "GET https://registry.npmjs.org/transform-remove-strict-mode: Not Found - 404",
+      "code": "ERR_PNPM_FETCH_404",
+      "stack": "pnpm: GET https://registry.npmjs.org/transform-remove-strict-mode: Not Found - 404\n    at RetryOperation._fn (/usr/local/lib/node_modules/pnpm/dist/pnpm.cjs:84259:19)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)"
+    }
+  }
+}

@@ -25,7 +25,7 @@ module.exports = {
       'sparrow-ui': path.resolve('./', 'components'),
       'sparrow-ui/es': path.resolve(process.cwd(), 'components'),
       'site': path.resolve(process.cwd(), 'site'),
-      'react-router': 'react-router/umd/ReactRouter'
+      // 'react-router': 'react-router/umd/react-router'
     }
     config.resolve.modules.push(path.resolve('./', 'components'),'node_modules')
     config.externals = {
@@ -89,7 +89,7 @@ module.exports = {
     {
       chunks: 'async', 
       minSize: 20000,
-      minRemainingSize: 0, 
+      // minRemainingSize: 0, 
       minChunks: 1, 
       maxAsyncRequests: 30, 
       maxInitialRequests: 30, 
