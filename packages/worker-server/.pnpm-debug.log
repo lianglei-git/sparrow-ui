@@ -1,0 +1,21 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1,
+    "workspacePrefix": "/Users/apple/Desktop/梅西/frontend/beforeschool/sparrow-pro/sparrow-ui"
+  },
+  "1 error pnpm": {
+    "errno": 1,
+    "code": "ELIFECYCLE",
+    "pkgid": "worker-server@1.0.0",
+    "stage": "server:build",
+    "script": "webpack --color --progress --config ./webpack.config.js",
+    "pkgname": "worker-server",
+    "err": {
+      "name": "pnpm",
+      "message": "worker-server@1.0.0 server:build: `webpack --color --progress --config ./webpack.config.js`\nExit status 1",
+      "code": "ELIFECYCLE",
+      "stack": "pnpm: worker-server@1.0.0 server:build: `webpack --color --progress --config ./webpack.config.js`\nExit status 1\n    at EventEmitter.<anonymous> (/usr/local/lib/node_modules/pnpm/dist/pnpm.cjs:106732:20)\n    at EventEmitter.emit (node:events:390:28)\n    at ChildProcess.<anonymous> (/usr/local/lib/node_modules/pnpm/dist/pnpm.cjs:93301:18)\n    at ChildProcess.emit (node:events:390:28)\n    at maybeClose (node:internal/child_process:1064:16)\n    at Process.ChildProcess._handle.onexit (node:internal/child_process:301:5)"
+    }
+  },
+  "2 warn pnpm:global": " Local package.json exists, but node_modules missing, did you mean to install?"
+}

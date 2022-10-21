@@ -237,20 +237,6 @@ importers:
       webpack-dev-server: 4.11.1_5v66e2inugklgvlh4huuavolfq
       webpack-merge: 5.8.0
 
-  packages/design:
-    specifiers:
-      object-assign: ^4.1.1
-      worker-shell: workspace:^1.0.0
-    dependencies:
-      object-assign: 4.1.1
-      worker-shell: link:../worker-shell
-
-  packages/site:
-    specifiers:
-      design: workspace:^1.0.0
-    dependencies:
-      design: link:../design
-
 packages:
 
   /@ampproject/remapping/2.2.0:

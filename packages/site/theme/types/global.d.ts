@@ -2,4 +2,6 @@ declare module 'bisheng/router'
 
 declare module 'jsonml.js/lib/utils'
 
-declare module 'sparrow-ui'
+declare module 'design' {
+    export * from '../../../design/components/index'
+}

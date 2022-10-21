@@ -4,7 +4,7 @@
   "description": "",
   "main": "entry.js",
   "scripts": {
-    "server:build": "webpack --color --progress --config webpack.config.js"
+    "server:build": "webpack --color --progress --config ./webpack.config.js"
   },
   "keywords": [],
   "author": "",

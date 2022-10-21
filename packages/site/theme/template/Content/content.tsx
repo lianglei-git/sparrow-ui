@@ -44,13 +44,16 @@ const Content = (props: any) => {
     const codeEl = createRef<HTMLDivElement>()
     const to = ($$i: Meta) => {
         let toL = $$i.filename.split('/');
-        console.log($$i, toL)
         let topath
         try {
-            topath = props.$type == 'cmps' ? toL[2] + '/' + toL[3] + '/' : toL.join('/').slice(0, toL.join('/').indexOf('.md')) + '/';
+            // if(props.$type !== 'cmps') {
+                toL.shift();
+                toL.shift();
+            // }
+            topath = props.$type == 'cmps' ? toL[0] + '/' + toL[1] + '/' : toL.join('/').slice(0, toL.join('/').indexOf('.md')) + '/';
         } catch (error) {
             topath = '/'
-            throw Error('路由解析错误，请检查！ content--36')
+            throw Error('路由解析错误，请检查！')
         }
         [...$el('.temp_scripts')].map((i, idx) => {
             if (idx == 0) {

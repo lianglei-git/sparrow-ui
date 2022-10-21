@@ -11,9 +11,9 @@ module.exports = {
         // }
         
     },
-    entry: path.resolve(__dirname, './server/entry.js'),
+    entry: path.resolve(__dirname, './entry.js'),
     output: {
-        path: path.resolve(__dirname, './server/dist'),
+        path: path.resolve(__dirname, './dist'),
         filename: '[name].js'
     },
     module: {

@@ -6,7 +6,6 @@ export default collect((nextProps) => {
   // components entry
   let { pathname } = nextProps.location;
   let pageDataPath = pathname.split('/');
-  console.log(pageDataPath,nextProps, 'pageDataPathpageDataPath')
   let pageData = nextProps.utils.get(nextProps.data, pageDataPath);
   let type = pathname.indexOf('docs/react') > -1 ? 'react' : pathname.indexOf('docs/spec') > -1 ? 'spec' : 'cmps'
   if (!pageData) {
