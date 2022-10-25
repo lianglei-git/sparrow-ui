@@ -14,5 +14,4 @@ module.exports = {
     // filename: './'
     // "plugins": ["@babel/transform-runtime"]
   };
-
   
