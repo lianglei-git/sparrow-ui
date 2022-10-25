@@ -77,7 +77,7 @@ module.exports = {
       {patterns : [
         {
           from: path.resolve(__dirname, '../theme/static/img'),
-          to: path.resolve(__dirname, '../_site/')
+          to: path.resolve(__dirname, '../_site/img')
         },
         {
           from: path.resolve(__dirname, '../theme/static/manifest.json'),
