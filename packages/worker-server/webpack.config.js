@@ -16,6 +16,9 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         filename: '[name].js'
     },
+    externals: {
+      design: 'design',
+    },  
     module: {
         rules: [
             {
@@ -32,7 +35,7 @@ module.exports = {
               },
             {
                 test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
+                exclude: /node_modules/g,
                 use: {
                     loader: 'babel-loader',
                     options: {

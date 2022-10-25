@@ -1,5 +1,5 @@
 const fs = require('fs')
-const uiFuncs = require('../../../scripts/build.js')
+const uiFuncs = require('design/config/build')
 const path = require('path')
 module.exports = {
     ['/build'](req, res) {
@@ -13,14 +13,14 @@ module.exports = {
         req.on("end", function () {
             data = JSON.parse(data);
             fs.writeFile(tmppath, data.content, () => {
-                uiFuncs({ entryPath: tmppath, isCustom: true }).then(outputPath => {
-                    // console.log(outputPath);
-                    setTimeout(() => {
-                        res.write(JSON.stringify({ status: true }))
-                        res.end()
-                    }, 1000)
+                // uiFuncs({ entryPath: tmppath, isCustom: true }).then(outputPath => {
+                //     // console.log(outputPath);
+                //     setTimeout(() => {
+                //         res.write(JSON.stringify({ status: true }))
+                //         res.end()
+                //     }, 1000)
 
-                })
+                // })
 
             })
         })

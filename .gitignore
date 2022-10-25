@@ -3,6 +3,7 @@ _node_modules
 _site
 coverage
 components/package.json
+packages/design/undefined
 /npm
 /__test__
 /_npm
