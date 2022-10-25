@@ -1,82 +1,145 @@
-# sparrow
+
+<div align="center" style="width: 80%">
+  <a href="https://ant.design">
+    <img width="200" src="http://www.sparrowui.cn/6f510c040accd6425367b03b7f930462.png">
+  </a>
+</div>
 
 
-[entry](./packages/design/components/overview/index.md)
-随笔。[官网](http://sparrowui.cn)
+<div align="center" style="width: 80%; font-size:27px; font-weight: 600;color:#000">Sparrow UI</div>
 
-望你度过美好的一天！
-<hr>
-<p align='center'>春江花月夜</p>
-<p align='center'>
-春江潮水连海平，海上明月共潮生。
-滟滟随波千万里，何处春江无月明！
-<p align='center'>
-江流宛转绕芳甸，月照花林皆似霰；
-空里流霜不觉飞，汀上白沙看不见。
-<p align='center'>
-江天一色无纤尘，皎皎空中孤月轮。
-  <b>江畔何人初见月？江月何年初照人？</b>
-<p align='center'>
-人生代代无穷已，江月年年望相似。
-不知江月待何人，但见长江送流水。
-<p align='center'>
-白云一片去悠悠，青枫浦上不胜愁。
-谁家今夜扁舟子？何处相思明月楼？
-<p align='center'>
-可怜楼上月裴回，应照离人妆镜台。
-玉户帘中卷不去，捣衣砧上拂还来。
-<p align='center'>
-此时相望不相闻，愿逐月华流照君。
-鸿雁长飞光不度，鱼龙潜跃水成文。
-<p align='center'>
-昨夜闲潭梦落花，可怜春半不还家。
-江水流春去欲尽，江潭落月复西斜。
-<p align='center'>
-斜月沉沉藏海雾，碣石潇湘无限路。
-不知乘月几人归，落月摇情满江树。
-</p>
-<hr>
+<div align="center" style="width: 80%">
+An enterprise-class UI design language and React（Vue 、Svelte） UI library. Adapt to HTML,   
+and compiled HTML.
+</div>
 
-#### Other
-- 一个 circle 被切割成1/5份和1/10份 总结一起的压位计算不会精确到整数，因无整圆，那计算机的方式是? 请解答。
+## ✨ Features
 
-#### 下载
+- 🌈 Enterprise-class UI designed for web applications.
+- 📦 High quality microlibraries out of the box.
+- 🛡 Written in TypeScript with predictable static types.
+- ⚙️ Whole package of design resources and development tools.
+- <p style="text-decoration:line-through">🎨 Powerful theme customization in every detail.</p>
+- <p style="text-decoration:line-through">🚌 Super adaptive ability</p>
+- 🐍 Don't stick to any framework
+- 🆕 Support for Progressive Web Apps(PWA).
 
-- [ZIP下载](http://101.43.178.134:8888/down/yMRFr9IzdDFR): http://101.43.178.134:8888/down/yMRFr9IzdDFR
-- npm暂时告一段落， 要去补习民刑了， 还有页面设计的也放一放...
+## 🖥 Environment Support
 
-目前项目还是个乞丐版本， 整体的文档完善以及jest测试，还有部分组件未开发完成，还有site兼容移动端展示，以及加载速度 全部都没有开始搞， 我天， 我天， 总之，先告一段落。 
-<!-- 另外 下一个项目已经开始， 个人独资开发的音乐软件（客户端以及apk）... 拖一拖 拖一拖 -->
+- Modern browsers and Internet Explorer 11 (with [polyfills](https://stackoverflow.com/questions/57020976/polyfills-in-2019-for-ie11))
+- Server-side Rendering
+- [Electron](https://www.electronjs.org/)
 
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br>Electron |
+| --- | --- | --- | --- | --- |
+| IE11, Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
 
-### TODO
-- 2022/8/7
-  1. 接下来会再次重构项目，会把dom加载、更新等操作替换template
-  2. lines 已经开始把基本的base做完了，大概要几个月后再来写它
-  3. canvas的系列还没有开始准备base；这个要等一等
-  4. 动画系列也还没有准备；也要等一等
-  5. sevlte、Vue、React兼容也要等一等
-  6. site的完善 权重还是比较高的
-  7. 单元测试的变更，接下来的开发模式也会发生变化；
-  8. 要开辟出服务端渲染的接口
-- 推迟... 整体来描述一个事情“工程重新架构”
-  1. 重写 md-loader
-  2. 作出适配项目的 file watch
-  3. 重写自己的单元测试
-  4. 工程架构！！！！
+## 📦 Install
 
-
-
-npm 
-
-```js
-import { Message } from "@sparrowend/ui";
-import '@sparrowend/ui/dist/spui.css'
+```bash
+  npm i @sparrowend/ui
+```
+```bash
+  yarn add @sparrowend/ui
+```
+```bash
+  pnpm add @sparrowend/ui
 ```
 
-or
+## 🔨 Usage
+- jsx
+    ```jsx
+    import { Button } from '@sparrowend/ui';
+    const App = () => (
+    <>
+        <Button type="primary">PRESS ME</Button>
+    </>
+    );
+    ```
+    And import style manually:
 
-```js
-import { Message } from "@sparrowend/ui";
-import '@sparrowend/ui/es/message/style/css'
+    ```jsx
+    import '@sparrowend/ui/dist/spui.css';
+    // or
+    // import '@sparrowend/ui/es/button/style';
+    ```
+- html
+    ```jsx
+    <html>
+        <link href='dist/spui.css'></link>
+        <script src="dist/spui.js"></script>
+        or
+        <script type="module">
+            import { Message } from 'dist/spui-es.js';
+            Message.error('the end');
+        </script>
+        <sp-button>click me</sp-button>
+    </html>
+    ```
+- import map
+  ```jsx
+        <html>
+        <link href='dist/spui.css'></link>
+        <script type="importmap">
+            {
+                "imports": {
+                    "sparrow-ui": "dist/spui-es.js"
+                }
+            }
+        </script>
+        <script type="module">
+            import { Message } from 'sparrow-ui';
+            Message.error('sucessful');
+        </script>
+    </html>
+  ```
+- node(compile ---> any)
+  - art-template
+    ```jsx
+    <!--layout.art-->
+    <!doctype html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+          <title>{{block 'title'}}My Site{{/block}}</title>
+          <link href='dist/spui.css'></link>
+          <script src="dist/spui.js"></script>
+
+          {{block 'head'}}
+            <link rel="stylesheet" href="main.css">
+          {{/block}}
+
+      </head>
+      <body>
+          {{block 'content'}}{{/block}}
+      </body>
+    </html>
+    ```
+    ```js
+    {{if user}}
+        <h2>{{user.name}}</h2>
+        <sp-button>Thanks!</sp-button>
+    {{/if}}
+    ```
+    - ejs 等同
+
+  
+
+## ⌨️ Development
+Use Gitpod, a free online dev environment for GitHub.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/lianglei-git/sparrow-ui)
+
+Or clone locally:
+
+```bash
+$ git clone git@github.com:lianglei-git/sparrow-ui.git
+$ cd sparrow-ui
+$ npm install
+$ npm run start
 ```
+
+## 🤝 Contributing 
+My welcome all contributions. Please contact me at `lianglei_cool@163.com`
+
+## 🙇 Thanks!
