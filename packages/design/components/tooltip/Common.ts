@@ -118,6 +118,10 @@ export default class ToolTipCommon extends Base implements Config {
         this._leave();
     }
 
+    destory() {
+        this._destory();
+    }
+
     fixedView(type: ComType, attrs: any, callback?: (args: any) => any) {
         let core: HTMLElement = createEl('div'),
             arrow: HTMLSpanElement = createEl('span'),
@@ -245,6 +249,14 @@ export default class ToolTipCommon extends Base implements Config {
             }, 200)
         })
 
+    }
+
+    _destory() {
+        try {
+            this.fixedEl.remove();
+        }catch(_) {
+
+        }
     }
 
     _changePosition($target: HTMLElement | any, _placement: tooltipTypesProps['placement'] = this.contextTarget.attrs?.placement, isshow:boolean = true) {

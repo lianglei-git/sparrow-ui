@@ -145,10 +145,12 @@ const Content = (props: any) => {
         if (!props.demo) return <></>
         let $l = sortDemos();
         return $l.map((content, i) => {
-            if (content.meta.id.indexOf('demo-test') > -1) {
-                testElId = content.meta.id
+            if (content.meta.id?.indexOf('demo-test') > -1) {
+                testElId = content.meta.id;
+                if(metaId && content.meta.id?.indexOf(metaId) > -1) return <Demo key={i} {...{ ...content, childrenSetCode, utils: props.utils, className: content.meta.id == curCodeDetails ? 'active' : '', location }} />;
+                return "";
             }
-            return <Demo key={i} {...{ ...content, childrenSetCode, utils: props.utils, className: content.meta.id == curCodeDetails ? 'active' : '', location, metaId }} />
+            return <Demo key={i} {...{ ...content, childrenSetCode, utils: props.utils, className: content.meta.id == curCodeDetails ? 'active' : '', location }} />;
         })
     }
 

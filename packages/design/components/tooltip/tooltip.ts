@@ -29,6 +29,9 @@ class Tooltip {
             attributeChangedCallback(..._args) {
                 let [key, _, newval] = _args;
                 context.obsevseAttrs.call(this, { [key]: newval })
+            },
+            disconnectedCallback() {
+                this.super.destory();
             }
         });
     }

@@ -5,16 +5,16 @@ import '../../static/index.js'
 // 编译器认识（package.json），webpack不认识...
 import 'design/components/index'
 import './loadstyle'
-if (Reflect.has(window.navigator, 'serviceWorker')) {
-    navigator.serviceWorker.register('/service-worker.js')
-    .then((registration) => {
-        window.registration = registration;
-        console.log('SW registered: ');
-    }).catch(registrationError => {
-        window.registrationError = registrationError;
-        console.log('SW registration failed: ');
-      });
-}
+// if (Reflect.has(window.navigator, 'serviceWorker')) {
+//     navigator.serviceWorker.register('/service-worker.js')
+//     .then((registration) => {
+//         window.registration = registration;
+//         console.log('SW registered: ');
+//     }).catch(registrationError => {
+//         window.registrationError = registrationError;
+//         console.log('SW registration failed: ');
+//       });
+// }
 export default class Layout extends React.Component {
     constructor(props) {
         super(props)

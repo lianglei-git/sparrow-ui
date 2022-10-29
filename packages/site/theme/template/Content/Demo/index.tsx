@@ -74,7 +74,7 @@ class Demo extends React.Component<Props> {
 
     render() {
         let { preview, meta, highlightedCodes, content, childrenSetCode = () => { }, className, style, metaId } = this.props;
-        return <section id={meta.id} className={'preview ' + className} style={{ display: meta.id?.indexOf('demo-test') > -1 ? (metaId == meta.id ? 'block' : 'none') : 'block' }}>
+        return <section id={meta.id} className={'preview ' + className} >
             <style>
                 {style}
             </style>

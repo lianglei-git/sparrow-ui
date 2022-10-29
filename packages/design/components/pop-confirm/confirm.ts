@@ -99,6 +99,9 @@ const PopConfirm = function () {
                         root.getRootClassName(root.contextTarget, ['__' + newval ?? '__top', (this as any).APAC ? 'APAC' : ''])
                 }]
             ]))
+        },
+        disconnectedCallback() {
+            this.super.destory();
         }
     });
 }
