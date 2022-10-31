@@ -16,4 +16,4 @@ subTitle: 密码框
 | icon-unshow | 不展示时icon     | string\|icon | -    | sp-icon-eyes |
 | visible     | 是否显示切换按钮 | boolean      | -    | true         |
 
-更多属性请参考 [Input](/components/input/#API)。
+##### 更多属性请参考 [Input](/components/input/#API)。

@@ -21,4 +21,4 @@ subTitle: 数字输入框
 | parser | 指定格式， 可以为属性也可以为元素上的方法 | string\| function(value)       | -    | -      |
 | onStep | 增加，删减的毁掉函数                      | function(value, 'down'\| 'up') | -    | -      |
 
-更多属性请参考 [Input](/components/input/#API)。
+##### 更多属性请参考 [Input](/components/input/#API)。

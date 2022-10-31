@@ -20,4 +20,4 @@ subTitle: 搜索框
 | loading      | 搜索 loading                                 | boolean                | -    | false  |
 | onSearch     | 点击搜索图标、清除图标，或按下回车键时的回调 | function(value, event) | -    | - |
 
-更多属性请参考 [Input](/components/input/#API)。
+##### 更多属性请参考 [Input](/components/input/#API)。

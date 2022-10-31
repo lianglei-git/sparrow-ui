@@ -14,6 +14,8 @@ if (typeof window !== 'undefined') {
     $el = (el: string, target: HTMLElement | Document = document) => target.querySelectorAll(el)
 }
 
+
+
 const setStyle = (target: HTMLElement, obj: Styletype<CSSStyleRule['style']>) => {
     for (const key in obj) {
         // Object.prototype.hasOwnProperty.call(target['style'], key) && 
@@ -33,6 +35,19 @@ interface Meta {
 const ComponentInMarkdown = React.memo(({ content, utils }: any) =>
     utils.toReactComponent(['section', { className: 'markdown' }].concat(getChildren(content))),
 );
+
+
+
+const APIContainer = React.memo(({utils, index}) => 
+    utils.toReactComponent(
+        [
+            'section',
+            {
+                className: 'markdown api-container',
+            },
+        ].concat(getChildren(index?.api || ['placeholder'])),
+    )
+)
 let testElId = 0
 const Content = (props: any) => {
     const [code, setCode] = useState<Object | any>(null);
@@ -44,7 +59,7 @@ const Content = (props: any) => {
     const codeEl = createRef<HTMLDivElement>()
     const to = ($$i: Meta) => {
         let toL = $$i.filename.split('/');
-        let topath
+        let topath;
         try {
             // if(props.$type !== 'cmps') {
                 toL.shift();
@@ -247,14 +262,15 @@ const Content = (props: any) => {
                 }
 
                 {demo()}
-                {props.utils.toReactComponent(
+                {/* {props.utils.toReactComponent(
                     [
                         'section',
                         {
                             className: 'markdown api-container',
                         },
                     ].concat(getChildren(props?.index?.api || ['placeholder'])),
-                )}
+                )} */}
+                <APIContainer  utils={props.utils} index={props.index}></APIContainer>
                 <footer className='footer'>
                     <div className="blogroll">
                         <h2>友情链接</h2>

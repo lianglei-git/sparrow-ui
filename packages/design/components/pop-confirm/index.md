@@ -34,4 +34,4 @@ subTitle: 气泡确认框
 | onConfirm   | 点击确认的回调            | function(e) | -            | -    |
 | hide-icon   | 是否隐藏icon              | boolean     | false        | -    |
 
-更多属性请参考 [Tooltip](/components/tooltip/#API)。
+##### 更多属性请参考 [Tooltip](/components/tooltip/#API)。

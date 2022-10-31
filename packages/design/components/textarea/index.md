@@ -18,4 +18,4 @@ subTitle: 文本域
 | min-rows  | 最小行数       | boolean | -    | -  |
 | max-rows  | 最大行数       | boolean | -    | -  |
 
-更多属性请参考 [Input](/components/input/#API)。
+##### 更多属性请参考 [Input](/components/input/#API)。
