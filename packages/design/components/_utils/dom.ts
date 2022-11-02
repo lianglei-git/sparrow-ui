@@ -12,11 +12,18 @@ type createElTyp = {
 
 const $el: HTMLElement | any = (el: string, target: HTMLElement | Document = document) => target.querySelectorAll(el)
 
-const createEl = (tag: string, type: string = 'createElement') => (document as any)[type](tag)
+const createEl = (tag: string, type: string = 'createElement'):HTMLElement => (<Document>document as any)[type](tag)
+
+const createElement = (tag: HTMLElement['tagName'], options?: any) => {
+    const element:any = createEl(tag, options['type'] ?? 'createElement');
+    return element
+}
+
 
 type Styletype<T> = {
     [K in keyof T]?: T[K]
 }
+
 const setStyle = (target: HTMLElement, obj: Styletype<CSSStyleRule['style']>) => {
     for (const key in obj) {
         // Object.prototype.hasOwnProperty.call(target['style'], key) && 

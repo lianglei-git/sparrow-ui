@@ -1,3 +1,48 @@
 @classname: sp-select;
 
 @import url(../../input/style/common.less);
+
+
+.@{classname} {
+        margin: 0 !important;
+        padding: 0;
+        padding: 5px 8px;
+        // border-top: 0;
+        // border-right: 0;
+        // border-bottom: 0;
+        // border-radius: 0;
+        border-radius: 0 2px 2px 0;
+        position: relative;
+        line-height: 1.5;
+    .icon-prefix {
+        padding: 0;
+        color: #c0c4cc;
+        font-size: 14px;
+        transition: transform .3s;
+        transform: scale(1.5) rotate(0deg);
+        cursor: pointer;
+        
+        &.active {
+            transform:scale(1.5) rotate(180deg);
+        }
+    }
+}
+
+.sp-drop_down_container {
+    position: absolute;
+    height: 100%;
+    transform-origin: center top;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    box-sizing: border-box;
+    margin: 5px 0;
+    overflow: hidden;
+    // transition: .5s;
+    border: 1px solid #e4e7ed;
+    display: none;
+    &.active {
+    display: block;
+        
+    }
+}

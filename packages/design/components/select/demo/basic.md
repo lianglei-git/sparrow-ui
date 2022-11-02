@@ -8,11 +8,11 @@ title: 基本
 
 ```html
 <h3>Html:</h3>
-<sp-search placeholder='Basic usage' id='search'></sp-search>
+<sp-select></sp-select>
 <script>
-    search.onSearch = (event, value) => {
-        Spui.Message.info(value)
-    }
+    // search.onSearch = (event, value) => {
+    //     Spui.Message.info(value)
+    // }
 </script>
 ```
 
