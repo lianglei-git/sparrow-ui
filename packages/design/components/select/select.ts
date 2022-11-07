@@ -100,11 +100,39 @@ class Search extends Base {
             drop_down_container_warp_view.append(item);
         }
     
+        root.isActive = false;
+
+        function addActive() {
+            (<HTMLElement>prefix).classList.add('active');
+            drop_down_container.classList.add('active');
+            root.isActive = true;
+        }
+
+        function removeActive() {
+            prefix.classList.remove('active');
+            drop_down_container.classList.remove('active');
+            root.isActive = false;
+        }
+
+        function removeClick() {
+            let p:any = listener(document.body, 'click', (e: Event) => {
+                removeActive();
+                p.remove();
+            })
+        }
 
         listener(prefix, 'click', (e: Event) => {
-            (<HTMLElement>e.target).classList.toggle('active');
-            drop_down_container.classList.toggle('active');
+            e.preventDefault();
+            e.stopPropagation();
+            root.isActive ? removeActive() : addActive();
+            removeClick();
+        })
 
+        listener(root, 'click', (e: Event) => {
+            e.preventDefault();
+            e.stopPropagation();
+            addActive();
+            removeClick();
         })
 
         //  drop_down_container 默认注入select里， 可以选择注入到body里面去
