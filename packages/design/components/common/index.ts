@@ -11,6 +11,7 @@ const setIndex = (i:number = 1) => {
     return zIndex
 }
 
+
 export  {
     getIndex,
     setIndex

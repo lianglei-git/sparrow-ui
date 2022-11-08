@@ -1,8 +1,58 @@
 import { SelectProps as Props, SelectTypes as Types } from './type'
-import { $el, createEl, defineEl, getProps, listener } from '../_utils/dom' // setStyle
+import { $el, createEl, defineEl, getProps, listener, setStyle } from '../_utils/dom' // setStyle
 import Base from '../_utils/Base'
 import InputCommon from '../input/Common';
+import { setIndex } from '../common';
 
+
+
+function scrollIntoView(container, selected) {
+  
+    if (!selected) {
+      container.scrollTop = 0;
+      return;
+    }
+  
+    const offsetParents = [];
+    let pointer = selected.offsetParent;
+    while (pointer && container !== pointer && container.contains(pointer)) {
+      offsetParents.push(pointer);
+      pointer = pointer.offsetParent;
+    }
+    const top = selected.offsetTop + offsetParents.reduce((prev, curr) => (prev + curr.offsetTop), 0);
+    const bottom = top + selected.offsetHeight;
+    const viewRectTop = container.scrollTop;
+    const viewRectBottom = viewRectTop + container.clientHeight;
+    
+    let scrollTop = null;
+    if (top < viewRectTop) {
+      scrollTop = top;
+    } else if (bottom > viewRectBottom) {
+      scrollTop = bottom - container.clientHeight;
+    }
+    return scrollTop;
+  }
+
+
+
+  function getScrollTop(target) {
+    const scrollParents = [target]
+    let pointer = target.parentNode;
+    console.time('a')
+    while (pointer) {
+        scrollParents.push(pointer);
+        pointer = pointer.parentNode;
+    }
+    console.log(scrollParents,'scrollParents')
+    let scroll = scrollParents.reduce((prev, curr) => (prev + (curr.scrollTop || 0)), 0)
+    console.timeEnd('a')
+    console.log(scroll)
+  }
+
+  window.getScrollTop = getScrollTop;
+
+  window.scrollIntoView = scrollIntoView;
+  
 
 class Search extends Base {
     context: this
@@ -71,7 +121,7 @@ class Search extends Base {
         drop_down_container_warp.append(drop_down_container_warp_view);
         drop_down_container.append(drop_down_container_warp);
 
-        //    Symbol.asyncIterator
+        // Symbol.asyncIterator
         function* iteratorCreateEvery(_options) {
             const options = _options;
 
@@ -86,6 +136,11 @@ class Search extends Base {
             for (let index = 0, length = options.length; index < length;) {
                 // drop_down_container_warp_view_item
                 const view_item = createEl('li');
+                listener(view_item, 'click', e => {
+                    drop_down_container_warp_view.childNodes.forEach(item => item.classList.remove('active'))
+                    view_item.classList.add('active');
+                    root?.change?.(view_item, e, options[index - 1]);
+                })
                 view_item.className = 'sp-drop_down_container_warp_view_item'
                 if (/** default Conetnt (!label)*/ true) {
                     view_item.append(createDefaultItemContent(options[index]))
@@ -102,18 +157,26 @@ class Search extends Base {
     
         root.isActive = false;
 
+        // add target class active
         function addActive() {
             (<HTMLElement>prefix).classList.add('active');
             drop_down_container.classList.add('active');
             root.isActive = true;
+            let zIndex = setIndex();
+            setStyle(drop_down_container, { zIndex })
+            raf();
         }
+
+
 
         function removeActive() {
             prefix.classList.remove('active');
             drop_down_container.classList.remove('active');
             root.isActive = false;
+            setIndex(-1)
         }
 
+        // remove target active class
         function removeClick() {
             let p:any = listener(document.body, 'click', (e: Event) => {
                 removeActive();
@@ -135,8 +198,48 @@ class Search extends Base {
             removeClick();
         })
 
+        const setDrop_down_containerPosition = (left = 0, top = 0) => {
+            let t = root.getBoundingClientRect();
+            setStyle(drop_down_container, {
+                left: t.left  +  left + 'px',
+                top: t.top + t.height + top + 'px',
+            })
+        }
+        
+        setDrop_down_containerPosition();
+
+        root.change = (target, e,  v) => {
+            // e.stopPropagation();
+            ipt.value = v.label
+            console.log(v);
+        }
+
+        var raf = () => {
+           
+        }
+        
+                
+        // document.body.addEventListener('wheel', () => {
+        //     setDrop_down_containerPosition();
+        // })
+
+        // listener(document.body, 'scroll', (e) => {
+        //     setDrop_down_containerPosition
+        // })
+
+        // is append document.body
+        if(true) {
+            document.body.append(drop_down_container);
+            raf = () => {
+                if( root.isActive ) {
+                    setDrop_down_containerPosition();
+                    window.requestAnimationFrame(raf)
+                }
+            }
+        }
+
         //  drop_down_container 默认注入select里， 可以选择注入到body里面去
-        root.append(ipt, prefix, drop_down_container);
+        root.append(ipt, prefix);
 
     }
 }
