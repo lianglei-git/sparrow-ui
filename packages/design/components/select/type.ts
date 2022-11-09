@@ -1,10 +1,10 @@
 
 
- interface SelectTypes  {
+interface SelectTypes  {
 } 
 
- const SelectProps = Object.freeze({
-
+const SelectProps = Object.freeze({
+    value: ''
 })
 export {
     SelectTypes,

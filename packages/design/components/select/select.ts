@@ -3,6 +3,7 @@ import { $el, createEl, defineEl, getProps, listener, setStyle } from '../_utils
 import Base from '../_utils/Base'
 import InputCommon from '../input/Common';
 import { setIndex } from '../common';
+import { throws } from 'assert';
 
 
 
@@ -63,6 +64,7 @@ class Search extends Base {
             tag: 'sp-select',
             observedAttributes: Object.keys(Props),
             connectedCallback() {
+                this.inited = false;
                 (this.attrs as Partial<Types>) = getProps(this);
                 this.attrs = { ...Props, ...this.attrs };
                 const that = this;
@@ -78,7 +80,22 @@ class Search extends Base {
                 })
             },
             attributeChangedCallback(...args: any) {
-                console.log(args);
+                if(!this.inited) return;
+                const [k, ov, nv] = args;
+                if(k === 'value') {
+                    let idx = this.downOptions.findIndex(i => i.value == nv);
+                    if(idx !== -1) {
+                        let item = this.drop_down_container_warp_view?.childNodes[idx - 1];
+                        this.itemClick(item, item, this.downOptions, idx - 1)
+                    }
+                }
+            },
+            disconnectedCallback() {
+                try {
+                    this.drop_down_container.remove();
+                }catch(_) {
+        
+                }
             }
         })
     }
@@ -92,7 +109,7 @@ class Search extends Base {
 
 
         /************ drop-down-container ************/
-        const downOptions = [{
+        let downOptions = [{
             value: '选项1',
             label: '黄金糕'
         }, {
@@ -109,6 +126,9 @@ class Search extends Base {
             label: '北京烤鸭'
         }]
 
+        if(root.downOptions) {
+            downOptions = root.downOptions
+        }
 
         let drop_down_container = createEl('div');
         let drop_down_container_warp = createEl('div');
@@ -120,6 +140,15 @@ class Search extends Base {
 
         drop_down_container_warp.append(drop_down_container_warp_view);
         drop_down_container.append(drop_down_container_warp);
+
+        
+        root.drop_down_container_warp_view = drop_down_container_warp_view;
+
+        const itemClick = root.itemClick = (view_item, e, options, index) => {
+            drop_down_container_warp_view.childNodes.forEach(item => item.classList.remove('active'))
+            view_item.classList.add('active');
+            root?.change?.(view_item, e, options[index]);
+        }
 
         // Symbol.asyncIterator
         function* iteratorCreateEvery(_options) {
@@ -137,9 +166,7 @@ class Search extends Base {
                 // drop_down_container_warp_view_item
                 const view_item = createEl('li');
                 listener(view_item, 'click', e => {
-                    drop_down_container_warp_view.childNodes.forEach(item => item.classList.remove('active'))
-                    view_item.classList.add('active');
-                    root?.change?.(view_item, e, options[index - 1]);
+                    itemClick(view_item, e, options, index - 1)
                 })
                 view_item.className = 'sp-drop_down_container_warp_view_item'
                 if (/** default Conetnt (!label)*/ true) {
@@ -201,7 +228,7 @@ class Search extends Base {
         const setDrop_down_containerPosition = (left = 0, top = 0) => {
             let t = root.getBoundingClientRect();
             setStyle(drop_down_container, {
-                left: t.left  +  left + 'px',
+                left: t.left + left + 'px',
                 top: t.top + t.height + top + 'px',
             })
         }
@@ -238,8 +265,20 @@ class Search extends Base {
             }
         }
 
+        if(root.attrs.value !== '') {
+            let idx = downOptions.findIndex(i => i.value == root.attrs.value);
+            if(idx !== -1) {
+                let item = drop_down_container_warp_view?.childNodes[idx - 1];
+                itemClick(item, item, downOptions, idx - 1)
+            }
+        }
+
+
+        root.drop_down_container = drop_down_container;
+
         //  drop_down_container 默认注入select里， 可以选择注入到body里面去
         root.append(ipt, prefix);
+        root.inited = true;   
 
     }
 }
