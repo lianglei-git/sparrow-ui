@@ -15,8 +15,9 @@
     "transform-es": "pnpm --filter=design transform-es",
     "build-watch:ui": "pnpm --filter=design build-watch:ui",
     "copypack": "pnpm --filter=worker-shell copypack",
-    "b:npm": "pnpm build:ui && pnpm transform-lib && pnpm transform-es && pnpm copypack",
+    "b:npm": "pnpm build:ui && pnpm transform-lib && pnpm transform-es && pnpm copypack && pnpm bPublish",
     "serve": "node ./server/entry.js",
+    "bPublish": "cd ./packages/sparrow-ui && npm publish",
     "server:build": "webpack --color --progress --config webpack.config.js"
   },
   "repository": {

@@ -50,9 +50,9 @@ function scrollIntoView(container, selected) {
     console.log(scroll)
   }
 
-  window.getScrollTop = getScrollTop;
+  globalThis.getScrollTop = getScrollTop;
 
-  window.scrollIntoView = scrollIntoView;
+  globalThis.scrollIntoView = scrollIntoView;
   
 
 class Search extends Base {
@@ -145,7 +145,7 @@ class Search extends Base {
         root.drop_down_container_warp_view = drop_down_container_warp_view;
 
         const itemClick = root.itemClick = (view_item, e, options, index) => {
-            drop_down_container_warp_view.childNodes.forEach(item => item.classList.remove('active'))
+            drop_down_container_warp_view.childNodes.forEach((item: HTMLElement) => item.classList.remove('active'))
             view_item.classList.add('active');
             root?.change?.(view_item, e, options[index]);
         }
@@ -190,7 +190,7 @@ class Search extends Base {
             drop_down_container.classList.add('active');
             root.isActive = true;
             let zIndex = setIndex();
-            setStyle(drop_down_container, { zIndex })
+            setStyle(drop_down_container, { zIndex } as any)
             raf();
         }
 
