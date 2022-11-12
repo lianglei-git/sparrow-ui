@@ -34,6 +34,7 @@ import './checkbox'
 import './radio'
 import './layout'
 import './select'
+import './rate'
 // 打包ui时候关闭下面这些代码，打包site时候打开这个定制代码。
 // import './custom-tc-brands';
 

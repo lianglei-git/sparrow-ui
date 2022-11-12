@@ -1,0 +1,60 @@
+.sp-rate {
+  box-sizing: border-box;
+  color: #000000d9;
+  color: #f2f2f2;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  font-feature-settings: "tnum";
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  line-height: unset;
+  list-style: none;
+  outline: none;
+}
+.sp-rate .sp-rate-star {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  cursor: pointer;
+}
+.sp-rate .sp-rate-star:not(:last-child) {
+  margin-right: 8px;
+}
+.sp-rate .sp-rate-star > div {
+  transition: all 0.3s, outline 0s;
+}
+.sp-rate .sp-rate-star > div:hover {
+  transform: scale(1.2);
+}
+.sp-rate .sp-rate-star > div.full {
+  color: #fadb14;
+}
+.sp-rate .sp-rate-star > div.full:hover {
+  transform: scale(1);
+}
+.sp-rate .sp-rate-star > div.half > div:first-child {
+  color: #fadb14;
+  opacity: 1;
+  z-index: 2;
+}
+.sp-rate .sp-rate-star-first {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0;
+  width: 50%;
+  color: #0000000f;
+  transition: all 0.3s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.sp-rate .sp-rate-star-second {
+  color: inherit;
+}
