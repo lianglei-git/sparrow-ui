@@ -4,39 +4,40 @@ import Base from '../_utils/Base'
 import InputCommon from '../input/Common';
 import { setIndex } from '../common';
 import { throws } from 'assert';
+import wrapperRaf from '../_utils/raf';
 
 
 
 function scrollIntoView(container, selected) {
-  
+
     if (!selected) {
-      container.scrollTop = 0;
-      return;
+        container.scrollTop = 0;
+        return;
     }
-  
+
     const offsetParents = [];
     let pointer = selected.offsetParent;
     while (pointer && container !== pointer && container.contains(pointer)) {
-      offsetParents.push(pointer);
-      pointer = pointer.offsetParent;
+        offsetParents.push(pointer);
+        pointer = pointer.offsetParent;
     }
     const top = selected.offsetTop + offsetParents.reduce((prev, curr) => (prev + curr.offsetTop), 0);
     const bottom = top + selected.offsetHeight;
     const viewRectTop = container.scrollTop;
     const viewRectBottom = viewRectTop + container.clientHeight;
-    
+
     let scrollTop = null;
     if (top < viewRectTop) {
-      scrollTop = top;
+        scrollTop = top;
     } else if (bottom > viewRectBottom) {
-      scrollTop = bottom - container.clientHeight;
+        scrollTop = bottom - container.clientHeight;
     }
     return scrollTop;
-  }
+}
 
 
 
-  function getScrollTop(target) {
+function getScrollTop(target) {
     const scrollParents = [target]
     let pointer = target.parentNode;
     console.time('a')
@@ -44,16 +45,16 @@ function scrollIntoView(container, selected) {
         scrollParents.push(pointer);
         pointer = pointer.parentNode;
     }
-    console.log(scrollParents,'scrollParents')
+    console.log(scrollParents, 'scrollParents')
     let scroll = scrollParents.reduce((prev, curr) => (prev + (curr.scrollTop || 0)), 0)
     console.timeEnd('a')
     console.log(scroll)
-  }
+}
 
-  globalThis.getScrollTop = getScrollTop;
+globalThis.getScrollTop = getScrollTop;
 
-  globalThis.scrollIntoView = scrollIntoView;
-  
+globalThis.scrollIntoView = scrollIntoView;
+
 
 class Search extends Base {
     context: this
@@ -80,11 +81,11 @@ class Search extends Base {
                 })
             },
             attributeChangedCallback(...args: any) {
-                if(!this.inited) return;
+                if (!this.inited) return;
                 const [k, ov, nv] = args;
-                if(k === 'value') {
+                if (k === 'value') {
                     let idx = this.downOptions.findIndex(i => i.value == nv);
-                    if(idx !== -1) {
+                    if (idx !== -1) {
                         let item = this.drop_down_container_warp_view?.childNodes[idx - 1];
                         this.itemClick(item, item, this.downOptions, idx - 1)
                     }
@@ -93,8 +94,8 @@ class Search extends Base {
             disconnectedCallback() {
                 try {
                     this.drop_down_container.remove();
-                }catch(_) {
-        
+                } catch (_) {
+
                 }
             }
         })
@@ -126,7 +127,7 @@ class Search extends Base {
             label: '北京烤鸭'
         }]
 
-        if(root.downOptions) {
+        if (root.downOptions) {
             downOptions = root.downOptions
         }
 
@@ -141,7 +142,7 @@ class Search extends Base {
         drop_down_container_warp.append(drop_down_container_warp_view);
         drop_down_container.append(drop_down_container_warp);
 
-        
+
         root.drop_down_container_warp_view = drop_down_container_warp_view;
 
         const itemClick = root.itemClick = (view_item, e, options, index) => {
@@ -181,7 +182,7 @@ class Search extends Base {
         for await (const item of iteratorCreateEvery(downOptions)) {
             drop_down_container_warp_view.append(item);
         }
-    
+
         root.isActive = false;
 
         // add target class active
@@ -205,7 +206,7 @@ class Search extends Base {
 
         // remove target active class
         function removeClick() {
-            let p:any = listener(document.body, 'click', (e: Event) => {
+            let p: any = listener(document.body, 'click', (e: Event) => {
                 removeActive();
                 p.remove();
             })
@@ -232,20 +233,20 @@ class Search extends Base {
                 top: t.top + t.height + top + 'px',
             })
         }
-        
+
         setDrop_down_containerPosition();
 
-        root.change = (target, e,  v) => {
+        root.change = (target, e, v) => {
             // e.stopPropagation();
             ipt.value = v.label
             console.log(v);
         }
 
         var raf = () => {
-           
+
         }
-        
-                
+
+
         // document.body.addEventListener('wheel', () => {
         //     setDrop_down_containerPosition();
         // })
@@ -255,19 +256,20 @@ class Search extends Base {
         // })
 
         // is append document.body
-        if(true) {
+        if (true) {
             document.body.append(drop_down_container);
             raf = () => {
-                if( root.isActive ) {
+                if (root.isActive) {
                     setDrop_down_containerPosition();
-                    window.requestAnimationFrame(raf)
+                    wrapperRaf(raf)
+                    // window.requestAnimationFrame(raf)
                 }
             }
         }
 
-        if(root.attrs.value !== '') {
+        if (root.attrs.value !== '') {
             let idx = downOptions.findIndex(i => i.value == root.attrs.value);
-            if(idx !== -1) {
+            if (idx !== -1) {
                 let item = drop_down_container_warp_view?.childNodes[idx - 1];
                 itemClick(item, item, downOptions, idx - 1)
             }
@@ -278,7 +280,7 @@ class Search extends Base {
 
         //  drop_down_container 默认注入select里， 可以选择注入到body里面去
         root.append(ipt, prefix);
-        root.inited = true;   
+        root.inited = true;
 
     }
 }

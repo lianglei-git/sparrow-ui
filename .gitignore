@@ -13,6 +13,5 @@ packages/design/undefined
 /server/www.sparrowui.cn_nginx/*
 dist
 es
-lib
 sparrow-ui
 www.sparrowui.cn_nginx
