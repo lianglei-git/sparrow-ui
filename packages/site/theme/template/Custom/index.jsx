@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useState } from 'react'
+import {Collapse, CollapsePanel} from 'design/components/loader-react'
 import './index.less';
 let Message =(() => {})
 if(typeof window !== 'undefined') {
@@ -140,6 +141,21 @@ const Home = (props) => {
     }
 
     return <div className="custom">
+{/* 
+
+     <Collapse  type="vertical" active-index='2'>
+        <CollapsePanel  index='1' title='This is panel header 1'>
+        A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
+        </CollapsePanel>
+        <CollapsePanel  index='2' title='This is panel header 2'>
+            <div>
+            A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.
+            </div>
+        </CollapsePanel>
+    </Collapse> */}
+
+
+
         定制， 包括主题 和 自定义下载资源
         <div className='custom-components'>
             <h3>定制组件</h3>

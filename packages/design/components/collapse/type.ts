@@ -3,11 +3,15 @@ export interface collapseTypes {
     'dis-hover': boolean
     title: string
     extra: string | HTMLElement
+
+    /** 2023/1/10 type = 'vertical' | 'default' */
+    type: 'vertical' | 'default'
 }
 
-export const collapseProps = {
+export const collapseProps:collapseTypes = {
     'no-boder': undefined,
     'dis-hover': undefined,
     title: undefined,
-    extra: undefined
+    extra: undefined,
+    type: 'default'
 }

@@ -15,7 +15,8 @@ class Collapse extends Base {
             connectedCallback() {
                 (this.attrs as Partial<collapseTypes>) = getProps(this);
                 this.attrs = { ...collapseProps, ...this.attrs };
-                sto(() => context.initView(this))
+                // sto(() => context.initView(this))
+                context.initView(this)
             },
             // attributeChangedCallback(...args: any) {
             //     let [key, _, newval] = args;
@@ -25,9 +26,13 @@ class Collapse extends Base {
         })
     }
 
-    initView(root: HTMLElement | any) {
+    initView(root: HTMLElement & {attrs: collapseTypes}) {
         let attrs = root.attrs;
         this._setClassName(root, [attrs['ghost']+'' == 'true' ? '--ghost' : '', attrs['simple']+'' =='true'? '--simple': '']);
+
+        if(attrs['type'] == 'vertical') {
+            root.classList.add('vertical')
+        }
     }
 }
 
