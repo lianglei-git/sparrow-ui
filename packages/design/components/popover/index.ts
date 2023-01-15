@@ -30,7 +30,7 @@ class Popover {
                 context.obsevseAttrs.call(this, { [key]: newval })
             },
             disconnectedCallback() {
-                this.super.destory();
+                this.super?.destory();
             }
         });
     }

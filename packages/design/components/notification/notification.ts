@@ -87,7 +87,7 @@ class NotifyBase {
         contentEl.classList.add(contentEl.basename);
         closeEl.classList.add(closeEl.basename, 'sp-icon', 'sp-icon-close');
         titleEl.innerText = root.attrs.title
-        pEl.innerText = root.attrs?.message || ''
+        pEl.innerHTML = root.attrs?.message || ''
         root.iconEl = iconEl;
         root.titleEl = titleEl;
         root.pEl = pEl;

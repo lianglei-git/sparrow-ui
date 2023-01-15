@@ -4,13 +4,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const fs = require('fs');
-const {cwd} = require('process')
+const { cwd } = require('process')
 // 1. 单独打包components -- rollup 
 // 2. 打包文档（React）然后把ui组件打包进去
 // 3. 在文档里面启动调试服务
 const resolveApp = ppath => path.resolve(fs.realpathSync(cwd()), ppath)
-module.exports = function (webpackEnv='production') {
+module.exports = function (webpackEnv = 'production') {
     const isEnvDevelopment = webpackEnv === 'development';
     const isEnvProduction = webpackEnv === 'production';
     return {
@@ -19,7 +20,7 @@ module.exports = function (webpackEnv='production') {
         entry: resolveApp('site/theme/index.tsx'),
         output: { // 可能后续后续会打包react来用
             filename: '[name].bundle.js', // filename: '[name].[contenthash].bundle.js', (多入口)
-            path:  path.resolve(__dirname, '../_site'),
+            path: path.resolve(__dirname, '../_site'),
             globalObject: 'this',
         },
         resolve: {
@@ -51,7 +52,7 @@ module.exports = function (webpackEnv='production') {
                 },
                 {
                     test: /\.(js|jsx|ts|tsx)$/,
-                    loader:'babel-loader',
+                    loader: 'babel-loader',
                     exclude: /node_modules/,
                     options: {
                         cacheDirectory: true,
@@ -118,6 +119,12 @@ module.exports = function (webpackEnv='production') {
         plugins: [
             new MiniCssExtractPlugin({
                 filename: '[name].css',
+            }),
+            new WorkboxPlugin.GenerateSW({
+                // 这些选项帮助快速启用 ServiceWorkers
+                // 不允许遗留任何“旧的” ServiceWorkers
+                clientsClaim: true,
+                skipWaiting: true,
             }),
             new HtmlWebpackPlugin(
                 Object.assign(

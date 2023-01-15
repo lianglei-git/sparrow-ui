@@ -101,7 +101,7 @@ const PopConfirm = function () {
             ]))
         },
         disconnectedCallback() {
-            this.super.destory();
+            this.super?.destory();
         }
     });
 }
