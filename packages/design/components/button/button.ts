@@ -1,7 +1,9 @@
 import typeProps, { ButtonProps } from './type'
-// import './style'
 import { runIFELSE, sto } from '../_utils/common'
 import { defineEl, createEl, getProps } from '../_utils/dom'
+import { useRipple } from '../common/Ripple/ripple'
+
+
 const typePropsObj: ButtonProps | any = typeProps()
 const changeProps = (elconstr: HTMLElement & any, props: object | any) => {
     let includes: Array<string> = ['shape', 'size', 'type'] // , 'disabled'
@@ -70,46 +72,15 @@ export default
         observedAttributes: Object.keys(typePropsObj),
         connectedCallback() {
             let base = this.getAttribute('classname') || ''
-            // let self = this
             this.loadinEl = null
             this.baseClassName = 'sp-button ' + base;
             this.className = 'sp-button ' + base;
             this.setAttribute('hidefocus', true)
             this.setAttribute('tabindex', 0)
-            // type styletype = { // Partial
-            //     [P in keyof CSSStyleDeclaration]?: CSSStyleDeclaration[P]
-            // }
-            // let _style: styletype = {
-            //     transition: '.3s'
-            // }
-            // let handler: ProxyHandler<any> = {
-            //     set(target: any, key: string, value: string) {
-            //         let d = Reflect.set(target, key, value)
-            //         setStyle(self, { [key]: value } as any)
-            //         return d
-            //     }
-            // }
-            // let target = new Proxy(_style, handler)
-            // sto(() => setStyle(this, target))
+            
             let attributesObj: ButtonProps | any = { ...getProps(this) }
-            // for (let k1 in typePropsObj) {
-            //     let k1v = attributesObj[k1]
-            //     let k2v = typePropsObj[k1]
-            //     runIFELSE(new Set([
-            //         [(k2v instanceof Array), () => {
-            //             if (!k2v.includes(k1v)) {
-            //                 attributesObj[k1] = baseprops[k1]
-            //                 self['attr-' + k1] = baseprops[k1]
-            //             }
-            //         }],
-            //         [k1 == 'disabled', () => {
-            //             attributesObj[k1] = k1v || 'false'
-            //             self['attr-disabled'] = k1v || 'false'
-            //         }]
-            //     ]))
-            // }
             changeProps(this, attributesObj)
-
+            setTimeout(() => useRipple(this), 150)
             function adapderEmpty(childNodes: any[]) {
                 let copty = [...childNodes]
                 copty.shift()

@@ -1,5 +1,7 @@
 
 import { runIFELSE } from './common'
+
+
 type createElTyp = {
     tag: string,
     connectedCallback: () => any,
@@ -11,11 +13,17 @@ type createElTyp = {
 }
 
 const $el: HTMLElement | any = (el: string, target: HTMLElement | Document = document) => target.querySelectorAll(el)
+function createEl<K extends keyof HTMLElementTagNameMap>(tagName: K, type: 'createElement' | 'createElementNS', options?: ElementCreationOptions): HTMLElementTagNameMap[K];
+function createEl<K extends keyof HTMLElementDeprecatedTagNameMap>(tagName: K, type: string, options?: ElementCreationOptions): HTMLElementDeprecatedTagNameMap[K];
+function createEl(tagName: string, type?: string, options?: ElementCreationOptions): HTMLElement;
 
-const createEl = (tag: string, type: string = 'createElement') => (<Document>document as any)[type](tag)
+function createEl(tag: string, type: string = 'createElement', options) {
+    return (<Document>document as any)[type](tag, options) as HTMLElement
+}
+
 
 const createElement = (tag: HTMLElement['tagName'], options?: any) => {
-    const element:any = createEl(tag, options['type'] ?? 'createElement');
+    const element: any = createEl(tag, options['type'] ?? 'createElement');
     return element
 }
 
@@ -116,7 +124,7 @@ const last: <T extends any>(l: T[]) => T = (l) => {
 }
 
 // 绑定事件
-const listener: (target: HTMLElement | Document, event: string, func: (e: Event | ProgressEvent<EventTarget>) => any, opt?: any) => void =
+const listener: (target: HTMLElement | Document, event: keyof HTMLElementEventMap, func: (e: Event | ProgressEvent<EventTarget>) => any, opt?: any) => void =
     (target, event, func, opt) => {
         if (target.addEventListener) {
             target.addEventListener(event, func, opt)

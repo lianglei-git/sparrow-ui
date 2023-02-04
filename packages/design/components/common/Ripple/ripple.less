@@ -1,0 +1,90 @@
+.ripple-root {
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    z-index: 0;
+    inset: 0px;
+    border-radius: inherit;
+
+
+    user-select: none;
+    vertical-align: middle;
+    appearance: none;
+    text-decoration: none;
+    text-transform: uppercase;
+    >span {
+        position: absolute;
+        opacity: 0;
+
+        >span {
+            position: absolute;
+            opacity: 1;
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: currentColor;
+        }
+
+        &.active {
+            opacity: 0.5;
+            transform: scale(1);
+            animation-name: animation-active;
+            animation-duration: 550ms;
+            animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            >span {
+                animation-name: animation-active2;
+            }
+        }
+
+        &.leave {
+            >span {
+                opacity: 0;
+                animation-name: animation-leave;
+                animation-duration: 550ms;
+                animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            }
+        }
+    }
+
+}
+
+@keyframes animation-active {
+    0% {
+        transform: scale(0);
+        opacity: 0.1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+}
+
+@keyframes animation-leave {
+    0% {
+        // transform: scale(1);
+        // opacity: 0.3;
+        opacity: 1;
+    }
+
+    100% {
+        // transform: scale(0);
+        // opacity: 0.1;
+        opacity: 0;
+    }
+}
+
+@keyframes animation-active2 {
+    0% {
+        transform: scale(1);
+      }
+    
+      50% {
+        transform: scale(0.92);
+      }
+    
+      100% {
+        transform: scale(1);
+      }
+}

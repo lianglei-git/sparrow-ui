@@ -5,6 +5,24 @@ import Demo from './Demo';
 import CodeView from './Demo/CodePreView'
 import { getChildren } from 'jsonml.js/lib/utils';
 import './index.less';
+import TouchRipple from 'design/components/common/Ripple/use-react'
+
+
+const Item = (props) => {
+    const target = useRef(null);
+    return <>
+        <TouchRipple target={target} />
+        <li ref={target}
+            key={props.i2.title}
+            style={{userSelect: 'none'}}
+            className={props.i2.filename.indexOf(location.pathname.slice(1, location.pathname.length - 1)) > -1 ? 'active' : ''}
+        >
+            {props.children}
+        </li>
+    </>
+}
+
+
 let Message = () => { }
 let location = { pathname: '' }
 let $el = () => { }
@@ -38,7 +56,7 @@ const ComponentInMarkdown = React.memo(({ content, utils }: any) =>
 
 
 
-const APIContainer = React.memo(({utils, index}) => 
+const APIContainer = React.memo(({ utils, index }) =>
     utils.toReactComponent(
         [
             'section',
@@ -62,8 +80,8 @@ const Content = (props: any) => {
         let topath;
         try {
             // if(props.$type !== 'cmps') {
-                toL.shift();
-                toL.shift();
+            toL.shift();
+            toL.shift();
             // }
             topath = props.$type == 'cmps' ? toL[0] + '/' + toL[1] + '/' : toL.join('/').slice(0, toL.join('/').indexOf('.md')) + '/';
         } catch (error) {
@@ -121,12 +139,7 @@ const Content = (props: any) => {
                     return <li key={item.type}>
                         <p>{item.type}</p>
                         <ol>
-                            {item.children.map((i2: Meta) => {
-                                return <li
-                                    key={i2.title}
-                                    className={i2.filename.indexOf(location.pathname.slice(1, location.pathname.length - 1)) > -1 ? 'active' : ''}
-                                >{to(i2)}</li>
-                            })}
+                            {item.children.map((i2: Meta) => <Item i2={i2}>{to(i2)}</Item>)}
                         </ol>
                     </li>
                 })
@@ -162,7 +175,7 @@ const Content = (props: any) => {
         return $l.map((content, i) => {
             if (content.meta.id?.indexOf('demo-test') > -1) {
                 testElId = content.meta.id;
-                if(metaId && content.meta.id?.indexOf(metaId) > -1) return <Demo key={i} {...{ ...content, childrenSetCode, utils: props.utils, className: content.meta.id == curCodeDetails ? 'active' : '', location }} />;
+                if (metaId && content.meta.id?.indexOf(metaId) > -1) return <Demo key={i} {...{ ...content, childrenSetCode, utils: props.utils, className: content.meta.id == curCodeDetails ? 'active' : '', location }} />;
                 return "";
             }
             return <Demo key={i} {...{ ...content, childrenSetCode, utils: props.utils, className: content.meta.id == curCodeDetails ? 'active' : '', location }} />;
@@ -208,11 +221,11 @@ const Content = (props: any) => {
         setCode(null);
         switchEl.current.style.color = '#000'
         switchEl.current.onChange = (is: Boolean, _: EventTarget) => {
-            if (!testElId){
+            if (!testElId) {
                 setshowCode(false);
-             return Message.error('该组件暂无测试模块！');
+                return Message.error('该组件暂无测试模块！');
             }
-          
+
             setStyle(_, {
                 color: is ? '#fff' : '#000'
             })
@@ -270,7 +283,7 @@ const Content = (props: any) => {
                         },
                     ].concat(getChildren(props?.index?.api || ['placeholder'])),
                 )} */}
-                <APIContainer  utils={props.utils} index={props.index}></APIContainer>
+                <APIContainer utils={props.utils} index={props.index}></APIContainer>
                 <footer className='footer'>
                     <div className="blogroll">
                         <h2>友情链接</h2>
@@ -293,19 +306,19 @@ const Content = (props: any) => {
                     <div className="help">
                         <h2>帮助</h2>
                         <ul>
-                        <li><a href="https://github.com/lianglei-git/sparrow-ui/blob/master/README.md">readme</a></li>
-                         <li><a href="https://github.com/lianglei-git/sparrow-ui/issues">issues</a></li>
-                         <li><a href="https://mail.163.com/js6/main.jsp">lianglei_cool@163.com</a></li>
+                            <li><a href="https://github.com/lianglei-git/sparrow-ui/blob/master/README.md">readme</a></li>
+                            <li><a href="https://github.com/lianglei-git/sparrow-ui/issues">issues</a></li>
+                            <li><a href="https://mail.163.com/js6/main.jsp">lianglei_cool@163.com</a></li>
                         </ul>
                     </div>
                     <div className="more">
                         <h2>更多</h2>
                         <ul>
-                        <li><a href="https://github.com/lianglei-git/sp-isoffline">sp-isoffline</a></li>
-                        <li><a href="https://github.com/lianglei-git/sproxy-server">sproxy-server</a></li>
-                        <li><a href="https://github.com/lianglei-git/splogged">splogged</a></li>
-                        <li><a href="https://github.com/lianglei-git/spmark">spmark</a></li>
-                        <li><a href="https://github.com/lianglei-git/review">review</a></li>
+                            <li><a href="https://github.com/lianglei-git/sp-isoffline">sp-isoffline</a></li>
+                            <li><a href="https://github.com/lianglei-git/sproxy-server">sproxy-server</a></li>
+                            <li><a href="https://github.com/lianglei-git/splogged">splogged</a></li>
+                            <li><a href="https://github.com/lianglei-git/spmark">spmark</a></li>
+                            <li><a href="https://github.com/lianglei-git/review">review</a></li>
                         </ul>
                     </div>
                 </footer>

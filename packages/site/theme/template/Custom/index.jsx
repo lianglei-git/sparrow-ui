@@ -1,96 +1,97 @@
 // @ts-nocheck
-import React, { useState } from 'react'
-import {Collapse, CollapsePanel} from 'design/components/loader-react'
+import React, { useState, useRef } from 'react'
+import { Collapse, CollapsePanel } from 'design/components/loader-react'
 import './index.less';
-let Message =(() => {})
-if(typeof window !== 'undefined') {
- Message =  window?.Spui?.Message
+import TouchRipple from 'design/components/common/Ripple/use-react'
+let Message = (() => { })
+if (typeof window !== 'undefined') {
+    Message = window?.Spui?.Message
 }
-
+let components = [
+    // {
+    //     path: './_utils/common',
+    //     $export: 'getGlobalThis, sto'
+    // },
+    {
+        path: './message',
+        $export: 'Message'
+    },
+    {
+        path: './loading',
+        $export: 'Loading'
+    },
+    {
+        path: './notification',
+        $export: 'Notify'
+    },
+    {
+        path: './modal',
+        $export: 'Modal'
+    },
+    './common/styles',
+    './drawer',
+    './switch',
+    './alert',
+    './button',
+    './timeline',
+    './breadcrumb',
+    './progress',
+    './affix',
+    './backtop',
+    './tooltip',
+    './popover',
+    './pop-confirm',
+    './slider',
+    './avatar',
+    './badge',
+    './card',
+    './collapse',
+    './divider',
+    './input',
+    './search',
+    './password',
+    './textarea',
+    './InputNumber',
+    './checkbox',
+    './radio',
+    './custom-tc-brands'
+];
+let adapter = {
+    breadcrumb: 'Breadcrumb 面包屑',
+    timeline: 'Timeline 时间轴',
+    drawer: 'Drawer 抽屉',
+    button: 'Button 按钮',
+    switch: 'Switch 开关',
+    alert: 'Alert 警告',
+    loading: 'Loading 加载中',
+    modal: 'Modal 弹窗',
+    notification: 'Notification 通知',
+    message: 'Message 提示',
+    common: 'Common 公共样式',
+    progress: 'Progress 进度条',
+    affix: 'Affix 固钉',
+    backtop: 'Backtop 回到顶部',
+    tooltip: 'Tooltip 文字提示',
+    popover: 'Popover 气泡卡片',
+    'pop-confirm': 'Popconfifirm 气泡确认框',
+    slider: 'Slider 滑动输入条',
+    avatar: 'Avatar 头像',
+    badge: 'Badge 徽标数',
+    card: 'Card 卡片',
+    collapse: 'Collapse 折叠面板',
+    divider: 'Divider 分割线',
+    input: 'Input 输入框',
+    search: 'Search 搜索框',
+    password: 'Password 密码框',
+    textarea: 'Textarea 文本域',
+    InputNumber: 'InputNumber 数字输入框',
+    checkbox: 'Checkbox 多选框',
+    radio: 'Radio 单选框',
+    'custom-tc-brands': 'TcBrands 定制选级',
+}
 const Home = (props) => {
-    let components = [
-        // {
-        //     path: './_utils/common',
-        //     $export: 'getGlobalThis, sto'
-        // },
-        {
-            path: './message',
-            $export: 'Message'
-        },
-        {
-            path: './loading',
-            $export: 'Loading'
-        },
-        {
-            path: './notification',
-            $export: 'Notify'
-        },
-        {
-            path: './modal',
-            $export: 'Modal'
-        },
-        './common/styles',
-        './drawer',
-        './switch',
-        './alert',
-        './button',
-        './timeline',
-        './breadcrumb',
-        './progress',
-        './affix',
-        './backtop',
-        './tooltip',
-        './popover',
-        './pop-confirm',
-        './slider',
-        './avatar',
-        './badge',
-        './card',
-        './collapse',
-        './divider',
-        './input',
-        './search',
-        './password',
-        './textarea',
-        './InputNumber',
-        './checkbox',
-        './radio',
-        './custom-tc-brands'
-    ];
-    let adapter = {
-        breadcrumb: 'Breadcrumb 面包屑',
-        timeline: 'Timeline 时间轴',
-        drawer: 'Drawer 抽屉',
-        button: 'Button 按钮',
-        switch: 'Switch 开关',
-        alert: 'Alert 警告',
-        loading: 'Loading 加载中',
-        modal: 'Modal 弹窗',
-        notification: 'Notification 通知',
-        message: 'Message 提示',
-        common: 'Common 公共样式',
-        progress: 'Progress 进度条',
-        affix: 'Affix 固钉',
-        backtop: 'Backtop 回到顶部',
-        tooltip: 'Tooltip 文字提示',
-        popover: 'Popover 气泡卡片',
-        'pop-confirm': 'Popconfifirm 气泡确认框',
-        slider: 'Slider 滑动输入条',
-        avatar: 'Avatar 头像',
-        badge: 'Badge 徽标数',
-        card: 'Card 卡片',
-        collapse: 'Collapse 折叠面板',
-        divider: 'Divider 分割线',
-        input: 'Input 输入框',
-        search: 'Search 搜索框',
-        password: 'Password 密码框',
-        textarea: 'Textarea 文本域',
-        InputNumber: 'InputNumber 数字输入框',
-        checkbox: 'Checkbox 多选框',
-        radio: 'Radio 单选框',
-        'custom-tc-brands': 'TcBrands 定制选级',
-    }
-
+    const target = useRef(null);
+    let [scaleStyle, setScaleStyle] = useState({})
     let [checked, setChecked] = useState([]);
     const downCustomCom = () => {
         let entryContent = `import { getGlobalThis } from './_utils/common'\n`;
@@ -134,14 +135,14 @@ const Home = (props) => {
                 }
             }).catch(rej => {
                 Message.error(rej, {
-                    duration:0,
+                    duration: 0,
                     showclose: true
                 })
             })
     }
 
     return <div className="custom">
-{/* 
+        {/* 
 
      <Collapse  type="vertical" active-index='2'>
         <CollapsePanel  index='1' title='This is panel header 1'>
@@ -153,12 +154,13 @@ const Home = (props) => {
             </div>
         </CollapsePanel>
     </Collapse> */}
+        <TouchRipple target={target} />
 
 
 
         定制， 包括主题 和 自定义下载资源
         <div className='custom-components'>
-            <h3>定制组件</h3>
+            <h3 ref={target} style={{userSelect: 'none'}}>定制组件</h3>
             <ul>
                 {components.map((i, idx) => {
                     let path = i?.path || i
