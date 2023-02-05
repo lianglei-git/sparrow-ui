@@ -353,7 +353,7 @@ export default class InputCommon {
         if (!this.supRoot._addonBeforeEl && any) {
             let tmpb = createEl('span');
             tmpb.className = 'sp-'+ this.type+'-before';
-            tmpb.innerHTML = any;
+            tmpb.innerHTML = any as string;
             this.supRoot._addonBeforeEl = tmpb;
         }
         return this.supRoot._addonBeforeEl
@@ -362,7 +362,7 @@ export default class InputCommon {
         if (!this.supRoot._addonAfterEl && any) {
             let tmpb = createEl('span');
             tmpb.className = 'sp-'+ this.type+'-after';
-            tmpb.innerHTML = any;
+            tmpb.innerHTML = any as string;
             this.supRoot._addonAfterEl = tmpb;
         }
         return this.supRoot._addonAfterEl

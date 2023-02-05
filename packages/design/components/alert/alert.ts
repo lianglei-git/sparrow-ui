@@ -57,7 +57,7 @@ class Alert {
 
     private _initTempalte<T extends HTMLElement>(root: T | any) {
         root.attachShadow({ mode: 'open' })
-        const template: T = createEl('template');
+        const template = createEl('template');
         template.innerHTML = `
             <style>${spAlertTitleCss}${root?.['attr-setslotstyle']}</style>
             <slot name="l"></slot>

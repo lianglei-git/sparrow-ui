@@ -352,7 +352,7 @@ class Silder extends Base {
         let tagName = 'sp-slider';
         let railEl = createEl('div'),
             trackEl = createEl('div'),
-            tempHandleEl = createEl('div'),
+            tempHandleEl:any = createEl('div'),
             tempHandleEl2: any = '',
             tooltip = createEl('sp-tooltip'),
             defaults: any = this.adapterDefaults(attrs.default as any);
@@ -382,7 +382,7 @@ class Silder extends Base {
 
             // 第二个克隆
             if (defaults.length >= 2) {
-                let tmpTool2 = tooltip.cloneNode(true);
+                let tmpTool2:any = tooltip.cloneNode(true);
                 tmpTool2.getPopupContainer = () => target;
                 tmpTool2['attr-title'] = this.adapterTips(target, defaults[1]);
                 tmpTool2.append(tempHandleEl2.cloneNode(true));

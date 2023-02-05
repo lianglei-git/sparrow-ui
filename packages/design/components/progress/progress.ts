@@ -117,7 +117,7 @@ class Progress extends Base {
 
     setOnce({ target, attrs }: any) {
         let type = attrs.type; // 'line' | 'circle' | 'dashboard';
-        let text = createEl('span');
+        let text:any = createEl('span');
         var svg: any;
         var inner: any;
         text.className = 'sp-progress-bar__text';

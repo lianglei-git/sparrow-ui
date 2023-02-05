@@ -72,8 +72,8 @@ class CollapseItem extends Base {
         let attrs = root?.attrs;
         this._setClassName(root);
         let headerEl = createEl('header');
-        let titleEl = createEl('span');
-        let iconEl = createEl('em');
+        let titleEl: HTMLElement | string = createEl('span');
+        let iconEl: HTMLElement | string = createEl('em');
         headerEl.className = 'sp-collapse-panel-header';
         let defaults = this.adapterDefaults(pattrs['active-index'])
         listener(headerEl, 'click', _ => {
@@ -109,7 +109,7 @@ class CollapseItem extends Base {
         }
 
         titleEl.textContent = attrs['title'];
-        iconEl && (iconEl.className = 'sp-icon sp-icon-arrow-right')
+        iconEl && ((iconEl as HTMLElement).className = 'sp-icon sp-icon-arrow-right')
         titleEl.className = '--title'
         headerEl.append(iconEl, titleEl);
         root.insertBefore(headerEl, root.firstChild);

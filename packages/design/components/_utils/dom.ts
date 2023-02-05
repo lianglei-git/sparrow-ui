@@ -15,12 +15,11 @@ type createElTyp = {
 const $el: HTMLElement | any = (el: string, target: HTMLElement | Document = document) => target.querySelectorAll(el)
 function createEl<K extends keyof HTMLElementTagNameMap>(tagName: K, type: 'createElement' | 'createElementNS', options?: ElementCreationOptions): HTMLElementTagNameMap[K];
 function createEl<K extends keyof HTMLElementDeprecatedTagNameMap>(tagName: K, type: string, options?: ElementCreationOptions): HTMLElementDeprecatedTagNameMap[K];
-function createEl(tagName: string, type?: string, options?: ElementCreationOptions): HTMLElement;
+function createEl(tagName: string, type?: string, options?: ElementCreationOptions): HTMLElement  & HTMLTemplateElement & HTMLOrSVGElement & {[k:string]: any};
 
 function createEl(tag: string, type: string = 'createElement', options) {
     return (<Document>document as any)[type](tag, options) as HTMLElement
 }
-
 
 const createElement = (tag: HTMLElement['tagName'], options?: any) => {
     const element: any = createEl(tag, options['type'] ?? 'createElement');

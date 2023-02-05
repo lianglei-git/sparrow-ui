@@ -67,7 +67,7 @@ class Switch extends Base {
 
     private initView(root: HTMLElement & { isActive: boolean } | any) {
         let text: HTMLSpanElement = createEl('span'),
-            icon: HTMLElement & { set(v: string): any } = createEl('em');
+            icon = createEl('em');
         this._setClassName(root)
         icon.classList.add('sp-switch-icon');
         text.classList.add('sp-switch-text');

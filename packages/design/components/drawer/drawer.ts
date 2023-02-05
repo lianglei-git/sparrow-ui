@@ -69,7 +69,7 @@ class Drawer extends SlotsBase {
         let header = createEl('header'),
             title = createEl('span'),
             close = createEl('i'),
-            mask = createEl('div'),
+            mask: HTMLElement | '' = createEl('div'),
             template = createEl('template'),
             slotObj = this._showContentType(root, ['header']);
         mask.className = 'sp-drawer-mask __' + getIndex();
