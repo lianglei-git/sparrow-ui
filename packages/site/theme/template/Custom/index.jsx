@@ -90,6 +90,7 @@ let adapter = {
     'custom-tc-brands': 'TcBrands 定制选级',
 }
 const Home = (props) => {
+    return <>暂时下架</>
     const target = useRef(null);
     let [scaleStyle, setScaleStyle] = useState({})
     let [checked, setChecked] = useState([]);

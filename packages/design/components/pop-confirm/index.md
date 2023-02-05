@@ -13,16 +13,20 @@ subTitle: 气泡确认框
 - 和 `confirm` 弹出的全屏居中模态对话框相比，交互形式更轻量。
 
 
-当你传入`visible`时候，只能由你自己来更新组件的状态；
-
-当你不传入`visible`时候， 你可以在onCancel 或 onConfirm 返回Promise； 此组件支持promise， 无需你自行更新组件；
-
-当你不传入也不反悔promise时， 默认形态；
 
 
-`target.okButtonProps` : ok 按钮 props
-`target.cancelButtonProps`: cancel 按钮 props
 ## API
+**或许你需要知道**
+- 当传入`visible`时候，只能由你自己来更新组件的状态；
+
+- 当不传入`visible`时候， 你可以在onCancel 或 onConfirm 返回Promise； 此组件支持promise， 无需你自行更新组件；
+
+- 当不传入也不返回promise时， 默认状态；
+
+**Func 🔧**
+- `target.okButtonProps` : ok 按钮 props
+- `target.cancelButtonProps`: cancel 按钮 props
+
 | 参数        | 说明                      | 类型        | 默认值       | 版本 |
 | ----------- | ------------------------- | ----------- | ------------ | ---- |
 | title       | 提示文字                  | string      | -            | -    |

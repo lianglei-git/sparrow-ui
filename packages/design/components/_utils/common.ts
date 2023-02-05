@@ -57,3 +57,8 @@ export function ArrayRemove(any: any) {
   }
   this.map((i: any, idx: number) => i == any && this.splice(idx, 1))
 }
+
+export function CorrectBoolean (k:boolean | string) {
+  if(k == true || k == 'true') return true;
+  return false;
+}

@@ -223,7 +223,7 @@ const Content = (props: any) => {
         switchEl.current.onChange = (is: Boolean, _: EventTarget) => {
             if (!testElId) {
                 setshowCode(false);
-                return Message.error('该组件暂无测试模块！');
+                return Message.error('该组件暂无测试单元！');
             }
 
             setStyle(_, {
