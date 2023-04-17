@@ -1,6 +1,9 @@
 // @ts-nocheck
 import React, { ReactComponentElement } from 'react';
 import { Meta } from '../content';
+import default_react_template from './template/react_tmpl'
+import default_html_template from './template/html_tmpl'
+
 import './index.less'
 let Message = (() => { })
 if (typeof window !== 'undefined') {
@@ -62,6 +65,12 @@ class Demo extends React.Component<Props> {
         this.reset(nextProps)
     }
 
+    htmlTxt2Code(target:string) {
+        let code = document.createElement('code');
+        code.innerHTML = target;
+        return code.innerText;
+    }
+
     copy(highlightedCodes) {
         if(typeof window !== 'undefined')  {
             let code = document.createElement('code');
@@ -69,6 +78,31 @@ class Demo extends React.Component<Props> {
             code.innerHTML = html;
             clipboardObj.writeText(code.innerText)
             Message.success('复制成功')
+        }
+    }
+
+    runCardcode() {
+        let htmlCode = '';
+        let jsxCode = [];
+        this.state.codes.map(item => {
+            if(item.jsx) {
+                jsxCode.push(this.htmlTxt2Code(item.jsx));
+            }
+            if(item.html){
+                htmlCode = this.htmlTxt2Code(item.html)
+            }
+        });
+
+        const react_tmpl = default_react_template(jsxCode);
+        const html_tmpl = default_html_template(htmlCode);
+        localStorage.setItem('cardCode',jsxCode.length >0 ? JSON.stringify(react_tmpl) : 'false');
+        localStorage.setItem('cardCodeReact', jsxCode.length >0 ? JSON.stringify(react_tmpl) : 'false');
+        localStorage.setItem('cardCodeHtml', htmlCode.length >0 ?JSON.stringify(html_tmpl) : 'false');
+        
+        try {
+        window.open(location.origin+'/coding/?cardCode')
+        } catch (error) {
+            Message.error(error.stack)
         }
     }
 
@@ -112,7 +146,7 @@ class Demo extends React.Component<Props> {
             <ul className='tools'>
                 <sp-tooltip title='复制代码' get-popup-container='.show-components' ><li onClick={() => this.copy(highlightedCodes)} className='sp-icon sp-icon-copy' ></li></sp-tooltip>
                 <sp-tooltip title='查看代码' get-popup-container='.show-components' ><li onClick={() => childrenSetCode(this.state.codes, this.props)} className='sp-icon sp-icon-Code' ></li></sp-tooltip>
-                <sp-tooltip title='在线运行' get-popup-container='.show-components' ><li onClick={() => Message.error('功能暂缺')} className='sp-icon sp-icon-yunhang'></li></sp-tooltip>
+                <sp-tooltip title='在线运行' get-popup-container='.show-components' ><li onClick={() => this.runCardcode()} className='sp-icon sp-icon-yunhang'></li></sp-tooltip>
             </ul>
         </section>
     }
