@@ -82,6 +82,7 @@ class Modal {
         {
             setIndex()
         }
+        
         let content: HTMLElement = createEl('main'),
             headerL: HTMLElement = createEl('span'),
             headerR: HTMLElement = createEl('span'),

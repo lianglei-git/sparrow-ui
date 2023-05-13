@@ -51,7 +51,7 @@ let components = [
     './search',
     './password',
     './textarea',
-    './InputNumber',
+    './inputNumber',
     './checkbox',
     './radio',
     './custom-tc-brands'
@@ -84,7 +84,7 @@ let adapter = {
     search: 'Search 搜索框',
     password: 'Password 密码框',
     textarea: 'Textarea 文本域',
-    InputNumber: 'InputNumber 数字输入框',
+    inputNumber: 'InputNumber 数字输入框',
     checkbox: 'Checkbox 多选框',
     radio: 'Radio 单选框',
     'custom-tc-brands': 'TcBrands 定制选级',

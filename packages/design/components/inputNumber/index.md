@@ -1,7 +1,7 @@
 ---
 category: Components
 type: 表单
-title: InputNumber  
+title: inputNumber  
 subTitle: 数字输入框
 ---
 
