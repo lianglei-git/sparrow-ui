@@ -10,7 +10,7 @@ type Parasite = HTMLSpanElement & {
     /** 当前标记 */
     _index?: number
 };
-type ParasiteParentTarget<> = HTMLElement & {
+type ParasiteParentTarget = HTMLElement & {
     ripple_options: RippleOptions;
     rippleElement: Parasite;
     ripples: Array<HTMLSpanElement>;
