@@ -1,0 +1,1 @@
+发布核心包要把package.json 中name修改为 "sparrowend/ui-core"
