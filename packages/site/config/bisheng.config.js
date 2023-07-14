@@ -19,7 +19,7 @@ module.exports = {
   },
   hash: false,
   theme: path.resolve(__dirname,'../theme'),
-  port: 8000,
+  port: 8004,
   root: '/',
   htmlTemplate: path.resolve(__dirname, '../theme/static/index.html'),
   themeConfig,

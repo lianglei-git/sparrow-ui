@@ -1,4 +1,4 @@
-
+import '../icon/remixicon.css'
 
 let zIndex = 2000;
 
