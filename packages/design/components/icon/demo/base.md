@@ -15,13 +15,9 @@ title: 🈚️
    
   <meta name="keywords" content="remixicon,TTF,EOT,WOFF,WOFF2,SVG">
   
-  
-  <!-- <link rel="stylesheet" href="../icon/remixicon.css" /> -->
-  
   <style>
     *{margin: 0;padding: 0;list-style: none;}
     body { color: #696969; font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif; }
-    a { color: #333; text-decoration: underline; }
     a:hover { color: rgb(9, 73, 209); }
     .header { color: #333; text-align: center; padding: 80px 0 60px 0; min-height: 153px; font-size: 14px; }
     .header .logo svg { height: 120px; width: 120px; }
