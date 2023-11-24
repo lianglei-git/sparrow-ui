@@ -34,7 +34,7 @@ const compile = (modules) => {
 
     let error = null;
     // =================LESS=================
-    const less = src(['components/**/*.less'])
+    const less = src(['components/**/*.@(less|css)'])
         .pipe(through2.obj(function (file, encoding, next) {
             const cloneFile = file.clone();
             const content = file.contents.toString().replace(/^\uFEFF/, '');
@@ -64,7 +64,7 @@ const compile = (modules) => {
         }))
         .pipe(dest(modules === false ? esDir : libDir))
 
-    const assets = src(['components/**/*.@(png|svg)'])
+    const assets = src(['components/**/*.@(png|svg|eot|ttf|woff|woff2)'])
         .pipe(dest(modules === false ? esDir : libDir));
 
     // =================TS=================

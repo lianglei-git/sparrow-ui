@@ -5,8 +5,10 @@ title: Icon
 subTitle: 图标
 ---
 
-## 何时使用
-所有图标均来自于开源图标库 iconfont。
+## 声明 
+所有图标均来源于 [remixicon](https://remixicon.com/)
 
+## 使用
+请在项目中引入`remixicon.css`文件;
 ## 图标合集
 
