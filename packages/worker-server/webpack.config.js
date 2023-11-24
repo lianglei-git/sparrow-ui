@@ -1,9 +1,8 @@
 const path = require('path')
 const Ug = require('uglifyjs-webpack-plugin')
-process.env.NODE_ENV = "production"
 module.exports = {
     target: "node",
-    mode: process.env.NODE_ENV,
+    mode:  "production",
     node: {
         __dirname: false,
         // global: {
@@ -13,7 +12,7 @@ module.exports = {
     },
     entry: path.resolve(__dirname, './entry.js'),
     output: {
-        path: path.resolve(__dirname, './dist'),
+        path: path.resolve(__dirname, './server-dist'),
         filename: '[name].js'
     },
     externals: {
@@ -21,18 +20,18 @@ module.exports = {
     },  
     module: {
         rules: [
-            {
-                test: /\.node$/,
-                loader: 'node-loader'
-            },
-            {
-                test: /\.tsx?$/,
-                loader: 'esbuild-loader',
-                options: {
-                  loader: 'ts', // Or 'ts' if you don't need tsx
-                  target: 'es2015',
-                },
-              },
+            // {
+            //     test: /\.node$/,
+            //     loader: 'node-loader'
+            // },
+            // {
+            //     test: /\.tsx?$/,
+            //     loader: 'esbuild-loader',
+            //     options: {
+            //       loader: 'ts', // Or 'ts' if you don't need tsx
+            //       target: 'es2015',
+            //     },
+            //   },
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/g,

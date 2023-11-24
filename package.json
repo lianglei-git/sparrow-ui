@@ -18,7 +18,7 @@
     "b:npm": "pnpm build:ui && pnpm transform-lib && pnpm transform-es && pnpm copypack && pnpm bPublish",
     "serve": "node ./server/entry.js",
     "bPublish": "cd ./packages/sparrow-ui && npm publish",
-    "server:build": "webpack --color --progress --config webpack.config.js"
+    "server:build": "pnpm --filter=worker-server server:build"
   },
   "repository": {
     "type": "git",

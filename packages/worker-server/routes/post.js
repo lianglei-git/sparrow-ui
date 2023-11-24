@@ -1,5 +1,5 @@
 const fs = require('fs')
-const uiFuncs = require('design/config/build')
+// const uiFuncs = require('design/config/build')
 const path = require('path')
 module.exports = {
     ['/build'](req, res) {
