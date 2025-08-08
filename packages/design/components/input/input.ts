@@ -16,8 +16,8 @@ class Input extends Base {
                 (this.attrs as Partial<Types>) = getProps(this);
                 this.attrs = { ...Props, ...this.attrs };
                 const that = this;
-                this.setAttribute('hidefocus', true)
-                this.setAttribute('tabindex', 0)
+                // this.setAttribute('hidefocus', true)
+                // this.setAttribute('tabindex', 0)
                 this.core = new InputCommon({
                     root: this, callback(args: any) {
                         context.initView(that, args, this)
